@@ -425,13 +425,13 @@ def _suggest_replacement(
     compat_positions = POSITION_COMPAT.get(out_pos, [out_pos])
     candidates = [
         (name, info) for name, info in team_data.items()
-        if info["pos"] in compat_positions and name != out_name
+        if isinstance(info, dict) and info.get("pos") in compat_positions and name != out_name
     ]
     # Same priority as _find_replacement: starter history first, then depth, then minutes
     candidates.sort(key=lambda x: (
         0 if x[1].get("starter_pct", 0.0) >= 0.40 else 1,
-        x[1]["depth"],
-        -x[1]["avg_min"],
+        x[1].get("depth", 2),
+        -x[1].get("avg_min", 0.0),
     ))
     for name, _ in candidates:
         if name in proj_map:
