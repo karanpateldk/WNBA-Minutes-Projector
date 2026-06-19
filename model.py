@@ -219,11 +219,14 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
     out_players: list[tuple[str, dict]] = []
 
     for player, info in team_data.items():
+        if not isinstance(info, dict):
+            continue
         status = injury_overrides.get(player, info.get("status", "Active"))
         gp = info.get("games_played", 0)
+        avg_min = info.get("avg_min", 10.0)
         base_min = _weighted_minutes(
-            info["avg_min"],
-            info.get("last3_avg", info["avg_min"]),
+            avg_min,
+            info.get("last3_avg", avg_min),
             gp,
             clean_avg=info.get("clean_avg_min"),
             last3_clean_avg=info.get("last3_clean_avg"),
@@ -233,14 +236,14 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
             base_min = min(base_min, 28.0)
         proj_min = _apply_injury_scale(base_min, status)
 
-        role = role_overrides.get(player, info["role"])
-        depth = info["depth"]
+        role = role_overrides.get(player, info.get("role", "bench"))
+        depth = info.get("depth", 2)
         if player in role_overrides:
             depth = 1 if role == "starter" else 2
 
         p = PlayerProjection(
             name=player,
-            pos=info["pos"],
+            pos=info.get("pos", "?"),
             role=role,
             depth=depth,
             base_min=round(base_min, 1),
