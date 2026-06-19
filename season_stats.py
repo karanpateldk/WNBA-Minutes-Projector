@@ -55,6 +55,57 @@ QUARTER_SECONDS = 600
 
 
 # ---------------------------------------------------------------------------
+# Outlier-resistant averaging
+# ---------------------------------------------------------------------------
+
+def _trimmed_avg(minutes_list: list[float]) -> float:
+    """
+    Season average with low outliers removed using IQR method.
+
+    Only removes games that are anomalously *low* (blowout garbage time,
+    load management DNP-lite, early foul-out) — not high games, since a
+    40-min game is a real usage signal.
+
+    Rules:
+      - Need at least 5 games to attempt trimming (3-4 games: just return mean).
+      - Outlier threshold: any game below Q1 − 1.5 × IQR.
+      - After removing outliers, keep at least 60% of original games so we
+        don't over-trim a player with genuinely variable usage.
+    """
+    n = len(minutes_list)
+    if n < 5:
+        return round(sum(minutes_list) / n, 1) if n > 0 else 0.0
+
+    s = sorted(minutes_list)
+    q1 = s[n // 4]
+    q3 = s[(3 * n) // 4]
+    iqr = q3 - q1
+    # Only trim when there's meaningful spread (IQR > 3 min)
+    if iqr <= 3.0:
+        return round(sum(minutes_list) / n, 1)
+
+    lower_fence = q1 - 1.5 * iqr
+    kept = [m for m in minutes_list if m >= lower_fence]
+
+    # Don't over-trim: keep at least 60% of games
+    min_keep = max(3, int(n * 0.60))
+    if len(kept) < min_keep:
+        kept = sorted(minutes_list)[n - min_keep:]  # keep the top min_keep values
+
+    return round(sum(kept) / len(kept), 1)
+
+
+def _median(values: list[float]) -> float:
+    """Median of a list — immune to a single outlier in small windows."""
+    if not values:
+        return 0.0
+    s = sorted(values)
+    n = len(s)
+    mid = n // 2
+    return round((s[mid - 1] + s[mid]) / 2 if n % 2 == 0 else s[mid], 1)
+
+
+# ---------------------------------------------------------------------------
 # Cache
 # ---------------------------------------------------------------------------
 
@@ -430,13 +481,15 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
     for name in all_minutes:
         mins_list  = all_minutes[name]
         clean_list = clean_minutes.get(name, [])
-        avg        = round(sum(mins_list)  / len(mins_list),  1)
-        clean_avg  = round(sum(clean_list) / len(clean_list), 1) if clean_list else avg
+        avg          = round(sum(mins_list)  / len(mins_list),  1)
+        trimmed_avg  = _trimmed_avg(mins_list)
+        clean_avg    = _trimmed_avg(clean_list) if clean_list else trimmed_avg
 
         l3       = last3_minutes.get(name, [])
         l3_clean = last3_clean_minutes.get(name, [])
-        last3_avg       = round(sum(l3)       / len(l3),       1) if l3       else avg
-        last3_clean_avg = round(sum(l3_clean) / len(l3_clean), 1) if l3_clean else last3_avg
+        # Use median for last-3 so a single bad game doesn't skew the window
+        last3_avg       = _median(l3)       if l3       else trimmed_avg
+        last3_clean_avg = _median(l3_clean) if l3_clean else last3_avg
 
         gp = games_played[name]
         ft = foul_trouble_games[name]
@@ -449,10 +502,11 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
             q_avgs[q] = round(sum(vals) / len(vals), 1) if vals else 0.0
 
         players[name] = {
-            "avg_min":          avg,
+            "avg_min":          trimmed_avg,     # outlier-trimmed season avg (primary)
+            "raw_avg_min":      avg,             # unfiltered mean (for display/debug)
             "clean_avg_min":    clean_avg,       # season avg excluding foul-trouble games
-            "last3_avg":        last3_avg,
-            "last3_clean_avg":  last3_clean_avg, # last3 avg excluding foul-trouble games
+            "last3_avg":        last3_avg,       # median of last 3 games
+            "last3_clean_avg":  last3_clean_avg, # median of last 3 non-foul-trouble games
             "last_game_min":    last_game_minutes.get(name, 0.0),
             "games_played":     gp,
             "games_started":    starter_games[name],
