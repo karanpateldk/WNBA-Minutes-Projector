@@ -1,0 +1,11 @@
+[server]
+headless = true
+fileWatcherType = "none"
+port = 8501
+
+[runner]
+fastReruns = false
+
+[client]
+toolbarMode = "minimal"
+
