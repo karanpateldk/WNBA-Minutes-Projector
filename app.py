@@ -96,7 +96,7 @@ if "team_data_cache" not in st.session_state:
     st.session_state.team_data_cache = {}
 
 if "selected_team" not in st.session_state:
-    st.session_state.selected_team = "New York Liberty"
+    st.session_state.selected_team = "Atlanta Dream"
 
 if "player_statuses" not in st.session_state:
     st.session_state.player_statuses = {}
@@ -215,7 +215,7 @@ with st.sidebar:
     st.markdown("---")
 
     team_list = sorted(TEAMS.keys())
-    default_idx = team_list.index("New York Liberty") if "New York Liberty" in team_list else 0
+    default_idx = team_list.index("Atlanta Dream") if "Atlanta Dream" in team_list else 0
     selected_team = st.selectbox("Select Team", team_list, index=default_idx)
     if selected_team != st.session_state.manual_last_team and st.session_state.manual_last_team != "":
         # Team switched — wipe all manual rows so added players don't bleed across teams

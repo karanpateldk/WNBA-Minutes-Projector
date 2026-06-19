@@ -342,12 +342,16 @@ def _redistribute_minutes(
     if total_vacated <= 0:
         return projections
 
-    # Step 2: distribute proportionally by current projected minutes, capped at 38
+    # Step 2: distribute proportionally by current projected minutes.
+    # Starters cap at 36 during redistribution so bench players keep a viable budget.
+    # After redistribution, _normalize_to_total handles final rounding to 200.
+    REDIST_STARTER_CAP = 36.0
     total_active_min = sum(p.projected_min for p in active)
     if total_active_min > 0:
         for p in active:
             share = (p.projected_min / total_active_min) * total_vacated
-            p.projected_min = round(min(p.projected_min + share, 38.0), 1)
+            cap = REDIST_STARTER_CAP if p.role == "starter" else 38.0
+            p.projected_min = round(min(p.projected_min + share, cap), 1)
 
     # Step 3: mark positional replacement notes (informational only)
     for out_name, out_info in out_players:
@@ -435,17 +439,23 @@ def _suggest_replacement(
 STARTER_MAX = 38.0
 
 
+BENCH_FLOOR = 4.0   # minimum projected minutes for any active bench player
+
 def _normalize_to_total(projections: list[PlayerProjection], target: float) -> list[PlayerProjection]:
     """
-    Fine-tune active players so they sum to exactly target (200 min).
+    Scale all active players so they sum to exactly target (200 min).
 
-    By the time this runs, _redistribute_minutes has already handled the
-    intelligent reallocation of out-player minutes. This function only handles
-    minor rounding gaps — it should never be moving more than a few minutes.
+    This runs after _redistribute_minutes and handles both large gaps (starters
+    over-inflated) and small rounding errors.
 
-    Trim strategy: take from lowest bench players first, then starters.
-    Add strategy: spread proportionally across all active players.
-    Cap: 38 min per player, floor 1.0 min.
+    Strategy when over budget (need to trim):
+      1. Trim starters proportionally down toward 36 min each.
+      2. If still over, trim bench proportionally down to BENCH_FLOOR.
+    Strategy when under budget (need to add):
+      Spread proportionally across all active players.
+
+    Caps: 38 min per starter, 38 min per bench player.
+    Floor: BENCH_FLOOR for bench, 10 min for starters (extreme edge case only).
     """
     active = [p for p in projections if p.projected_min > 0]
     if not active:
@@ -456,38 +466,43 @@ def _normalize_to_total(projections: list[PlayerProjection], target: float) -> l
         return projections
 
     diff = target - current_total
-
     starters = [p for p in active if p.role == "starter"]
-    bench    = sorted(
-        [p for p in active if p.role != "starter"],
-        key=lambda p: p.projected_min
-    )
-
-    def _adjust_proportional(players, amount):
-        total = sum(p.projected_min for p in players)
-        if total == 0:
-            return
-        for p in players:
-            share = (p.projected_min / total) * amount
-            p.projected_min = round(min(max(p.projected_min + share, 1.0), STARTER_MAX), 1)
-
-    def _trim_from_bottom(bench_list, amount_to_trim):
-        remaining_trim = amount_to_trim
-        for p in bench_list:
-            if remaining_trim <= 0.1:
-                break
-            can_take = max(p.projected_min - 1.0, 0.0)
-            take = min(can_take, remaining_trim)
-            p.projected_min = round(p.projected_min - take, 1)
-            remaining_trim -= take
-        return remaining_trim
+    bench    = [p for p in active if p.role != "starter"]
 
     if diff < 0:
-        leftover = _trim_from_bottom(bench, -diff)
-        if leftover > 0.1 and starters:
-            _adjust_proportional(starters, -leftover)
+        # Over budget — trim starters first, then bench
+        to_trim = -diff
+
+        # Phase 1: trim starters proportionally toward 36
+        starter_excess = sum(max(p.projected_min - 36.0, 0.0) for p in starters)
+        if starter_excess > 0:
+            take = min(starter_excess, to_trim)
+            for p in starters:
+                excess = max(p.projected_min - 36.0, 0.0)
+                p.projected_min = round(p.projected_min - (excess / starter_excess) * take, 1)
+            to_trim -= take
+
+        # Phase 2: trim all active players proportionally if still over
+        if to_trim > 0.1:
+            total_trimmable = sum(max(p.projected_min - (BENCH_FLOOR if p.role != "starter" else 10.0), 0.0) for p in active)
+            if total_trimmable > 0:
+                for p in active:
+                    floor = BENCH_FLOOR if p.role != "starter" else 10.0
+                    trimmable = max(p.projected_min - floor, 0.0)
+                    p.projected_min = round(p.projected_min - (trimmable / total_trimmable) * to_trim, 1)
     else:
-        _adjust_proportional(active, diff)
+        # Under budget — add proportionally, respecting 38 cap
+        total = sum(p.projected_min for p in active)
+        if total > 0:
+            for p in active:
+                share = (p.projected_min / total) * diff
+                p.projected_min = round(min(p.projected_min + share, STARTER_MAX), 1)
+
+    # Enforce floors after all adjustments
+    for p in active:
+        floor = BENCH_FLOOR if p.role != "starter" else 10.0
+        if p.projected_min < floor:
+            p.projected_min = floor
 
     return projections
 
