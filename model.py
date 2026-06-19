@@ -21,17 +21,10 @@ WEIGHTS = {
 STATUS_SCALE = {
     "Active":       1.00,
     "Probable":     0.95,   # -5%
-    "Questionable": 0.75,   # base; refined by INJURY_DURATION_ADJUSTMENT (25-50% reduction)
-    "Doubtful":     0.20,   # 80% reduction, midpoint of 70-90% range
-    "Day-To-Day":   0.75,   # kept for legacy data — treated like Questionable
+    "Questionable": 0.75,   # -25%
+    "Doubtful":     0.20,   # 80% reduction
+    "Day-To-Day":   0.75,   # legacy — treated like Questionable
     "Out":          0.00,
-}
-
-# Questionable sub-scale: three tiers covering 25-50% reduction
-INJURY_DURATION_ADJUSTMENT = {
-    "light":    0.75,   # light injury — 25% reduction
-    "medium":   0.65,   # medium injury — 35% reduction
-    "extended": 0.50,   # extended time out — 50% reduction
 }
 
 INJURY_COLOR = {
@@ -196,28 +189,26 @@ def _weighted_minutes(
 
 
 def _apply_injury_scale(base_min: float, status: str, duration: str = "new") -> float:
-    """Scale minutes based on injury status and duration."""
-    if status in ("Out",):
+    """Scale minutes based on injury status."""
+    if status == "Out":
         return 0.0
-    scale = STATUS_SCALE.get(status, 1.0)
-    # For Questionable, refine by how long they've been hurt
-    if status == "Questionable":
-        scale = INJURY_DURATION_ADJUSTMENT.get(duration, scale)
-    return round(base_min * scale, 1)
+    return round(base_min * STATUS_SCALE.get(status, 1.0), 1)
 
 
 def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = None,
-                     duration_map: dict[str, str] | None = None) -> TeamLineup:
+                     duration_map: dict[str, str] | None = None,
+                     role_overrides: dict[str, str] | None = None) -> TeamLineup:
     """
     Build a team's projected lineup.
 
     team_data: {player: {pos, avg_min, last3_avg, clean_avg_min, last3_clean_avg,
                           role, depth, status, injury, games_played, foul_rate}}
-    injury_overrides: {player: new_status}  — manual override from UI
-    duration_map: {player: "light"|"medium"|"extended"}
+    injury_overrides: {player: new_status}  — manual status override from UI
+    role_overrides: {player: "starter"|"bench"}  — manual starter/bench swap from UI
+    duration_map: ignored, kept for API compatibility
     """
     injury_overrides = injury_overrides or {}
-    duration_map = duration_map or {}
+    role_overrides = role_overrides or {}
 
     # Fit OLS once for the whole team using this season's data
     total_games = max((v.get("games_played", 0) for v in team_data.values()
@@ -229,7 +220,6 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
 
     for player, info in team_data.items():
         status = injury_overrides.get(player, info.get("status", "Active"))
-        duration = duration_map.get(player, "light")
         gp = info.get("games_played", 0)
         base_min = _weighted_minutes(
             info["avg_min"],
@@ -241,18 +231,22 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
         )
         if info.get("role") == "bench" and gp <= 2:
             base_min = min(base_min, 28.0)
-        proj_min = _apply_injury_scale(base_min, status, duration)
+        proj_min = _apply_injury_scale(base_min, status)
+
+        role = role_overrides.get(player, info["role"])
+        depth = info["depth"]
+        if player in role_overrides:
+            depth = 1 if role == "starter" else 2
 
         p = PlayerProjection(
             name=player,
             pos=info["pos"],
-            role=info["role"],
-            depth=info["depth"],
+            role=role,
+            depth=depth,
             base_min=round(base_min, 1),
             projected_min=proj_min,
             status=status,
             injury=info.get("injury", ""),
-            injury_duration=duration,
         )
         projections.append(p)
         if proj_min == 0.0 and status in ("Out", "Doubtful"):
@@ -520,12 +514,12 @@ def apply_scenario(
     team_data: dict,
     player_statuses: dict[str, StatusType],
     duration_map: dict[str, str] | None = None,
+    role_overrides: dict[str, str] | None = None,
 ) -> TeamLineup:
     """
-    High-level entry point. Accepts a dict of manual status overrides and
-    returns a fully adjusted lineup.
+    High-level entry point. Accepts status and role overrides and returns a fully adjusted lineup.
     """
-    return build_projection(team_data, injury_overrides=player_statuses, duration_map=duration_map)
+    return build_projection(team_data, injury_overrides=player_statuses, role_overrides=role_overrides)
 
 
 def get_status_options() -> list[str]:

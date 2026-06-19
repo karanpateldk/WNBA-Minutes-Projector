@@ -23,7 +23,6 @@ from season_stats import get_team_season_stats
 from model import (
     apply_scenario,
     get_status_options,
-    get_duration_options,
     minutes_delta_summary,
     INJURY_COLOR,
     TeamLineup,
@@ -104,6 +103,9 @@ if "player_statuses" not in st.session_state:
 
 if "duration_map" not in st.session_state:
     st.session_state.duration_map = {}
+
+if "role_overrides" not in st.session_state:
+    st.session_state.role_overrides = {}
 
 if "selected_opponent" not in st.session_state:
     st.session_state.selected_opponent = None
@@ -220,6 +222,7 @@ with st.sidebar:
         st.session_state.manual_row_ids = [0]
         st.session_state.manual_next_id = 1
         st.session_state.manual_added_players = {}
+        st.session_state.role_overrides = {}
     st.session_state.manual_last_team = selected_team
     st.session_state.selected_team = selected_team
 
@@ -269,8 +272,8 @@ with st.sidebar:
     st.markdown("**Quick Reference**")
     st.caption("Active = full minutes")
     st.caption("Probable = -5%")
-    st.caption("Questionable = -25 to -50%")
-    st.caption("Doubtful = -70 to -90%")
+    st.caption("Questionable = -25%")
+    st.caption("Doubtful = -80%")
     st.caption("Out = 0 min, auto-redistribute")
     st.markdown("---")
     show_charts = st.checkbox("Show quarter breakdown", value=True)
@@ -359,7 +362,7 @@ else:
     st.caption("No completed games yet — using position estimates. Stats will populate once games are played.")
 
 # Build baseline lineup (no overrides)
-baseline_lineup = apply_scenario(team_data, {}, {})
+baseline_lineup = apply_scenario(team_data, {}, {}, {})
 
 # ---------------------------------------------------------------------------
 # Injury Status Controls
@@ -368,10 +371,9 @@ baseline_lineup = apply_scenario(team_data, {}, {})
 st.markdown('<div class="section-header">Player Status Adjustments</div>', unsafe_allow_html=True)
 
 status_options = get_status_options()
-duration_options = get_duration_options()
 
 player_statuses: dict[str, str] = {}
-duration_map: dict[str, str] = {}
+role_overrides: dict[str, str] = {}
 
 # Separate players by category so the UI is scannable:
 #  1. Active / injured players (relevant to tonight)
@@ -393,6 +395,7 @@ def _render_status_grid(names: list[str]):
             if default_status not in status_options:
                 default_status = "Active"
             default_idx = status_options.index(default_status)
+            default_role = info.get("role", "bench")
 
             with cols[i]:
                 color = INJURY_COLOR.get(default_status, "#6c757d")
@@ -421,21 +424,19 @@ def _render_status_grid(names: list[str]):
                 )
                 player_statuses[player] = status
 
-                if status == "Questionable":
-                    dur_label_map = {
-                        "light":    "Light injury (-25%)",
-                        "medium":   "Medium injury (-35%)",
-                        "extended": "Extended time out (-50%)",
-                    }
-                    dur_keys = list(dur_label_map.keys())
-                    dur = st.selectbox(
-                        "Severity",
-                        dur_keys,
-                        format_func=lambda x: dur_label_map[x],
-                        key=f"dur_{player}",
-                        label_visibility="collapsed",
-                    )
-                    duration_map[player] = dur
+                # Starter / Bench toggle
+                role_key = f"role_{player}"
+                is_starter = st.toggle(
+                    "Starter",
+                    value=(st.session_state.role_overrides.get(player, default_role) == "starter"),
+                    key=role_key,
+                )
+                new_role = "starter" if is_starter else "bench"
+                if new_role != default_role:
+                    role_overrides[player] = new_role
+                    st.session_state.role_overrides[player] = new_role
+                else:
+                    st.session_state.role_overrides.pop(player, None)
 
 _render_status_grid(relevant_players)
 
@@ -569,7 +570,7 @@ for _rid, _entry in st.session_state.manual_added_players.items():
     player_statuses[_name] = _entry["status"]
 
 # Rebuild baseline with any added players included
-baseline_lineup = apply_scenario(team_data, {}, {})
+baseline_lineup = apply_scenario(team_data, {}, {}, {})
 
 st.markdown("---")
 
@@ -577,7 +578,7 @@ st.markdown("---")
 # Adjusted Lineup
 # ---------------------------------------------------------------------------
 
-adjusted_lineup = apply_scenario(team_data, player_statuses, duration_map)
+adjusted_lineup = apply_scenario(team_data, player_statuses, {}, role_overrides)
 deltas = minutes_delta_summary(baseline_lineup, adjusted_lineup) if show_delta else {}
 
 out_players = [p for p in adjusted_lineup.players if p.projected_min == 0]
