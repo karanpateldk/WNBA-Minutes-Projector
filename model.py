@@ -1,6 +1,7 @@
 """
 Minutes projection model with injury scenario adjustments.
 Core logic: weighted average minutes → injury redistribution → display.
+apply_scenario accepts: team_data, player_statuses, duration_map=None, role_overrides=None
 """
 
 from __future__ import annotations
