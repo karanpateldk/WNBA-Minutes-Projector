@@ -369,6 +369,7 @@ baseline_lineup = apply_scenario(team_data, {}, {}, {})
 # ---------------------------------------------------------------------------
 
 st.markdown('<div class="section-header">Player Status Adjustments</div>', unsafe_allow_html=True)
+st.caption("To swap starters, set the incoming player to Starter and the outgoing player to Bench.")
 
 status_options = get_status_options()
 
@@ -382,6 +383,10 @@ player_names = list(team_data.keys())
 
 zero_min_players = [p for p in player_names if team_data[p].get("zero_min_season")]
 relevant_players = [p for p in player_names if p not in zero_min_players]
+
+# Sort by season avg minutes descending so the highest-usage players appear first
+relevant_players.sort(key=lambda p: -team_data[p].get("avg_min", 0.0))
+zero_min_players.sort(key=lambda p: team_data[p].get("pos", "Z"))
 
 n_cols = 3
 
@@ -424,14 +429,18 @@ def _render_status_grid(names: list[str]):
                 )
                 player_statuses[player] = status
 
-                # Starter / Bench toggle
-                role_key = f"role_{player}"
-                is_starter = st.toggle(
-                    "Starter",
-                    value=(st.session_state.role_overrides.get(player, default_role) == "starter"),
-                    key=role_key,
+                # Starter / Bench selector
+                role_options = ["Starter", "Bench"]
+                saved_role = st.session_state.role_overrides.get(player, default_role)
+                role_idx = 0 if saved_role == "starter" else 1
+                selected_role = st.selectbox(
+                    "Role",
+                    role_options,
+                    index=role_idx,
+                    key=f"role_{player}",
+                    label_visibility="collapsed",
                 )
-                new_role = "starter" if is_starter else "bench"
+                new_role = "starter" if selected_role == "Starter" else "bench"
                 if new_role != default_role:
                     role_overrides[player] = new_role
                     st.session_state.role_overrides[player] = new_role
