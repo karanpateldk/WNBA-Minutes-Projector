@@ -721,9 +721,9 @@ hc[0].markdown("**Player**")
 hc[1].markdown("**Pos**")
 hc[2].markdown("**Status**")
 hc[3].markdown("**Last**")
-hc[4].markdown("**Wtd**")
-hc[5].markdown("**Proj**")
-hc[6].markdown(f"**{adj_col_label}**")
+hc[4].markdown('<span title="Recent-weighted average — emphasizes last few games over the full season" style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>Wtd ⓘ</b></span>', unsafe_allow_html=True)
+hc[5].markdown('<span title="Final projected minutes after injury adjustments and starter/bench role assignments" style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>Proj ⓘ</b></span>', unsafe_allow_html=True)
+hc[6].markdown(f'<span title="Change vs fully healthy lineup; shows actual H2H minutes when an opponent is selected" style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>{adj_col_label} ⓘ</b></span>', unsafe_allow_html=True)
 hc[7].markdown("**Note**")
 
 # Build lookup maps
