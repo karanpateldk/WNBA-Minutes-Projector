@@ -447,7 +447,6 @@ def _render_status_grid(names: list[str]):
             default_role = info.get("role", "bench")
 
             with cols[i]:
-                color  = INJURY_COLOR.get(default_status, "#6c757d")
                 gp     = info.get("games_played", 0)
                 gs     = info.get("games_started", 0)
                 avg    = info.get("avg_min", 0.0)
@@ -458,40 +457,40 @@ def _render_status_grid(names: list[str]):
                     f'<div class="player-card">'
                     f'<div class="player-card-name">{player}</div>'
                     f'<div class="player-card-meta">'
-                    f'{info.get("pos","?")} &nbsp;·&nbsp; {avg:.0f} mpg &nbsp;·&nbsp; {gp_str}{gs_str}'
-                    f'</div>',
+                    f'{info.get("pos","?")} &nbsp;·&nbsp; {avg:.0f} mpg'
+                    f'&nbsp;·&nbsp; {gp_str}{gs_str}'
+                    f'</div></div>',
                     unsafe_allow_html=True,
                 )
 
-                # Role first
-                role_options = ["Starter", "Bench"]
-                saved_role = st.session_state.role_overrides.get(player, default_role)
-                role_idx = 0 if saved_role == "starter" else 1
-                selected_role = st.selectbox(
-                    "Role",
-                    role_options,
-                    index=role_idx,
-                    key=f"role_{player}",
-                    label_visibility="visible",
-                )
-                new_role = "starter" if selected_role == "Starter" else "bench"
-                if new_role != default_role:
-                    role_overrides[player] = new_role
-                    st.session_state.role_overrides[player] = new_role
-                else:
-                    st.session_state.role_overrides.pop(player, None)
+                rc, sc = st.columns(2)
+                with rc:
+                    role_options = ["Starter", "Bench"]
+                    saved_role = st.session_state.role_overrides.get(player, default_role)
+                    role_idx = 0 if saved_role == "starter" else 1
+                    selected_role = st.selectbox(
+                        "Role",
+                        role_options,
+                        index=role_idx,
+                        key=f"role_{player}",
+                        label_visibility="visible",
+                    )
+                    new_role = "starter" if selected_role == "Starter" else "bench"
+                    if new_role != default_role:
+                        role_overrides[player] = new_role
+                        st.session_state.role_overrides[player] = new_role
+                    else:
+                        st.session_state.role_overrides.pop(player, None)
 
-                # Status second
-                status = st.selectbox(
-                    "Status",
-                    status_options,
-                    index=default_idx,
-                    key=f"status_{player}",
-                    label_visibility="visible",
-                )
-                player_statuses[player] = status
-
-                st.markdown('</div>', unsafe_allow_html=True)
+                with sc:
+                    status = st.selectbox(
+                        "Status",
+                        status_options,
+                        index=default_idx,
+                        key=f"status_{player}",
+                        label_visibility="visible",
+                    )
+                    player_statuses[player] = status
 
 _render_status_grid(relevant_players)
 
