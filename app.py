@@ -242,7 +242,11 @@ def render_player_row(
 
     with col_note:
         foul_note   = (foul_notes or {}).get(p.name)
-        dnp_last    = last_game_min == 0 and p.status == "Active" and p.projected_min > 0
+        # DNP only fires for truly Active players (not on injury report) who had 0 min last game
+        dnp_last    = (last_game_min == 0
+                       and p.status == "Active"
+                       and p.projected_min > 0
+                       and not p.injury)
         last3_range = 0.0
         if p.name in team_data and isinstance(team_data[p.name], dict):
             last3_range = team_data[p.name].get("last3_range", 0.0) or 0.0
@@ -252,6 +256,10 @@ def render_player_row(
             and p.projected_min > 0
         )
 
+        # Clean up ESPN's generic injury strings (they sometimes set injury="out" or injury="day-to-day")
+        _generic = {"out", "day-to-day", "dtd", "gtd", "game time decision", "available", "active", ""}
+        clean_injury = p.injury if p.injury.lower().strip() not in _generic else ""
+
         if foul_note:
             st.markdown(
                 f'<span style="font-size:0.75rem;color:#fd7e14;font-weight:600">⚠ {foul_note}</span>',
@@ -260,15 +268,26 @@ def render_player_row(
         elif p.note and p.replaced_player and p.replaced_player in starters_set:
             st.caption(p.note)
         elif p.status in ("Questionable", "Day-To-Day"):
-            label = p.status
-            note_text = f"{label} — {p.injury}" if p.injury else label
+            note_text = f"{p.status} — {clean_injury}" if clean_injury else p.status
             st.markdown(
                 f'<span style="font-size:0.75rem;color:{color};font-weight:600">{note_text}</span>',
                 unsafe_allow_html=True,
             )
-        elif p.injury and p.status not in ("Active", "Probable"):
+        elif p.status == "Out" and p.projected_min == 0:
+            note_text = f"Out — {clean_injury}" if clean_injury else "Out"
             st.markdown(
-                f'<span style="font-size:0.75rem;color:{color};font-weight:600">{p.injury}</span>',
+                f'<span style="font-size:0.75rem;color:{color};font-weight:600">{note_text}</span>',
+                unsafe_allow_html=True,
+            )
+        elif p.status == "Doubtful":
+            note_text = f"Doubtful — {clean_injury}" if clean_injury else "Doubtful"
+            st.markdown(
+                f'<span style="font-size:0.75rem;color:{color};font-weight:600">{note_text}</span>',
+                unsafe_allow_html=True,
+            )
+        elif clean_injury and p.status not in ("Active", "Probable"):
+            st.markdown(
+                f'<span style="font-size:0.75rem;color:{color};font-weight:600">{clean_injury}</span>',
                 unsafe_allow_html=True,
             )
         elif dnp_last:
@@ -351,11 +370,11 @@ with st.sidebar:
 
     st.markdown("---")
     st.markdown("**Quick Reference**")
-    st.caption("Active = full minutes")
-    st.caption("Probable = -5%")
-    st.caption("Questionable = -25%")
-    st.caption("Doubtful = -80%")
-    st.caption("Out = 0 min, auto-redistribute")
+    st.caption("Active — full minutes")
+    st.caption("Probable — slight reduction (-5 to -15%)")
+    st.caption("Questionable — moderate reduction (-25 to -70%)")
+    st.caption("Doubtful — heavy reduction (-80 to -90%)")
+    st.caption("Out — 0 min, minutes redistributed to active players")
     st.markdown("---")
     show_charts = st.checkbox("Show quarter breakdown", value=True)
     show_delta = st.checkbox("Show delta vs baseline", value=True)
@@ -557,7 +576,7 @@ with st.expander("+ Add / override players manually"):
             st.session_state[min_key]     = 10
             st.session_state[min_txt_key] = "10"
 
-        mc1, mc2, mc3, mc4, mc5, mc_del = st.columns([3, 1.2, 1.5, 1.5, 1.5, 0.7])
+        mc1, mc2, mc3, mc4, mc5, mc_del = st.columns([3, 1.2, 1.5, 1.5, 1.5, 0.8])
         with mc1:
             manual_pick = st.selectbox("Player name", manual_options, key=f"manual_pick_{rid}")
             manual_name = st.text_input("Or type name manually", key=f"manual_name_{rid}",
@@ -588,8 +607,8 @@ with st.expander("+ Add / override players manually"):
         with mc5:
             manual_status = st.selectbox("Status", get_status_options(), key=f"manual_status_{rid}")
         with mc_del:
-            st.write("")
-            if st.button("✕", key=f"del_row_{rid}", help="Remove this row", use_container_width=True):
+            st.markdown("**Remove**")
+            if st.button("✕", key=f"del_row_{rid}", use_container_width=True):
                 rows_to_delete.append(rid)
 
         if effective_name and rid not in rows_to_delete:
@@ -713,14 +732,12 @@ if selected_opponent and matchup_summary:
     blowout_sample = matchup_summary.get("blowout_sample", 0)
     blowout_str = f"{blowout_count}/{blowout_sample} blowouts" if blowout_sample else "—"
 
-    conf_label = {"low": f"LOW — {h2h_games} H2H game(s) this season", "high": f"HIGH — {h2h_games} H2H games"}.get(conf, conf.upper())
-
+    h2h_label = f"{h2h_games} H2H game{'s' if h2h_games != 1 else ''} this season" if h2h_games else "No H2H games yet"
     notes_html = "".join(f"<li style='margin-bottom:3px'>{n}</li>" for n in matchup_summary.get("notes", []))
     st.markdown(
         f'<div class="matchup-banner" style="border-left-color:{conf_color}">'
         f'<strong>vs {selected_opponent}</strong> &nbsp;|&nbsp; '
-        f'Confidence: <span style="color:{conf_color};font-weight:600">{conf_label}</span>'
-        f' &nbsp;|&nbsp; {opp_depth}-player rotation &nbsp;|&nbsp; {blowout_str} this season'
+        f'<span style="color:{conf_color};font-weight:600">{h2h_label}</span>'
         f'<ul style="margin:6px 0 0 0;padding-left:16px">{notes_html}</ul>'
         f'</div>',
         unsafe_allow_html=True,
