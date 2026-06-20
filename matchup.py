@@ -375,26 +375,25 @@ def get_h2h_foul_notes(
     for player, fouls_list in h2h_fouls.items():
         if len(fouls_list) < 2:
             continue
-        avg_h2h_fouls = sum(fouls_list) / len(fouls_list)
         avg_h2h_mins  = sum(h2h_minutes[player]) / len(h2h_minutes[player])
         season_avg    = team_data.get(player, {}).get("avg_min", 0.0)
-
-        foul_heavy    = avg_h2h_fouls >= 3.5
         minutes_short = season_avg > 0 and (avg_h2h_mins < season_avg * 0.80)
 
-        if foul_heavy and minutes_short:
-            notes[player] = (
-                f"Foul trouble vs {opp_name}: avg {avg_h2h_fouls:.1f} PF, "
-                f"{avg_h2h_mins:.0f} min (vs {season_avg:.0f} season avg)"
-            )
-        elif foul_heavy:
-            notes[player] = f"Averages {avg_h2h_fouls:.1f} fouls vs {opp_name} ({len(fouls_list)} games)"
-        elif minutes_short:
-            diff = season_avg - avg_h2h_mins
-            notes[player] = (
-                f"Plays {diff:.0f} fewer min vs {opp_name} "
-                f"({avg_h2h_mins:.0f} vs {season_avg:.0f} avg)"
-            )
+        # Flag if they fouled out (6 fouls) or came close (5 fouls) in any H2H game
+        foul_out_games   = sum(1 for f in fouls_list if f >= 6)
+        close_foul_games = sum(1 for f in fouls_list if f == 5)
+
+        parts = []
+        if foul_out_games:
+            parts.append(f"Fouled out in {foul_out_games} game{'s' if foul_out_games > 1 else ''} vs {opp_name}")
+        elif close_foul_games:
+            parts.append(f"5 fouls in {close_foul_games} game{'s' if close_foul_games > 1 else ''} vs {opp_name}")
+        if minutes_short:
+            diff = round(season_avg - avg_h2h_mins)
+            parts.append(f"~{diff} fewer min vs {opp_name}")
+
+        if parts:
+            notes[player] = " · ".join(parts)
 
     _save_cache(cache_key, notes, ttl_hours=6.0)
     return notes

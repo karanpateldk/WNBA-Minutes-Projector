@@ -242,6 +242,7 @@ def render_player_row(
 
     with col_note:
         foul_note = (foul_notes or {}).get(p.name)
+        dnp_last  = last_game_min == 0 and p.status == "Active" and p.projected_min > 0
         if foul_note:
             st.markdown(
                 f'<span style="font-size:0.75rem;color:#fd7e14;font-weight:600">⚠ {foul_note}</span>',
@@ -252,6 +253,11 @@ def render_player_row(
         elif p.injury:
             st.markdown(
                 f'<span style="font-size:0.75rem;color:{color};font-weight:600">{p.injury}</span>',
+                unsafe_allow_html=True,
+            )
+        elif dnp_last:
+            st.markdown(
+                '<span style="font-size:0.75rem;color:#6c757d;font-weight:600">DNP last game</span>',
                 unsafe_allow_html=True,
             )
 
