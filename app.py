@@ -460,7 +460,7 @@ def _render_status_grid(names: list[str]):
                         f'<span style="font-size:0.75rem;color:{color}">({info.get("pos","?")})</span>'
                         f'</div>'
                         f'<div style="font-size:0.75rem;opacity:0.75;margin-bottom:4px">'
-                        f'{avg:.0f} s.avg &nbsp;·&nbsp; {gp_str}{gs_str}'
+                        f'{avg:.0f} mpg &nbsp;·&nbsp; {gp_str}{gs_str}'
                         f'</div>',
                         unsafe_allow_html=True,
                     )
