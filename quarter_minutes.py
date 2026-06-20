@@ -202,7 +202,8 @@ def _parse_quarter_minutes_from_game(game_id: str, team_id: int) -> dict:
         if q != prev_quarter:
             if prev_quarter is not None:
                 flush_quarter(prev_quarter, 0.0)
-            # Start new quarter — all starters begin at 600s
+            # Players still on court at end of previous quarter carry over
+            carried = set(on_since.keys())
             on_since.clear()
             current_quarter = q
             if q == 1:
@@ -210,13 +211,10 @@ def _parse_quarter_minutes_from_game(game_id: str, team_id: int) -> dict:
                     if player_to_team.get(s) == target_tid:
                         on_since[s] = QUARTER_SECONDS
             else:
-                # Players who ended previous quarter on court restart here
-                # We'll seed them at 600 and they'll be credited until they sub out
-                for player in list(quarter_secs.keys()):
+                # Seed players who were on court when the previous quarter ended
+                for player in carried:
                     if player_to_team.get(player) == target_tid:
-                        # If they played in the previous quarter, assume they start this one
-                        # (we refine this via sub events below)
-                        pass
+                        on_since[player] = QUARTER_SECONDS
             prev_quarter = q
 
         # Only process subs for our target team

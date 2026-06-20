@@ -314,14 +314,20 @@ def _parse_quarter_minutes(game_id: str, team_id: int,
         if q != prev_q:
             if prev_q is not None:
                 flush(prev_q, 0.0)
+            # Players still on court at end of previous quarter carry over
+            carried = set(on_since.keys())
             on_since.clear()
             prev_q = q
-            # Seed starters at start of Q1
             if q == 1:
+                # Seed starters at start of Q1
                 for s in starters:
                     if player_team.get(s) == tid_str:
                         on_since[s] = QUARTER_SECONDS
-            # For Q2-Q4 players are seeded by sub events
+            else:
+                # Seed players who were still on court when the previous quarter ended
+                for player in carried:
+                    if player_team.get(player) == tid_str:
+                        on_since[player] = QUARTER_SECONDS
 
         if play_team != tid_str:
             continue
@@ -496,10 +502,19 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
         sp = round(starter_games[name] / gp, 2) if gp > 0 else 0.0
         foul_rate = round(ft / gp, 2) if gp > 0 else 0.0
 
+        # Quarter averages: 80% last-3 games, 20% season avg (same philosophy as minute projector)
+        last3_gids_set = set(last3_game_ids)
         q_avgs = {}
         for q in [1, 2, 3, 4]:
-            vals = quarter_acc[name].get(q, [])
-            q_avgs[q] = round(sum(vals) / len(vals), 1) if vals else 0.0
+            all_vals  = quarter_acc[name].get(q, [])
+            # last3 quarter vals — stored per game index; approximate by taking last 3 values
+            last3_vals = all_vals[-3:] if len(all_vals) >= 3 else all_vals
+            if not all_vals:
+                q_avgs[q] = 0.0
+                continue
+            season_q = sum(all_vals) / len(all_vals)
+            last3_q  = sum(last3_vals) / len(last3_vals)
+            q_avgs[q] = round(last3_q * 0.80 + season_q * 0.20, 1)
 
         players[name] = {
             "avg_min":          trimmed_avg,     # outlier-trimmed season avg (primary)
