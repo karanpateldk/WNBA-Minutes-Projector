@@ -603,25 +603,29 @@ for _rid, _entry in st.session_state.manual_added_players.items():
     _name = _entry["name"]
     if _name not in team_data:
         team_data[_name] = {
-            "pos":             _entry["pos"],
-            "role":            _entry["role"],
-            "depth":           2,
-            "avg_min":         _entry["min"],
-            "last3_avg":       _entry["min"],
-            "games_played":    0,
-            "games_started":   0,
-            "status":          _entry["status"],
-            "injury":          "",
-            "zero_min_season": False,
-            "recently_active": False,
+            "pos":              _entry["pos"],
+            "role":             _entry["role"],
+            "depth":            1 if _entry["role"] == "starter" else 2,
+            "avg_min":          _entry["min"],
+            "last3_avg":        _entry["min"],
+            "clean_avg_min":    _entry["min"],
+            "last3_clean_avg":  _entry["min"],
+            "games_played":     1,
+            "games_started":    1 if _entry["role"] == "starter" else 0,
+            "status":           _entry["status"],
+            "injury":           "",
+            "zero_min_season":  False,
+            "recently_active":  True,
         }
     else:
-        team_data[_name]["avg_min"]         = _entry["min"]
-        team_data[_name]["last3_avg"]       = _entry["min"]
-        team_data[_name]["pos"]             = _entry["pos"]
-        team_data[_name]["role"]            = _entry["role"]
-        team_data[_name]["status"]          = _entry["status"]
-        team_data[_name]["zero_min_season"] = False
+        team_data[_name]["avg_min"]          = _entry["min"]
+        team_data[_name]["last3_avg"]        = _entry["min"]
+        team_data[_name]["clean_avg_min"]    = _entry["min"]
+        team_data[_name]["last3_clean_avg"]  = _entry["min"]
+        team_data[_name]["pos"]              = _entry["pos"]
+        team_data[_name]["role"]             = _entry["role"]
+        team_data[_name]["status"]           = _entry["status"]
+        team_data[_name]["zero_min_season"]  = False
     player_statuses[_name] = _entry["status"]
 
 # Rebuild baseline with any added players included
