@@ -823,11 +823,7 @@ if selected_opponent and h2h_player_mins:
     n_games     = max((len(v) for v in h2h_player_mins.values()), default=0)
 
     st.markdown(f'<div class="section-header">Minutes vs {opp_full} This Season</div>', unsafe_allow_html=True)
-    st.caption(
-        f"Actual minutes each player logged in {n_games} game(s) against {opp_full} this season. "
-        "Each column is one game, most recent on the right. "
-        "Empty = did not play in that matchup."
-    )
+    st.caption(f"Actual minutes each player logged against {opp_full} this season. Most recent game on the right.")
 
     h2h_rows = []
     for p in active_players:
@@ -869,10 +865,7 @@ if selected_opponent and h2h_player_mins:
 
 if show_charts:
     st.markdown('<div class="section-header">Starter Quarter Minutes Breakdown</div>', unsafe_allow_html=True)
-    st.caption(
-        "Average minutes each starter plays per quarter, derived from play-by-play data this season. "
-        "Use for live trading — shows exactly when starters are typically on the floor."
-    )
+    st.caption("Average minutes each starter plays per quarter, derived from play-by-play data this season.")
 
     # Collect starters that are active and have quarter data
     starter_rows = [
