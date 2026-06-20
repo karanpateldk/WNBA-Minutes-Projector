@@ -459,8 +459,8 @@ def get_live_roster(team_name: str) -> dict:
 
         merged[player] = {
             "pos":       info.get("pos") or static_info.get("pos", "?"),
-            "avg_min":   static_info.get("avg_min", 5.0),
-            "last3_avg": static_info.get("avg_min", 5.0),
+            "avg_min":   static_info.get("avg_min", 3.0),
+            "last3_avg": static_info.get("avg_min", 3.0),
             "role":      static_info.get("role", "bench"),
             "depth":     static_info.get("depth", 2),
         }

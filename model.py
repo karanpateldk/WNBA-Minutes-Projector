@@ -257,7 +257,7 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
             ols_coeffs=ols_coeffs,
         )
         if gp == 0:
-            base_min = min(base_min, 5.0)   # no games played — cap at 5 min regardless of default
+            base_min = min(base_min, 3.0)   # no games played — cap at 3 min regardless of default
         elif gp <= 2:
             base_min = min(base_min, 18.0) if info.get("role") == "bench" else base_min
 
