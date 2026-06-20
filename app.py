@@ -260,6 +260,16 @@ def render_player_row(
                 '<span style="font-size:0.75rem;color:#6c757d;font-weight:600">DNP last game</span>',
                 unsafe_allow_html=True,
             )
+        else:
+            # Flag unstable minutes: last-3 range > 12 min (top ~10% most volatile in WNBA)
+            last3_range = 0.0
+            if p.name in team_data and isinstance(team_data[p.name], dict):
+                last3_range = team_data[p.name].get("last3_range", 0.0)
+            if last3_range >= 12.0:
+                st.markdown(
+                    '<span style="font-size:0.75rem;color:#6c757d;font-weight:600">Volatile mins</span>',
+                    unsafe_allow_html=True,
+                )
 
 
 # ---------------------------------------------------------------------------

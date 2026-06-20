@@ -521,6 +521,8 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
         # Use median for last-3 so a single bad game doesn't skew the window
         last3_avg       = _median(l3)       if l3       else trimmed_avg
         last3_clean_avg = _median(l3_clean) if l3_clean else last3_avg
+        # Range of last-3 game minutes — used to flag unstable usage
+        last3_range = round(max(l3) - min(l3), 1) if len(l3) >= 2 else 0.0
 
         gp = games_played[name]
         ft = foul_trouble_games[name]
@@ -568,6 +570,7 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
             "raw_avg_min":      avg,             # unfiltered mean (for display/debug)
             "clean_avg_min":    clean_avg,       # season avg excluding foul-trouble games
             "last3_avg":        last3_avg,       # median of last 3 games
+            "last3_range":      last3_range,     # max-min of last 3 games (instability signal)
             "last3_clean_avg":  last3_clean_avg, # median of last 3 non-foul-trouble games
             "last_game_min":    last_game_minutes.get(name, 0.0),
             "games_played":     gp,
