@@ -105,6 +105,31 @@ def _median(values: list[float]) -> float:
     return round((s[mid - 1] + s[mid]) / 2 if n % 2 == 0 else s[mid], 1)
 
 
+def _iqr_trim(values: list[float]) -> list[float]:
+    """
+    Remove low outliers using IQR method — same logic as _trimmed_avg but
+    returns the cleaned list rather than the average. Only trims low values
+    (anomalously short quarter stints). Requires at least 4 values to attempt
+    trimming; returns original list otherwise.
+    """
+    n = len(values)
+    if n < 4:
+        return values
+    s = sorted(values)
+    q1 = s[n // 4]
+    q3 = s[(3 * n) // 4]
+    iqr = q3 - q1
+    if iqr <= 1.5:
+        return values
+    lower_fence = q1 - 1.5 * iqr
+    kept = [v for v in values if v >= lower_fence]
+    # Always keep at least 60% of values
+    min_keep = max(3, int(n * 0.60))
+    if len(kept) < min_keep:
+        kept = sorted(values)[n - min_keep:]
+    return kept if kept else values
+
+
 # ---------------------------------------------------------------------------
 # Cache
 # ---------------------------------------------------------------------------
@@ -502,19 +527,41 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
         sp = round(starter_games[name] / gp, 2) if gp > 0 else 0.0
         foul_rate = round(ft / gp, 2) if gp > 0 else 0.0
 
-        # Quarter averages: 80% last-3 games, 20% season avg (same philosophy as minute projector)
-        last3_gids_set = set(last3_game_ids)
+        # Quarter averages — per-quarter trimmed median, weighted toward recent games.
+        #
+        # Three-step clean before averaging each quarter:
+        #   1. Drop games where the player had 4+ fouls AND that quarter's minutes
+        #      were more than 35% below their per-quarter average — foul-trouble
+        #      games distort the quarter distribution without reflecting real rotation.
+        #   2. IQR outlier removal (same as _trimmed_avg) — drops anomalously low
+        #      quarter values (garbage time, early sit, tactical rest).
+        #   3. 75/25 blend: 75% median of last-3 clean games, 25% trimmed season avg.
+        #      Recent games weighted heavily because coaches adjust rotations week-to-week.
+        #
+        # Goal: project each quarter within ~0.5 min of actual for starters.
         q_avgs = {}
         for q in [1, 2, 3, 4]:
-            all_vals  = quarter_acc[name].get(q, [])
-            # last3 quarter vals — stored per game index; approximate by taking last 3 values
-            last3_vals = all_vals[-3:] if len(all_vals) >= 3 else all_vals
+            all_vals = quarter_acc[name].get(q, [])
             if not all_vals:
                 q_avgs[q] = 0.0
                 continue
-            season_q = sum(all_vals) / len(all_vals)
-            last3_q  = sum(last3_vals) / len(last3_vals)
-            q_avgs[q] = round(last3_q * 0.80 + season_q * 0.20, 1)
+
+            # Step 1: foul-trouble filter — drop games where foul trouble curtailed
+            # this quarter specifically. Proxy: any value >35% below the raw mean.
+            raw_mean = sum(all_vals) / len(all_vals)
+            foul_threshold = raw_mean * 0.65  # more than 35% below avg = foul-curtailed
+            clean_vals = [v for v in all_vals if v >= foul_threshold] if raw_mean > 1.0 else all_vals
+            if not clean_vals:
+                clean_vals = all_vals
+
+            # Step 2: IQR outlier removal on the cleaned list
+            clean_vals = _iqr_trim(clean_vals)
+
+            # Step 3: 75/25 blend of last-3 median vs trimmed season avg
+            last3_vals  = clean_vals[-3:] if len(clean_vals) >= 3 else clean_vals
+            season_q    = sum(clean_vals) / len(clean_vals)
+            last3_q     = _median(last3_vals)
+            q_avgs[q]   = round(last3_q * 0.75 + season_q * 0.25, 1)
 
         players[name] = {
             "avg_min":          trimmed_avg,     # outlier-trimmed season avg (primary)
