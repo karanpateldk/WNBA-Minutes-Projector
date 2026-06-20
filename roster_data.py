@@ -1,6 +1,6 @@
 """
 Static WNBA roster and depth chart data used when scraping fails.
-Minutes are season averages — 2025 season rosters.
+Minutes are season averages — 2026 season rosters.
 """
 
 TEAMS = {

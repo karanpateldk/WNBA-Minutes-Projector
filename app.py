@@ -491,7 +491,7 @@ _render_status_grid(relevant_players)
 
 if zero_min_players:
     with st.expander(f"No minutes this season ({len(zero_min_players)} players — auto set to Out)", expanded=False):
-        st.caption("These players are on the roster but haven't played a minute yet in 2025. Auto-set to Out. Override if they're expected to play tonight.")
+        st.caption("These players are on the roster but haven't played a minute yet in 2026. Auto-set to Out. Override if they're expected to play tonight.")
         _render_status_grid(zero_min_players)
 
 st.markdown("---")
