@@ -251,7 +251,7 @@ def render_player_row(
         if p.name in team_data and isinstance(team_data[p.name], dict):
             last3_range = team_data[p.name].get("last3_range", 0.0) or 0.0
         volatile = (
-            last3_range >= 12.0
+            last3_range >= 14.0
             and p.status in ("Active", "Probable")
             and p.projected_min > 0
         )
