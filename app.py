@@ -432,65 +432,55 @@ relevant_players = [p for p in player_names if p not in zero_min_players]
 relevant_players.sort(key=lambda p: -team_data[p].get("avg_min", 0.0))
 zero_min_players.sort(key=lambda p: team_data[p].get("pos", "Z"))
 
-n_cols = 4
-
 def _render_status_grid(names: list[str]):
-    rows = [names[i:i+n_cols] for i in range(0, len(names), n_cols)]
-    for row_players in rows:
-        cols = st.columns(n_cols)
-        for i, player in enumerate(row_players):
-            info = team_data[player]
-            default_status = info.get("status", "Active")
-            if default_status not in status_options:
-                default_status = "Active"
-            default_idx = status_options.index(default_status)
-            default_role = info.get("role", "bench")
+    for player in names:
+        info = team_data[player]
+        default_status = info.get("status", "Active")
+        if default_status not in status_options:
+            default_status = "Active"
+        default_idx    = status_options.index(default_status)
+        default_role   = info.get("role", "bench")
 
-            with cols[i]:
-                gp     = info.get("games_played", 0)
-                gs     = info.get("games_started", 0)
-                avg    = info.get("avg_min", 0.0)
-                gp_str = f"{gp}G" if gp > 0 else "—"
-                gs_str = f" / {gs} GS" if gs > 0 else ""
+        gp   = info.get("games_played", 0)
+        gs   = info.get("games_started", 0)
+        avg  = info.get("avg_min", 0.0)
+        pos  = info.get("pos", "?")
+        meta = f"{pos} · {avg:.0f} mpg · {gp}G"
+        if gs > 0:
+            meta += f" / {gs} GS"
 
-                st.markdown(
-                    f'<div class="player-card">'
-                    f'<div class="player-card-name">{player}</div>'
-                    f'<div class="player-card-meta">'
-                    f'{info.get("pos","?")} &nbsp;·&nbsp; {avg:.0f} mpg'
-                    f'&nbsp;·&nbsp; {gp_str}{gs_str}'
-                    f'</div></div>',
-                    unsafe_allow_html=True,
-                )
+        col_name, col_role, col_status = st.columns([3, 1.5, 2])
 
-                rc, sc = st.columns(2)
-                with rc:
-                    role_options = ["Starter", "Bench"]
-                    saved_role = st.session_state.role_overrides.get(player, default_role)
-                    role_idx = 0 if saved_role == "starter" else 1
-                    selected_role = st.selectbox(
-                        "Role",
-                        role_options,
-                        index=role_idx,
-                        key=f"role_{player}",
-                        label_visibility="visible",
-                    )
-                    new_role = "starter" if selected_role == "Starter" else "bench"
-                    if new_role != default_role:
-                        role_overrides[player] = new_role
-                        st.session_state.role_overrides[player] = new_role
-                    else:
-                        st.session_state.role_overrides.pop(player, None)
+        with col_name:
+            st.markdown(
+                f'<div style="padding:6px 0 2px 0">'
+                f'<span style="font-weight:700;font-size:0.95rem">{player}</span><br>'
+                f'<span style="font-size:0.75rem;opacity:0.55">{meta}</span>'
+                f'</div>',
+                unsafe_allow_html=True,
+            )
 
-                with sc:
-                    status = st.selectbox(
-                        "Status",
-                        status_options,
-                        index=default_idx,
-                        key=f"status_{player}",
-                        label_visibility="visible",
-                    )
-                    player_statuses[player] = status
+        with col_role:
+            role_options = ["Starter", "Bench"]
+            saved_role   = st.session_state.role_overrides.get(player, default_role)
+            role_idx     = 0 if saved_role == "starter" else 1
+            selected_role = st.selectbox(
+                "Role", role_options, index=role_idx,
+                key=f"role_{player}", label_visibility="collapsed",
+            )
+            new_role = "starter" if selected_role == "Starter" else "bench"
+            if new_role != default_role:
+                role_overrides[player] = new_role
+                st.session_state.role_overrides[player] = new_role
+            else:
+                st.session_state.role_overrides.pop(player, None)
+
+        with col_status:
+            status = st.selectbox(
+                "Status", status_options, index=default_idx,
+                key=f"status_{player}", label_visibility="collapsed",
+            )
+            player_statuses[player] = status
 
 _render_status_grid(relevant_players)
 
