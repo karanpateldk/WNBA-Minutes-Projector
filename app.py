@@ -318,22 +318,24 @@ with st.sidebar:
     default_idx = team_list.index("Atlanta Dream") if "Atlanta Dream" in team_list else 0
     selected_team = st.selectbox("Select Team", team_list, index=default_idx)
     if selected_team != st.session_state.manual_last_team and st.session_state.manual_last_team != "":
-        # Team switched — wipe all manual rows so added players don't bleed across teams
+        # Team switched — wipe manual rows, role overrides, and opponent selection
         st.session_state.manual_row_ids = [0]
         st.session_state.manual_next_id = 1
         st.session_state.manual_added_players = {}
         st.session_state.role_overrides = {}
+        st.session_state.selected_opponent = None
     st.session_state.manual_last_team = selected_team
     st.session_state.selected_team = selected_team
 
     # Opponent selector — filters out the selected team itself
     opp_options = ["— No opponent selected —"] + [t for t in team_list if t != selected_team]
-    prev_opp = st.session_state.selected_opponent
-    prev_idx = opp_options.index(prev_opp) if prev_opp in opp_options else 0
+    prev_opp = st.session_state.get("selected_opponent")
+    prev_idx = opp_options.index(prev_opp) if prev_opp and prev_opp in opp_options else 0
     selected_opponent_raw = st.selectbox(
         "Opponent",
         opp_options,
         index=prev_idx,
+        key="opponent_selector",
     )
     selected_opponent = None if selected_opponent_raw.startswith("—") else selected_opponent_raw
     st.session_state.selected_opponent = selected_opponent
