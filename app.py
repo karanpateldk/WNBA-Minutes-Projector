@@ -581,6 +581,7 @@ with st.expander("+ Add / override players manually"):
             st.session_state[min_key]     = 10
             st.session_state[min_txt_key] = "10"
 
+        # Row 1: all main widgets at equal height — ✕ aligns with the dropdowns
         mc1, mc2, mc3, mc4, mc5, mc_del = st.columns([3, 1.2, 1.5, 1.5, 1.5, 0.8])
         with mc1:
             manual_pick = st.selectbox("Player", manual_options, key=f"manual_pick_{rid}",
@@ -598,6 +599,17 @@ with st.expander("+ Add / override players manually"):
                 st.session_state[min_key] = max(0, min(40, int(typed)))
             except ValueError:
                 pass
+            manual_min = st.session_state[min_key]
+        with mc5:
+            manual_status = st.selectbox("Status", get_status_options(), key=f"manual_status_{rid}",
+                                         label_visibility="collapsed")
+        with mc_del:
+            if st.button("✕", key=f"del_row_{rid}", use_container_width=True):
+                rows_to_delete.append(rid)
+
+        # Row 2: − and + buttons sit directly under the Mins input
+        _, _, _, mc4b, _, _ = st.columns([3, 1.2, 1.5, 1.5, 1.5, 0.8])
+        with mc4b:
             btn_minus, btn_plus = st.columns(2)
             with btn_minus:
                 if st.button("−", key=f"min_minus_{rid}", use_container_width=True):
@@ -607,14 +619,6 @@ with st.expander("+ Add / override players manually"):
                 if st.button("+", key=f"min_plus_{rid}", use_container_width=True):
                     st.session_state[pending_key] = min(40, st.session_state[min_key] + 1)
                     st.rerun()
-            manual_min = st.session_state[min_key]
-        with mc5:
-            manual_status = st.selectbox("Status", get_status_options(), key=f"manual_status_{rid}",
-                                         label_visibility="collapsed")
-        with mc_del:
-            st.markdown('<div style="height:28px"></div>', unsafe_allow_html=True)
-            if st.button("✕", key=f"del_row_{rid}", use_container_width=True):
-                rows_to_delete.append(rid)
 
         # Register or clear this player entry on every render
         if effective_name and rid not in rows_to_delete:
