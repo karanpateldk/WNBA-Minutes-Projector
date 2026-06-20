@@ -47,16 +47,70 @@ st.set_page_config(
 
 st.markdown("""
 <style>
-    .player-row { padding: 8px; border-radius: 6px; margin-bottom: 4px; }
+    /* ── works in both light and dark mode via currentColor / opacity ── */
     .status-badge {
         display: inline-block; padding: 2px 10px; border-radius: 12px;
-        font-size: 0.8rem; font-weight: 600; color: white;
+        font-size: 0.78rem; font-weight: 600; color: #fff;
+        letter-spacing: 0.02em;
     }
     .mins-big { font-size: 1.4rem; font-weight: 700; }
     .delta-pos { color: #28a745; font-weight: 600; }
     .delta-neg { color: #dc3545; font-weight: 600; }
-    .warning-box { background: #fff3cd; border-left: 4px solid #ffc107; padding: 10px; border-radius: 4px; }
-    .section-header { font-size: 1.1rem; font-weight: 700; margin: 12px 0 6px 0; border-bottom: 2px solid #eee; }
+
+    /* warning box — semi-transparent so it reads in both modes */
+    .warning-box {
+        background: rgba(255, 193, 7, 0.15);
+        border-left: 4px solid #ffc107;
+        padding: 10px; border-radius: 4px;
+    }
+
+    /* section header uses currentColor so it adapts to dark mode */
+    .section-header {
+        font-size: 1.1rem; font-weight: 700; margin: 12px 0 6px 0;
+        border-bottom: 2px solid rgba(128,128,128,0.3);
+        padding-bottom: 4px;
+    }
+
+    /* player card in status grid */
+    .player-card {
+        border: 1px solid rgba(128,128,128,0.25);
+        border-radius: 8px;
+        padding: 10px 12px 8px 12px;
+        margin-bottom: 6px;
+        background: rgba(128,128,128,0.04);
+    }
+    .player-card-name {
+        font-weight: 700;
+        font-size: 0.95rem;
+        margin-bottom: 2px;
+    }
+    .player-card-meta {
+        font-size: 0.75rem;
+        opacity: 0.6;
+        margin-bottom: 6px;
+    }
+
+    /* info banners — use rgba so they work in dark mode */
+    .banner-confirmed {
+        background: rgba(40,167,69,0.12);
+        border-left: 4px solid #28a745;
+        padding: 10px 14px; border-radius: 4px; margin-bottom: 12px;
+    }
+    .banner-projected {
+        background: rgba(255,193,7,0.12);
+        border-left: 4px solid #ffc107;
+        padding: 10px 14px; border-radius: 4px; margin-bottom: 12px;
+    }
+    .banner-stats {
+        background: rgba(74,144,226,0.1);
+        border-left: 3px solid #4a90e2;
+        padding: 8px 12px; border-radius: 4px; margin-bottom: 8px; font-size: 0.85rem;
+    }
+    .matchup-banner {
+        background: rgba(128,128,128,0.08);
+        border-left: 3px solid rgba(128,128,128,0.4);
+        padding: 10px 14px; border-radius: 4px; margin-bottom: 8px; font-size: 0.83rem;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -317,24 +371,15 @@ if lineup_info.get("starters"):
     game_time = lineup_info.get("game_time", "")
     opponent  = lineup_info.get("opponent", "")
 
-    if confirmed:
-        banner_color = "#d4edda"
-        border_color = "#28a745"
-        icon = "✅"
-        label = "CONFIRMED LINEUP"
-    else:
-        banner_color = "#fff3cd"
-        border_color = "#ffc107"
-        icon = "📋"
-        label = "PROJECTED LINEUP"
-
-    opp_str   = f" vs {opponent}" if opponent else ""
-    time_str  = f" — {game_time}" if game_time else ""
+    icon  = "✅" if confirmed else "📋"
+    label = "CONFIRMED LINEUP" if confirmed else "PROJECTED LINEUP"
+    css   = "banner-confirmed" if confirmed else "banner-projected"
+    opp_str      = f" vs {opponent}" if opponent else ""
+    time_str     = f" — {game_time}" if game_time else ""
     starters_str = ",  ".join(lineup_info["starters"])
 
     st.markdown(
-        f'<div style="background:{banner_color};border-left:4px solid {border_color};'
-        f'padding:10px 14px;border-radius:4px;margin-bottom:12px">'
+        f'<div class="{css}">'
         f'<strong>{icon} {label}</strong> (via {source}){opp_str}{time_str}<br>'
         f'<span style="font-size:0.9rem">{starters_str}</span>'
         f'</div>',
@@ -351,8 +396,7 @@ else:
 if _games_processed > 0:
     updated_str = f"Updated {_last_updated}" if _last_updated else "Cache age unknown"
     st.markdown(
-        f'<div style="background:#f0f4ff;border-left:3px solid #4a90e2;'
-        f'padding:8px 12px;border-radius:4px;margin-bottom:8px;font-size:0.85rem">'
+        f'<div class="banner-stats">'
         f'<strong>Stats from:</strong> {_games_processed} games this season &nbsp;|&nbsp; '
         f'{updated_str} — press <em>Update Rosters &amp; Stats</em> to refresh'
         f'</div>',
@@ -388,7 +432,7 @@ relevant_players = [p for p in player_names if p not in zero_min_players]
 relevant_players.sort(key=lambda p: -team_data[p].get("avg_min", 0.0))
 zero_min_players.sort(key=lambda p: team_data[p].get("pos", "Z"))
 
-n_cols = 3
+n_cols = 4
 
 def _render_status_grid(names: list[str]):
     rows = [names[i:i+n_cols] for i in range(0, len(names), n_cols)]
@@ -403,33 +447,23 @@ def _render_status_grid(names: list[str]):
             default_role = info.get("role", "bench")
 
             with cols[i]:
-                color = INJURY_COLOR.get(default_status, "#6c757d")
-                gp = info.get("games_played", 0)
-                gs = info.get("games_started", 0)
-                if gp > 0:
-                    gp_label = f"  {gp} GP"
-                    if gs > 0:
-                        gp_label += f" / {gs} GS"
-                else:
-                    gp_label = ""
+                color  = INJURY_COLOR.get(default_status, "#6c757d")
+                gp     = info.get("games_played", 0)
+                gs     = info.get("games_started", 0)
+                avg    = info.get("avg_min", 0.0)
+                gp_str = f"{gp}G" if gp > 0 else "—"
+                gs_str = f" / {gs} GS" if gs > 0 else ""
+
                 st.markdown(
-                    f'<div style="font-weight:600;margin-bottom:2px">'
-                    f'{player} '
-                    f'<span style="font-size:0.75rem;color:{color}">({info["pos"]})'
-                    f'<span style="color:#888">{gp_label}</span></span>'
+                    f'<div class="player-card">'
+                    f'<div class="player-card-name">{player}</div>'
+                    f'<div class="player-card-meta">'
+                    f'{info.get("pos","?")} &nbsp;·&nbsp; {avg:.0f} mpg &nbsp;·&nbsp; {gp_str}{gs_str}'
                     f'</div>',
                     unsafe_allow_html=True,
                 )
-                status = st.selectbox(
-                    "Status",
-                    status_options,
-                    index=default_idx,
-                    key=f"status_{player}",
-                    label_visibility="collapsed",
-                )
-                player_statuses[player] = status
 
-                # Starter / Bench selector
+                # Role first
                 role_options = ["Starter", "Bench"]
                 saved_role = st.session_state.role_overrides.get(player, default_role)
                 role_idx = 0 if saved_role == "starter" else 1
@@ -438,7 +472,7 @@ def _render_status_grid(names: list[str]):
                     role_options,
                     index=role_idx,
                     key=f"role_{player}",
-                    label_visibility="collapsed",
+                    label_visibility="visible",
                 )
                 new_role = "starter" if selected_role == "Starter" else "bench"
                 if new_role != default_role:
@@ -446,6 +480,18 @@ def _render_status_grid(names: list[str]):
                     st.session_state.role_overrides[player] = new_role
                 else:
                     st.session_state.role_overrides.pop(player, None)
+
+                # Status second
+                status = st.selectbox(
+                    "Status",
+                    status_options,
+                    index=default_idx,
+                    key=f"status_{player}",
+                    label_visibility="visible",
+                )
+                player_statuses[player] = status
+
+                st.markdown('</div>', unsafe_allow_html=True)
 
 _render_status_grid(relevant_players)
 
@@ -646,8 +692,7 @@ if selected_opponent and matchup_summary:
 
     notes_html = "".join(f"<li style='margin-bottom:3px'>{n}</li>" for n in matchup_summary.get("notes", []))
     st.markdown(
-        f'<div style="background:#f8f9fa;border-left:3px solid {conf_color};'
-        f'padding:10px 14px;border-radius:4px;margin-bottom:8px;font-size:0.83rem">'
+        f'<div class="matchup-banner" style="border-left-color:{conf_color}">'
         f'<strong>vs {selected_opponent}</strong> &nbsp;|&nbsp; '
         f'Confidence: <span style="color:{conf_color};font-weight:600">{conf_label}</span>'
         f' &nbsp;|&nbsp; {opp_depth}-player rotation &nbsp;|&nbsp; {blowout_str} this season'

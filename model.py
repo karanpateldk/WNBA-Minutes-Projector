@@ -216,6 +216,32 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
                        if isinstance(v, dict)), default=0)
     ols_coeffs = _fit_ols(team_data) if total_games >= 15 else None
 
+    # Pre-compute role-typical minute targets for blending when role is overridden.
+    # "What does a starter on this team typically play?" — median of current starters.
+    # "What does a bench player on this team typically play?" — median of current bench.
+    # We use team_data roles (before overrides) as the baseline population.
+    def _median_min(vals: list[float]) -> float:
+        if not vals:
+            return 0.0
+        s = sorted(vals)
+        mid = len(s) // 2
+        return (s[mid - 1] + s[mid]) / 2 if len(s) % 2 == 0 else s[mid]
+
+    starter_mins = [
+        v.get("avg_min", 0.0) for v in team_data.values()
+        if isinstance(v, dict) and v.get("role") == "starter"
+        and v.get("avg_min", 0.0) > 5.0
+        and v.get("status", "Active") not in ("Out", "Doubtful")
+    ]
+    bench_mins = [
+        v.get("avg_min", 0.0) for v in team_data.values()
+        if isinstance(v, dict) and v.get("role") == "bench"
+        and v.get("avg_min", 0.0) > 3.0
+        and v.get("status", "Active") not in ("Out", "Doubtful")
+    ]
+    typical_starter_min = _median_min(starter_mins) or 28.0
+    typical_bench_min   = _median_min(bench_mins)   or 14.0
+
     projections: list[PlayerProjection] = []
     out_players: list[tuple[str, dict]] = []
 
@@ -235,12 +261,20 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
         )
         if info.get("role") == "bench" and gp <= 2:
             base_min = min(base_min, 28.0)
-        proj_min = _apply_injury_scale(base_min, status)
 
         role = role_overrides.get(player, info.get("role", "bench"))
         depth = info.get("depth", 2)
         if player in role_overrides:
             depth = 1 if role == "starter" else 2
+            orig_role = info.get("role", "bench")
+            if role != orig_role:
+                # Blend personal history 40% toward the typical minutes for the new role.
+                # This moves Pouye from ~14 toward starter range without fully discarding
+                # her history — a 40/60 blend captures "role upgrade" realistically.
+                target = typical_starter_min if role == "starter" else typical_bench_min
+                base_min = round(base_min * 0.60 + target * 0.40, 1)
+
+        proj_min = _apply_injury_scale(base_min, status)
 
         p = PlayerProjection(
             name=player,
