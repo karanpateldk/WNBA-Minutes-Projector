@@ -557,7 +557,7 @@ if "manual_added_players" not in st.session_state:
 with st.expander("+ Add / override players manually"):
     manual_options = ["— select player —"] + ALL_PLAYERS
 
-    # Header row — matches widget label style
+    # Header row
     hdr1, hdr2, hdr3, hdr4, hdr5, hdr_del = st.columns([3, 1.2, 1.5, 1.5, 1.5, 0.8])
     hdr1.caption("Player")
     hdr2.caption("Pos")
@@ -612,16 +612,11 @@ with st.expander("+ Add / override players manually"):
             manual_status = st.selectbox("Status", get_status_options(), key=f"manual_status_{rid}",
                                          label_visibility="collapsed")
         with mc_del:
-            st.write(" ")
+            st.markdown('<div style="height:28px"></div>', unsafe_allow_html=True)
             if st.button("✕", key=f"del_row_{rid}", use_container_width=True):
                 rows_to_delete.append(rid)
 
-    st.markdown('<div style="margin-top:8px"></div>', unsafe_allow_html=True)
-    if st.button("+ Add another player", key="add_row_btn"):
-        st.session_state.manual_row_ids.append(st.session_state.manual_next_id)
-        st.session_state.manual_next_id += 1
-        st.rerun()
-
+        # Register or clear this player entry on every render
         if effective_name and rid not in rows_to_delete:
             st.session_state.manual_added_players[rid] = {
                 "name":   effective_name,
@@ -630,12 +625,17 @@ with st.expander("+ Add / override players manually"):
                 "min":    manual_min,
                 "status": manual_status,
             }
-            st.success(f"{effective_name} — {manual_pos}, {manual_role}, {manual_min} min")
+            st.success(f"Added: {effective_name} — {manual_pos}, {manual_role}, {manual_min} min")
         elif not effective_name:
             st.session_state.manual_added_players.pop(rid, None)
 
         if row_i < len(st.session_state.manual_row_ids) - 1:
             st.markdown("---")
+
+    if st.button("+ Add another player", key="add_row_btn"):
+        st.session_state.manual_row_ids.append(st.session_state.manual_next_id)
+        st.session_state.manual_next_id += 1
+        st.rerun()
 
     if rows_to_delete:
         for r in rows_to_delete:
