@@ -460,7 +460,7 @@ def _render_status_grid(names: list[str]):
                         f'<span style="font-size:0.75rem;color:{color}">({info.get("pos","?")})</span>'
                         f'</div>'
                         f'<div style="font-size:0.75rem;opacity:0.75;margin-bottom:4px">'
-                        f'{avg:.0f} mpg &nbsp;·&nbsp; {gp_str}{gs_str}'
+                        f'{avg:.0f} s.avg &nbsp;·&nbsp; {gp_str}{gs_str}'
                         f'</div>',
                         unsafe_allow_html=True,
                     )
@@ -720,8 +720,8 @@ hc = st.columns([3, 1, 2, 1, 1.2, 1.5, 1.5, 2.5])
 hc[0].markdown("**Player**")
 hc[1].markdown("**Pos**")
 hc[2].markdown("**Status**")
-hc[3].markdown("**Last**")
-hc[4].markdown("**Avg**")
+hc[3].markdown("**Last**", help="Minutes played in the most recent game")
+hc[4].markdown("**Wtd**", help="Weighted input: 85% last-3 median + 15% season avg (used by the model)")
 hc[5].markdown("**Proj**")
 hc[6].markdown(f"**{adj_col_label}**")
 hc[7].markdown("**Note**")
