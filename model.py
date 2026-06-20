@@ -507,26 +507,36 @@ def _normalize_to_total(projections: list[PlayerProjection], target: float) -> l
     bench    = [p for p in active if p.role != "starter"]
 
     if diff < 0:
-        # Over budget — trim starters first, then bench
-        to_trim = -diff
-
         # Phase 1: trim starters proportionally toward 36
         starter_excess = sum(max(p.projected_min - 36.0, 0.0) for p in starters)
         if starter_excess > 0:
-            take = min(starter_excess, to_trim)
+            to_trim = min(starter_excess, -diff)
             for p in starters:
                 excess = max(p.projected_min - 36.0, 0.0)
-                p.projected_min = round(p.projected_min - (excess / starter_excess) * take, 1)
-            to_trim -= take
+                p.projected_min = round(p.projected_min - (excess / starter_excess) * to_trim, 1)
 
-        # Phase 2: trim all active players proportionally if still over
+        # Phase 2: trim all proportionally down to floors
+        to_trim = sum(p.projected_min for p in active) - target
         if to_trim > 0.1:
-            total_trimmable = sum(max(p.projected_min - (BENCH_FLOOR if p.role != "starter" else 10.0), 0.0) for p in active)
+            total_trimmable = sum(
+                max(p.projected_min - (BENCH_FLOOR if p.role != "starter" else 10.0), 0.0)
+                for p in active
+            )
             if total_trimmable > 0:
                 for p in active:
                     floor = BENCH_FLOOR if p.role != "starter" else 10.0
                     trimmable = max(p.projected_min - floor, 0.0)
-                    p.projected_min = round(p.projected_min - (trimmable / total_trimmable) * to_trim, 1)
+                    p.projected_min = round(
+                        p.projected_min - (trimmable / total_trimmable) * to_trim, 1
+                    )
+
+        # Phase 3: guaranteed hard scale — always reaches exactly target
+        current = sum(p.projected_min for p in active)
+        if current > 0 and abs(current - target) > 0.05:
+            scale = target / current
+            for p in active:
+                p.projected_min = round(p.projected_min * scale, 1)
+
     else:
         # Under budget — add proportionally, respecting 38 cap
         total = sum(p.projected_min for p in active)
@@ -535,11 +545,12 @@ def _normalize_to_total(projections: list[PlayerProjection], target: float) -> l
                 share = (p.projected_min / total) * diff
                 p.projected_min = round(min(p.projected_min + share, STARTER_MAX), 1)
 
-    # Enforce floors after all adjustments
-    for p in active:
-        floor = BENCH_FLOOR if p.role != "starter" else 10.0
-        if p.projected_min < floor:
-            p.projected_min = floor
+    # Fix any rounding drift — adjust the highest-minute player by the remainder
+    current = sum(p.projected_min for p in active)
+    drift = round(target - current, 1)
+    if drift != 0.0 and active:
+        largest = max(active, key=lambda p: p.projected_min)
+        largest.projected_min = round(largest.projected_min + drift, 1)
 
     return projections
 
