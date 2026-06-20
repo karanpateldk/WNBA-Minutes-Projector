@@ -309,7 +309,9 @@ def _get_player_vs_opp_minutes(
         box = _parse_boxscore(gid, team_id)
         for p in box:
             if not p["dnp"] and p["minutes"] >= 0.5:
-                result[p["name"]].append(p["minutes"])
+                # Exclude foul-trouble games so Signal C isn't skewed by random foul outs
+                if p.get("fouls", 0) < 4:
+                    result[p["name"]].append(p["minutes"])
 
     out = dict(result)
     _save_cache(cache_key, out, ttl_hours=6.0)
@@ -373,27 +375,16 @@ def get_h2h_foul_notes(
 
     notes = {}
     for player, fouls_list in h2h_fouls.items():
-        if len(fouls_list) < 2:
-            continue
-        avg_h2h_mins  = sum(h2h_minutes[player]) / len(h2h_minutes[player])
-        season_avg    = team_data.get(player, {}).get("avg_min", 0.0)
-        minutes_short = season_avg > 0 and (avg_h2h_mins < season_avg * 0.80)
-
-        # Flag if they fouled out (6 fouls) or came close (5 fouls) in any H2H game
         foul_out_games   = sum(1 for f in fouls_list if f >= 6)
         close_foul_games = sum(1 for f in fouls_list if f == 5)
 
-        parts = []
-        if foul_out_games:
-            parts.append(f"Fouled out in {foul_out_games} game{'s' if foul_out_games > 1 else ''} vs {opp_name}")
-        elif close_foul_games:
-            parts.append(f"5 fouls in {close_foul_games} game{'s' if close_foul_games > 1 else ''} vs {opp_name}")
-        if minutes_short:
-            diff = round(season_avg - avg_h2h_mins)
-            parts.append(f"~{diff} fewer min vs {opp_name}")
-
-        if parts:
-            notes[player] = " · ".join(parts)
+        # Only flag if foul trouble happened in 2+ H2H games vs this opponent
+        if foul_out_games >= 2:
+            notes[player] = "Fouled out"
+        elif close_foul_games >= 2:
+            notes[player] = "Foul trouble"
+        elif foul_out_games >= 1 and close_foul_games >= 1:
+            notes[player] = "Foul trouble"
 
     _save_cache(cache_key, notes, ttl_hours=6.0)
     return notes
@@ -487,10 +478,44 @@ def compute_matchup_adjustments(
 
 def get_player_h2h_minutes(team_name: str, opp_name: str) -> dict[str, list[float]]:
     """
-    Public wrapper. Returns {player: [min_game1, min_game2, ...]} for all games
-    played by team_name against opp_name this season.
+    Public wrapper for the H2H display table — returns raw minutes including
+    foul-trouble games so the historical record is accurate.
     """
-    return _get_player_vs_opp_minutes(team_name, opp_name)
+    from season_stats import _parse_boxscore, ESPN_TEAM_IDS as SS_IDS
+
+    team_id = SS_IDS.get(team_name)
+    opp_id  = ESPN_TEAM_IDS.get(opp_name)
+    if not team_id or not opp_id:
+        return {}
+
+    cache_key = f"h2h_mins_raw_{team_name.replace(' ','_')}_{opp_name.replace(' ','_')}"
+    cached = _load_cache(cache_key, ttl_hours=6.0)
+    if cached:
+        return cached
+
+    data = _get_json(
+        f"https://site.api.espn.com/apis/site/v2/sports/basketball/wnba/teams/{team_id}/schedule"
+    )
+    opp_id_str = str(opp_id)
+    h2h_game_ids = []
+    for event in data.get("events", []):
+        comp = event.get("competitions", [{}])[0]
+        if not comp.get("status", {}).get("type", {}).get("completed"):
+            continue
+        comp_ids = [str(c.get("team", {}).get("id", "")) for c in comp.get("competitors", [])]
+        if opp_id_str in comp_ids:
+            h2h_game_ids.append(event["id"])
+
+    result: dict[str, list[float]] = defaultdict(list)
+    for gid in h2h_game_ids:
+        box = _parse_boxscore(gid, team_id)
+        for p in box:
+            if not p["dnp"] and p["minutes"] >= 0.5:
+                result[p["name"]].append(p["minutes"])
+
+    out = dict(result)
+    _save_cache(cache_key, out, ttl_hours=6.0)
+    return out
 
 
 def get_matchup_summary(team_name: str, opp_name: str) -> dict:
