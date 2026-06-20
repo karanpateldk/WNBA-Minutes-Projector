@@ -241,8 +241,17 @@ def render_player_row(
     # col_adj is intentionally left empty here — filled by _render_adj_cell() after the call
 
     with col_note:
-        foul_note = (foul_notes or {}).get(p.name)
-        dnp_last  = last_game_min == 0 and p.status == "Active" and p.projected_min > 0
+        foul_note   = (foul_notes or {}).get(p.name)
+        dnp_last    = last_game_min == 0 and p.status == "Active" and p.projected_min > 0
+        last3_range = 0.0
+        if p.name in team_data and isinstance(team_data[p.name], dict):
+            last3_range = team_data[p.name].get("last3_range", 0.0) or 0.0
+        volatile = (
+            last3_range >= 12.0
+            and p.status in ("Active", "Probable")
+            and p.projected_min > 0
+        )
+
         if foul_note:
             st.markdown(
                 f'<span style="font-size:0.75rem;color:#fd7e14;font-weight:600">⚠ {foul_note}</span>',
@@ -250,7 +259,14 @@ def render_player_row(
             )
         elif p.note and p.replaced_player and p.replaced_player in starters_set:
             st.caption(p.note)
-        elif p.injury:
+        elif p.status in ("Questionable", "Day-To-Day"):
+            label = p.status
+            note_text = f"{label} — {p.injury}" if p.injury else label
+            st.markdown(
+                f'<span style="font-size:0.75rem;color:{color};font-weight:600">{note_text}</span>',
+                unsafe_allow_html=True,
+            )
+        elif p.injury and p.status not in ("Active", "Probable"):
             st.markdown(
                 f'<span style="font-size:0.75rem;color:{color};font-weight:600">{p.injury}</span>',
                 unsafe_allow_html=True,
@@ -260,16 +276,11 @@ def render_player_row(
                 '<span style="font-size:0.75rem;color:#6c757d;font-weight:600">DNP last game</span>',
                 unsafe_allow_html=True,
             )
-        else:
-            # Flag unstable minutes: last-3 range > 12 min (top ~10% most volatile in WNBA)
-            last3_range = 0.0
-            if p.name in team_data and isinstance(team_data[p.name], dict):
-                last3_range = team_data[p.name].get("last3_range", 0.0)
-            if last3_range >= 12.0:
-                st.markdown(
-                    '<span style="font-size:0.75rem;color:#6c757d;font-weight:600">Volatile mins</span>',
-                    unsafe_allow_html=True,
-                )
+        elif volatile:
+            st.markdown(
+                '<span style="font-size:0.75rem;color:#6c757d;font-weight:600">Volatile mins</span>',
+                unsafe_allow_html=True,
+            )
 
 
 # ---------------------------------------------------------------------------
