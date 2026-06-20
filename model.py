@@ -299,7 +299,7 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
     if starters_needed > 0:
         # Collect positions still missing a starter
         out_names = {name for name, _ in out_players}
-        out_positions = [info["pos"] for name, info in out_players
+        out_positions = [info.get("pos", "?") for name, info in out_players
                          if next((p for p in projections
                                   if p.name == name and p.projected_min == 0), None)]
         bench_active = sorted(

@@ -52,9 +52,10 @@ def _load_cache(key: str):
     return data.get("payload")
 
 
-def _save_cache(key: str, payload):
+def _save_cache(key: str, payload, ttl_hours: float = CACHE_TTL_HOURS):
     _cache_path(key).write_text(
-        json.dumps({"timestamp": datetime.now().isoformat(), "payload": payload}, indent=2)
+        json.dumps({"timestamp": datetime.now().isoformat(),
+                    "payload": payload, "ttl_hours": ttl_hours}, indent=2)
     )
 
 

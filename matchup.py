@@ -546,51 +546,35 @@ def get_matchup_summary(team_name: str, opp_name: str) -> dict:
         confidence = "low"
 
     notes = []
+    sample         = profile.get("sample_games", 0)
+    blowout_rate   = profile.get("blowout_rate", 0.0)
+    blowout_count  = round(blowout_rate * sample)
+    avg_margin_all = profile.get("avg_margin", 0.0)
+    opp_depth      = profile.get("rotation_depth", 8)
 
-    # Always show why confidence is what it is
-    if confidence == "low" and n_h2h == 0:
-        notes.append("No H2H games played yet this season — projections based on season tendencies only")
-
-    # --- H2H scores (most useful concrete fact) ---
+    # H2H results this season
     if h2h_scores:
         scores_str = "  |  ".join(h2h_scores)
         avg_margin = sum(h2h_margins) / n_h2h
-        direction  = "up" if avg_margin > 0 else "down"
-        notes.append(f"H2H scores this season: {scores_str}  (avg margin {direction} {abs(avg_margin):.0f} pts)")
+        sign = "+" if avg_margin >= 0 else ""
+        notes.append(f"H2H results: {scores_str} &nbsp; (avg margin {sign}{avg_margin:.0f} pts)")
+    else:
+        notes.append("No H2H games played yet this season")
 
-    # --- Opponent blowout tendency across their full season ---
-    sample = profile.get("sample_games", 0)
-    blowout_rate  = profile.get("blowout_rate", 0.0)
-    blowout_count = round(blowout_rate * sample)   # derive count from rate × sample
-    avg_margin_all = profile.get("avg_margin", 0.0)
-
+    # Blowout tendency
     if sample >= 4:
         if blowout_rate >= 0.40:
-            notes.append(
-                f"{opp_name} in blowouts (15+ pt margin) {blowout_count}/{sample} games this season "
-                f"— bench players often get extra run late"
-            )
+            notes.append(f"{blowout_count}/{sample} games decided by 15+ pts — bench gets extra run late")
         elif blowout_rate <= 0.15:
-            notes.append(
-                f"{opp_name} in blowouts only {blowout_count}/{sample} games — games tend to stay close, "
-                f"expect starters to play full rotations"
-            )
+            notes.append(f"Only {blowout_count}/{sample} blowouts — close games, starters play full rotations")
         else:
-            notes.append(
-                f"{opp_name} blowout rate: {blowout_count}/{sample} games (avg margin {avg_margin_all:.0f} pts across all games)"
-            )
-    else:
-        notes.append(f"{opp_name} season sample too small ({sample} games) — blowout tendency not yet reliable")
+            notes.append(f"{blowout_count}/{sample} blowouts &nbsp;|&nbsp; avg margin {avg_margin_all:+.0f} pts")
 
-    # --- Rotation depth context ---
-    opp_depth = profile.get("rotation_depth", 8)
+    # Rotation depth
     if opp_depth >= 10:
-        notes.append(f"{opp_name} runs a {opp_depth}-player rotation — deep bench matchup, expect wider rotations")
+        notes.append(f"Runs a {opp_depth}-player rotation — expect deeper bench usage")
     elif opp_depth <= 7:
-        notes.append(f"{opp_name} runs a tight {opp_depth}-player rotation — starters likely log heavy minutes")
-
-    if not notes:
-        notes.append("No H2H games played yet this season — projections based on season tendencies only.")
+        notes.append(f"Tight {opp_depth}-player rotation — starters carry heavy minutes")
 
     return {
         "notes":        notes,
