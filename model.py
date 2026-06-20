@@ -211,10 +211,7 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
     injury_overrides = injury_overrides or {}
     role_overrides = role_overrides or {}
 
-    # Fit OLS once for the whole team using this season's data
-    total_games = max((v.get("games_played", 0) for v in team_data.values()
-                       if isinstance(v, dict)), default=0)
-    ols_coeffs = _fit_ols(team_data) if total_games >= 15 else None
+    ols_coeffs = None  # OLS regresses players toward team mean — disabled in favour of weighted blend
 
     # Pre-compute role-typical minute targets for blending when role is overridden.
     # "What does a starter on this team typically play?" — median of current starters.
