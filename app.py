@@ -610,7 +610,7 @@ with st.expander("+ Add / override players manually"):
             manual_status = st.selectbox("Status", get_status_options(), key=f"manual_status_{rid}",
                                          label_visibility="collapsed")
         with mc_del:
-            st.markdown('<div style="height:1.8rem"></div>', unsafe_allow_html=True)
+            st.write(" ")
             if st.button("✕", key=f"del_row_{rid}", use_container_width=True):
                 rows_to_delete.append(rid)
 
