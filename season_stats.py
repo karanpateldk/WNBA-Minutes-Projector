@@ -521,8 +521,12 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
         # Use median for last-3 so a single bad game doesn't skew the window
         last3_avg       = _median(l3)       if l3       else trimmed_avg
         last3_clean_avg = _median(l3_clean) if l3_clean else last3_avg
-        # Range of last-3 game minutes — used to flag unstable usage
-        last3_range = round(max(l3) - min(l3), 1) if len(l3) >= 2 else 0.0
+        # Range of last-3 game minutes — used to flag unstable usage.
+        # Use clean list (foul-trouble games excluded) and also drop any game
+        # where minutes were <40% of season avg (injury exit mid-game).
+        injury_exit_threshold = trimmed_avg * 0.40
+        l3_stable = [m for m in l3_clean if m >= injury_exit_threshold]
+        last3_range = round(max(l3_stable) - min(l3_stable), 1) if len(l3_stable) >= 2 else 0.0
 
         gp = games_played[name]
         ft = foul_trouble_games[name]
