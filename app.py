@@ -723,7 +723,7 @@ hc[2].markdown("**Status**")
 hc[3].markdown("**Last**")
 hc[4].write("**Wtd**", help="Recent-weighted average minutes — emphasizes the last few games over the full season")
 hc[5].write("**Proj**", help="Final projected minutes after injury adjustments and starter/bench role assignments")
-hc[6].write(f"**{adj_col_label}**", help="Minute gain or loss vs a fully healthy lineup when no opponent is selected; actual minutes played vs that opponent this season when one is selected")
+hc[6].write(f"**{adj_col_label}**", help="Change vs baseline when no opponent selected; actual H2H minutes when opponent is selected")
 hc[7].markdown("**Note**")
 
 # Build lookup maps
