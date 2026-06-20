@@ -454,37 +454,38 @@ def _render_status_grid(names: list[str]):
                 gp_str = f"{gp} GP" if gp > 0 else ""
                 gs_str = f" / {gs} GS" if gs > 0 else ""
 
-                st.markdown(
-                    f'<div style="font-weight:600;margin-bottom:2px">{player} '
-                    f'<span style="font-size:0.75rem;color:{color}">({info.get("pos","?")})</span>'
-                    f'</div>'
-                    f'<div style="font-size:0.75rem;opacity:0.6;margin-bottom:4px">'
-                    f'{avg:.0f} mpg &nbsp;·&nbsp; {gp_str}{gs_str}'
-                    f'</div>',
-                    unsafe_allow_html=True,
-                )
+                with st.container(border=True):
+                    st.markdown(
+                        f'<div style="font-weight:600;margin-bottom:2px">{player} '
+                        f'<span style="font-size:0.75rem;color:{color}">({info.get("pos","?")})</span>'
+                        f'</div>'
+                        f'<div style="font-size:0.75rem;opacity:0.75;margin-bottom:4px">'
+                        f'{avg:.0f} mpg &nbsp;·&nbsp; {gp_str}{gs_str}'
+                        f'</div>',
+                        unsafe_allow_html=True,
+                    )
 
-                # Role on top
-                role_options  = ["Starter", "Bench"]
-                saved_role    = st.session_state.role_overrides.get(player, default_role)
-                role_idx      = 0 if saved_role == "starter" else 1
-                selected_role = st.selectbox(
-                    "Role", role_options, index=role_idx,
-                    key=f"role_{player}", label_visibility="collapsed",
-                )
-                new_role = "starter" if selected_role == "Starter" else "bench"
-                if new_role != default_role:
-                    role_overrides[player] = new_role
-                    st.session_state.role_overrides[player] = new_role
-                else:
-                    st.session_state.role_overrides.pop(player, None)
+                    # Role on top
+                    role_options  = ["Starter", "Bench"]
+                    saved_role    = st.session_state.role_overrides.get(player, default_role)
+                    role_idx      = 0 if saved_role == "starter" else 1
+                    selected_role = st.selectbox(
+                        "Role", role_options, index=role_idx,
+                        key=f"role_{player}", label_visibility="collapsed",
+                    )
+                    new_role = "starter" if selected_role == "Starter" else "bench"
+                    if new_role != default_role:
+                        role_overrides[player] = new_role
+                        st.session_state.role_overrides[player] = new_role
+                    else:
+                        st.session_state.role_overrides.pop(player, None)
 
-                # Status below
-                status = st.selectbox(
-                    "Status", status_options, index=default_idx,
-                    key=f"status_{player}", label_visibility="collapsed",
-                )
-                player_statuses[player] = status
+                    # Status below
+                    status = st.selectbox(
+                        "Status", status_options, index=default_idx,
+                        key=f"status_{player}", label_visibility="collapsed",
+                    )
+                    player_statuses[player] = status
 
 _render_status_grid(relevant_players)
 
