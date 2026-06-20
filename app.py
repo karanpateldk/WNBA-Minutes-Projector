@@ -553,12 +553,16 @@ if "manual_added_players" not in st.session_state:
     st.session_state.manual_added_players = {}
 
 with st.expander("+ Add / override players manually"):
-    manual_options = ["— select or type below —"] + ALL_PLAYERS
+    manual_options = ["— select player —"] + ALL_PLAYERS
 
-    if st.button("+ Add another player", key="add_row_btn"):
-        st.session_state.manual_row_ids.append(st.session_state.manual_next_id)
-        st.session_state.manual_next_id += 1
-        st.rerun()
+    # Header row — matches widget label style
+    hdr1, hdr2, hdr3, hdr4, hdr5, hdr_del = st.columns([3, 1.2, 1.5, 1.5, 1.5, 0.8])
+    hdr1.caption("Player")
+    hdr2.caption("Pos")
+    hdr3.caption("Role")
+    hdr4.caption("Mins")
+    hdr5.caption("Status")
+    hdr_del.caption("Remove")
 
     rows_to_delete = []
 
@@ -567,7 +571,6 @@ with st.expander("+ Add / override players manually"):
         min_txt_key = f"manual_min_text_{rid}"
         pending_key = f"manual_min_pending_{rid}"
 
-        # Apply button update BEFORE any widget on this row renders
         if pending_key in st.session_state:
             st.session_state[min_key]     = st.session_state.pop(pending_key)
             st.session_state[min_txt_key] = str(st.session_state[min_key])
@@ -578,18 +581,17 @@ with st.expander("+ Add / override players manually"):
 
         mc1, mc2, mc3, mc4, mc5, mc_del = st.columns([3, 1.2, 1.5, 1.5, 1.5, 0.8])
         with mc1:
-            manual_pick = st.selectbox("Player name", manual_options, key=f"manual_pick_{rid}")
-            manual_name = st.text_input("Or type name manually", key=f"manual_name_{rid}",
-                                        placeholder="e.g. Sophie Cunningham")
-            effective_name = manual_name.strip() if manual_name.strip() else (
-                manual_pick if manual_pick != "— select or type below —" else ""
-            )
+            manual_pick = st.selectbox("Player", manual_options, key=f"manual_pick_{rid}",
+                                       label_visibility="collapsed")
+            effective_name = manual_pick if manual_pick != "— select player —" else ""
         with mc2:
-            manual_pos = st.selectbox("Pos", POSITIONS, key=f"manual_pos_{rid}")
+            manual_pos = st.selectbox("Pos", POSITIONS, key=f"manual_pos_{rid}",
+                                      label_visibility="collapsed")
         with mc3:
-            manual_role = st.selectbox("Role", ["starter", "bench"], key=f"manual_role_{rid}")
+            manual_role = st.selectbox("Role", ["starter", "bench"], key=f"manual_role_{rid}",
+                                       label_visibility="collapsed")
         with mc4:
-            typed = st.text_input("Mins", key=min_txt_key)
+            typed = st.text_input("Mins", key=min_txt_key, label_visibility="collapsed")
             try:
                 st.session_state[min_key] = max(0, min(40, int(typed)))
             except ValueError:
@@ -605,11 +607,18 @@ with st.expander("+ Add / override players manually"):
                     st.rerun()
             manual_min = st.session_state[min_key]
         with mc5:
-            manual_status = st.selectbox("Status", get_status_options(), key=f"manual_status_{rid}")
+            manual_status = st.selectbox("Status", get_status_options(), key=f"manual_status_{rid}",
+                                         label_visibility="collapsed")
         with mc_del:
-            st.markdown("**Remove**")
+            st.markdown('<div style="height:1.8rem"></div>', unsafe_allow_html=True)
             if st.button("✕", key=f"del_row_{rid}", use_container_width=True):
                 rows_to_delete.append(rid)
+
+    st.markdown('<div style="margin-top:8px"></div>', unsafe_allow_html=True)
+    if st.button("+ Add another player", key="add_row_btn"):
+        st.session_state.manual_row_ids.append(st.session_state.manual_next_id)
+        st.session_state.manual_next_id += 1
+        st.rerun()
 
         if effective_name and rid not in rows_to_delete:
             st.session_state.manual_added_players[rid] = {
@@ -906,8 +915,8 @@ if show_charts:
             if not raw_hist:
                 # No play-by-play data yet — show a placeholder row
                 st.markdown(
-                    f'<div style="margin:6px 0;font-size:0.85rem;color:#888">'
-                    f'<strong>{p.name}</strong> — no quarter data yet (need play-by-play)</div>',
+                    f'<div style="margin:6px 0;font-size:0.85rem;opacity:0.55">'
+                    f'<strong>{p.name}</strong> — no quarter data yet</div>',
                     unsafe_allow_html=True,
                 )
                 continue
@@ -925,7 +934,7 @@ if show_charts:
                 f'<div style="display:flex;align-items:baseline;gap:10px;margin-top:10px;margin-bottom:3px">'
                 f'<span style="font-weight:700;font-size:0.95rem">{p.name}</span>'
                 f'<span style="font-size:0.78rem;color:{status_color}">{p.pos}</span>'
-                f'<span style="font-size:0.78rem;color:#888">Proj: {p.projected_min:.1f} min total</span>'
+                f'<span style="font-size:0.78rem;opacity:0.55">Proj: {p.projected_min:.1f} min total</span>'
                 f'</div>',
                 unsafe_allow_html=True,
             )
@@ -943,8 +952,8 @@ if show_charts:
 
                 bar_html = (
                     f'<div style="text-align:center">'
-                    f'<div style="font-size:0.7rem;font-weight:600;color:#555;margin-bottom:2px">{Q_LABELS[q]}</div>'
-                    f'<div style="background:#e9ecef;border-radius:4px;height:12px;overflow:hidden">'
+                    f'<div style="font-size:0.7rem;font-weight:600;opacity:0.6;margin-bottom:2px">{Q_LABELS[q]}</div>'
+                    f'<div style="background:rgba(128,128,128,0.18);border-radius:4px;height:12px;overflow:hidden">'
                     f'<div style="width:{bar_w}%;background:{color};height:100%;'
                     f'opacity:{opacity:.2f};border-radius:4px"></div>'
                     f'</div>'
@@ -956,7 +965,7 @@ if show_charts:
         # Team quarter totals — useful for seeing how heavy the starter load is per quarter
         st.markdown("---")
         st.markdown(
-            '<div style="font-size:0.8rem;font-weight:600;color:#555;margin-bottom:4px">'
+            '<div style="font-size:0.8rem;font-weight:600;opacity:0.7;margin-bottom:4px">'
             'Combined starter minutes per quarter</div>',
             unsafe_allow_html=True,
         )
