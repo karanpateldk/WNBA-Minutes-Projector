@@ -803,6 +803,7 @@ def get_team_data(team_name: str) -> dict:
             "role":              role,
             "depth":             depth,
             "avg_min":           round(avg_min, 1),
+            "ewma_min":          sp.get("ewma_min", round(avg_min, 1)),
             "clean_avg_min":     round(clean_avg_min, 1),
             "last3_avg":         round(last3_avg, 1),
             "last3_clean_avg":   round(last3_clean_avg, 1),

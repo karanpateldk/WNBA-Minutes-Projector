@@ -130,6 +130,56 @@ def _iqr_trim(values: list[float]) -> list[float]:
     return kept if kept else values
 
 
+def _ewma(values: list[float], halflife: float = 4.0) -> float:
+    """
+    Exponentially weighted moving average. halflife=4 means a game 4 games
+    ago has half the weight of the most recent game. Uses full history so
+    it's strictly better than last-3 median for trend detection.
+    """
+    if not values:
+        return 0.0
+    alpha = 1.0 - 0.5 ** (1.0 / halflife)
+    result = values[0]
+    for v in values[1:]:
+        result = alpha * v + (1.0 - alpha) * result
+    return round(result, 1)
+
+
+def _context_filter(minutes_list: list[float], fouls_list: list[int],
+                    margins_list: list[float]) -> list[float]:
+    """
+    Remove atypical games before computing EWMA:
+    - Foul trouble (4+ fouls)
+    - Blowouts (margin > 15 pts)
+    - Injury-return games (first game back — minutes < 40% of trimmed avg)
+    Always keeps at least 60% of games.
+    """
+    n = len(minutes_list)
+    if n < 3:
+        return minutes_list
+
+    trimmed = _trimmed_avg(minutes_list)
+    injury_return = set()
+    for i in range(n):
+        if minutes_list[i] < trimmed * 0.40:
+            # Only flag as injury return if NOT two consecutive low games
+            if i == 0 or minutes_list[i - 1] >= trimmed * 0.40:
+                injury_return.add(i)
+
+    kept = []
+    for i, m in enumerate(minutes_list):
+        foul_game = fouls_list[i] >= 4 if i < len(fouls_list) else False
+        blowout   = abs(margins_list[i]) >= 15 if i < len(margins_list) else False
+        ret_game  = i in injury_return
+        if not (foul_game or blowout or ret_game):
+            kept.append(m)
+
+    min_keep = max(3, int(n * 0.60))
+    if len(kept) < min_keep:
+        kept = minutes_list[-min_keep:]
+    return kept if kept else minutes_list
+
+
 # ---------------------------------------------------------------------------
 # Cache
 # ---------------------------------------------------------------------------
@@ -439,12 +489,34 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
     most_recent_starters: list[str] = []
     rotation_counts_per_game: list[int] = []
     boxscore_cache: dict[str, list[dict]] = {}
+    game_margins: dict[str, float] = {}   # game_id -> point differential (team - opp)
+    player_fouls_by_game: dict[str, list[int]] = defaultdict(list)
+    player_margins_by_game: dict[str, list[float]] = defaultdict(list)
 
     for i, (gid, game_date) in enumerate(games_with_dates):
         box = _parse_boxscore(gid, team_id)
         if not box:
             continue
         boxscore_cache[gid] = box
+
+        # Get game margin from the summary data (already fetched by _parse_boxscore)
+        try:
+            summary = _get(f"https://site.api.espn.com/apis/site/v2/sports/basketball/wnba/summary?event={gid}")
+            competitors = summary.get("header", {}).get("competitions", [{}])[0].get("competitors", [])
+            team_score = opp_score = None
+            for c in competitors:
+                score_val = c.get("score", {})
+                val = float(score_val.get("value", score_val)) if isinstance(score_val, dict) else float(score_val or 0)
+                if str(c.get("team", {}).get("id", "")) == str(team_id):
+                    team_score = val
+                else:
+                    opp_score = val
+            if team_score is not None and opp_score is not None:
+                game_margins[gid] = team_score - opp_score
+            else:
+                game_margins[gid] = 0.0
+        except Exception:
+            game_margins[gid] = 0.0
 
         game_starters = {p["name"] for p in box if p["starter"] and not p["dnp"]}
 
@@ -466,6 +538,8 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
                 foul_trouble_games[name] += 1
             else:
                 clean_minutes[name].append(p["minutes"])
+            player_fouls_by_game[name].append(p.get("fouls", 0))
+            player_margins_by_game[name].append(game_margins.get(gid, 0.0))
 
         if rotation_count > 0:
             rotation_counts_per_game.append(rotation_count)
@@ -533,6 +607,12 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
         sp = round(starter_games[name] / gp, 2) if gp > 0 else 0.0
         foul_rate = round(ft / gp, 2) if gp > 0 else 0.0
 
+        # EWMA with context filter
+        fouls_seq   = player_fouls_by_game.get(name, [])
+        margins_seq = player_margins_by_game.get(name, [])
+        ctx_mins    = _context_filter(mins_list, fouls_seq, margins_seq)
+        ewma_min    = _ewma(ctx_mins) if len(ctx_mins) >= 2 else trimmed_avg
+
         # Quarter averages — per-quarter trimmed median, weighted toward recent games.
         #
         # Three-step clean before averaging each quarter:
@@ -571,6 +651,7 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
 
         players[name] = {
             "avg_min":          trimmed_avg,     # outlier-trimmed season avg (primary)
+            "ewma_min":         ewma_min,        # EWMA with context filter (primary forecast)
             "raw_avg_min":      avg,             # unfiltered mean (for display/debug)
             "clean_avg_min":    clean_avg,       # season avg excluding foul-trouble games
             "last3_avg":        last3_avg,       # median of last 3 games

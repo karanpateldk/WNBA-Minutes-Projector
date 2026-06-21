@@ -236,17 +236,29 @@ def render_player_row(
         if p.projected_min == 0:
             st.markdown("**OUT**")
         else:
-            st.markdown(f'<span class="mins-big">{p.projected_min:.1f}</span>', unsafe_allow_html=True)
+            conf = getattr(p, 'confidence', 0)
+            if conf >= 70:
+                dot = '<span style="color:#28a745;font-size:0.6rem">●</span>'
+            elif conf >= 45:
+                dot = '<span style="color:#ffc107;font-size:0.6rem">●</span>'
+            else:
+                dot = '<span style="color:#dc3545;font-size:0.6rem">●</span>'
+            st.markdown(
+                f'<span class="mins-big">{p.projected_min:.1f}</span>{dot}',
+                unsafe_allow_html=True,
+            )
 
     # col_adj is intentionally left empty here — filled by _render_adj_cell() after the call
 
     with col_note:
         foul_note   = (foul_notes or {}).get(p.name)
         # DNP only fires for truly Active players (not on injury report) who had 0 min last game
-        dnp_last    = (last_game_min == 0
-                       and p.status == "Active"
-                       and p.projected_min > 0
-                       and not p.injury)
+        dnp_last = (last_game_min == 0
+                    and p.status == "Active"
+                    and p.projected_min > 0
+                    and not p.injury
+                    and team_data.get(p.name, {}).get("games_played", 0) >= 3
+                    and team_data.get(p.name, {}).get("recently_active", False))
         last3_range = 0.0
         if p.name in team_data and isinstance(team_data[p.name], dict):
             last3_range = team_data[p.name].get("last3_range", 0.0) or 0.0
@@ -372,14 +384,14 @@ with st.sidebar:
 
     st.markdown("---")
     st.markdown("**Quick Reference**")
-    st.caption("Active — full minutes")
-    st.caption("Probable — slight reduction (-5 to -15%)")
-    st.caption("Questionable — moderate reduction (-25 to -70%)")
-    st.caption("Doubtful — heavy reduction (-80 to -90%)")
-    st.caption("Out — 0 min, minutes redistributed to active players")
+    st.caption("Active — full minutes projected")
+    st.caption("Probable — minor reduction expected")
+    st.caption("Questionable — significant reduction, may not play")
+    st.caption("Doubtful — unlikely to play, heavy reduction")
+    st.caption("Out — 0 minutes, redistributed to active players")
     st.markdown("---")
     show_charts = st.checkbox("Show quarter breakdown", value=True)
-    show_delta = st.checkbox("Show delta vs baseline", value=True)
+    show_delta = st.checkbox("Show delta vs baseline", value=False)
     export_excel = st.button("Export to Excel", use_container_width=True)
 
 

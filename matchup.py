@@ -301,7 +301,9 @@ def _get_player_vs_opp_minutes(
             continue
         comp_ids = [str(c.get("team", {}).get("id", ""))
                     for c in comp.get("competitors", [])]
-        if opp_id_str in comp_ids:
+        raw_date = event.get("date", "")
+        game_date = raw_date[:10] if raw_date else ""
+        if opp_id_str in comp_ids and game_date >= "2026-05-16":
             h2h_game_ids.append(event["id"])
 
     result: dict[str, list[float]] = defaultdict(list)
@@ -355,7 +357,9 @@ def get_h2h_foul_notes(
             continue
         comp_ids = [str(c.get("team", {}).get("id", ""))
                     for c in comp.get("competitors", [])]
-        if opp_id_str in comp_ids:
+        raw_date = event.get("date", "")
+        game_date = raw_date[:10] if raw_date else ""
+        if opp_id_str in comp_ids and game_date >= "2026-05-16":
             h2h_game_ids.append(event["id"])
 
     if not h2h_game_ids:
@@ -503,7 +507,9 @@ def get_player_h2h_minutes(team_name: str, opp_name: str) -> dict[str, list[floa
         if not comp.get("status", {}).get("type", {}).get("completed"):
             continue
         comp_ids = [str(c.get("team", {}).get("id", "")) for c in comp.get("competitors", [])]
-        if opp_id_str in comp_ids:
+        raw_date = event.get("date", "")
+        game_date = raw_date[:10] if raw_date else ""
+        if opp_id_str in comp_ids and game_date >= "2026-05-16":
             h2h_game_ids.append(event["id"])
 
     result: dict[str, list[float]] = defaultdict(list)

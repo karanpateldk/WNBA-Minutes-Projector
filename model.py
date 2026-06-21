@@ -52,6 +52,8 @@ class PlayerProjection:
     is_replacement: bool = False
     replaced_player: str = ""
     note: str = ""
+    confidence: int = 0
+    reasons: list = field(default_factory=list)
 
     @property
     def status_color(self) -> str:
@@ -196,6 +198,45 @@ def _apply_injury_scale(base_min: float, status: str, duration: str = "new") -> 
     return round(base_min * STATUS_SCALE.get(status, 1.0), 1)
 
 
+def _confidence_score(gp: int, avg_min: float, last3_range: float,
+                      status: str, start_pct: float) -> int:
+    score = 50
+    score += min(gp * 2, 20)
+    if start_pct >= 0.80 or start_pct <= 0.20:
+        score += 15
+    elif start_pct >= 0.60 or start_pct <= 0.40:
+        score += 7
+    if last3_range < 5:
+        score += 10
+    elif last3_range > 14:
+        score -= 15
+    penalties = {"Questionable": -10, "Doubtful": -20, "Day-To-Day": -20, "Probable": -5}
+    score += penalties.get(status, 0)
+    if avg_min < 8:
+        score -= 10
+    return max(0, min(100, score))
+
+
+def _reason_codes(role: str, ewma_min: float, avg_min: float, status: str,
+                  is_replacement: bool, gp: int, last3_range: float) -> list:
+    reasons = []
+    if role == "starter":
+        reasons.append("Projected starter")
+    if avg_min > 0 and ewma_min > avg_min * 1.10:
+        reasons.append("Trending up")
+    elif avg_min > 0 and ewma_min < avg_min * 0.90:
+        reasons.append("Trending down")
+    if status not in ("Active", "Probable"):
+        reasons.append("Injury adjustment")
+    if is_replacement:
+        reasons.append("Beneficiary of absence")
+    if gp < 5:
+        reasons.append("Limited sample")
+    if last3_range >= 14:
+        reasons.append("Volatile minutes")
+    return reasons
+
+
 def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = None,
                      duration_map: dict[str, str] | None = None,
                      role_overrides: dict[str, str] | None = None) -> TeamLineup:
@@ -247,15 +288,21 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
             continue
         status = injury_overrides.get(player, info.get("status", "Active"))
         gp = info.get("games_played", 0)
-        avg_min = info.get("avg_min", 10.0)
-        base_min = _weighted_minutes(
-            avg_min,
-            info.get("last3_avg", avg_min),
-            gp,
-            clean_avg=info.get("clean_avg_min"),
-            last3_clean_avg=info.get("last3_clean_avg"),
-            ols_coeffs=ols_coeffs,
-        )
+        avg_min  = info.get("avg_min", 10.0)
+        ewma_min = info.get("ewma_min", avg_min)
+
+        if gp >= 3 and ewma_min > 0:
+            # EWMA already context-filtered — blend 80% EWMA + 20% season avg
+            base_min = round(ewma_min * 0.80 + avg_min * 0.20, 1)
+        else:
+            base_min = _weighted_minutes(
+                avg_min,
+                info.get("last3_avg", avg_min),
+                gp,
+                clean_avg=info.get("clean_avg_min"),
+                last3_clean_avg=info.get("last3_clean_avg"),
+                ols_coeffs=ols_coeffs,
+            )
         if gp == 0:
             base_min = min(base_min, 3.0)   # no games played — cap at 3 min regardless of default
         elif gp <= 2:
@@ -275,6 +322,18 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
 
         proj_min = _apply_injury_scale(base_min, status)
 
+        conf = _confidence_score(
+            gp, avg_min,
+            info.get("last3_range", 0.0) or 0.0,
+            status,
+            info.get("starter_pct", 0.0),
+        )
+        reasons = _reason_codes(
+            role, ewma_min, avg_min, status,
+            False,  # is_replacement set later
+            gp, info.get("last3_range", 0.0) or 0.0,
+        )
+
         p = PlayerProjection(
             name=player,
             pos=info.get("pos", "?"),
@@ -284,6 +343,8 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
             projected_min=proj_min,
             status=status,
             injury=info.get("injury", ""),
+            confidence=conf,
+            reasons=reasons,
         )
         projections.append(p)
         if proj_min == 0.0 and status in ("Out", "Doubtful"):
