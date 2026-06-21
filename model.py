@@ -291,18 +291,17 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
         avg_min  = info.get("avg_min", 10.0)
         ewma_min = info.get("ewma_min", avg_min)
 
-        if gp >= 3 and ewma_min > 0:
-            # EWMA already context-filtered — blend 80% EWMA + 20% season avg
-            base_min = round(ewma_min * 0.80 + avg_min * 0.20, 1)
-        else:
-            base_min = _weighted_minutes(
-                avg_min,
-                info.get("last3_avg", avg_min),
-                gp,
-                clean_avg=info.get("clean_avg_min"),
-                last3_clean_avg=info.get("last3_clean_avg"),
-                ols_coeffs=ols_coeffs,
-            )
+        # Backtest result: season_avg (MAE 4.46) outperforms EWMA (4.62) at current
+        # sample sizes (12-16 games). Use the trimmed season avg + last3 blend as primary.
+        # EWMA is retained for confidence/reason codes and will improve as season grows.
+        base_min = _weighted_minutes(
+            avg_min,
+            info.get("last3_avg", avg_min),
+            gp,
+            clean_avg=info.get("clean_avg_min"),
+            last3_clean_avg=info.get("last3_clean_avg"),
+            ols_coeffs=ols_coeffs,
+        )
         if gp == 0:
             base_min = min(base_min, 3.0)   # no games played — cap at 3 min regardless of default
         elif gp <= 2:
