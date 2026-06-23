@@ -238,13 +238,23 @@ def render_player_row(
         else:
             conf = getattr(p, 'confidence', 0)
             if conf >= 70:
-                dot = '<span style="color:#28a745;font-size:0.6rem">●</span>'
+                badge_bg    = "#28a745"
+                conf_label  = "HIGH"
             elif conf >= 45:
-                dot = '<span style="color:#ffc107;font-size:0.6rem">●</span>'
+                badge_bg    = "#e6a817"
+                conf_label  = "MED"
             else:
-                dot = '<span style="color:#dc3545;font-size:0.6rem">●</span>'
+                badge_bg    = "#dc3545"
+                conf_label  = "LOW"
             st.markdown(
-                f'<span class="mins-big">{p.projected_min:.1f}</span>{dot}',
+                f'<table style="border:none;border-collapse:collapse;margin:0;padding:0">'
+                f'<tr style="vertical-align:middle">'
+                f'<td style="border:none;padding:0 6px 0 0;font-size:1.4rem;font-weight:700;line-height:1">{p.projected_min:.1f}</td>'
+                f'<td style="border:none;padding:0">'
+                f'<span style="background:{badge_bg};color:#fff;font-size:0.62rem;font-weight:700;'
+                f'padding:2px 6px;border-radius:8px;letter-spacing:0.04em;white-space:nowrap">{conf_label}</span>'
+                f'</td>'
+                f'</tr></table>',
                 unsafe_allow_html=True,
             )
 
@@ -354,7 +364,9 @@ with st.sidebar:
 
     st.markdown("---")
     st.markdown("**Data Sources**")
-    st.caption("Rosters, minutes & injuries: ESPN API")
+    st.caption("Play-by-play, box scores & schedule: Sportradar via Snowflake (primary)")
+    st.caption("Rosters & injuries: ESPN API (primary)")
+    st.caption("Sportradar is fallback for injuries; ESPN is fallback for stats if Snowflake is unavailable.")
     st.caption("Data refreshes every 4 hours.")
 
     if st.button("Update Rosters & Stats", use_container_width=True, type="primary"):
@@ -749,6 +761,22 @@ if selected_opponent:
 
 st.markdown('<div class="section-header">Projected Lineup</div>', unsafe_allow_html=True)
 
+# Confidence legend
+st.markdown(
+    '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap">'
+    '<span style="font-size:0.8rem;font-weight:600;opacity:0.8">Confidence:</span>'
+    '<span style="background:#28a745;color:#fff;font-size:0.7rem;font-weight:700;padding:2px 8px;border-radius:10px">HIGH</span>'
+    '<span style="font-size:0.78rem;opacity:0.75">Strong sample, stable role, healthy</span>'
+    '<span style="opacity:0.4">|</span>'
+    '<span style="background:#e6a817;color:#fff;font-size:0.7rem;font-weight:700;padding:2px 8px;border-radius:10px">MED</span>'
+    '<span style="font-size:0.78rem;opacity:0.75">Limited games or injury uncertainty</span>'
+    '<span style="opacity:0.4">|</span>'
+    '<span style="background:#dc3545;color:#fff;font-size:0.7rem;font-weight:700;padding:2px 8px;border-radius:10px">LOW</span>'
+    '<span style="font-size:0.78rem;opacity:0.75">Volatile minutes, questionable/doubtful, or small sample</span>'
+    '</div>',
+    unsafe_allow_html=True,
+)
+
 # Show matchup context banner when an opponent is selected
 if selected_opponent and matchup_summary:
     conf       = matchup_summary.get("confidence", "low")
@@ -797,7 +825,7 @@ hc[1].markdown("**Pos**")
 hc[2].markdown("**Status**")
 hc[3].markdown("**Last**")
 hc[4].markdown('<span title="Recent-weighted average — emphasizes last few games over the full season" style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>Wtd ⓘ</b></span>', unsafe_allow_html=True)
-hc[5].markdown('<span title="Final projected minutes after injury adjustments and starter/bench role assignments" style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>Proj ⓘ</b></span>', unsafe_allow_html=True)
+hc[5].markdown('<span title="Projected minutes / Confidence level (HIGH=green, MED=amber, LOW=red)" style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>Proj / Conf ⓘ</b></span>', unsafe_allow_html=True)
 hc[6].markdown(f'<span title="Change vs fully healthy lineup; shows actual H2H minutes when an opponent is selected" style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>{adj_col_label} ⓘ</b></span>', unsafe_allow_html=True)
 hc[7].markdown("**Note**")
 
@@ -1091,3 +1119,154 @@ with st.expander("Full WNBA Injury Report"):
         st.dataframe(df_inj, use_container_width=True, hide_index=True)
     else:
         st.info("No injury data available. ESPN may be rate-limiting. Static data in use.")
+
+# ---------------------------------------------------------------------------
+# Model Accuracy Tab
+# ---------------------------------------------------------------------------
+
+st.markdown("---")
+
+_tab_proj, _tab_accuracy = st.tabs(["📋  Projections", "📊  Model Accuracy"])
+
+with _tab_proj:
+    st.info("Scroll up to view projections for the selected team.", icon="☝️")
+
+@st.cache_data(ttl=3600, show_spinner=False)
+def _run_backtest_cached(team: str) -> dict:
+    try:
+        from backtest import run_backtest
+        return run_backtest(team, min_games=5)
+    except Exception as e:
+        return {"error": str(e)}
+
+_METHOD_LABELS = {
+    "season_avg":     "Season Avg",
+    "last3_median":   "Last 3 Median",
+    "last5_median":   "Last 5 Median",
+    "last10_median":  "Last 10 Median",
+    "ewma":           "EWMA",
+    "ewma_context":   "EWMA + Context",
+    "weighted_blend": "Weighted Blend ★",
+}
+_METHOD_ORDER = list(_METHOD_LABELS.keys())
+
+with _tab_accuracy:
+    st.markdown("## 📊 Model Accuracy")
+    st.markdown(
+        "Walk-forward backtests compare 7 forecasting methods on held-out games. "
+        "Each prediction uses only data available before that game — no lookahead. "
+        "**Powered by Sportradar play-by-play data via Snowflake.**"
+    )
+
+    bt_col1, bt_col2 = st.columns([2, 1])
+    with bt_col1:
+        bt_team = st.selectbox(
+            "Team to backtest",
+            sorted(list(TEAMS.keys())),
+            index=sorted(list(TEAMS.keys())).index(selected_team),
+            key="bt_team_select",
+        )
+    with bt_col2:
+        run_bt = st.button("Run Backtest", type="primary", use_container_width=True, key="run_bt_btn")
+        all_teams_bt = st.checkbox("All teams (slower)", key="bt_all_teams")
+
+    if run_bt:
+        if all_teams_bt:
+            with st.spinner("Running backtest across all 15 teams…"):
+                from season_stats import ESPN_TEAM_IDS
+                from collections import defaultdict
+                team_results = {}
+                for _t in sorted(ESPN_TEAM_IDS.keys()):
+                    _r = _run_backtest_cached(_t)
+                    if _r and "summary" in _r:
+                        team_results[_t] = _r["summary"]
+
+            if team_results:
+                agg_rows = []
+                for method in _METHOD_ORDER:
+                    maes = [team_results[t][method]["mae"] for t in team_results if method in team_results[t]]
+                    if maes:
+                        agg_rows.append({
+                            "Method":   _METHOD_LABELS[method],
+                            "Avg MAE":  round(sum(maes) / len(maes), 2),
+                            "Teams":    len(maes),
+                        })
+                df_agg = pd.DataFrame(agg_rows).sort_values("Avg MAE")
+                st.markdown("### Aggregate Results — All Teams")
+                st.caption(f"Averaged across {len(team_results)} teams")
+                st.dataframe(
+                    df_agg.style.background_gradient(subset=["Avg MAE"], cmap="RdYlGn_r"),
+                    use_container_width=True, hide_index=True,
+                )
+                with st.expander("Per-team breakdown (Weighted Blend)"):
+                    per_team_rows = []
+                    for _t, _summary in sorted(team_results.items()):
+                        b = _summary.get("weighted_blend", {})
+                        per_team_rows.append({
+                            "Team": _t, "MAE": b.get("mae"), "RMSE": b.get("rmse"),
+                            "MedAE": b.get("medae"), "≤2min %": b.get("pct_within_2"),
+                            "≤4min %": b.get("pct_within_4"), "Bias": b.get("bias"), "n": b.get("n", 0),
+                        })
+                    st.dataframe(pd.DataFrame(per_team_rows), use_container_width=True, hide_index=True)
+        else:
+            with st.spinner(f"Running backtest for {bt_team}…"):
+                bt_result = _run_backtest_cached(bt_team)
+
+            if "error" in bt_result:
+                st.error(f"Backtest failed: {bt_result['error']}")
+            elif "summary" in bt_result:
+                summary = bt_result["summary"]
+                n_samples = summary.get("weighted_blend", {}).get("n", 0)
+                st.markdown(f"### {bt_team} — Backtest Results")
+                st.caption(
+                    f"{n_samples} player-game predictions · walk-forward · "
+                    f"Sportradar play-by-play via Snowflake"
+                )
+                rows = []
+                for method in _METHOD_ORDER:
+                    s = summary.get(method, {})
+                    if not s:
+                        continue
+                    rows.append({
+                        "Method":  _METHOD_LABELS[method],
+                        "MAE":     s["mae"],
+                        "RMSE":    s["rmse"],
+                        "MedAE":   s["medae"],
+                        "≤2min %": s["pct_within_2"],
+                        "≤4min %": s["pct_within_4"],
+                        "Bias":    s["bias"],
+                        "n":       s["n"],
+                    })
+                df_bt = pd.DataFrame(rows)
+                st.dataframe(
+                    df_bt.style
+                        .background_gradient(subset=["MAE"], cmap="RdYlGn_r")
+                        .format({"MAE": "{:.2f}", "RMSE": "{:.2f}", "MedAE": "{:.2f}",
+                                 "≤2min %": "{:.1f}%", "≤4min %": "{:.1f}%", "Bias": "{:.2f}"}),
+                    use_container_width=True, hide_index=True,
+                )
+                blend = summary.get("weighted_blend", {})
+                if blend:
+                    st.markdown("#### Production Model — Weighted Blend ★")
+                    m1, m2, m3, m4, m5 = st.columns(5)
+                    m1.metric("MAE", f"{blend['mae']:.2f} min")
+                    m2.metric("RMSE", f"{blend['rmse']:.2f} min")
+                    m3.metric("MedAE", f"{blend['medae']:.2f} min")
+                    m4.metric("Within 2 min", f"{blend['pct_within_2']:.1f}%")
+                    m5.metric("Within 4 min", f"{blend['pct_within_4']:.1f}%")
+                    bias_note = "over-projects" if blend["bias"] > 0.3 else ("under-projects" if blend["bias"] < -0.3 else "well-calibrated")
+                    st.caption(f"Bias: {blend['bias']:+.2f} min ({bias_note})")
+                records = bt_result.get("records", [])
+                if records:
+                    df_rec = pd.DataFrame(records)
+                    df_rec["error"] = df_rec["pred_blend"] - df_rec["actual"]
+                    st.markdown("#### Error Distribution — Weighted Blend")
+                    st.caption("Positive = over-projected, negative = under-projected")
+                    st.bar_chart(
+                        df_rec["error"].round(0).value_counts().sort_index().rename("Count"),
+                        use_container_width=True,
+                    )
+            else:
+                st.warning(f"Not enough game data to backtest {bt_team} yet (need 6+ games).")
+    else:
+        st.info("Select a team and click **Run Backtest** to see accuracy metrics.", icon="📊")

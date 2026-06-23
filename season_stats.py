@@ -22,6 +22,13 @@ from datetime import datetime, timedelta
 
 sys.path.insert(0, str(Path(__file__).parent))
 
+try:
+    import snowflake_connector as _sf
+    _SF_AVAILABLE = _sf.is_available()
+except Exception:
+    _sf = None  # type: ignore
+    _SF_AVAILABLE = False
+
 CACHE_DIR = Path(__file__).parent / "data"
 CACHE_DIR.mkdir(exist_ok=True)
 
@@ -234,11 +241,15 @@ def get_all_games_with_dates(team_name: str) -> list[tuple[str, str]]:
     Return list of (game_id, date_str) for all completed REGULAR-SEASON games, oldest first.
     date_str is ISO format 'YYYY-MM-DD'.
 
-    Preseason filtering: ESPN marks each event with season.type = 1 (preseason),
-    2 (regular season), 3 (postseason). We keep only type 2.
-    Fallback: if the type field is missing, we exclude games before the first
-    regular-season tip-off date (May 16 for the 2026 WNBA season).
+    Primary source: Sportradar Snowflake (WNBA_SCHEDULE, SEASON_TYPE='REG').
+    Fallback: ESPN schedule API (used when Snowflake is unavailable).
     """
+    if _SF_AVAILABLE:
+        games = _sf.get_games_for_team(team_name)
+        if games:
+            return games
+
+    # ESPN fallback
     REGULAR_SEASON_START = "2026-05-16"   # update each year if needed
 
     team_id = ESPN_TEAM_IDS.get(team_name)
@@ -255,12 +266,10 @@ def get_all_games_with_dates(team_name: str) -> list[tuple[str, str]]:
         raw_date = e.get("date", "")
         date_str = raw_date[:10] if raw_date else ""
 
-        # Primary filter: ESPN season type 2 = regular season
         if season_type is not None:
             if season_type != 2:
                 continue
         else:
-            # Fallback: drop games before regular season start date
             if date_str and date_str < REGULAR_SEASON_START:
                 continue
 
@@ -272,10 +281,41 @@ def get_all_games_with_dates(team_name: str) -> list[tuple[str, str]]:
 # Boxscore parsing — minutes + starter flag
 # ---------------------------------------------------------------------------
 
+def _is_sr_uuid(game_id: str) -> bool:
+    """True if game_id looks like a Sportradar UUID (8-4-4-4-12 hex)."""
+    import re as _re
+    return bool(_re.match(
+        r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        str(game_id), _re.I
+    ))
+
+
+def _team_name_for_id(team_id: int) -> str:
+    """Reverse-lookup team name from ESPN team ID."""
+    for name, tid in ESPN_TEAM_IDS.items():
+        if tid == team_id:
+            return name
+    return ""
+
+
 def _parse_boxscore(game_id: str, team_id: int) -> list[dict]:
     """
     Returns list of {name, minutes, fouls, starter, dnp} for players on team_id.
+
+    Primary source: Sportradar Snowflake (when game_id is a SR UUID or Snowflake is available).
+    Fallback: ESPN summary API.
     """
+    if _SF_AVAILABLE and _is_sr_uuid(game_id):
+        team_name = _team_name_for_id(team_id)
+        if team_name:
+            rows = _sf.get_boxscore(game_id, team_name)
+            if rows:
+                return rows
+
+    # ESPN fallback (numeric game IDs only)
+    if _is_sr_uuid(game_id):
+        return []  # can't query ESPN with a SR UUID
+
     data = _get(f"https://site.api.espn.com/apis/site/v2/sports/basketball/wnba/summary?event={game_id}")
     if not data:
         return []
@@ -499,24 +539,27 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
             continue
         boxscore_cache[gid] = box
 
-        # Get game margin from the summary data (already fetched by _parse_boxscore)
-        try:
-            summary = _get(f"https://site.api.espn.com/apis/site/v2/sports/basketball/wnba/summary?event={gid}")
-            competitors = summary.get("header", {}).get("competitions", [{}])[0].get("competitors", [])
-            team_score = opp_score = None
-            for c in competitors:
-                score_val = c.get("score", {})
-                val = float(score_val.get("value", score_val)) if isinstance(score_val, dict) else float(score_val or 0)
-                if str(c.get("team", {}).get("id", "")) == str(team_id):
-                    team_score = val
+        # Get game margin — from Snowflake if available, else ESPN summary
+        if _SF_AVAILABLE and _is_sr_uuid(gid):
+            game_margins[gid] = _sf.get_game_margin(gid, team_name)
+        else:
+            try:
+                summary = _get(f"https://site.api.espn.com/apis/site/v2/sports/basketball/wnba/summary?event={gid}")
+                competitors = summary.get("header", {}).get("competitions", [{}])[0].get("competitors", [])
+                team_score = opp_score = None
+                for c in competitors:
+                    score_val = c.get("score", {})
+                    val = float(score_val.get("value", score_val)) if isinstance(score_val, dict) else float(score_val or 0)
+                    if str(c.get("team", {}).get("id", "")) == str(team_id):
+                        team_score = val
+                    else:
+                        opp_score = val
+                if team_score is not None and opp_score is not None:
+                    game_margins[gid] = team_score - opp_score
                 else:
-                    opp_score = val
-            if team_score is not None and opp_score is not None:
-                game_margins[gid] = team_score - opp_score
-            else:
+                    game_margins[gid] = 0.0
+            except Exception:
                 game_margins[gid] = 0.0
-        except Exception:
-            game_margins[gid] = 0.0
 
         game_starters = {p["name"] for p in box if p["starter"] and not p["dnp"]}
 

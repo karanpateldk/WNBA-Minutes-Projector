@@ -11,13 +11,31 @@ Logic:
 import re
 import json
 import requests
+import sys
 from collections import defaultdict
 from pathlib import Path
 from datetime import datetime, timedelta
 
+sys.path.insert(0, str(Path(__file__).parent))
+
 CACHE_DIR = Path(__file__).parent / "data"
 CACHE_DIR.mkdir(exist_ok=True)
 QUARTER_SECONDS = 600  # 10 min per quarter
+
+try:
+    import snowflake_connector as _sf
+    _SF_AVAILABLE = _sf.is_available()
+except Exception:
+    _sf = None  # type: ignore
+    _SF_AVAILABLE = False
+
+
+def _is_sr_uuid(game_id: str) -> bool:
+    import re as _re
+    return bool(_re.match(
+        r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        str(game_id), _re.I
+    ))
 
 HEADERS = {
     "User-Agent": (
@@ -106,9 +124,20 @@ def _clock_to_seconds(clock_str: str) -> float:
 def _parse_quarter_minutes_from_game(game_id: str, team_id: int) -> dict:
     """
     Parse play-by-play for one game.
-    Returns {player_name: {1: secs, 2: secs, 3: secs, 4: secs}}
+    Returns {player_name: {1: mins, 2: mins, 3: mins, 4: mins}}
     Only includes players on the given team_id.
+
+    Primary source: Sportradar Snowflake (when game_id is a SR UUID).
+    Fallback: ESPN play-by-play API.
     """
+    if _SF_AVAILABLE and _is_sr_uuid(game_id):
+        from season_stats import ESPN_TEAM_IDS
+        team_name = next((n for n, tid in ESPN_TEAM_IDS.items() if tid == team_id), "")
+        if team_name:
+            result = _sf.get_quarter_minutes(game_id, team_name)
+            if result:
+                return result
+
     data = _get_json(
         f"https://site.api.espn.com/apis/site/v2/sports/basketball/wnba/summary?event={game_id}"
     )
