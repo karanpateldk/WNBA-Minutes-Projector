@@ -761,16 +761,16 @@ st.markdown('<div class="section-header">Projected Lineup</div>', unsafe_allow_h
 
 # Confidence legend
 st.markdown(
-    '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap">'
-    '<span style="font-size:0.8rem;font-weight:600;opacity:0.8">Confidence:</span>'
-    '<span style="background:#28a745;color:#fff;font-size:0.7rem;font-weight:700;padding:2px 8px;border-radius:10px">HIGH</span>'
-    '<span style="font-size:0.78rem;opacity:0.75">Strong sample, stable role, healthy</span>'
-    '<span style="opacity:0.4">|</span>'
-    '<span style="background:#e6a817;color:#fff;font-size:0.7rem;font-weight:700;padding:2px 8px;border-radius:10px">MED</span>'
-    '<span style="font-size:0.78rem;opacity:0.75">Limited games or injury uncertainty</span>'
-    '<span style="opacity:0.4">|</span>'
-    '<span style="background:#dc3545;color:#fff;font-size:0.7rem;font-weight:700;padding:2px 8px;border-radius:10px">LOW</span>'
-    '<span style="font-size:0.78rem;opacity:0.75">Volatile minutes, questionable/doubtful, or small sample</span>'
+    '<div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;flex-wrap:wrap;font-size:0.75rem">'
+    '<span style="font-weight:600;opacity:0.8">Conf:</span>'
+    '<span style="background:#28a745;color:#fff;font-weight:700;padding:1px 6px;border-radius:8px">HIGH</span>'
+    '<span style="opacity:0.7">Stable role, healthy</span>'
+    '<span style="opacity:0.35">&nbsp;|&nbsp;</span>'
+    '<span style="background:#e6a817;color:#fff;font-weight:700;padding:1px 6px;border-radius:8px">MED</span>'
+    '<span style="opacity:0.7">Limited games or injury risk</span>'
+    '<span style="opacity:0.35">&nbsp;|&nbsp;</span>'
+    '<span style="background:#dc3545;color:#fff;font-weight:700;padding:1px 6px;border-radius:8px">LOW</span>'
+    '<span style="opacity:0.7">Volatile or doubtful</span>'
     '</div>',
     unsafe_allow_html=True,
 )
