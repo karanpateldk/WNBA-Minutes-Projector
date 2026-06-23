@@ -600,11 +600,14 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
     if not all_minutes:
         return {}
 
-    # Build last-3 averages and last-game minutes — reuse cached boxscores
-    last3_game_ids = [gid for gid, _ in games_with_dates[-3:]]
+    # Build last-3 averages, last-game minutes, and recent starter rate (last 5 games)
+    last3_game_ids  = [gid for gid, _ in games_with_dates[-3:]]
+    last5_game_ids  = [gid for gid, _ in games_with_dates[-5:]]
     last3_minutes:       dict[str, list[float]] = defaultdict(list)
-    last3_clean_minutes: dict[str, list[float]] = defaultdict(list)  # foul-adj last3
+    last3_clean_minutes: dict[str, list[float]] = defaultdict(list)
     last_game_minutes:   dict[str, float]       = {}
+    recent_starter_games: dict[str, int]        = defaultdict(int)
+    recent_games_played:  dict[str, int]        = defaultdict(int)
 
     for idx, gid in enumerate(last3_game_ids):
         box = boxscore_cache.get(gid) or _parse_boxscore(gid, team_id)
@@ -615,6 +618,14 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
                     last3_clean_minutes[p["name"]].append(p["minutes"])
                 if idx == len(last3_game_ids) - 1:
                     last_game_minutes[p["name"]] = p["minutes"]
+
+    for gid in last5_game_ids:
+        box = boxscore_cache.get(gid) or _parse_boxscore(gid, team_id)
+        for p in box:
+            if not p["dnp"] and p["minutes"] >= 0.5:
+                recent_games_played[p["name"]] += 1
+                if p.get("starter"):
+                    recent_starter_games[p["name"]] += 1
 
     # Rotation depth: median of players with 5+ min across the last 5 games.
     # Uses recent games so coaching changes mid-season get reflected quickly.
@@ -692,22 +703,26 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
             last3_q     = _median(last3_vals)
             q_avgs[q]   = round(last3_q * 0.75 + season_q * 0.25, 1)
 
+        rgp = recent_games_played.get(name, 0)
+        recent_sp = round(recent_starter_games.get(name, 0) / rgp, 2) if rgp > 0 else sp
+
         players[name] = {
-            "avg_min":          trimmed_avg,     # outlier-trimmed season avg (primary)
-            "ewma_min":         ewma_min,        # EWMA with context filter (primary forecast)
-            "raw_avg_min":      avg,             # unfiltered mean (for display/debug)
-            "clean_avg_min":    clean_avg,       # season avg excluding foul-trouble games
-            "last3_avg":        last3_avg,       # median of last 3 games
-            "last3_range":      last3_range,     # max-min of last 3 games (instability signal)
-            "last3_clean_avg":  last3_clean_avg, # median of last 3 non-foul-trouble games
-            "last_game_min":    last_game_minutes.get(name, 0.0),
-            "games_played":     gp,
-            "games_started":    starter_games[name],
+            "avg_min":            trimmed_avg,
+            "ewma_min":           ewma_min,
+            "raw_avg_min":        avg,
+            "clean_avg_min":      clean_avg,
+            "last3_avg":          last3_avg,
+            "last3_range":        last3_range,
+            "last3_clean_avg":    last3_clean_avg,
+            "last_game_min":      last_game_minutes.get(name, 0.0),
+            "games_played":       gp,
+            "games_started":      starter_games[name],
             "foul_trouble_games": ft,
-            "foul_rate":        foul_rate,       # fraction of games with 4+ fouls
-            "starter_pct":      sp,
-            "quarter_avgs":     q_avgs,
-            "last_played_date": last_played_date.get(name, ""),
+            "foul_rate":          foul_rate,
+            "starter_pct":        sp,
+            "recent_starter_pct": recent_sp,   # starter rate over last 5 games — detects role changes
+            "quarter_avgs":       q_avgs,
+            "last_played_date":   last_played_date.get(name, ""),
         }
 
     result = {

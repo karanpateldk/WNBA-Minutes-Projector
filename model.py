@@ -218,10 +218,13 @@ def _confidence_score(gp: int, avg_min: float, last3_range: float,
 
 
 def _reason_codes(role: str, ewma_min: float, avg_min: float, status: str,
-                  is_replacement: bool, gp: int, last3_range: float) -> list:
+                  is_replacement: bool, gp: int, last3_range: float,
+                  role_changed: bool = False) -> list:
     reasons = []
     if role == "starter":
         reasons.append("Projected starter")
+    if role_changed:
+        reasons.append("Role change detected")
     if avg_min > 0 and ewma_min > avg_min * 1.10:
         reasons.append("Trending up")
     elif avg_min > 0 and ewma_min < avg_min * 0.90:
@@ -291,31 +294,47 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
         avg_min  = info.get("avg_min", 10.0)
         ewma_min = info.get("ewma_min", avg_min)
 
-        # Backtest result: season_avg (MAE 4.46) outperforms EWMA (4.62) at current
-        # sample sizes (12-16 games). Use the trimmed season avg + last3 blend as primary.
-        # EWMA is retained for confidence/reason codes and will improve as season grows.
+        # Use foul-adjusted (clean) averages as primary inputs so games where a player
+        # fouled out early don't suppress the projection. Fall back to raw if unavailable.
+        clean_avg = info.get("clean_avg_min") or avg_min
+        last3_clean = info.get("last3_clean_avg") or info.get("last3_avg", avg_min)
+
         base_min = _weighted_minutes(
-            avg_min,
-            info.get("last3_avg", avg_min),
+            clean_avg,
+            last3_clean,
             gp,
-            clean_avg=info.get("clean_avg_min"),
-            last3_clean_avg=info.get("last3_clean_avg"),
+            clean_avg=clean_avg,
+            last3_clean_avg=last3_clean,
             ols_coeffs=ols_coeffs,
         )
         if gp == 0:
-            base_min = min(base_min, 3.0)   # no games played — cap at 3 min regardless of default
+            base_min = min(base_min, 3.0)
         elif gp <= 2:
             base_min = min(base_min, 18.0) if info.get("role") == "bench" else base_min
 
         role = role_overrides.get(player, info.get("role", "bench"))
         depth = info.get("depth", 2)
+        orig_role = info.get("role", "bench")
+
+        # Auto-detect role change: if recent starter_pct diverges significantly
+        # from the season starter_pct it signals a mid-season role shift.
+        recent_sp = info.get("recent_starter_pct", info.get("starter_pct", 0.5))
+        season_sp = info.get("starter_pct", 0.5)
+        auto_role_changed = (
+            player not in role_overrides
+            and gp >= 4
+            and abs(recent_sp - season_sp) >= 0.40
+        )
+
+        role_changed = (player in role_overrides and role != orig_role) or auto_role_changed
+        if role_changed and auto_role_changed:
+            # Apply same blend as manual override: 60% personal history, 40% typical role
+            target = typical_starter_min if role == "starter" else typical_bench_min
+            base_min = round(base_min * 0.60 + target * 0.40, 1)
+
         if player in role_overrides:
             depth = 1 if role == "starter" else 2
-            orig_role = info.get("role", "bench")
             if role != orig_role:
-                # Blend personal history 40% toward the typical minutes for the new role.
-                # This moves Pouye from ~14 toward starter range without fully discarding
-                # her history — a 40/60 blend captures "role upgrade" realistically.
                 target = typical_starter_min if role == "starter" else typical_bench_min
                 base_min = round(base_min * 0.60 + target * 0.40, 1)
 
@@ -331,6 +350,7 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
             role, ewma_min, avg_min, status,
             False,  # is_replacement set later
             gp, info.get("last3_range", 0.0) or 0.0,
+            role_changed=role_changed,
         )
 
         p = PlayerProjection(
