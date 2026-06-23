@@ -807,7 +807,7 @@ _OPP_ABBREV = {
     "Toronto Tempo":           "TOR",
     "Washington Mystics":      "WAS",
 }
-adj_col_label = f"vs {_OPP_ABBREV.get(selected_opponent, selected_opponent[:3].upper())}" if selected_opponent else "Δ"
+adj_col_label = f"vs {_OPP_ABBREV.get(selected_opponent, selected_opponent[:3].upper())}" if selected_opponent else "Status Δ"
 
 # Column headers
 hc = st.columns([3, 1, 2, 1, 1.2, 1.5, 1.5, 2.5])
@@ -824,7 +824,7 @@ hc[5].markdown(
     'style="cursor:help;font-size:0.85rem;opacity:0.7;text-decoration:none">Conf ⓘ</span>',
     unsafe_allow_html=True
 )
-hc[6].markdown(f'<span title="Change vs fully healthy lineup; shows actual H2H minutes when an opponent is selected" style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>{adj_col_label} ⓘ</b></span>', unsafe_allow_html=True)
+hc[6].markdown(f'<span title="{"Minutes this player logged against " + selected_opponent + " earlier this season (most recent game on right)" if selected_opponent else "Minutes added or removed vs this player\'s normal average due to their injury status tonight. +3 means they gain 3 min from someone being out; -8 means their status cut 8 min from their usual average."}" style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>{adj_col_label} ⓘ</b></span>', unsafe_allow_html=True)
 hc[7].markdown("**Note**")
 
 # Build lookup maps
