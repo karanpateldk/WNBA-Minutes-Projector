@@ -238,23 +238,15 @@ def render_player_row(
         else:
             conf = getattr(p, 'confidence', 0)
             if conf >= 70:
-                badge_bg    = "#28a745"
-                conf_label  = "HIGH"
+                dot_color = "#28a745"
             elif conf >= 45:
-                badge_bg    = "#e6a817"
-                conf_label  = "MED"
+                dot_color = "#e6a817"
             else:
-                badge_bg    = "#dc3545"
-                conf_label  = "LOW"
+                dot_color = "#dc3545"
             st.markdown(
-                f'<table style="border:none;border-collapse:collapse;margin:0;padding:0">'
-                f'<tr style="vertical-align:middle">'
-                f'<td style="border:none;padding:0 6px 0 0;font-size:1.4rem;font-weight:700;line-height:1">{p.projected_min:.1f}</td>'
-                f'<td style="border:none;padding:0">'
-                f'<span style="background:{badge_bg};color:#fff;font-size:0.62rem;font-weight:700;'
-                f'padding:2px 6px;border-radius:8px;letter-spacing:0.04em;white-space:nowrap">{conf_label}</span>'
-                f'</td>'
-                f'</tr></table>',
+                f'<div style="font-size:1.4rem;font-weight:700;line-height:1.2">{p.projected_min:.1f}'
+                f'<span style="font-size:0.9rem;margin-left:5px;color:{dot_color}">&#9679;</span>'
+                f'</div>',
                 unsafe_allow_html=True,
             )
 
@@ -364,10 +356,9 @@ with st.sidebar:
 
     st.markdown("---")
     st.markdown("**Data Sources**")
-    st.caption("Play-by-play, box scores & schedule: Sportradar via Snowflake (primary)")
-    st.caption("Rosters & injuries: ESPN API (primary)")
-    st.caption("Sportradar is fallback for injuries; ESPN is fallback for stats if Snowflake is unavailable.")
-    st.caption("Data refreshes every 4 hours.")
+    st.caption("Stats & play-by-play: Sportradar (Snowflake)")
+    st.caption("Injuries: ESPN API")
+    st.caption("Refreshes every 4 hours.")
 
     if st.button("Update Rosters & Stats", use_container_width=True, type="primary"):
         # Wipe only the currently selected team's caches so the refresh is fast.
@@ -825,7 +816,14 @@ hc[1].markdown("**Pos**")
 hc[2].markdown("**Status**")
 hc[3].markdown("**Last**")
 hc[4].markdown('<span title="Recent-weighted average — emphasizes last few games over the full season" style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>Wtd ⓘ</b></span>', unsafe_allow_html=True)
-hc[5].markdown('<span title="Projected minutes / Confidence level (HIGH=green, MED=amber, LOW=red)" style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>Proj / Conf ⓘ</b></span>', unsafe_allow_html=True)
+hc[5].markdown(
+    '<span title="Weighted blend of season average and recent games, adjusted for injury status, role, and rotation context." '
+    'style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>Proj ⓘ</b></span>'
+    '&nbsp;&nbsp;'
+    '<span title="Confidence: green=high (stable role, strong sample), amber=medium (limited games or minor injury), red=low (volatile, doubtful/questionable, small sample)" '
+    'style="cursor:help;font-size:0.85rem;opacity:0.7;text-decoration:none">Conf ⓘ</span>',
+    unsafe_allow_html=True
+)
 hc[6].markdown(f'<span title="Change vs fully healthy lineup; shows actual H2H minutes when an opponent is selected" style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>{adj_col_label} ⓘ</b></span>', unsafe_allow_html=True)
 hc[7].markdown("**Note**")
 
