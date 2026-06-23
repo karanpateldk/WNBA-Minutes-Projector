@@ -393,13 +393,6 @@ with st.sidebar:
         st.rerun()
 
     st.markdown("---")
-    st.markdown("**Quick Reference**")
-    st.caption("Active — full minutes projected")
-    st.caption("Probable — minor reduction expected")
-    st.caption("Questionable — significant reduction, may not play")
-    st.caption("Doubtful — unlikely to play, heavy reduction")
-    st.caption("Out — 0 minutes, redistributed to active players")
-    st.markdown("---")
     show_charts = st.checkbox("Show quarter breakdown", value=True)
     show_delta = st.checkbox("Show delta vs baseline", value=False)
     export_excel = st.button("Export to Excel", use_container_width=True)
@@ -764,13 +757,13 @@ st.markdown(
     '<div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;flex-wrap:wrap;font-size:0.75rem">'
     '<span style="font-weight:600;opacity:0.8">Conf:</span>'
     '<span style="background:#28a745;color:#fff;font-weight:700;padding:1px 6px;border-radius:8px">HIGH</span>'
-    '<span style="opacity:0.7">Stable role, healthy</span>'
+    '<span style="opacity:0.7">Consistent role &amp; sample</span>'
     '<span style="opacity:0.35">&nbsp;|&nbsp;</span>'
     '<span style="background:#e6a817;color:#fff;font-weight:700;padding:1px 6px;border-radius:8px">MED</span>'
-    '<span style="opacity:0.7">Limited games or injury risk</span>'
+    '<span style="opacity:0.7">Some variability</span>'
     '<span style="opacity:0.35">&nbsp;|&nbsp;</span>'
     '<span style="background:#dc3545;color:#fff;font-weight:700;padding:1px 6px;border-radius:8px">LOW</span>'
-    '<span style="opacity:0.7">Volatile or doubtful</span>'
+    '<span style="opacity:0.7">Small sample or erratic mins</span>'
     '</div>',
     unsafe_allow_html=True,
 )
