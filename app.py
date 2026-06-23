@@ -202,7 +202,7 @@ def render_player_row(
     p: PlayerProjection,
     base_min: float,
     last_game_min: float,
-    col_name, col_pos, col_status, col_last, col_base, col_proj, col_adj, col_note,
+    col_name, col_pos, col_status, col_last, col_base, col_proj, col_conf, col_adj, col_note,
     starters_set: set,
     foul_notes: dict | None = None,
 ):
@@ -236,6 +236,15 @@ def render_player_row(
         if p.projected_min == 0:
             st.markdown("**OUT**")
         else:
+            st.markdown(
+                f'<div style="font-size:1.4rem;font-weight:700;line-height:1.2">{p.projected_min:.1f}</div>',
+                unsafe_allow_html=True,
+            )
+
+    with col_conf:
+        if p.projected_min == 0:
+            st.markdown("")
+        else:
             conf = getattr(p, 'confidence', 0)
             if conf >= 70:
                 dot_color = "#28a745"
@@ -244,9 +253,7 @@ def render_player_row(
             else:
                 dot_color = "#dc3545"
             st.markdown(
-                f'<div style="font-size:1.4rem;font-weight:700;line-height:1.2">{p.projected_min:.1f}'
-                f'<span style="font-size:0.9rem;margin-left:5px;color:{dot_color}">&#9679;</span>'
-                f'</div>',
+                f'<div style="text-align:center;font-size:1.1rem;color:{dot_color};line-height:2">&#9679;</div>',
                 unsafe_allow_html=True,
             )
 
@@ -807,34 +814,26 @@ _OPP_ABBREV = {
     "Toronto Tempo":           "TOR",
     "Washington Mystics":      "WAS",
 }
-adj_col_label = f"vs {_OPP_ABBREV.get(selected_opponent, selected_opponent[:3].upper())}" if selected_opponent else "Status Δ"
+adj_col_label = f"vs {_OPP_ABBREV.get(selected_opponent, selected_opponent[:3].upper())}" if selected_opponent else "Adj"
 
-# Column headers
-hc = st.columns([3, 1, 2, 1, 1.2, 2.0, 1.5, 2.0])
+# Column headers — 9 cols: name, pos, status, last, wtd, proj, conf, adj, note
+hc = st.columns([3, 1, 2, 1, 1.2, 1.4, 0.8, 1.5, 2.0])
 hc[0].markdown("**Player**")
 hc[1].markdown("**Pos**")
 hc[2].markdown("**Status**")
 hc[3].markdown("**Last**")
 hc[4].markdown('<span title="Recent-weighted average — emphasizes last few games over the full season" style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>Wtd ⓘ</b></span>', unsafe_allow_html=True)
-hc[5].markdown(
-    '<div style="white-space:nowrap;line-height:1.4">'
-    '<span title="Weighted blend of season average and recent games, adjusted for injury status, role, and rotation context." '
-    'style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>Proj ⓘ</b></span>'
-    '&nbsp;'
-    '<span title="Confidence in this projection: green=high (stable role, strong sample, healthy), amber=medium (limited games or minor injury), red=low (volatile, doubtful/questionable, small sample)" '
-    'style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>Conf ⓘ</b></span>'
-    '</div>',
-    unsafe_allow_html=True
-)
-hc[6].markdown(f'<span title="{"Minutes this player logged against " + selected_opponent + " earlier this season (most recent game on right)" if selected_opponent else "Minutes added or removed vs this player\'s normal average due to their injury status tonight. +3 means they gain 3 min from someone being out; -8 means their status cut 8 min from their usual average."}" style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>{adj_col_label} ⓘ</b></span>', unsafe_allow_html=True)
-hc[7].markdown("**Note**")
+hc[5].markdown('<span title="Projected minutes: weighted blend of season average and recent games, adjusted for injury status, role, and rotation context." style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>Proj ⓘ</b></span>', unsafe_allow_html=True)
+hc[6].markdown('<span title="Confidence: green=high (stable role, strong sample, healthy), amber=medium (limited games or minor injury), red=low (volatile, doubtful/questionable, or small sample)" style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>Conf ⓘ</b></span>', unsafe_allow_html=True)
+hc[7].markdown(f'<span title="{"Minutes vs " + selected_opponent + " this season" if selected_opponent else "Minutes gained or lost from this player\'s normal average due to tonight\'s injury statuses"}" style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>{adj_col_label} ⓘ</b></span>', unsafe_allow_html=True)
+hc[8].markdown("**Note**")
 
 # Build lookup maps
 base_map      = {p.name: p.base_min for p in adjusted_lineup.players}
 last_game_map = {name: info.get("last_game_min", 0.0) for name, info in team_data.items()}
 starters_set  = {p.name for p in adjusted_lineup.players if p.role == "starter"}
 
-COL_WIDTHS = [3, 1, 2, 1, 1.2, 2.0, 1.5, 2.0]
+COL_WIDTHS = [3, 1, 2, 1, 1.2, 1.4, 0.8, 1.5, 2.0]
 
 
 def _render_adj_cell(col, player_name: str, proj_min: float):
@@ -866,14 +865,14 @@ st.markdown("**Starters**")
 for p in [x for x in adjusted_lineup.players if x.role == "starter" and x.projected_min > 0]:
     c = st.columns(COL_WIDTHS)
     render_player_row(p, base_map[p.name], last_game_map.get(p.name, 0.0), *c, starters_set=starters_set, foul_notes=h2h_foul_notes)
-    _render_adj_cell(c[6], p.name, p.projected_min)
+    _render_adj_cell(c[7], p.name, p.projected_min)
 
 # Bench section
 st.markdown("**Bench**")
 for p in [x for x in adjusted_lineup.players if x.role == "bench" and x.projected_min > 0]:
     c = st.columns(COL_WIDTHS)
     render_player_row(p, base_map[p.name], last_game_map.get(p.name, 0.0), *c, starters_set=starters_set, foul_notes=h2h_foul_notes)
-    _render_adj_cell(c[6], p.name, p.projected_min)
+    _render_adj_cell(c[7], p.name, p.projected_min)
 
 # Out section
 if out_players:
@@ -881,7 +880,7 @@ if out_players:
     for p in out_players:
         c = st.columns(COL_WIDTHS)
         render_player_row(p, base_map[p.name], last_game_map.get(p.name, 0.0), *c, starters_set=starters_set, foul_notes=h2h_foul_notes)
-        c[6].markdown("—")
+        c[7].markdown("—")
 
 st.markdown("---")
 
