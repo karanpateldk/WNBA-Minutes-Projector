@@ -1195,7 +1195,7 @@ with _tab_accuracy:
                 st.markdown("### Aggregate Results — All Teams")
                 st.caption(f"Averaged across {len(team_results)} teams")
                 st.dataframe(
-                    df_agg.style.background_gradient(subset=["Avg MAE"], cmap="RdYlGn_r"),
+                    df_agg.style.format({"Avg MAE": "{:.2f}"}),
                     use_container_width=True, hide_index=True,
                 )
                 with st.expander("Per-team breakdown (Weighted Blend)"):
@@ -1239,10 +1239,8 @@ with _tab_accuracy:
                     })
                 df_bt = pd.DataFrame(rows)
                 st.dataframe(
-                    df_bt.style
-                        .background_gradient(subset=["MAE"], cmap="RdYlGn_r")
-                        .format({"MAE": "{:.2f}", "RMSE": "{:.2f}", "MedAE": "{:.2f}",
-                                 "≤2min %": "{:.1f}%", "≤4min %": "{:.1f}%", "Bias": "{:.2f}"}),
+                    df_bt.style.format({"MAE": "{:.2f}", "RMSE": "{:.2f}", "MedAE": "{:.2f}",
+                                        "≤2min %": "{:.1f}%", "≤4min %": "{:.1f}%", "Bias": "{:.2f}"}),
                     use_container_width=True, hide_index=True,
                 )
                 blend = summary.get("weighted_blend", {})
