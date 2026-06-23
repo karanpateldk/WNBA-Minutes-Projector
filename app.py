@@ -810,18 +810,20 @@ _OPP_ABBREV = {
 adj_col_label = f"vs {_OPP_ABBREV.get(selected_opponent, selected_opponent[:3].upper())}" if selected_opponent else "Status Δ"
 
 # Column headers
-hc = st.columns([3, 1, 2, 1, 1.2, 1.5, 1.5, 2.5])
+hc = st.columns([3, 1, 2, 1, 1.2, 2.0, 1.5, 2.0])
 hc[0].markdown("**Player**")
 hc[1].markdown("**Pos**")
 hc[2].markdown("**Status**")
 hc[3].markdown("**Last**")
 hc[4].markdown('<span title="Recent-weighted average — emphasizes last few games over the full season" style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>Wtd ⓘ</b></span>', unsafe_allow_html=True)
 hc[5].markdown(
+    '<div style="white-space:nowrap;line-height:1.4">'
     '<span title="Weighted blend of season average and recent games, adjusted for injury status, role, and rotation context." '
     'style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>Proj ⓘ</b></span>'
-    '&nbsp;&nbsp;'
-    '<span title="Confidence: green=high (stable role, strong sample), amber=medium (limited games or minor injury), red=low (volatile, doubtful/questionable, small sample)" '
-    'style="cursor:help;font-size:0.85rem;opacity:0.7;text-decoration:none">Conf ⓘ</span>',
+    '&nbsp;'
+    '<span title="Confidence in this projection: green=high (stable role, strong sample, healthy), amber=medium (limited games or minor injury), red=low (volatile, doubtful/questionable, small sample)" '
+    'style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>Conf ⓘ</b></span>'
+    '</div>',
     unsafe_allow_html=True
 )
 hc[6].markdown(f'<span title="{"Minutes this player logged against " + selected_opponent + " earlier this season (most recent game on right)" if selected_opponent else "Minutes added or removed vs this player\'s normal average due to their injury status tonight. +3 means they gain 3 min from someone being out; -8 means their status cut 8 min from their usual average."}" style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>{adj_col_label} ⓘ</b></span>', unsafe_allow_html=True)
@@ -832,7 +834,7 @@ base_map      = {p.name: p.base_min for p in adjusted_lineup.players}
 last_game_map = {name: info.get("last_game_min", 0.0) for name, info in team_data.items()}
 starters_set  = {p.name for p in adjusted_lineup.players if p.role == "starter"}
 
-COL_WIDTHS = [3, 1, 2, 1, 1.2, 1.5, 1.5, 2.5]
+COL_WIDTHS = [3, 1, 2, 1, 1.2, 2.0, 1.5, 2.0]
 
 
 def _render_adj_cell(col, player_name: str, proj_min: float):
