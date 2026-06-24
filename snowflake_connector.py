@@ -64,51 +64,83 @@ def _get_credentials() -> dict:
     PAT is passed as the token with authenticator='oauth'.
     Never store the token in a file.
     """
-    pat = os.getenv("SNOWFLAKE_PAT", "")
+    pat = os.getenv("SNOWFLAKE_PAT", "") or os.getenv("SNOWFLAKE_TOKEN", "")
 
-    # Base config from Streamlit secrets (non-sensitive fields only)
+    # Read all config from Streamlit secrets first, then env vars as fallback.
+    # Nothing is hardcoded here — credentials live only in secrets.toml or env.
     base = {
-        "account":   "DRAFTKINGS-DRAFTKINGS",
-        "user":      "KAR.PATEL",
-        "warehouse": "QUERY_WH",
+        "account":   "",
+        "user":      "",
+        "warehouse": "",
         "database":  "SPORTRADAR",
         "schema":    "DBO",
     }
     try:
         import streamlit as st
         sf = st.secrets.get("snowflake", {})
-        if sf.get("account"):
-            base.update({k: sf[k] for k in ("account", "user", "warehouse",
-                                             "database", "schema")
-                         if k in sf})
+        for k in ("account", "user", "warehouse", "database", "schema"):
+            if sf.get(k):
+                base[k] = sf[k]
     except Exception:
         pass
 
-    if not pat:
-        pat = os.getenv("SNOWFLAKE_TOKEN", "")
-        base["account"]   = os.getenv("SNOWFLAKE_ACCOUNT",   base["account"])
-        base["user"]      = os.getenv("SNOWFLAKE_USER",      base["user"])
-        base["warehouse"] = os.getenv("SNOWFLAKE_WAREHOUSE", base["warehouse"])
-        base["database"]  = os.getenv("SNOWFLAKE_DATABASE",  base["database"])
-        base["schema"]    = os.getenv("SNOWFLAKE_SCHEMA",    base["schema"])
+    # Env vars override secrets (useful for CI/testing)
+    base["account"]   = os.getenv("SNOWFLAKE_ACCOUNT",   base["account"])
+    base["user"]      = os.getenv("SNOWFLAKE_USER",      base["user"])
+    base["warehouse"] = os.getenv("SNOWFLAKE_WAREHOUSE", base["warehouse"])
+    base["database"]  = os.getenv("SNOWFLAKE_DATABASE",  base["database"])
+    base["schema"]    = os.getenv("SNOWFLAKE_SCHEMA",    base["schema"])
 
     base["pat"] = pat
     return base
 
 
 def get_connection():
-    """Return a singleton Snowflake connection using PAT auth, or None if unavailable."""
+    """
+    Return a Snowflake connection using PAT auth, or None if unavailable.
+    Uses st.cache_resource when running inside Streamlit so the connection
+    is shared across sessions (not recreated per user). Falls back to a
+    module-level singleton when running outside Streamlit (backtest CLI, etc.).
+    """
     global _connection
+
+    creds = _get_credentials()
+    if not creds.get("pat") or not creds.get("account"):
+        return None
+
+    # Try st.cache_resource path (Streamlit Cloud / app context)
+    try:
+        import streamlit as st
+
+        @st.cache_resource
+        def _cached_connection(account, user, warehouse, database, schema, pat):
+            import snowflake.connector
+            return snowflake.connector.connect(
+                account=account,
+                user=user,
+                authenticator="programmatic_access_token",
+                token=pat,
+                warehouse=warehouse,
+                database=database,
+                schema=schema,
+                client_session_keep_alive=True,
+                insecure_mode=True,
+            )
+
+        return _cached_connection(
+            creds["account"], creds["user"], creds["warehouse"],
+            creds["database"], creds["schema"], creds["pat"],
+        )
+    except Exception:
+        pass
+
+    # Outside Streamlit (CLI tools like backtest.py) — module-level singleton
     if _connection is not None:
         try:
             _connection.cursor().execute("SELECT 1")
             return _connection
         except Exception:
             _connection = None
-
-    creds = _get_credentials()
-    if not creds.get("pat"):
-        return None
 
     try:
         import snowflake.connector

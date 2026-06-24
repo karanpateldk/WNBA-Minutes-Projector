@@ -171,6 +171,8 @@ if "manual_next_id" not in st.session_state:
     st.session_state.manual_next_id = 1
 if "manual_last_team" not in st.session_state:
     st.session_state.manual_last_team = ""
+if "manual_added_players" not in st.session_state:
+    st.session_state.manual_added_players = {}
 
 
 # ---------------------------------------------------------------------------
