@@ -781,11 +781,16 @@ def get_team_data(team_name: str) -> dict:
     # avg_bench_8plus = avg number of bench players who got 8+ min per game —
     # this is the real rotation, not deep bench players who get 1-2 garbage min.
     # Clamped to [2, 7] and rounded up by 1 to handle nights with extra rotation.
-    avg_bench_8plus = season.get("avg_bench_8plus", 0.0)
+    avg_bench_8plus = float(season.get("avg_bench_8plus") or 0.0)
+    old_bench_slots = max(2, min(rotation_depth - 5, 7))
     if avg_bench_8plus >= 2:
-        bench_slots = max(2, min(round(avg_bench_8plus) + 1, 7))
+        # Round up avg_bench_8plus and add 1 buffer slot, but NEVER exceed
+        # the old rotation_depth estimate — only reduce, never increase.
+        # This prevents loose-rotation teams from getting more bench slots.
+        sf_bench_slots = max(2, min(round(avg_bench_8plus) + 1, 7))
+        bench_slots = min(old_bench_slots, sf_bench_slots)
     else:
-        bench_slots = max(2, min(rotation_depth - 5, 7))
+        bench_slots = old_bench_slots
 
     # 2. Live ESPN roster for positions
     live_roster = get_live_roster(team_name)

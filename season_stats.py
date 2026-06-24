@@ -743,11 +743,14 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
     rotation_stats = {}
     if _SF_AVAILABLE:
         try:
-            role_avgs = _sf.get_role_minute_averages(team_name)
+            ra = _sf.get_role_minute_averages(team_name)
+            role_avgs = {k: float(v) if v is not None else 0.0 for k, v in ra.items()}
         except Exception:
             pass
         try:
-            rotation_stats = _sf.get_rotation_stats(team_name)
+            rs = _sf.get_rotation_stats(team_name)
+            # Snowflake Decimal → float so JSON cache doesn't break
+            rotation_stats = {k: float(v) if v is not None else 0.0 for k, v in rs.items()}
         except Exception:
             pass
 

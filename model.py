@@ -360,8 +360,19 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
         and v.get("avg_min", 0.0) > 3.0
         and v.get("status", "Active") not in ("Out", "Doubtful")
     ]
-    typical_starter_min = _median_min(starter_mins) or 28.0
-    typical_bench_min   = _median_min(bench_mins)   or 14.0
+    # Use Snowflake-derived team role averages as anchors when available.
+    # These are actual observed averages from game logs this season, not guesses.
+    # Fall back to in-season median if Snowflake hasn't populated them yet.
+    sf_starter_avg = next(
+        (v.get("role_avg_starter", 0.0) for v in team_data.values()
+         if isinstance(v, dict) and v.get("role_avg_starter")), 0.0
+    )
+    sf_bench_avg = next(
+        (v.get("role_avg_bench", 0.0) for v in team_data.values()
+         if isinstance(v, dict) and v.get("role_avg_bench")), 0.0
+    )
+    typical_starter_min = sf_starter_avg or _median_min(starter_mins) or 27.0
+    typical_bench_min   = sf_bench_avg   or _median_min(bench_mins)   or 13.0
 
     projections: list[PlayerProjection] = []
     out_players: list[tuple[str, dict]] = []
@@ -422,6 +433,23 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
             if role != orig_role:
                 target = typical_starter_min if role == "starter" else typical_bench_min
                 base_min = round(base_min * 0.60 + target * 0.40, 1)
+
+        # Soft anchor toward team's observed role average (from Snowflake game logs).
+        # Only applied when:
+        #   - Role average is meaningful (>5 min, derived from actual games)
+        #   - Player has a stable role (starter_pct clearly above or below 50%)
+        #   - Player has enough history (5+ games)
+        # Blend is light (15%) so it corrects systemic drift without overriding
+        # individual player history. Players with unusual minutes keep their signal.
+        if gp >= 5 and not role_changed:
+            sp = info.get("starter_pct", 0.5)
+            role_anchor = (
+                typical_starter_min if role == "starter" and sp >= 0.60 and typical_starter_min > 5
+                else typical_bench_min if role == "bench" and sp <= 0.40 and typical_bench_min > 5
+                else None
+            )
+            if role_anchor is not None:
+                base_min = round(base_min * 0.85 + role_anchor * 0.15, 1)
 
         proj_min = _apply_injury_scale(base_min, status)
 
@@ -648,17 +676,11 @@ def _normalize_to_total(projections: list[PlayerProjection], target: float) -> l
     """
     Scale all active players so they sum to exactly target (200 min).
 
-    This runs after _redistribute_minutes and handles both large gaps (starters
-    over-inflated) and small rounding errors.
-
-    Strategy when over budget (need to trim):
-      1. Trim starters proportionally down toward 36 min each.
-      2. If still over, trim bench proportionally down to BENCH_FLOOR.
-    Strategy when under budget (need to add):
+    Strategy when over budget:
+      1. Trim starters proportionally toward 36
+      2. Trim all proportionally down to floors
+    Strategy when under budget:
       Spread proportionally across all active players.
-
-    Caps: 38 min per starter, 38 min per bench player.
-    Floor: BENCH_FLOOR for bench, 10 min for starters (extreme edge case only).
     """
     active = [p for p in projections if p.projected_min > 0]
     if not active:
