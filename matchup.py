@@ -31,6 +31,13 @@ from pathlib import Path
 from datetime import datetime, timedelta
 from collections import defaultdict
 
+try:
+    import snowflake_connector as _sf
+    _SF_AVAILABLE = _sf.is_available()
+except Exception:
+    _sf = None  # type: ignore
+    _SF_AVAILABLE = False
+
 CACHE_DIR = Path(__file__).parent / "data"
 CACHE_DIR.mkdir(exist_ok=True)
 
@@ -201,6 +208,31 @@ def _get_opponent_profile(opp_name: str) -> dict:
     return profile
 
 
+def _get_h2h_game_ids_sf(team_name: str, opp_name: str) -> list[str]:
+    """
+    Return regular-season game IDs where team_name played opp_name, using
+    WNBA_SCHEDULE.SEASON_TYPE = 'REG' — unambiguous, no date guessing needed.
+    """
+    if not _SF_AVAILABLE:
+        return []
+    rows = _sf._query(
+        """
+        SELECT game_id
+        FROM SPORTRADAR.DBO.WNBA_SCHEDULE
+        WHERE season_type = 'REG'
+          AND game_status IN ('complete', 'closed')
+          AND (
+            (home_team_name = %s AND away_team_name = %s)
+            OR
+            (home_team_name = %s AND away_team_name = %s)
+          )
+        ORDER BY scheduled ASC
+        """,
+        (team_name, opp_name, opp_name, team_name),
+    )
+    return [r["game_id"] for r in rows]
+
+
 # ---------------------------------------------------------------------------
 # Head-to-head history: team vs opponent this season
 # ---------------------------------------------------------------------------
@@ -208,67 +240,98 @@ def _get_opponent_profile(opp_name: str) -> dict:
 def _get_h2h_results(team_name: str, opp_name: str) -> list[dict]:
     """
     Returns list of {margin, team_score, opp_score, display} for each completed
-    game between team_name and opp_name this season.
-    margin > 0 means team_name won.
-    display is a string like "W 84-71" or "L 68-79".
-    """
-    team_id = ESPN_TEAM_IDS.get(team_name)
-    opp_id  = ESPN_TEAM_IDS.get(opp_name)
-    if not team_id or not opp_id:
-        return []
+    regular-season game between team_name and opp_name this season.
 
+    Primary: Snowflake WNBA_SCHEDULE with SEASON_TYPE='REG' — unambiguous.
+    Fallback: ESPN schedule API with season_type=2 filter.
+    """
     cache_key = f"h2h_results_{team_name.replace(' ','_')}_{opp_name.replace(' ','_')}"
     cached = _load_cache(cache_key, ttl_hours=6.0)
     if cached:
         return cached
 
-    data = _get_json(
-        f"https://site.api.espn.com/apis/site/v2/sports/basketball/wnba/teams/{team_id}/schedule"
-    )
-
     results = []
-    opp_id_str  = str(opp_id)
-    team_id_str = str(team_id)
 
-    REGULAR_SEASON_START = "2026-05-16"
+    # Primary: Snowflake — SEASON_TYPE='REG' is explicit, no date guessing
+    if _SF_AVAILABLE:
+        try:
+            rows = _sf._query(
+                """
+                SELECT
+                    game_id,
+                    home_team_name, away_team_name,
+                    home_team_points, away_team_points
+                FROM SPORTRADAR.DBO.WNBA_SCHEDULE
+                WHERE season_type = 'REG'
+                  AND game_status IN ('complete', 'closed')
+                  AND (
+                    (home_team_name = %s AND away_team_name = %s)
+                    OR (home_team_name = %s AND away_team_name = %s)
+                  )
+                ORDER BY scheduled ASC
+                """,
+                (team_name, opp_name, opp_name, team_name),
+            )
+            for r in rows:
+                try:
+                    if r["home_team_name"] == team_name:
+                        ts, os_ = float(r["home_team_points"] or 0), float(r["away_team_points"] or 0)
+                    else:
+                        ts, os_ = float(r["away_team_points"] or 0), float(r["home_team_points"] or 0)
+                    margin = ts - os_
+                    results.append({
+                        "margin":     margin,
+                        "team_score": ts,
+                        "opp_score":  os_,
+                        "display":    f"{'W' if margin > 0 else 'L'} {max(ts,os_):.0f}-{min(ts,os_):.0f}",
+                    })
+                except (TypeError, ValueError):
+                    continue
+        except Exception as e:
+            print(f"[matchup] Snowflake H2H failed: {e}")
 
-    for event in data.get("events", []):
-        comp = event.get("competitions", [{}])[0]
-        if not comp.get("status", {}).get("type", {}).get("completed"):
-            continue
-
-        # Filter to regular season only — same logic as get_all_games_with_dates
-        season_type = event.get("season", {}).get("type", None)
-        raw_date    = event.get("date", "")
-        game_date   = raw_date[:10] if raw_date else ""
-        if season_type is not None:
-            if season_type != 2:
-                continue
-        else:
-            if game_date < REGULAR_SEASON_START:
-                continue
-
-        competitors = comp.get("competitors", [])
-        team_ids = [str(c.get("team", {}).get("id", "")) for c in competitors]
-        if opp_id_str not in team_ids:
-            continue
-        scores = {}
-        for c in competitors:
-            tid = str(c.get("team", {}).get("id", ""))
-            val = _parse_score(c.get("score"))
-            if val is not None:
-                scores[tid] = val
-        if team_id_str in scores and opp_id_str in scores:
-            ts = scores[team_id_str]
-            os_ = scores[opp_id_str]
-            margin = ts - os_
-            win = margin > 0
-            results.append({
-                "margin":      margin,
-                "team_score":  ts,
-                "opp_score":   os_,
-                "display":     f"{'W' if win else 'L'} {max(ts,os_)}-{min(ts,os_)}",
-            })
+    # Fallback: ESPN schedule API
+    if not results:
+        team_id = ESPN_TEAM_IDS.get(team_name)
+        opp_id  = ESPN_TEAM_IDS.get(opp_name)
+        if team_id and opp_id:
+            data = _get_json(
+                f"https://site.api.espn.com/apis/site/v2/sports/basketball/wnba/teams/{team_id}/schedule"
+            )
+            opp_id_str  = str(opp_id)
+            team_id_str = str(team_id)
+            for event in data.get("events", []):
+                comp = event.get("competitions", [{}])[0]
+                if not comp.get("status", {}).get("type", {}).get("completed"):
+                    continue
+                season_type = event.get("season", {}).get("type", None)
+                raw_date    = event.get("date", "")
+                game_date   = raw_date[:10] if raw_date else ""
+                if season_type is not None:
+                    if season_type != 2:
+                        continue
+                else:
+                    if game_date < "2026-05-16":
+                        continue
+                competitors = comp.get("competitors", [])
+                team_ids = [str(c.get("team", {}).get("id", "")) for c in competitors]
+                if opp_id_str not in team_ids:
+                    continue
+                scores = {}
+                for c in competitors:
+                    tid = str(c.get("team", {}).get("id", ""))
+                    val = _parse_score(c.get("score"))
+                    if val is not None:
+                        scores[tid] = val
+                if team_id_str in scores and opp_id_str in scores:
+                    ts, os_ = scores[team_id_str], scores[opp_id_str]
+                    margin = ts - os_
+                    results.append({
+                        "margin":     margin,
+                        "team_score": ts,
+                        "opp_score":  os_,
+                        "display":    f"{'W' if margin > 0 else 'L'} {max(ts,os_)}-{min(ts,os_)}",
+                    })
 
     _save_cache(cache_key, results, ttl_hours=6.0)
     return results
@@ -496,14 +559,17 @@ def compute_matchup_adjustments(
 
 def get_player_h2h_minutes(team_name: str, opp_name: str) -> dict[str, list[float]]:
     """
-    Public wrapper for the H2H display table — returns raw minutes including
-    foul-trouble games so the historical record is accurate.
+    Returns {player: [min_game1, min_game2, ...]} for all regular-season games
+    between team_name and opp_name this season.
+
+    Primary: Snowflake WNBA_SCHEDULE SEASON_TYPE='REG' for game IDs,
+             then WNBA_GAMESUMMARY_PLAYERS for per-player minutes.
+    Fallback: ESPN schedule API with season_type=2 filter.
     """
     from season_stats import _parse_boxscore, ESPN_TEAM_IDS as SS_IDS
 
     team_id = SS_IDS.get(team_name)
-    opp_id  = ESPN_TEAM_IDS.get(opp_name)
-    if not team_id or not opp_id:
+    if not team_id:
         return {}
 
     cache_key = f"h2h_mins_raw_{team_name.replace(' ','_')}_{opp_name.replace(' ','_')}"
@@ -511,38 +577,63 @@ def get_player_h2h_minutes(team_name: str, opp_name: str) -> dict[str, list[floa
     if cached:
         return cached
 
-    data = _get_json(
-        f"https://site.api.espn.com/apis/site/v2/sports/basketball/wnba/teams/{team_id}/schedule"
-    )
-    REGULAR_SEASON_START = "2026-05-16"
-    opp_id_str = str(opp_id)
-    h2h_game_ids = []
-    for event in data.get("events", []):
-        comp = event.get("competitions", [{}])[0]
-        if not comp.get("status", {}).get("type", {}).get("completed"):
-            continue
-
-        # Regular season only
-        season_type = event.get("season", {}).get("type", None)
-        raw_date    = event.get("date", "")
-        game_date   = raw_date[:10] if raw_date else ""
-        if season_type is not None:
-            if season_type != 2:
-                continue
-        else:
-            if game_date < REGULAR_SEASON_START:
-                continue
-
-        comp_ids = [str(c.get("team", {}).get("id", "")) for c in comp.get("competitors", [])]
-        if opp_id_str in comp_ids:
-            h2h_game_ids.append(event["id"])
-
     result: dict[str, list[float]] = defaultdict(list)
-    for gid in h2h_game_ids:
-        box = _parse_boxscore(gid, team_id)
-        for p in box:
-            if not p["dnp"] and p["minutes"] >= 0.5:
-                result[p["name"]].append(p["minutes"])
+
+    # Primary: Snowflake — SEASON_TYPE='REG' is explicit
+    if _SF_AVAILABLE:
+        try:
+            from season_stats import _is_sr_uuid
+            sf_game_ids = _get_h2h_game_ids_sf(team_name, opp_name)
+            short_name = _sf._sr_team_name_filter(team_name)
+            for gid in sf_game_ids:
+                rows = _sf._query(
+                    """
+                    SELECT player_full_name, player_statistics_minutes, player_played,
+                           player_not_playing_reason
+                    FROM SPORTRADAR.DBO.WNBA_GAMESUMMARY_PLAYERS
+                    WHERE game_id = %s AND team_name = %s
+                    """,
+                    (gid, short_name),
+                )
+                for r in rows:
+                    if not r["player_played"]:
+                        continue
+                    mins = _sf._parse_minutes(r["player_statistics_minutes"] or "0")
+                    if mins >= 0.5:
+                        result[r["player_full_name"]].append(mins)
+        except Exception as e:
+            print(f"[matchup] Snowflake H2H minutes failed: {e}")
+
+    # Fallback: ESPN
+    if not result:
+        opp_id = ESPN_TEAM_IDS.get(opp_name)
+        if opp_id:
+            data = _get_json(
+                f"https://site.api.espn.com/apis/site/v2/sports/basketball/wnba/teams/{team_id}/schedule"
+            )
+            opp_id_str = str(opp_id)
+            h2h_game_ids = []
+            for event in data.get("events", []):
+                comp = event.get("competitions", [{}])[0]
+                if not comp.get("status", {}).get("type", {}).get("completed"):
+                    continue
+                season_type = event.get("season", {}).get("type", None)
+                raw_date    = event.get("date", "")
+                game_date   = raw_date[:10] if raw_date else ""
+                if season_type is not None:
+                    if season_type != 2:
+                        continue
+                else:
+                    if game_date < "2026-05-16":
+                        continue
+                comp_ids = [str(c.get("team", {}).get("id", "")) for c in comp.get("competitors", [])]
+                if opp_id_str in comp_ids:
+                    h2h_game_ids.append(event["id"])
+            for gid in h2h_game_ids:
+                box = _parse_boxscore(gid, team_id)
+                for p in box:
+                    if not p["dnp"] and p["minutes"] >= 0.5:
+                        result[p["name"]].append(p["minutes"])
 
     out = dict(result)
     _save_cache(cache_key, out, ttl_hours=6.0)
