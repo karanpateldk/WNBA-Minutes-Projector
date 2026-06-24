@@ -228,31 +228,72 @@ def _apply_injury_scale(base_min: float, status: str, duration: str = "new") -> 
 def _confidence_score(gp: int, avg_min: float, last3_range: float,
                       status: str, start_pct: float,
                       plus_minus: float | None = None) -> int:
-    score = 50
-    score += min(gp * 2, 20)
-    if start_pct >= 0.80 or start_pct <= 0.20:
-        score += 15
-    elif start_pct >= 0.60 or start_pct <= 0.40:
-        score += 7
-    if last3_range < 5:
-        score += 10
-    elif last3_range > 14:
-        score -= 15
-    penalties = {"Questionable": -10, "Doubtful": -20, "Day-To-Day": -20, "Probable": -5}
-    score += penalties.get(status, 0)
-    if avg_min < 8:
+    """
+    Confidence in tonight's projection. Calibrated so HIGH (~green) only fires
+    when there are strong signals the minutes will be predictable:
+      - Established role (clear starter or clear bench)
+      - Consistent recent usage (low last3_range)
+      - Healthy status
+      - Sufficient sample size (10+ games)
+
+    Thresholds: HIGH >= 70, MED 45-69, LOW < 45
+    """
+    # Base starts low — player must earn confidence through signals
+    score = 30
+
+    # Sample size — meaningful only after 10+ games
+    if gp >= 20:
+        score += 20
+    elif gp >= 10:
+        score += 12
+    elif gp >= 5:
+        score += 5
+    # <5 games: no bonus — projection is essentially a guess
+
+    # Role clarity — clear starter or clear bench is predictable
+    if start_pct >= 0.85 or start_pct <= 0.10:
+        score += 18   # locked role
+    elif start_pct >= 0.70 or start_pct <= 0.25:
+        score += 10   # mostly consistent
+    elif 0.40 <= start_pct <= 0.60:
+        score -= 10   # swing player — hard to predict
+
+    # Minute consistency — low variance in recent games is the strongest signal
+    if last3_range < 3:
+        score += 15   # very stable
+    elif last3_range < 6:
+        score += 8
+    elif last3_range > 10:
         score -= 10
-    # Plus/minus signal: consistent positive +/- = coach trusts this player in
-    # real situations, boosting confidence. Persistent negative = less reliable.
+    elif last3_range > 15:
+        score -= 20   # highly volatile
+
+    # Injury status penalties
+    penalties = {
+        "Probable":     -8,
+        "Questionable": -20,
+        "Day-To-Day":   -20,
+        "Doubtful":     -35,
+    }
+    score += penalties.get(status, 0)
+
+    # Low usage bench players are harder to project
+    if avg_min < 8:
+        score -= 12
+    elif avg_min < 12:
+        score -= 5
+
+    # Plus/minus: coach trust signal
     if plus_minus is not None:
-        if plus_minus >= 8:
-            score += 8
-        elif plus_minus >= 4:
-            score += 4
-        elif plus_minus <= -4:
-            score -= 4
-        elif plus_minus <= -8:
-            score -= 8
+        if plus_minus >= 6:
+            score += 6
+        elif plus_minus >= 3:
+            score += 3
+        elif plus_minus <= -3:
+            score -= 3
+        elif plus_minus <= -6:
+            score -= 6
+
     return max(0, min(100, score))
 
 
