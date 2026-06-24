@@ -417,6 +417,16 @@ _rotation_depth  = _meta.get("rotation_depth", 8)
 _bench_slots     = _meta.get("bench_slots", 3)
 _last_updated    = _meta.get("last_updated", "")[:10]
 _games_processed = _meta.get("games_processed", 0)
+_role_avg_starter = _meta.get("role_avg_starter", 0.0)
+_role_avg_bench   = _meta.get("role_avg_bench", 0.0)
+
+# Inject role averages into each player dict so model.py can read them
+# without needing a separate parameter. They're team-wide constants.
+if _role_avg_starter or _role_avg_bench:
+    for _pname in team_data:
+        if isinstance(team_data[_pname], dict):
+            team_data[_pname]["role_avg_starter"] = _role_avg_starter
+            team_data[_pname]["role_avg_bench"]   = _role_avg_bench
 
 # Inject live injury statuses — always overrides cached team data.
 # The injury report is fresher than the season stats cache so it always wins.
@@ -709,7 +719,17 @@ st.markdown("---")
 # Adjusted Lineup
 # ---------------------------------------------------------------------------
 
-adjusted_lineup = apply_scenario(team_data, player_statuses, {}, role_overrides)
+# Fetch opponent pace from Snowflake when an opponent is selected
+_opp_pace = 0.0
+if selected_opponent:
+    try:
+        import snowflake_connector as _sf_app
+        if _sf_app.is_available():
+            _opp_pace = _sf_app.get_opponent_pace(selected_opponent)
+    except Exception:
+        pass
+
+adjusted_lineup = apply_scenario(team_data, player_statuses, {}, role_overrides, opp_pace=_opp_pace)
 deltas = minutes_delta_summary(baseline_lineup, adjusted_lineup) if show_delta else {}
 
 out_players = [p for p in adjusted_lineup.players if p.projected_min == 0]

@@ -330,7 +330,7 @@ def get_player_plus_minus(team_name: str, season_year: int = 2026) -> dict[str, 
 
 
 # ---------------------------------------------------------------------------
-# Schedule: completed regular-season games per team
+# Season year (needed by PBP functions and schedule functions below)
 # ---------------------------------------------------------------------------
 
 def _current_season_year() -> int:
@@ -340,6 +340,164 @@ def _current_season_year() -> int:
     return today.year if today.month >= 5 else today.year - 1
 
 CURRENT_SEASON_YEAR = _current_season_year()
+
+# ---------------------------------------------------------------------------
+# Play-by-play context signals
+# ---------------------------------------------------------------------------
+
+def get_opponent_pace(opp_name: str, season_year: int = CURRENT_SEASON_YEAR) -> float:
+    """
+    Return average possessions per game for the opponent this season.
+    Higher pace = wider rotation (more subs), lower pace = starters stay in.
+    League average is roughly 163 possessions/game in 2026.
+    """
+    parts = _SR_TEAM_FULL_NAMES.get(opp_name)
+    if not parts:
+        return 163.0
+    _, short = parts
+    rows = _query(
+        """
+        SELECT
+            ROUND(COUNT(*) / NULLIF(COUNT(DISTINCT pos.game_id), 0), 1) AS avg_poss
+        FROM SPORTRADAR.DBO.WNBA_PLAYBYPLAY_POSSESSIONS pos
+        JOIN SPORTRADAR.DBO.WNBA_SCHEDULE s ON s.game_id = pos.game_id
+        WHERE s.season_type  = 'REG'
+          AND s.season_year  = %s
+          AND s.game_status  IN ('complete','closed')
+          AND pos.period_sequence < 5
+          AND (s.home_team_name = %s OR s.away_team_name = %s)
+        """,
+        (season_year, opp_name, opp_name),
+    )
+    if rows and rows[0]["avg_poss"]:
+        return float(rows[0]["avg_poss"])
+    return 163.0
+
+
+def get_crunch_time_shares(team_name: str, season_year: int = CURRENT_SEASON_YEAR) -> dict[str, int]:
+    """
+    Return {player_full_name: crunch_possessions} — count of possessions each
+    player was on court in the last 5 minutes of games decided by <=5 points.
+
+    High crunch count = coach trusts this player in real games.
+    Low crunch count (< 10) = garbage-time player — only plays when outcome settled.
+    This signal directly identifies which bench players deserve real minute projections
+    vs which ones inflate averages with blowout/garbage-time appearances.
+    """
+    parts = _SR_TEAM_FULL_NAMES.get(team_name)
+    if not parts:
+        return {}
+    market, short = parts
+
+    # Home games
+    home_rows = _query(
+        """
+        SELECT p.value:full_name::varchar AS player_name, COUNT(*) AS cnt
+        FROM SPORTRADAR.DBO.WNBA_PLAYBYPLAY_POSSESSIONS pos
+        JOIN SPORTRADAR.DBO.WNBA_SCHEDULE s ON s.game_id = pos.game_id,
+        LATERAL FLATTEN(pos.home_players) p
+        WHERE s.season_type  = 'REG'
+          AND s.season_year  = %s
+          AND s.game_status  IN ('complete','closed')
+          AND s.home_team_name = %s
+          AND pos.period_sequence = 4
+          AND ABS(pos.home_points_end - pos.away_points_end) <= 5
+          AND pos.game_clock_end <= '00:05:00'::TIME
+          AND p.value:full_name IS NOT NULL
+        GROUP BY 1
+        """,
+        (season_year, team_name),
+    )
+    # Away games
+    away_rows = _query(
+        """
+        SELECT p.value:full_name::varchar AS player_name, COUNT(*) AS cnt
+        FROM SPORTRADAR.DBO.WNBA_PLAYBYPLAY_POSSESSIONS pos
+        JOIN SPORTRADAR.DBO.WNBA_SCHEDULE s ON s.game_id = pos.game_id,
+        LATERAL FLATTEN(pos.away_players) p
+        WHERE s.season_type  = 'REG'
+          AND s.season_year  = %s
+          AND s.game_status  IN ('complete','closed')
+          AND s.away_team_name = %s
+          AND pos.period_sequence = 4
+          AND ABS(pos.home_points_end - pos.away_points_end) <= 5
+          AND pos.game_clock_end <= '00:05:00'::TIME
+          AND p.value:full_name IS NOT NULL
+        GROUP BY 1
+        """,
+        (season_year, team_name),
+    )
+    result: dict[str, int] = {}
+    for r in home_rows + away_rows:
+        name = r["player_name"] or ""
+        if name:
+            result[name] = result.get(name, 0) + int(r["cnt"] or 0)
+    return result
+
+
+def get_blowout_minute_splits(team_name: str, season_year: int = CURRENT_SEASON_YEAR) -> dict[str, dict]:
+    """
+    Return {player_name: {avg_all, avg_blowout, avg_close, blowout_dependent}}
+    for bench players. blowout_dependent=True means their minutes drop
+    significantly in close games — they're garbage-time players.
+    Blowout threshold: margin >= 15. Close threshold: margin < 10.
+    """
+    short_name = _sr_team_name_filter(team_name)
+    rows = _query(
+        """
+        SELECT
+            gp.player_full_name,
+            ROUND(AVG(
+                TRY_TO_NUMBER(SPLIT_PART(gp.player_statistics_minutes,':',1))
+                + TRY_TO_NUMBER(SPLIT_PART(gp.player_statistics_minutes,':',2))/60.0
+            ), 2) AS avg_min_all,
+            ROUND(AVG(CASE
+                WHEN ABS(s.home_team_points - s.away_team_points) >= 15
+                THEN TRY_TO_NUMBER(SPLIT_PART(gp.player_statistics_minutes,':',1))
+                     + TRY_TO_NUMBER(SPLIT_PART(gp.player_statistics_minutes,':',2))/60.0
+            END), 2) AS avg_min_blowout,
+            ROUND(AVG(CASE
+                WHEN ABS(s.home_team_points - s.away_team_points) < 10
+                THEN TRY_TO_NUMBER(SPLIT_PART(gp.player_statistics_minutes,':',1))
+                     + TRY_TO_NUMBER(SPLIT_PART(gp.player_statistics_minutes,':',2))/60.0
+            END), 2) AS avg_min_close,
+            COUNT(*) AS games
+        FROM SPORTRADAR.DBO.WNBA_GAMESUMMARY_PLAYERS gp
+        JOIN SPORTRADAR.DBO.WNBA_SCHEDULE s ON s.game_id = gp.game_id
+        WHERE s.season_type  = 'REG'
+          AND s.season_year  = %s
+          AND s.game_status  IN ('complete','closed')
+          AND gp.team_name   = %s
+          AND (gp.player_starter = FALSE OR gp.player_starter IS NULL)
+          AND gp.player_played   = TRUE
+          AND gp.player_statistics_minutes IS NOT NULL
+        GROUP BY 1
+        HAVING COUNT(*) >= 4
+        """,
+        (season_year, short_name),
+    )
+    result = {}
+    for r in rows:
+        name     = r["player_full_name"] or ""
+        if not name:
+            continue
+        avg_all  = float(r["avg_min_all"]     or 0)
+        blowout  = float(r["avg_min_blowout"] or 0)
+        close    = float(r["avg_min_close"]   or avg_all)
+        # Blowout-dependent: gets 3+ more minutes in blowouts than close games
+        blowout_dep = (blowout - close) >= 3.0 and close < 8.0
+        result[name] = {
+            "avg_all":           avg_all,
+            "avg_blowout":       blowout,
+            "avg_close":         close,
+            "blowout_dependent": blowout_dep,
+        }
+    return result
+
+
+# ---------------------------------------------------------------------------
+# Schedule: completed regular-season games per team
+# ---------------------------------------------------------------------------
 
 
 def get_games_for_team(team_name: str, season_year: int = CURRENT_SEASON_YEAR) -> list[tuple[str, str]]:

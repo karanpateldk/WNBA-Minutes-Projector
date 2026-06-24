@@ -320,6 +320,28 @@ def _reason_codes(role: str, ewma_min: float, avg_min: float, status: str,
     return reasons
 
 
+def _apply_pace_adjustment(projections: list, pace_factor: float) -> list:
+    """
+    Scale bench minutes based on opponent pace relative to league average.
+    Faster pace (>163 possessions) = more subs = bench gets slightly more.
+    Slower pace (<163 possessions) = starters stay in = bench gets less.
+    Only applied to bench players; starters are less affected by pace.
+    Capped at ±1.5 min per player so it doesn't override individual history.
+    """
+    LEAGUE_AVG_PACE = 163.0
+    if abs(pace_factor - LEAGUE_AVG_PACE) < 2:
+        return projections  # negligible difference
+
+    # Each 10 possessions above/below average = ~0.5 min for bench players
+    raw_adj = (pace_factor - LEAGUE_AVG_PACE) / 10.0 * 0.5
+    adj = max(-1.5, min(1.5, raw_adj))
+
+    for p in projections:
+        if p.role == "bench" and p.projected_min > 0:
+            p.projected_min = round(max(1.0, p.projected_min + adj), 1)
+    return projections
+
+
 def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = None,
                      duration_map: dict[str, str] | None = None,
                      role_overrides: dict[str, str] | None = None) -> TeamLineup:
@@ -450,6 +472,20 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
             )
             if role_anchor is not None:
                 base_min = round(base_min * 0.85 + role_anchor * 0.15, 1)
+
+        # Garbage-time adjustment: bench players who only play in blowouts should
+        # be projected at their close-game average, not their season average.
+        # Signal: crunch_time_poss < 15 (rarely trusted in tight games) AND
+        #         blowout_dependent = True (minutes drop 3+ min in close games).
+        # We blend 70% toward avg_min_close so the projection reflects what they
+        # actually do in competitive games rather than garbage-time inflation.
+        if (role == "bench"
+                and info.get("blowout_dependent")
+                and info.get("crunch_time_poss", 999) < 15
+                and gp >= 4):
+            close_avg = info.get("avg_min_close", 0.0) or 0.0
+            if 0 < close_avg < base_min:
+                base_min = round(base_min * 0.30 + close_avg * 0.70, 1)
 
         proj_min = _apply_injury_scale(base_min, status)
 
@@ -766,11 +802,17 @@ def apply_scenario(
     player_statuses: dict[str, StatusType],
     duration_map: dict[str, str] | None = None,
     role_overrides: dict[str, str] | None = None,
+    opp_pace: float = 0.0,
 ) -> TeamLineup:
     """
     High-level entry point. Accepts status and role overrides and returns a fully adjusted lineup.
+    opp_pace: opponent's avg possessions per game — applies pace adjustment to bench.
     """
-    return build_projection(team_data, injury_overrides=player_statuses, role_overrides=role_overrides)
+    lineup = build_projection(team_data, injury_overrides=player_statuses, role_overrides=role_overrides)
+    if opp_pace > 0:
+        lineup.players = _apply_pace_adjustment(lineup.players, opp_pace)
+        lineup.total_minutes = sum(p.projected_min for p in lineup.players)
+    return lineup
 
 
 def get_status_options() -> list[str]:

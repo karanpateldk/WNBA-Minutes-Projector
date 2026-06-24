@@ -749,8 +749,26 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
             pass
         try:
             rs = _sf.get_rotation_stats(team_name)
-            # Snowflake Decimal → float so JSON cache doesn't break
             rotation_stats = {k: float(v) if v is not None else 0.0 for k, v in rs.items()}
+        except Exception:
+            pass
+
+        # Crunch time shares — identifies garbage-time bench players
+        try:
+            crunch = _sf.get_crunch_time_shares(team_name)
+            for name, ct in crunch.items():
+                if name in players:
+                    players[name]["crunch_time_poss"] = int(ct)
+        except Exception:
+            pass
+
+        # Blowout splits — flags bench players who only play in blowouts
+        try:
+            blowout_splits = _sf.get_blowout_minute_splits(team_name)
+            for name, splits in blowout_splits.items():
+                if name in players:
+                    players[name]["avg_min_close"]     = float(splits.get("avg_close") or 0)
+                    players[name]["blowout_dependent"] = bool(splits.get("blowout_dependent"))
         except Exception:
             pass
 
