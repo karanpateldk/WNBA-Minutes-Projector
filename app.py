@@ -204,7 +204,7 @@ def render_player_row(
     p: PlayerProjection,
     base_min: float,
     last_game_min: float,
-    col_name, col_pos, col_status, col_last, col_base, col_proj, col_adj, col_note,
+    col_name, col_pos, col_status, col_last, col_base, col_proj, col_conf, col_adj, col_note,
     starters_set: set,
     foul_notes: dict | None = None,
 ):
@@ -238,13 +238,21 @@ def render_player_row(
         if p.projected_min == 0:
             st.markdown("**OUT**")
         else:
-            conf = getattr(p, 'confidence', 0)
-            dot_color = "#28a745" if conf >= 70 else ("#e6a817" if conf >= 45 else "#dc3545")
             st.markdown(
-                f'<span style="font-size:1.4rem;font-weight:700">{p.projected_min:.1f}</span>'
-                f'<span style="font-size:1rem;color:{dot_color};margin-left:4px">&#9679;</span>',
+                f'<div style="font-size:1.4rem;font-weight:700;line-height:1.3">{p.projected_min:.1f}</div>',
                 unsafe_allow_html=True,
             )
+
+    with col_conf:
+        conf = getattr(p, 'confidence', 0)
+        if p.projected_min == 0:
+            dot_color = "#dc3545"
+        else:
+            dot_color = "#28a745" if conf >= 70 else ("#e6a817" if conf >= 45 else "#dc3545")
+        st.markdown(
+            f'<div style="text-align:center;font-size:1.1rem;color:{dot_color};padding-top:4px">&#9679;</div>',
+            unsafe_allow_html=True,
+        )
 
     # col_adj is intentionally left empty here — filled by _render_adj_cell() after the call
 
@@ -803,29 +811,24 @@ _OPP_ABBREV = {
 }
 adj_col_label = f"vs {_OPP_ABBREV.get(selected_opponent, selected_opponent[:3].upper())}" if selected_opponent else "Adj"
 
-# Column headers — 8 cols: name, pos, status, last, wtd, proj+conf, adj, note
-hc = st.columns([3, 1, 2, 1, 1.2, 1.8, 1.5, 2.0])
+# Column headers — 9 cols: name, pos, status, last, wtd, proj, conf, adj, note
+hc = st.columns([3, 1, 2, 1, 1.2, 1.4, 0.9, 1.5, 2.0])
 hc[0].markdown("**Player**")
 hc[1].markdown("**Pos**")
 hc[2].markdown("**Status**")
 hc[3].markdown("**Last**")
 hc[4].markdown('<span title="Recent-weighted average — emphasizes last few games over the full season" style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>Wtd ⓘ</b></span>', unsafe_allow_html=True)
-hc[5].markdown(
-    '<span style="white-space:nowrap">'
-    '<span title="Projected minutes: weighted blend of season avg and recent games, adjusted for injury status, role, and rotation." style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>Proj ⓘ</b></span>'
-    '&nbsp;<span title="Confidence in this projection — see key above" style="cursor:help;font-size:0.8rem;opacity:0.7;border-bottom:1px dotted;text-decoration:none">Conf</span>'
-    '</span>',
-    unsafe_allow_html=True
-)
-hc[6].markdown(f'<span title="{"Minutes vs " + selected_opponent + " this season" if selected_opponent else "Minutes gained or lost vs this player\'s normal average due to tonight\'s statuses"}" style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>{adj_col_label} ⓘ</b></span>', unsafe_allow_html=True)
-hc[7].markdown("**Note**")
+hc[5].markdown('<span title="Projected minutes: sample-size-aware blend of season avg and recent games, adjusted for injury status, role, and rotation." style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>Proj ⓘ</b></span>', unsafe_allow_html=True)
+hc[6].markdown('<div style="text-align:center"><span title="Confidence in this projection — see key above the table" style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>Conf</b></span></div>', unsafe_allow_html=True)
+hc[7].markdown(f'<span title="{"Minutes vs " + selected_opponent + " this season" if selected_opponent else "Minutes gained or lost vs this player\'s normal average due to tonight\'s statuses"}" style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>{adj_col_label} ⓘ</b></span>', unsafe_allow_html=True)
+hc[8].markdown("**Note**")
 
 # Build lookup maps
 base_map      = {p.name: p.base_min for p in adjusted_lineup.players}
 last_game_map = {name: info.get("last_game_min", 0.0) for name, info in team_data.items()}
 starters_set  = {p.name for p in adjusted_lineup.players if p.role == "starter"}
 
-COL_WIDTHS = [3, 1, 2, 1, 1.2, 1.8, 1.5, 2.0]
+COL_WIDTHS = [3, 1, 2, 1, 1.2, 1.4, 0.9, 1.5, 2.0]
 
 
 def _render_adj_cell(col, player_name: str, proj_min: float):
@@ -857,14 +860,14 @@ st.markdown("**Starters**")
 for p in [x for x in adjusted_lineup.players if x.role == "starter" and x.projected_min > 0]:
     c = st.columns(COL_WIDTHS)
     render_player_row(p, base_map[p.name], last_game_map.get(p.name, 0.0), *c, starters_set=starters_set, foul_notes=h2h_foul_notes)
-    _render_adj_cell(c[6], p.name, p.projected_min)
+    _render_adj_cell(c[7], p.name, p.projected_min)
 
 # Bench section
 st.markdown("**Bench**")
 for p in [x for x in adjusted_lineup.players if x.role == "bench" and x.projected_min > 0]:
     c = st.columns(COL_WIDTHS)
     render_player_row(p, base_map[p.name], last_game_map.get(p.name, 0.0), *c, starters_set=starters_set, foul_notes=h2h_foul_notes)
-    _render_adj_cell(c[6], p.name, p.projected_min)
+    _render_adj_cell(c[7], p.name, p.projected_min)
 
 # Out section
 if out_players:
@@ -872,7 +875,7 @@ if out_players:
     for p in out_players:
         c = st.columns(COL_WIDTHS)
         render_player_row(p, base_map[p.name], last_game_map.get(p.name, 0.0), *c, starters_set=starters_set, foul_notes=h2h_foul_notes)
-        c[6].markdown("—")
+        c[7].markdown("—")
 
 st.markdown("---")
 
@@ -1117,10 +1120,7 @@ with st.expander("Full WNBA Injury Report"):
 
 st.markdown("---")
 
-_tab_proj, _tab_accuracy = st.tabs(["📋  Projections", "📊  Model Accuracy"])
-
-with _tab_proj:
-    st.info("Scroll up to view projections for the selected team.", icon="☝️")
+_tab_accuracy, = st.tabs(["📊  Model Accuracy"])
 
 @st.cache_data(ttl=3600, show_spinner=False)
 def _run_backtest_cached(team: str) -> dict:
