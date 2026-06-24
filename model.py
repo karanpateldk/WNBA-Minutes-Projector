@@ -199,7 +199,8 @@ def _apply_injury_scale(base_min: float, status: str, duration: str = "new") -> 
 
 
 def _confidence_score(gp: int, avg_min: float, last3_range: float,
-                      status: str, start_pct: float) -> int:
+                      status: str, start_pct: float,
+                      plus_minus: float | None = None) -> int:
     score = 50
     score += min(gp * 2, 20)
     if start_pct >= 0.80 or start_pct <= 0.20:
@@ -214,6 +215,17 @@ def _confidence_score(gp: int, avg_min: float, last3_range: float,
     score += penalties.get(status, 0)
     if avg_min < 8:
         score -= 10
+    # Plus/minus signal: consistent positive +/- = coach trusts this player in
+    # real situations, boosting confidence. Persistent negative = less reliable.
+    if plus_minus is not None:
+        if plus_minus >= 8:
+            score += 8
+        elif plus_minus >= 4:
+            score += 4
+        elif plus_minus <= -4:
+            score -= 4
+        elif plus_minus <= -8:
+            score -= 8
     return max(0, min(100, score))
 
 
@@ -345,6 +357,7 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
             info.get("last3_range", 0.0) or 0.0,
             status,
             info.get("starter_pct", 0.0),
+            plus_minus=info.get("plus_minus"),
         )
         reasons = _reason_codes(
             role, ewma_min, avg_min, status,

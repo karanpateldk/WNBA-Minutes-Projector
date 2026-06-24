@@ -295,7 +295,11 @@ def render_player_row(
                 unsafe_allow_html=True,
             )
         elif p.status == "Out" and p.projected_min == 0:
-            note_text = f"Out — {clean_injury}" if clean_injury else "Out"
+            dnp_type = team_data.get(p.name, {}).get("dnp_type", "injury")
+            if dnp_type == "coach":
+                note_text = "DNP — Coach's Decision"
+            else:
+                note_text = f"Out — {clean_injury}" if clean_injury else "Out"
             st.markdown(
                 f'<span style="font-size:0.75rem;color:{color};font-weight:600">{note_text}</span>',
                 unsafe_allow_html=True,
@@ -421,8 +425,9 @@ _games_processed = _meta.get("games_processed", 0)
 # The injury report is fresher than the season stats cache so it always wins.
 for player, inj_info in injuries.items():
     if player in team_data:
-        team_data[player]["status"] = inj_info.get("status", "Active")
-        team_data[player]["injury"] = inj_info.get("injury", "")
+        team_data[player]["status"]   = inj_info.get("status", "Active")
+        team_data[player]["injury"]   = inj_info.get("injury", "")
+        team_data[player]["dnp_type"] = inj_info.get("dnp_type", "injury")
 
 # ---------------------------------------------------------------------------
 # Lineup source banner

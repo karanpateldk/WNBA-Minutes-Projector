@@ -720,10 +720,22 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
             "foul_trouble_games": ft,
             "foul_rate":          foul_rate,
             "starter_pct":        sp,
-            "recent_starter_pct": recent_sp,   # starter rate over last 5 games — detects role changes
+            "recent_starter_pct": recent_sp,
+            "plus_minus":         None,   # populated below from Snowflake
             "quarter_avgs":       q_avgs,
             "last_played_date":   last_played_date.get(name, ""),
         }
+
+    # Enrich with plus/minus from Snowflake — direct signal of how much a
+    # coach trusts a player in real game situations.
+    if _SF_AVAILABLE:
+        try:
+            pm_map = _sf.get_player_plus_minus(team_name)
+            for name, pm in pm_map.items():
+                if name in players:
+                    players[name]["plus_minus"] = pm
+        except Exception:
+            pass
 
     result = {
         "players":               players,

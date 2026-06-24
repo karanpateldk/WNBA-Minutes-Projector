@@ -193,6 +193,111 @@ def _full_team_name(market: str, name: str) -> str:
 
 
 # ---------------------------------------------------------------------------
+# Injuries: from WNBA_ROSTER_CURRENT PLAYER variant (primary source)
+# ---------------------------------------------------------------------------
+
+def get_all_injuries() -> dict:
+    """
+    Return {player_full_name: {"status": str, "injury": str, "team": str, "dnp_type": str}}
+    for all players with an active injury listed in WNBA_ROSTER_CURRENT.
+
+    The PLAYER variant contains an "injuries" array with:
+      - status: "Out", "Day To Day", "Questionable", "Probable", etc.
+      - desc: injury description e.g. "Knee", "Back", "Coach Decision"
+      - comment: free-text game note e.g. "Clark is Probable for Monday's game"
+      - update_date: most recent update
+
+    dnp_type: "coach" if desc contains "Coach" (healthy scratch),
+              "injury" otherwise. Lets the model treat them differently.
+    """
+    rows = _query(
+        """
+        SELECT
+            roster_market || ' ' || roster_name  AS team_full,
+            player:full_name::varchar             AS player_name,
+            player:injuries                       AS injuries_variant
+        FROM SPORTRADAR.DBO.WNBA_ROSTER_CURRENT
+        WHERE player:injuries IS NOT NULL
+          AND ARRAY_SIZE(player:injuries) > 0
+        """
+    )
+
+    result = {}
+    for r in rows:
+        name        = r["player_name"] or ""
+        team        = r["team_full"] or ""
+        inj_raw     = r["injuries_variant"]
+        if not name or not inj_raw:
+            continue
+        try:
+            injuries = inj_raw if isinstance(inj_raw, list) else json.loads(str(inj_raw))
+            if not injuries:
+                continue
+            # Take the most recently updated injury
+            inj = max(injuries, key=lambda x: x.get("update_date", ""))
+            status_raw  = str(inj.get("status", "")).strip()
+            desc        = str(inj.get("desc", "")).strip()
+            comment     = str(inj.get("comment", "")).strip()
+
+            status = _normalize_injury_status(status_raw)
+            dnp_type = "coach" if "coach" in desc.lower() else "injury"
+
+            result[name] = {
+                "status":   status,
+                "injury":   desc,
+                "comment":  comment,
+                "team":     team,
+                "dnp_type": dnp_type,
+            }
+        except Exception:
+            continue
+    return result
+
+
+def _normalize_injury_status(raw: str) -> str:
+    """Map Sportradar injury status strings to app status values."""
+    mapping = {
+        "out":        "Out",
+        "day to day": "Day-To-Day",
+        "dtd":        "Day-To-Day",
+        "questionable": "Questionable",
+        "probable":   "Probable",
+        "doubtful":   "Doubtful",
+        "active":     "Active",
+    }
+    return mapping.get(raw.lower().strip(), "Questionable")
+
+
+# ---------------------------------------------------------------------------
+# Plus/minus: season averages per player from WNBA_GAMESUMMARY_PLAYERS
+# ---------------------------------------------------------------------------
+
+def get_player_plus_minus(team_name: str, season_year: int = 2026) -> dict[str, float]:
+    """
+    Return {player_full_name: avg_plus_minus} for all players on the team
+    with at least 3 games played. Used to adjust confidence scores.
+    """
+    short_name = _sr_team_name_filter(team_name)
+    rows = _query(
+        """
+        SELECT
+            player_full_name,
+            ROUND(AVG(player_statistics_pls_min), 2) AS avg_pm,
+            COUNT(*) AS gp
+        FROM SPORTRADAR.DBO.WNBA_GAMESUMMARY_PLAYERS
+        WHERE team_name  = %s
+          AND scheduled >= %s
+          AND player_played = TRUE
+          AND player_statistics_pls_min IS NOT NULL
+        GROUP BY player_full_name
+        HAVING COUNT(*) >= 3
+        """,
+        (short_name, f"{season_year}-05-01"),
+    )
+    return {r["player_full_name"]: float(r["avg_pm"]) for r in rows if r["player_full_name"]}
+
+
+# ---------------------------------------------------------------------------
 # Schedule: completed regular-season games per team
 # ---------------------------------------------------------------------------
 

@@ -188,38 +188,55 @@ def _normalize_status(raw: str) -> str:
 
 def scrape_wnba_injuries() -> dict:
     """
-    Returns {player_name: {"status": str, "injury": str, "team": str}}
-    Primary: ESPN injuries API (confirmed working).
+    Returns {player_name: {"status": str, "injury": str, "team": str, "dnp_type": str}}
+    Primary: Sportradar WNBA_ROSTER_CURRENT via Snowflake — contains live injury
+             status, injury description, and coach's decision flags.
+    Fallback: ESPN injuries API.
+
+    dnp_type "coach" = healthy scratch by coaching decision (not a real injury).
     """
     cache_key = "wnba_injuries"
-    cached = _load_cache(cache_key)
+    cached = _load_cache(cache_key, ttl_hours=1.0)  # injuries refresh every hour
     if cached:
         return cached
 
     injuries = {}
 
-    # ESPN injuries API — confirmed working
+    # Primary: Sportradar via Snowflake
     try:
-        resp = requests.get(
-            "https://site.api.espn.com/apis/site/v2/sports/basketball/wnba/injuries",
-            headers=HEADERS, timeout=10
-        )
-        resp.raise_for_status()
-        data = resp.json()
-        for team_block in data.get("injuries", []):
-            team_name = team_block.get("team", {}).get("displayName", "")
-            for entry in team_block.get("injuries", []):
-                name       = entry.get("athlete", {}).get("displayName", "")
-                status_raw = entry.get("status", "")
-                desc       = entry.get("type", {}).get("description", "")
-                if name and status_raw:
-                    injuries[name] = {
-                        "status": _normalize_status(status_raw),
-                        "injury": desc,
-                        "team":   team_name,
-                    }
+        import snowflake_connector as _sf
+        if _sf.is_available():
+            injuries = _sf.get_all_injuries()
+            if injuries:
+                print(f"[scraper] Loaded {len(injuries)} injuries from Sportradar Snowflake")
     except Exception as e:
-        print(f"[scraper] ESPN injuries API failed: {e}")
+        print(f"[scraper] Snowflake injuries failed: {e}")
+
+    # Fallback: ESPN injuries API
+    if not injuries:
+        try:
+            resp = requests.get(
+                "https://site.api.espn.com/apis/site/v2/sports/basketball/wnba/injuries",
+                headers=HEADERS, timeout=10
+            )
+            resp.raise_for_status()
+            data = resp.json()
+            for team_block in data.get("injuries", []):
+                team_name = team_block.get("team", {}).get("displayName", "")
+                for entry in team_block.get("injuries", []):
+                    name       = entry.get("athlete", {}).get("displayName", "")
+                    status_raw = entry.get("status", "")
+                    desc       = entry.get("type", {}).get("description", "")
+                    if name and status_raw:
+                        injuries[name] = {
+                            "status":   _normalize_status(status_raw),
+                            "injury":   desc,
+                            "team":     team_name,
+                            "dnp_type": "injury",
+                        }
+            print(f"[scraper] Loaded {len(injuries)} injuries from ESPN (fallback)")
+        except Exception as e:
+            print(f"[scraper] ESPN injuries API failed: {e}")
 
     if injuries:
         _save_cache(cache_key, injuries)
