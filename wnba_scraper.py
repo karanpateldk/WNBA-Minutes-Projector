@@ -189,9 +189,11 @@ def _normalize_status(raw: str) -> str:
 def scrape_wnba_injuries() -> dict:
     """
     Returns {player_name: {"status": str, "injury": str, "team": str, "dnp_type": str}}
-    Primary: Sportradar WNBA_ROSTER_CURRENT via Snowflake — contains live injury
-             status, injury description, and coach's decision flags.
-    Fallback: ESPN injuries API.
+
+    Source priority:
+    1. Official WNBA injury report PDF (injuries.py) — league-submitted, most authoritative
+    2. Sportradar WNBA_ROSTER_CURRENT via Snowflake — enriched with coach's decision flag
+    3. ESPN injuries API — fallback only
 
     dnp_type "coach" = healthy scratch by coaching decision (not a real injury).
     """
@@ -202,17 +204,47 @@ def scrape_wnba_injuries() -> dict:
 
     injuries = {}
 
-    # Primary: Sportradar via Snowflake
+    # Primary: Official WNBA injury report PDF
+    try:
+        from injuries import load_or_scrape_injuries
+        df = load_or_scrape_injuries(cache_minutes=60)
+        if not df.empty:
+            for _, row in df.iterrows():
+                name   = str(row.get("player_name", "")).strip()
+                status = str(row.get("status", "")).strip()
+                if not name or not status:
+                    continue
+                injuries[name] = {
+                    "status":   _normalize_status(status),
+                    "injury":   "",   # PDF doesn't include injury description
+                    "team":     "",   # PDF doesn't include team
+                    "dnp_type": "injury",
+                    "play_prob": float(row.get("play_prob", 1.0)),
+                }
+            print(f"[scraper] Loaded {len(injuries)} injuries from official WNBA PDF")
+    except Exception as e:
+        print(f"[scraper] WNBA PDF injuries failed: {e}")
+
+    # Enrich with Sportradar — adds injury description, team name, coach's decision flag
+    # Sportradar data supplements the PDF; PDF status takes precedence where both exist
     try:
         import snowflake_connector as _sf
         if _sf.is_available():
-            injuries = _sf.get_all_injuries()
-            if injuries:
-                print(f"[scraper] Loaded {len(injuries)} injuries from Sportradar Snowflake")
+            sf_injuries = _sf.get_all_injuries()
+            for name, info in sf_injuries.items():
+                if name in injuries:
+                    # Enrich existing entry with description and team from Sportradar
+                    injuries[name]["injury"]   = info.get("injury", "")
+                    injuries[name]["team"]     = info.get("team", "")
+                    injuries[name]["dnp_type"] = info.get("dnp_type", "injury")
+                else:
+                    # Player in Sportradar but not in PDF — use Sportradar status
+                    injuries[name] = info
+            print(f"[scraper] Enriched with Sportradar data ({len(sf_injuries)} entries)")
     except Exception as e:
-        print(f"[scraper] Snowflake injuries failed: {e}")
+        print(f"[scraper] Snowflake injury enrichment failed: {e}")
 
-    # Fallback: ESPN injuries API
+    # Fallback: ESPN injuries API (only if both above failed)
     if not injuries:
         try:
             resp = requests.get(
