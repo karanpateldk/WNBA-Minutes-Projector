@@ -386,6 +386,139 @@ def get_game_margin(sr_game_id: str, team_name: str) -> float:
 
 
 # ---------------------------------------------------------------------------
+# Roster: player list with positions from WNBA_ROSTER_CURRENT
+# ---------------------------------------------------------------------------
+
+# Sportradar position codes → app position codes
+_SR_POS_MAP = {
+    "G":   "G",   "G-F": "G/F", "F-G": "G/F",
+    "F":   "F",   "F-C": "F/C", "C-F": "F/C",
+    "C":   "C",   "NA":  "?",   "":    "?",
+}
+
+
+def get_roster(team_name: str) -> dict[str, dict]:
+    """
+    Return {player_full_name: {"pos": str}} for all active roster members.
+    Uses WNBA_ROSTER_CURRENT PLAYER variant — position, jersey, status.
+    """
+    parts = _SR_TEAM_FULL_NAMES.get(team_name)
+    if not parts:
+        return {}
+    market, short = parts
+    rows = _query(
+        """
+        SELECT
+            player:full_name::varchar   AS full_name,
+            player:position::varchar    AS position,
+            player:status::varchar      AS status
+        FROM SPORTRADAR.DBO.WNBA_ROSTER_CURRENT
+        WHERE roster_market = %s
+          AND roster_name   = %s
+        """,
+        (market, short),
+    )
+    result = {}
+    for r in rows:
+        name = r["full_name"] or ""
+        if not name:
+            continue
+        pos_raw = str(r["position"] or "").upper()
+        pos = _SR_POS_MAP.get(pos_raw, pos_raw or "?")
+        result[name] = {"pos": pos}
+    return result
+
+
+def get_all_players_sf() -> list[str]:
+    """
+    Return sorted list of all active WNBA players across all teams.
+    Used for the manual-add dropdown.
+    """
+    rows = _query(
+        """
+        SELECT DISTINCT player:full_name::varchar AS full_name
+        FROM SPORTRADAR.DBO.WNBA_ROSTER_CURRENT
+        WHERE player:status::varchar = 'ACT'
+          AND player:full_name IS NOT NULL
+        ORDER BY full_name
+        """
+    )
+    return [r["full_name"] for r in rows if r["full_name"]]
+
+
+# ---------------------------------------------------------------------------
+# Today's schedule: find tonight's game for a team
+# ---------------------------------------------------------------------------
+
+def get_todays_game(team_name: str) -> tuple[str, str, str]:
+    """
+    Return (sr_game_id, opponent_full_name, scheduled_time_str) for today's game.
+    Returns ("", "", "") if no game today.
+    Uses WNBA_SCHEDULE — checks scheduled date = today (UTC).
+    """
+    rows = _query(
+        """
+        SELECT
+            game_id,
+            home_team_name,
+            away_team_name,
+            TO_VARCHAR(scheduled, 'HH24:MI') AS tip_time,
+            game_status
+        FROM SPORTRADAR.DBO.WNBA_SCHEDULE
+        WHERE season_type = 'REG'
+          AND scheduled::DATE = CURRENT_DATE
+          AND (home_team_name = %s OR away_team_name = %s)
+        LIMIT 1
+        """,
+        (team_name, team_name),
+    )
+    if not rows:
+        return "", "", ""
+    r = rows[0]
+    opponent = r["away_team_name"] if r["home_team_name"] == team_name else r["home_team_name"]
+    return r["game_id"], opponent, r["tip_time"] or ""
+
+
+# ---------------------------------------------------------------------------
+# Opponent margins: for blowout/pace profiling in matchup.py
+# ---------------------------------------------------------------------------
+
+def get_team_margins(team_name: str, season_year: int = CURRENT_SEASON_YEAR) -> list[float]:
+    """
+    Return list of point differentials (team - opponent) for all completed
+    regular-season games. Used by matchup.py for blowout/pace profiling.
+    """
+    rows = _query(
+        """
+        SELECT
+            home_team_name,
+            away_team_name,
+            home_team_points,
+            away_team_points
+        FROM SPORTRADAR.DBO.WNBA_SCHEDULE
+        WHERE season_type  = 'REG'
+          AND season_year  = %s
+          AND game_status  IN ('complete', 'closed')
+          AND (home_team_name = %s OR away_team_name = %s)
+        ORDER BY scheduled ASC
+        """,
+        (season_year, team_name, team_name),
+    )
+    margins = []
+    for r in rows:
+        try:
+            hp = float(r["home_team_points"] or 0)
+            ap = float(r["away_team_points"] or 0)
+            if r["home_team_name"] == team_name:
+                margins.append(hp - ap)
+            else:
+                margins.append(ap - hp)
+        except (TypeError, ValueError):
+            continue
+    return margins
+
+
+# ---------------------------------------------------------------------------
 # Boxscore: clean per-player stats from WNBA_GAMESUMMARY_PLAYERS
 # ---------------------------------------------------------------------------
 

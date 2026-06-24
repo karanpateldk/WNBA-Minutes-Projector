@@ -410,8 +410,9 @@ ESPN_POS_MAP = {
 
 def scrape_espn_roster(team_name: str) -> dict:
     """
-    Fetches live roster from ESPN's public JSON API.
-    Returns {player_name: {pos}} or {} on failure.
+    Returns {player_name: {pos}} for the team roster.
+    Primary: Sportradar WNBA_ROSTER_CURRENT via Snowflake.
+    Fallback: ESPN roster API.
     Cached for 6 hours.
     """
     cache_key = f"espn_roster_{team_name.replace(' ', '_')}"
@@ -419,28 +420,40 @@ def scrape_espn_roster(team_name: str) -> dict:
     if cached:
         return cached
 
-    team_id = ESPN_TEAM_IDS.get(team_name)
-    if not team_id:
-        return {}
-
-    url = f"https://site.api.espn.com/apis/site/v2/sports/basketball/wnba/teams/{team_id}/roster"
-    try:
-        resp = requests.get(url, headers=HEADERS, timeout=10)
-        resp.raise_for_status()
-        data = resp.json()
-    except Exception as e:
-        print(f"[scraper] ESPN roster API failed for {team_name}: {e}")
-        return {}
-
     roster = {}
-    for player in data.get("athletes", []):
-        name = player.get("displayName", "")
-        if not name or len(name) < 3:
-            continue
-        pos_info = player.get("position", {})
-        pos_raw  = pos_info.get("abbreviation", "") if isinstance(pos_info, dict) else ""
-        pos      = ESPN_POS_MAP.get(pos_raw, pos_raw or "?")
-        roster[name] = {"pos": pos}
+
+    # Primary: Snowflake WNBA_ROSTER_CURRENT
+    try:
+        import snowflake_connector as _sf
+        if _sf.is_available():
+            roster = _sf.get_roster(team_name)
+            if roster:
+                _cache_path(cache_key).write_text(
+                    json.dumps({"timestamp": datetime.now().isoformat(),
+                                "payload": roster, "ttl_hours": 6}, indent=2)
+                )
+                return roster
+    except Exception as e:
+        print(f"[scraper] Snowflake roster failed for {team_name}: {e}")
+
+    # Fallback: ESPN roster API
+    team_id = ESPN_TEAM_IDS.get(team_name)
+    if team_id:
+        url = f"https://site.api.espn.com/apis/site/v2/sports/basketball/wnba/teams/{team_id}/roster"
+        try:
+            resp = requests.get(url, headers=HEADERS, timeout=10)
+            resp.raise_for_status()
+            data = resp.json()
+            for player in data.get("athletes", []):
+                name = player.get("displayName", "")
+                if not name or len(name) < 3:
+                    continue
+                pos_info = player.get("position", {})
+                pos_raw  = pos_info.get("abbreviation", "") if isinstance(pos_info, dict) else ""
+                pos      = ESPN_POS_MAP.get(pos_raw, pos_raw or "?")
+                roster[name] = {"pos": pos}
+        except Exception as e:
+            print(f"[scraper] ESPN roster API failed for {team_name}: {e}")
 
     if roster:
         _cache_path(cache_key).write_text(
@@ -495,9 +508,20 @@ def get_live_roster(team_name: str) -> dict:
 
 def _get_todays_game_id(team_name: str) -> tuple[str, str, str]:
     """
-    Returns (game_id, opponent_name, game_time_str) for today's game,
-    or ("", "", "") if no game today.
+    Returns (game_id, opponent_name, game_time_str) for today's game.
+    Primary: Snowflake WNBA_SCHEDULE (CURRENT_DATE filter).
+    Fallback: ESPN scoreboard API.
     """
+    # Primary: Snowflake
+    try:
+        import snowflake_connector as _sf
+        if _sf.is_available():
+            gid, opp, tip = _sf.get_todays_game(team_name)
+            if gid:
+                return gid, opp, tip
+    except Exception as e:
+        print(f"[scraper] Snowflake today's game failed: {e}")
+
     team_id = ESPN_TEAM_IDS.get(team_name)
     if not team_id:
         return "", "", ""
@@ -1004,12 +1028,23 @@ def get_all_players() -> list[str]:
 
     all_names: set[str] = set()
 
-    # Source 1: current ESPN rosters (roster endpoint is fast — no boxscores)
-    for team_name in TEAMS:
-        roster = scrape_espn_roster(team_name)
-        all_names.update(roster.keys())
+    # Primary: Snowflake — single query across all teams
+    try:
+        import snowflake_connector as _sf
+        if _sf.is_available():
+            sf_players = _sf.get_all_players_sf()
+            if sf_players:
+                all_names.update(sf_players)
+    except Exception as e:
+        print(f"[scraper] Snowflake all_players failed: {e}")
 
-    # Source 2: static fallback
+    # Fallback: ESPN rosters per team (only if Snowflake returned nothing)
+    if not all_names:
+        for team_name in TEAMS:
+            roster = scrape_espn_roster(team_name)
+            all_names.update(roster.keys())
+
+    # Always add static roster names as safety net for anyone missing
     for roster in ROSTERS.values():
         all_names.update(roster.keys())
 

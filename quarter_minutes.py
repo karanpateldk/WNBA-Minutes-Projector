@@ -292,13 +292,37 @@ def _parse_quarter_minutes_from_game(game_id: str, team_id: int) -> dict:
 # ---------------------------------------------------------------------------
 
 def get_recent_game_ids(team_id: int, n: int = 5) -> list[str]:
-    """Return up to n completed game IDs for a team, most recent first."""
+    """
+    Return up to n completed regular-season game IDs, most recent first.
+    Primary: Snowflake WNBA_SCHEDULE. Fallback: ESPN schedule API.
+    """
+    # Primary: Snowflake — look up team name from ID, query schedule
+    if _SF_AVAILABLE:
+        try:
+            from season_stats import ESPN_TEAM_IDS as _SS_IDS
+            team_name = next((name for name, tid in _SS_IDS.items() if tid == team_id), "")
+            if team_name:
+                games = _sf.get_games_for_team(team_name)
+                if games:
+                    # get_games_for_team returns oldest-first; reverse for most-recent-first
+                    return [gid for gid, _ in reversed(games)][:n]
+        except Exception as e:
+            print(f"[quarter_minutes] Snowflake recent game IDs failed: {e}")
+
+    # Fallback: ESPN schedule API
     data = _get_json(
         f"https://site.api.espn.com/apis/site/v2/sports/basketball/wnba/teams/{team_id}/schedule"
     )
     game_ids = []
     for event in data.get("events", []):
         comp = event.get("competitions", [{}])[0]
+        season_type = event.get("season", {}).get("type", None)
+        raw_date = event.get("date", "")
+        game_date = raw_date[:10] if raw_date else ""
+        if season_type is not None and season_type != 2:
+            continue
+        if season_type is None and game_date < "2026-05-16":
+            continue
         if comp.get("status", {}).get("type", {}).get("completed"):
             game_ids.append(event["id"])
     # Schedule is chronological — reverse for most-recent-first

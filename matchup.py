@@ -168,31 +168,49 @@ def _get_opponent_profile(opp_name: str) -> dict:
         "sample_games":     0,
     }
 
-    if not team_id:
-        _save_cache(cache_key, profile)
-        return profile
-
-    # Fetch completed game results to compute margin/blowout tendency
-    data = _get_json(
-        f"https://site.api.espn.com/apis/site/v2/sports/basketball/wnba/teams/{team_id}/schedule"
-    )
-
+    # Primary: Snowflake WNBA_SCHEDULE — regular season only, no date guessing
     margins = []
-    for event in data.get("events", []):
-        comp = event.get("competitions", [{}])[0]
-        if not comp.get("status", {}).get("type", {}).get("completed"):
-            continue
-        competitors = comp.get("competitors", [])
-        scores = {}
-        for c in competitors:
-            tid = str(c.get("team", {}).get("id", ""))
-            val = _parse_score(c.get("score"))
-            if val is not None:
-                scores[tid] = val
-        if len(scores) == 2:
-            vals = list(scores.values())
-            margin = abs(vals[0] - vals[1])
-            margins.append(margin)
+    if _SF_AVAILABLE:
+        try:
+            margins = _sf.get_team_margins(opp_name)
+        except Exception as e:
+            print(f"[matchup] Snowflake margins failed for {opp_name}: {e}")
+
+    # Fallback: ESPN schedule API
+    if not margins:
+        team_id = ESPN_TEAM_IDS.get(opp_name)
+        if not team_id:
+            _save_cache(cache_key, profile)
+            return profile
+
+        data = _get_json(
+            f"https://site.api.espn.com/apis/site/v2/sports/basketball/wnba/teams/{team_id}/schedule"
+        )
+        team_id_str = str(team_id)
+        for event in data.get("events", []):
+            comp = event.get("competitions", [{}])[0]
+            if not comp.get("status", {}).get("type", {}).get("completed"):
+                continue
+            season_type = event.get("season", {}).get("type", None)
+            raw_date    = event.get("date", "")
+            game_date   = raw_date[:10] if raw_date else ""
+            if season_type is not None:
+                if season_type != 2:
+                    continue
+            else:
+                if game_date < "2026-05-16":
+                    continue
+            competitors = comp.get("competitors", [])
+            scores = {}
+            for c in competitors:
+                tid = str(c.get("team", {}).get("id", ""))
+                val = _parse_score(c.get("score"))
+                if val is not None:
+                    scores[tid] = val
+            if len(scores) == 2:
+                vals = list(scores.values())
+                margin = abs(vals[0] - vals[1])
+                margins.append(margin)
 
     if margins:
         blowout_count = sum(1 for m in margins if m >= 15)
