@@ -803,14 +803,20 @@ _OPP_ABBREV = {
 }
 adj_col_label = f"vs {_OPP_ABBREV.get(selected_opponent, selected_opponent[:3].upper())}" if selected_opponent else "Adj"
 
-# Column headers — 9 cols: name, pos, status, last, wtd, proj, conf, adj, note
+# Column headers — 8 cols: name, pos, status, last, wtd, proj+conf, adj, note
 hc = st.columns([3, 1, 2, 1, 1.2, 1.8, 1.5, 2.0])
 hc[0].markdown("**Player**")
 hc[1].markdown("**Pos**")
 hc[2].markdown("**Status**")
 hc[3].markdown("**Last**")
 hc[4].markdown('<span title="Recent-weighted average — emphasizes last few games over the full season" style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>Wtd ⓘ</b></span>', unsafe_allow_html=True)
-hc[5].markdown('<span title="Proj = projected minutes (weighted blend of season avg and recent games, adjusted for injury and role). Circle = confidence: green high, amber medium, red low." style="cursor:help;border-bottom:1px dotted;text-decoration:none;white-space:nowrap"><b>Proj ⓘ</b></span>', unsafe_allow_html=True)
+hc[5].markdown(
+    '<span style="white-space:nowrap">'
+    '<span title="Projected minutes: weighted blend of season avg and recent games, adjusted for injury status, role, and rotation." style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>Proj ⓘ</b></span>'
+    '&nbsp;<span title="Confidence in this projection — see key above" style="cursor:help;font-size:0.8rem;opacity:0.7;border-bottom:1px dotted;text-decoration:none">Conf</span>'
+    '</span>',
+    unsafe_allow_html=True
+)
 hc[6].markdown(f'<span title="{"Minutes vs " + selected_opponent + " this season" if selected_opponent else "Minutes gained or lost vs this player\'s normal average due to tonight\'s statuses"}" style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>{adj_col_label} ⓘ</b></span>', unsafe_allow_html=True)
 hc[7].markdown("**Note**")
 

@@ -157,38 +157,65 @@ def _weighted_minutes(
     clean_avg: float | None = None,
     last3_clean_avg: float | None = None,
     ols_coeffs: tuple[float, float, float] | None = None,
+    last1_min: float | None = None,
 ) -> float:
     """
-    Project minutes using OLS when enough season data exists, otherwise
-    fall back to weighted blend.
+    Sample-size-aware blend of season average and recent games.
 
-    OLS inputs use foul-adjusted averages (clean_avg, last3_clean_avg) so
-    foul-trouble games don't suppress the projection.  If clean versions
-    aren't available, raw averages are used.
+    Backtesting shows season_avg outperforms recency-heavy blends early in
+    the season (<20 games). Weights shift toward recent as sample grows:
+
+      <5 games:  100% season avg (no recent signal yet)
+      5-10:       70% season / 30% last3
+      10-20:      50% season / 50% last3
+      20-30:      30% season / 70% last3
+      30+:        15% season / 85% last3
+
+    When last3 diverges >=20% from season avg (role change / injury return),
+    last3 weight gets an additional boost of up to 15%.
+
+    When last1 (most recent game) is available, it gets a 15% slice carved
+    from last3 weight — single-game signal is strong for starters in stable
+    rotations.
     """
-    ca  = clean_avg      if clean_avg      is not None else avg_min
+    ca  = clean_avg       if clean_avg       is not None else avg_min
     l3c = last3_clean_avg if last3_clean_avg is not None else last3_avg
 
-    # OLS path — only when we have fitted coefficients
     if ols_coeffs is not None:
         b0, b1, b2 = ols_coeffs
         return round(b0 + b1 * ca + b2 * l3c, 1)
 
-    # Fallback: weighted blend with adaptive last3 weighting
     if games_played < 3:
-        return avg_min * 0.30 + last3_avg * 0.70
+        return round(ca * 0.80 + l3c * 0.20, 1)
 
-    w_season = WEIGHTS["season_avg"]   # 0.15 base
-    w_last3  = WEIGHTS["last3_avg"]    # 0.85 base
+    # Sample-size-aware base weights
+    if games_played < 5:
+        w_season, w_last3 = 1.00, 0.00
+    elif games_played < 10:
+        w_season, w_last3 = 0.70, 0.30
+    elif games_played < 20:
+        w_season, w_last3 = 0.50, 0.50
+    elif games_played < 30:
+        w_season, w_last3 = 0.30, 0.70
+    else:
+        w_season, w_last3 = 0.15, 0.85
 
-    if avg_min > 0:
-        divergence = abs(last3_avg - avg_min) / avg_min
+    # Boost last3 weight when recent trend diverges significantly from season
+    if ca > 0:
+        divergence = abs(l3c - ca) / ca
         if divergence >= 0.20:
-            extra_last3 = min(divergence - 0.20, 0.30) * 0.50
-            w_last3  = min(w_last3 + extra_last3, 0.95)
+            boost = min(divergence - 0.20, 0.15)
+            w_last3  = min(w_last3 + boost, 0.90)
             w_season = 1.0 - w_last3
 
-    return (avg_min * w_season + last3_avg * w_last3) / (w_season + w_last3)
+    # Blend last1 into the recent component if available
+    if last1_min is not None and w_last3 > 0:
+        w_last1 = w_last3 * 0.25           # last1 takes 25% of the recent weight
+        w_last3 = w_last3 * 0.75
+        recent  = l3c * (w_last3 / (w_last3 + w_last1)) + last1_min * (w_last1 / (w_last3 + w_last1))
+        return round(ca * w_season + recent * (w_last3 + w_last1), 1)
+
+    return round(ca * w_season + l3c * w_last3, 1)
 
 
 def _apply_injury_scale(base_min: float, status: str, duration: str = "new") -> float:
@@ -311,6 +338,10 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
         clean_avg = info.get("clean_avg_min") or avg_min
         last3_clean = info.get("last3_clean_avg") or info.get("last3_avg", avg_min)
 
+        last1 = info.get("last_game_min") or None
+        if last1 is not None and last1 < 0.5:
+            last1 = None  # DNP last game — don't use as signal
+
         base_min = _weighted_minutes(
             clean_avg,
             last3_clean,
@@ -318,6 +349,7 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
             clean_avg=clean_avg,
             last3_clean_avg=last3_clean,
             ols_coeffs=ols_coeffs,
+            last1_min=last1,
         )
         if gp == 0:
             base_min = min(base_min, 3.0)

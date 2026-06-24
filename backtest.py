@@ -115,25 +115,44 @@ def _bias(errors: list[float]) -> float:
     return round(sum(errors) / len(errors), 2)
 
 
-def _weighted_blend(hist: list[float], recent_window: int = 3) -> float:
+def _weighted_blend(hist: list[float]) -> float:
     """
-    Mirror the production model's adaptive 15/85 season/recent blend.
-    When recent and season diverge by >=20%, boost recent weight by up to 30%.
+    Mirror the production model's sample-size-aware blend.
+    Weights shift from season-heavy (early season) toward recent-heavy (late season).
     """
     if not hist:
         return 0.0
+    n = len(hist)
     season = _trimmed_avg(hist)
-    recent = hist[-recent_window:] if len(hist) >= recent_window else hist
-    recent_avg = _median(recent)
-    # Adaptive weight: increase recent weight when divergence >= 20%
-    divergence = abs(recent_avg - season) / max(season, 1.0)
-    season_w = 0.15
-    recent_w = 0.85
-    if divergence >= 0.20:
-        boost = min(0.30, divergence - 0.20)
-        season_w = max(0.05, season_w - boost)
-        recent_w = min(0.95, recent_w + boost)
-    return round(season_w * season + recent_w * recent_avg, 1)
+    last3_avg = _median(hist[-3:]) if n >= 3 else season
+    last1 = hist[-1] if n >= 1 else None
+
+    if n < 5:
+        w_season, w_last3 = 1.00, 0.00
+    elif n < 10:
+        w_season, w_last3 = 0.70, 0.30
+    elif n < 20:
+        w_season, w_last3 = 0.50, 0.50
+    elif n < 30:
+        w_season, w_last3 = 0.30, 0.70
+    else:
+        w_season, w_last3 = 0.15, 0.85
+
+    if season > 0:
+        divergence = abs(last3_avg - season) / season
+        if divergence >= 0.20:
+            boost = min(divergence - 0.20, 0.15)
+            w_last3  = min(w_last3 + boost, 0.90)
+            w_season = 1.0 - w_last3
+
+    # Blend last1 into recent component
+    if last1 is not None and last1 >= 0.5 and w_last3 > 0:
+        w_last1 = w_last3 * 0.25
+        w_l3    = w_last3 * 0.75
+        recent  = last3_avg * (w_l3 / (w_l3 + w_last1)) + last1 * (w_last1 / (w_l3 + w_last1))
+        return round(season * w_season + recent * (w_l3 + w_last1), 1)
+
+    return round(season * w_season + last3_avg * w_last3, 1)
 
 
 # ---------------------------------------------------------------------------
