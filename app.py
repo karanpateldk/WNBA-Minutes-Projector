@@ -1124,15 +1124,28 @@ if export_excel:
 
 with st.expander("Full WNBA Injury Report"):
     if injuries:
-        inj_rows = [
-            {"Player": k, "Team": v.get("team",""), "Status": v.get("status",""),
-             "Injury": v.get("injury","")}
-            for k, v in injuries.items()
-        ]
+        inj_rows = []
+        for k, v in sorted(injuries.items(), key=lambda x: (x[1].get("team",""), x[0])):
+            status = v.get("status", "")
+            dnp_type = v.get("dnp_type", "injury")
+            # Show "Coach's Decision" instead of the injury field for healthy scratches
+            injury_display = (
+                "Coach's Decision" if dnp_type == "coach"
+                else v.get("injury", "")
+            )
+            comment = v.get("comment", "")
+            inj_rows.append({
+                "Player":  k,
+                "Team":    v.get("team", "—"),
+                "Status":  status,
+                "Injury":  injury_display,
+                "Note":    comment,
+            })
         df_inj = pd.DataFrame(inj_rows)
         st.dataframe(df_inj, use_container_width=True, hide_index=True)
+        st.caption(f"Source: Official WNBA injury report + Sportradar · {len(inj_rows)} players listed")
     else:
-        st.info("No injury data available. ESPN may be rate-limiting. Static data in use.")
+        st.info("No injury data available.")
 
 # ---------------------------------------------------------------------------
 # Model Accuracy Tab

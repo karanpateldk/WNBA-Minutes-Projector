@@ -233,12 +233,13 @@ def scrape_wnba_injuries() -> dict:
             sf_injuries = _sf.get_all_injuries()
             for name, info in sf_injuries.items():
                 if name in injuries:
-                    # Enrich existing entry with description and team from Sportradar
+                    # Enrich PDF entry with Sportradar details
                     injuries[name]["injury"]   = info.get("injury", "")
                     injuries[name]["team"]     = info.get("team", "")
                     injuries[name]["dnp_type"] = info.get("dnp_type", "injury")
+                    injuries[name]["comment"]  = info.get("comment", "")
                 else:
-                    # Player in Sportradar but not in PDF — use Sportradar status
+                    # Player in Sportradar but not in PDF — use Sportradar data
                     injuries[name] = info
             print(f"[scraper] Enriched with Sportradar data ({len(sf_injuries)} entries)")
     except Exception as e:
