@@ -196,7 +196,7 @@ def scrape_wnba_injuries() -> dict:
     dnp_type "coach" = healthy scratch by coaching decision (not a real injury).
     """
     cache_key = "wnba_injuries"
-    cached = _load_cache(cache_key, ttl_hours=1.0)  # injuries refresh every hour
+    cached = _load_cache(cache_key)
     if cached:
         return cached
 
