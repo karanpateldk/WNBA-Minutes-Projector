@@ -775,10 +775,17 @@ def get_team_data(team_name: str) -> dict:
     # 1. Season stats (primary)
     season = get_team_season_stats(team_name)
     season_players = season.get("players", {})
-    # How many players does this team actually rotate? Derived from game logs.
-    # Bench cap = rotation_depth minus 5 starters, clamped to [2, 7].
     rotation_depth = season.get("rotation_depth", 8)
-    bench_slots = max(2, min(rotation_depth - 5, 7))
+
+    # Use Snowflake-derived bench rotation count when available.
+    # avg_bench_8plus = avg number of bench players who got 8+ min per game —
+    # this is the real rotation, not deep bench players who get 1-2 garbage min.
+    # Clamped to [2, 7] and rounded up by 1 to handle nights with extra rotation.
+    avg_bench_8plus = season.get("avg_bench_8plus", 0.0)
+    if avg_bench_8plus >= 2:
+        bench_slots = max(2, min(round(avg_bench_8plus) + 1, 7))
+    else:
+        bench_slots = max(2, min(rotation_depth - 5, 7))
 
     # 2. Live ESPN roster for positions
     live_roster = get_live_roster(team_name)
@@ -961,10 +968,15 @@ def get_team_data(team_name: str) -> dict:
     # Attach metadata under a reserved key so the UI can surface it.
     # Player keys are never "__meta__" so this won't collide.
     merged["__meta__"] = {
-        "rotation_depth": rotation_depth,
-        "bench_slots":    bench_slots,
-        "last_updated":   season.get("last_updated", ""),
+        "rotation_depth":  rotation_depth,
+        "bench_slots":     bench_slots,
+        "last_updated":    season.get("last_updated", ""),
         "games_processed": season.get("games_processed", 0),
+        "role_avg_starter": season.get("role_avg_starter", 0.0),
+        "role_avg_bench":   season.get("role_avg_bench", 0.0),
+        "avg_bench_8plus":  season.get("avg_bench_8plus", 0.0),
+        "avg_starter_mins": season.get("avg_starter_mins", 0.0),
+        "avg_bench_mins":   season.get("avg_bench_mins", 0.0),
     }
 
     return merged

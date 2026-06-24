@@ -728,8 +728,7 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
             "last_played_date":   last_played_date.get(name, ""),
         }
 
-    # Enrich with plus/minus from Snowflake — direct signal of how much a
-    # coach trusts a player in real game situations.
+    # Enrich with plus/minus from Snowflake
     if _SF_AVAILABLE:
         try:
             pm_map = _sf.get_player_plus_minus(team_name)
@@ -739,11 +738,30 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
         except Exception:
             pass
 
+    # Fetch team-specific role minute averages and rotation stats from Snowflake
+    role_avgs = {}
+    rotation_stats = {}
+    if _SF_AVAILABLE:
+        try:
+            role_avgs = _sf.get_role_minute_averages(team_name)
+        except Exception:
+            pass
+        try:
+            rotation_stats = _sf.get_rotation_stats(team_name)
+        except Exception:
+            pass
+
     result = {
         "players":               players,
         "most_recent_starters":  most_recent_starters,
         "games_processed":       len(games_with_dates),
         "rotation_depth":        rotation_depth,
+        "role_avg_starter":      role_avgs.get("starter", 0.0),
+        "role_avg_bench":        role_avgs.get("bench", 0.0),
+        "avg_bench_count":       rotation_stats.get("avg_bench_count", 0.0),
+        "avg_bench_8plus":       rotation_stats.get("avg_bench_8plus", 0.0),
+        "avg_starter_mins":      rotation_stats.get("avg_starter_mins", 0.0),
+        "avg_bench_mins":        rotation_stats.get("avg_bench_mins", 0.0),
         "last_updated":          datetime.now().isoformat(),
     }
 

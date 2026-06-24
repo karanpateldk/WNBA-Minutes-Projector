@@ -435,6 +435,98 @@ def get_roster(team_name: str) -> dict[str, dict]:
     return result
 
 
+def get_rotation_stats(team_name: str, season_year: int = CURRENT_SEASON_YEAR) -> dict:
+    """
+    Return actual rotation stats from game logs:
+      avg_bench_count:   avg number of bench players who got any minutes
+      avg_bench_8plus:   avg bench players with 8+ min (meaningful rotation)
+      avg_starter_mins:  avg total starter minutes per game
+      avg_bench_mins:    avg total bench minutes per game
+
+    Used to set realistic bench slot limits per team rather than guessing
+    from rotation_depth alone.
+    """
+    short_name = _sr_team_name_filter(team_name)
+    rows = _query(
+        """
+        SELECT
+            g.game_id,
+            SUM(CASE WHEN p.player_starter = TRUE AND p.player_played = TRUE
+                THEN TRY_TO_NUMBER(SPLIT_PART(p.player_statistics_minutes,':',1))
+                     + TRY_TO_NUMBER(SPLIT_PART(p.player_statistics_minutes,':',2))/60.0
+                ELSE 0 END)                                         AS starter_mins,
+            SUM(CASE WHEN p.player_starter = FALSE AND p.player_played = TRUE
+                THEN TRY_TO_NUMBER(SPLIT_PART(p.player_statistics_minutes,':',1))
+                     + TRY_TO_NUMBER(SPLIT_PART(p.player_statistics_minutes,':',2))/60.0
+                ELSE 0 END)                                         AS bench_mins,
+            COUNT(CASE WHEN p.player_starter = FALSE AND p.player_played = TRUE
+                AND TRY_TO_NUMBER(SPLIT_PART(p.player_statistics_minutes,':',1))
+                    + TRY_TO_NUMBER(SPLIT_PART(p.player_statistics_minutes,':',2))/60.0 >= 0.5
+                THEN 1 END)                                         AS bench_count,
+            COUNT(CASE WHEN p.player_starter = FALSE AND p.player_played = TRUE
+                AND TRY_TO_NUMBER(SPLIT_PART(p.player_statistics_minutes,':',1))
+                    + TRY_TO_NUMBER(SPLIT_PART(p.player_statistics_minutes,':',2))/60.0 >= 8
+                THEN 1 END)                                         AS bench_8plus
+        FROM SPORTRADAR.DBO.WNBA_SCHEDULE g
+        JOIN SPORTRADAR.DBO.WNBA_GAMESUMMARY_PLAYERS p ON p.game_id = g.game_id
+        WHERE g.season_type  = 'REG'
+          AND g.season_year  = %s
+          AND g.game_status  IN ('complete','closed')
+          AND g.home_team_name = %s OR g.away_team_name = %s
+          AND p.team_name    = %s
+        GROUP BY g.game_id
+        HAVING COUNT(CASE WHEN p.player_starter = TRUE THEN 1 END) = 5
+        """,
+        (season_year, team_name, team_name, short_name),
+    )
+    if not rows:
+        return {}
+    n = len(rows)
+    return {
+        "avg_bench_count":  round(sum(r["bench_count"]  or 0 for r in rows) / n, 1),
+        "avg_bench_8plus":  round(sum(r["bench_8plus"]  or 0 for r in rows) / n, 1),
+        "avg_starter_mins": round(sum(r["starter_mins"] or 0 for r in rows) / n, 1),
+        "avg_bench_mins":   round(sum(r["bench_mins"]   or 0 for r in rows) / n, 1),
+        "games_sampled":    n,
+    }
+
+
+def get_role_minute_averages(team_name: str, season_year: int = CURRENT_SEASON_YEAR) -> dict:
+    """
+    Return observed average minutes for starters and bench players on this team
+    this season, derived directly from WNBA_GAMESUMMARY_PLAYERS.
+
+    Returns {"starter": float, "bench": float} or {} if insufficient data.
+    These are used as soft anchors in the projection model so that starters
+    are pulled toward their team's actual starter average and bench toward bench.
+    """
+    short_name = _sr_team_name_filter(team_name)
+    rows = _query(
+        """
+        SELECT
+            player_starter,
+            ROUND(AVG(
+                TRY_TO_NUMBER(SPLIT_PART(player_statistics_minutes, ':', 1))
+                + TRY_TO_NUMBER(SPLIT_PART(player_statistics_minutes, ':', 2)) / 60.0
+            ), 2) AS avg_min,
+            COUNT(*) AS n
+        FROM SPORTRADAR.DBO.WNBA_GAMESUMMARY_PLAYERS
+        WHERE team_name   = %s
+          AND scheduled  >= %s
+          AND player_played = TRUE
+          AND player_statistics_minutes IS NOT NULL
+        GROUP BY player_starter
+        HAVING COUNT(*) >= 10
+        """,
+        (short_name, f"{season_year}-05-01"),
+    )
+    result = {}
+    for r in rows:
+        role = "starter" if r["player_starter"] else "bench"
+        result[role] = float(r["avg_min"] or 0)
+    return result
+
+
 def get_all_players_sf() -> list[str]:
     """
     Return sorted list of all active WNBA players across all teams.
