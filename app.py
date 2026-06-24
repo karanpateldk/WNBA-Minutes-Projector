@@ -365,33 +365,8 @@ with st.sidebar:
     st.markdown("---")
     st.markdown("**Data Sources**")
     st.caption("Stats & play-by-play: Sportradar (Snowflake)")
-    st.caption("Injuries: ESPN API")
-    st.caption("Refreshes every 4 hours.")
-
-    if st.button("Update Rosters & Stats", use_container_width=True, type="primary"):
-        # Wipe only the currently selected team's caches so the refresh is fast.
-        # Other teams stay cached until selected. Also clears the combined player
-        # list and Streamlit's in-memory cache so the UI reflects fresh data.
-        from pathlib import Path
-        import re
-        cache_dir = Path(__file__).resolve().parent / "data"
-        team_slug = selected_team.replace(" ", "_")
-        patterns = [
-            f"season_{team_slug}.json",
-            f"espn_roster_{team_slug}.json",
-            f"lineup_{team_slug}.json",
-            f"all_players_combined.json",
-            "wnba_injuries.json",
-        ]
-        for fname in patterns:
-            p = cache_dir / fname
-            if p.exists():
-                p.unlink()
-        # Also wipe any h2h / opp_profile files for this team
-        for p in cache_dir.glob(f"*{team_slug}*"):
-            p.unlink()
-        st.cache_data.clear()
-        st.rerun()
+    st.caption("Injuries: Official WNBA PDF + Sportradar")
+    st.caption("Auto-refreshes every 4 hours.")
 
     st.markdown("---")
     show_charts = st.checkbox("Show quarter breakdown", value=True)
