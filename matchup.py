@@ -230,10 +230,24 @@ def _get_h2h_results(team_name: str, opp_name: str) -> list[dict]:
     opp_id_str  = str(opp_id)
     team_id_str = str(team_id)
 
+    REGULAR_SEASON_START = "2026-05-16"
+
     for event in data.get("events", []):
         comp = event.get("competitions", [{}])[0]
         if not comp.get("status", {}).get("type", {}).get("completed"):
             continue
+
+        # Filter to regular season only — same logic as get_all_games_with_dates
+        season_type = event.get("season", {}).get("type", None)
+        raw_date    = event.get("date", "")
+        game_date   = raw_date[:10] if raw_date else ""
+        if season_type is not None:
+            if season_type != 2:
+                continue
+        else:
+            if game_date < REGULAR_SEASON_START:
+                continue
+
         competitors = comp.get("competitors", [])
         team_ids = [str(c.get("team", {}).get("id", "")) for c in competitors]
         if opp_id_str not in team_ids:
@@ -500,16 +514,27 @@ def get_player_h2h_minutes(team_name: str, opp_name: str) -> dict[str, list[floa
     data = _get_json(
         f"https://site.api.espn.com/apis/site/v2/sports/basketball/wnba/teams/{team_id}/schedule"
     )
+    REGULAR_SEASON_START = "2026-05-16"
     opp_id_str = str(opp_id)
     h2h_game_ids = []
     for event in data.get("events", []):
         comp = event.get("competitions", [{}])[0]
         if not comp.get("status", {}).get("type", {}).get("completed"):
             continue
+
+        # Regular season only
+        season_type = event.get("season", {}).get("type", None)
+        raw_date    = event.get("date", "")
+        game_date   = raw_date[:10] if raw_date else ""
+        if season_type is not None:
+            if season_type != 2:
+                continue
+        else:
+            if game_date < REGULAR_SEASON_START:
+                continue
+
         comp_ids = [str(c.get("team", {}).get("id", "")) for c in comp.get("competitors", [])]
-        raw_date = event.get("date", "")
-        game_date = raw_date[:10] if raw_date else ""
-        if opp_id_str in comp_ids and game_date >= "2026-05-16":
+        if opp_id_str in comp_ids:
             h2h_game_ids.append(event["id"])
 
     result: dict[str, list[float]] = defaultdict(list)
