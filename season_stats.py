@@ -250,7 +250,9 @@ def get_all_games_with_dates(team_name: str) -> list[tuple[str, str]]:
             return games
 
     # ESPN fallback
-    REGULAR_SEASON_START = "2026-05-16"   # update each year if needed
+    from datetime import date as _date
+    _yr = _date.today().year if _date.today().month >= 5 else _date.today().year - 1
+    REGULAR_SEASON_START = f"{_yr}-05-01"
 
     team_id = ESPN_TEAM_IDS.get(team_name)
     if not team_id:

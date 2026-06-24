@@ -38,6 +38,14 @@ except Exception:
     _sf = None  # type: ignore
     _SF_AVAILABLE = False
 
+def _season_start() -> str:
+    from datetime import date as _d
+    yr = _d.today().year if _d.today().month >= 5 else _d.today().year - 1
+    return f"{yr}-05-01"
+
+REGULAR_SEASON_START = _season_start()
+
+
 CACHE_DIR = Path(__file__).parent / "data"
 CACHE_DIR.mkdir(exist_ok=True)
 
@@ -198,7 +206,7 @@ def _get_opponent_profile(opp_name: str) -> dict:
                 if season_type != 2:
                     continue
             else:
-                if game_date < "2026-05-16":
+                if game_date < REGULAR_SEASON_START:
                     continue
             competitors = comp.get("competitors", [])
             scores = {}
@@ -329,7 +337,7 @@ def _get_h2h_results(team_name: str, opp_name: str) -> list[dict]:
                     if season_type != 2:
                         continue
                 else:
-                    if game_date < "2026-05-16":
+                    if game_date < REGULAR_SEASON_START:
                         continue
                 competitors = comp.get("competitors", [])
                 team_ids = [str(c.get("team", {}).get("id", "")) for c in competitors]
@@ -398,7 +406,7 @@ def _get_player_vs_opp_minutes(
                     for c in comp.get("competitors", [])]
         raw_date = event.get("date", "")
         game_date = raw_date[:10] if raw_date else ""
-        if opp_id_str in comp_ids and game_date >= "2026-05-16":
+        if opp_id_str in comp_ids and game_date >= REGULAR_SEASON_START:
             h2h_game_ids.append(event["id"])
 
     result: dict[str, list[float]] = defaultdict(list)
@@ -454,7 +462,7 @@ def get_h2h_foul_notes(
                     for c in comp.get("competitors", [])]
         raw_date = event.get("date", "")
         game_date = raw_date[:10] if raw_date else ""
-        if opp_id_str in comp_ids and game_date >= "2026-05-16":
+        if opp_id_str in comp_ids and game_date >= REGULAR_SEASON_START:
             h2h_game_ids.append(event["id"])
 
     if not h2h_game_ids:
@@ -642,7 +650,7 @@ def get_player_h2h_minutes(team_name: str, opp_name: str) -> dict[str, list[floa
                     if season_type != 2:
                         continue
                 else:
-                    if game_date < "2026-05-16":
+                    if game_date < REGULAR_SEASON_START:
                         continue
                 comp_ids = [str(c.get("team", {}).get("id", "")) for c in comp.get("competitors", [])]
                 if opp_id_str in comp_ids:

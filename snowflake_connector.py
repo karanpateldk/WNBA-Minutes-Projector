@@ -333,7 +333,13 @@ def get_player_plus_minus(team_name: str, season_year: int = 2026) -> dict[str, 
 # Schedule: completed regular-season games per team
 # ---------------------------------------------------------------------------
 
-CURRENT_SEASON_YEAR = 2026
+def _current_season_year() -> int:
+    """WNBA season runs May-Oct. Jan-Apr = still in prior season's offseason."""
+    from datetime import date
+    today = date.today()
+    return today.year if today.month >= 5 else today.year - 1
+
+CURRENT_SEASON_YEAR = _current_season_year()
 
 
 def get_games_for_team(team_name: str, season_year: int = CURRENT_SEASON_YEAR) -> list[tuple[str, str]]:
