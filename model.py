@@ -446,10 +446,12 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
             last1 = None  # DNP last game — don't use as signal
 
         # For situational/low-minute players (avg < 18), suppress last1 when it is
-        # more than 2x their season average — that game reflects a special circumstance
-        # (injury to teammate, foul trouble, blowout) not their normal role.
+        # more than 2x their season average AND their last3 (excluding last1) is also
+        # low — meaning the high game is a one-off, not a genuine role expansion.
+        # If last3_clean is already elevated (player trending up), keep last1.
         if (last1 is not None and avg_min < 18 and avg_min > 0
                 and last1 > avg_min * 2.0
+                and last3_clean < avg_min * 1.5   # last3 still near normal range
                 and player not in injury_overrides):
             last1 = None
 
