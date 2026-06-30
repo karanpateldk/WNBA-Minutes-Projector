@@ -907,6 +907,7 @@ def get_team_data(team_name: str) -> dict:
             "last3_avg":         round(last3_avg, 1),
             "last3_clean_avg":   round(last3_clean_avg, 1),
             "last_game_min":     round(sp.get("last_game_min", 0.0), 1),
+            "last_game_fouls":   sp.get("last_game_fouls", 0),
             "last3_range":       sp.get("last3_range", 0.0) or 0.0,
             "games_played":      gp,
             "games_started":     gs,

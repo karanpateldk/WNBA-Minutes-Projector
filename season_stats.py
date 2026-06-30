@@ -661,6 +661,7 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
     last3_minutes:       dict[str, list[float]] = defaultdict(list)
     last3_clean_minutes: dict[str, list[float]] = defaultdict(list)
     last_game_minutes:   dict[str, float]       = {}
+    last_game_fouls:     dict[str, int]         = {}
     recent_starter_games: dict[str, int]        = defaultdict(int)
     recent_games_played:  dict[str, int]        = defaultdict(int)
 
@@ -677,6 +678,7 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
                     last3_clean_minutes[p["name"]].append(scaled)
                 if idx == len(last3_game_ids) - 1:
                     last_game_minutes[p["name"]] = scaled
+                    last_game_fouls[p["name"]]   = p.get("fouls", 0)
 
     for gid in last5_game_ids:
         box = boxscore_cache.get(gid) or _parse_boxscore(gid, team_id)
@@ -790,6 +792,7 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
             "last3_range":        last3_range,
             "last3_clean_avg":    last3_clean_avg,
             "last_game_min":      last_game_minutes.get(name, 0.0),
+            "last_game_fouls":    last_game_fouls.get(name, 0),
             "games_played":       gp,
             "games_started":      starter_games[name],
             "foul_trouble_games": ft,

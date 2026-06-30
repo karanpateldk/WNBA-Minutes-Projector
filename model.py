@@ -445,6 +445,12 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
         if last1 is not None and last1 < 0.5:
             last1 = None  # DNP last game — don't use as signal
 
+        # Suppress last1 if the player fouled out last game (foul rate signals curtailed mins).
+        # The clean_avg and last3_clean already exclude foul-trouble games — last1 should too.
+        _last1_fouls = info.get("last_game_fouls", 0) or 0
+        if last1 is not None and _last1_fouls >= 5:
+            last1 = None
+
         # For situational/low-minute players (avg < 18), suppress last1 when it is
         # more than 2x their season average AND their last3 (excluding last1) is also
         # low — meaning the high game is a one-off, not a genuine role expansion.
@@ -545,9 +551,13 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
         # Applied before normalization so the 200-min constraint handles the balance.
         # Low-minute starters get a proportionally small boost (0.72 on a 10-min
         # starter = 7%, same as on a 30-min starter = 2.4%).
-        if role == "starter" and status not in ("Out", "Doubtful") and player not in injury_overrides:
+        # High-minute bench players (avg >= 20 min) function like starters —
+        # apply the starter correction rather than bench reduction.
+        # Covers sixth-starter types like Loyd who comes off bench but plays 27 min.
+        _is_high_min_bench = (role == "bench" and avg_min >= 20.0)
+        if (role == "starter" or _is_high_min_bench) and status not in ("Out", "Doubtful") and player not in injury_overrides:
             base_min = round(base_min + 0.72, 1)
-        elif role == "bench" and status not in ("Out", "Doubtful") and player not in injury_overrides:
+        elif role == "bench" and not _is_high_min_bench and status not in ("Out", "Doubtful") and player not in injury_overrides:
             base_min = round(max(base_min - 0.87, 1.0), 1)
 
         proj_min = _apply_injury_scale(base_min, status, info.get("injury", ""))
