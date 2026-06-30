@@ -424,8 +424,12 @@ def render_player_row(
                 unsafe_allow_html=True,
             )
         elif dnp_last:
+            # Use "DNP" only when we know it's a coach decision (healthy scratch).
+            # Otherwise use neutral "Missed last game" — could be unreported injury.
+            _dnp_type = _pinfo.get("dnp_type", "")
+            _dnp_label = "DNP last game" if _dnp_type == "coach" else "Missed last game"
             st.markdown(
-                '<span style="font-size:0.75rem;color:#6c757d;font-weight:600">DNP last game</span>',
+                f'<span style="font-size:0.75rem;color:#6c757d;font-weight:600">{_dnp_label}</span>',
                 unsafe_allow_html=True,
             )
         elif volatile:
