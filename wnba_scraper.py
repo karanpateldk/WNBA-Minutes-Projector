@@ -832,7 +832,17 @@ def get_team_data(team_name: str) -> dict:
         all_players = set(live_roster.keys())
         for name, sp in season_players.items():
             if name not in all_players:
-                if sp.get("avg_min", 0) >= 8.0 and sp.get("games_played", 0) >= 3:
+                # Only supplement if player played recently for this team (within 25 days).
+                # Players absent 25+ days were likely traded/waived — ESPN roster is correct.
+                _last_played = sp.get("last_played_date", "") or ""
+                _days_since = 999
+                if _last_played:
+                    try:
+                        from datetime import date as _date
+                        _days_since = (_date.today() - _date.fromisoformat(_last_played)).days
+                    except Exception:
+                        pass
+                if sp.get("avg_min", 0) >= 8.0 and sp.get("games_played", 0) >= 3 and _days_since <= 25:
                     all_players.add(name)
     else:
         all_players = set(season_players.keys())
@@ -862,8 +872,18 @@ def get_team_data(team_name: str) -> dict:
         zero_min_season = (gp == 0 and player not in today_starter_set)
         games_missed = sp.get("games_missed_streak", 0) or 0
         # Auto-Out: never played this season, OR missed 10+ straight games
-        # without being in today's confirmed lineup.
-        if (zero_min_season or (games_missed >= 10 and player not in today_starter_set)):
+        # AND last played 20+ days ago (to avoid catching traded players who
+        # still appear in season stats but have moved to another team).
+        _last_played_str = sp.get("last_played_date", "") or ""
+        _days_out = 999
+        if _last_played_str:
+            try:
+                from datetime import date as _date
+                _days_out = (_date.today() - _date.fromisoformat(_last_played_str)).days
+            except Exception:
+                pass
+        long_absent = games_missed >= 10 and _days_out >= 20
+        if (zero_min_season or (long_absent and player not in today_starter_set)):
             status = "Out"
             zero_min_season = True
 
