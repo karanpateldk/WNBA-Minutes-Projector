@@ -594,10 +594,10 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
 
         game_starters = {p["name"] for p in box if p["starter"] and not p["dnp"]}
 
-        # Detect OT games and scale minutes down to regulation equivalent.
-        # In a double-OT (300 total team min), a player who played 50 min
-        # would have played ~33 min in regulation (50 * 200/300).
-        # This prevents OT games from inflating averages beyond regulation range.
+        # Detect OT games and scale down only players who played OT minutes.
+        # Only scale a player if their minutes exceed the regulation per-player cap
+        # (40 min). Players who were benched in OT already have "normal" minutes
+        # and should not be scaled down further.
         team_total = sum(p["minutes"] for p in box if not p["dnp"])
         ot_scale = min(1.0, 200.0 / team_total) if team_total > 205 else 1.0
 
@@ -606,8 +606,12 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
             name = p["name"]
             if p["dnp"] or p["minutes"] < 0.5:
                 continue
-            # Scale OT minutes to regulation equivalent, then cap at 40 as safety net
-            capped_mins = min(round(p["minutes"] * ot_scale, 1), 40.0)
+            # Only apply OT scale when the player actually played into overtime
+            # (minutes > 40). Players under 40 min played regulation-only time.
+            if p["minutes"] > 40.0:
+                capped_mins = round(p["minutes"] * ot_scale, 1)
+            else:
+                capped_mins = p["minutes"]
             all_minutes[name].append(capped_mins)
             games_played[name] += 1
             if p["starter"]:
@@ -666,7 +670,8 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
         _ot_scale_l3 = min(1.0, 200.0 / _team_total_l3) if _team_total_l3 > 205 else 1.0
         for p in box:
             if not p["dnp"] and p["minutes"] >= 0.5:
-                scaled = round(p["minutes"] * _ot_scale_l3, 1)
+                # Only scale players who actually played into OT (> 40 min)
+                scaled = round(p["minutes"] * _ot_scale_l3, 1) if p["minutes"] > 40.0 else p["minutes"]
                 last3_minutes[p["name"]].append(scaled)
                 if p.get("fouls", 0) < 4:
                     last3_clean_minutes[p["name"]].append(scaled)
