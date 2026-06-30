@@ -436,9 +436,11 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
         avg_min  = info.get("avg_min", 10.0)
         ewma_min = info.get("ewma_min", avg_min)
 
-        # Use foul-adjusted (clean) averages as primary inputs so games where a player
-        # fouled out early don't suppress the projection. Fall back to raw if unavailable.
-        clean_avg = info.get("clean_avg_min") or avg_min
+        # Season anchor: use raw avg_min (includes foul-out games) so the season
+        # component isn't inflated by excluding bad games.
+        # Last3 anchor: use clean avg (excludes foul-out games) since a single
+        # foul-out in a 3-game window has outsized impact.
+        clean_avg   = avg_min   # raw season average as anchor
         last3_clean = info.get("last3_clean_avg") or info.get("last3_avg", avg_min)
 
         last1 = info.get("last_game_min") or None
