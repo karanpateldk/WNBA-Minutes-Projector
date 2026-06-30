@@ -742,8 +742,15 @@ def _redistribute_minutes(
             cap = REDIST_STARTER_CAP if p.role == "starter" else 38.0
             p.projected_min = round(min(p.projected_min + share, cap), 1)
 
-    # Step 3: mark positional replacement notes (informational only)
+    # Step 3: mark positional replacement notes for meaningful absences only.
+    # Only set coverage notes when the out player has a significant base_min
+    # (>= 12 min) — fringe/bench players being zeroed don't need coverage notes
+    # as it clutters the UI without adding useful information.
     for out_name, out_info in out_players:
+        out_base = proj_map.get(out_name, None)
+        out_base_min = out_base.base_min if out_base else 0
+        if out_base_min < 12.0:
+            continue  # fringe player — skip coverage note
         out_pos   = out_info.get("pos", "?")
         out_depth = out_info.get("depth", 2)
         replacement = _find_replacement(out_name, out_pos, out_depth, active, team_data)

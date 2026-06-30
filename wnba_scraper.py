@@ -903,10 +903,13 @@ def get_team_data(team_name: str) -> dict:
             role  = "starter" if player in today_starter_set else "bench"
             depth = 1 if role == "starter" else 2
         else:
-            # For returning players (low gp but high start_pct or on ESPN roster),
-            # check if they were a starter before injury by looking at their games
-            role  = "starter" if start_pct >= 0.50 else "bench"
-            depth = 1 if role == "starter" else (2 if start_pct >= 0.10 else 3)
+            # Use recent_starter_pct when it strongly diverges from season starter_pct
+            # (≥0.40 gap with ≥5 games played) — recent role is more predictive.
+            recent_sp = sp.get("recent_starter_pct", start_pct) or start_pct
+            effective_sp = (recent_sp if gp >= 5 and abs(recent_sp - start_pct) >= 0.40
+                            else start_pct)
+            role  = "starter" if effective_sp >= 0.50 else "bench"
+            depth = 1 if role == "starter" else (2 if effective_sp >= 0.10 else 3)
 
         last_played = sp.get("last_played_date", "")
         recently_active = False
