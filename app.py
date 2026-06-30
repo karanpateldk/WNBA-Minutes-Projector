@@ -639,7 +639,8 @@ role_overrides: dict[str, str] = {}
 # Separate players by category so the UI is scannable:
 #  1. Active / injured players (relevant to tonight)
 #  2. Zero-minute-season players (never played this year — auto-Out)
-player_names = list(team_data.keys())
+# Filter to only dict entries — skip internal keys like __team_name__
+player_names = [k for k, v in team_data.items() if isinstance(v, dict)]
 
 zero_min_players = [p for p in player_names if team_data[p].get("zero_min_season")]
 relevant_players = [p for p in player_names if p not in zero_min_players]
@@ -996,7 +997,7 @@ hc[8].markdown('<span style="white-space:nowrap"><b>Note</b></span>', unsafe_all
 
 # Build lookup maps
 base_map      = {p.name: p.base_min for p in adjusted_lineup.players}
-last_game_map = {name: info.get("last_game_min", 0.0) for name, info in team_data.items()}
+last_game_map = {name: info.get("last_game_min", 0.0) for name, info in team_data.items() if isinstance(info, dict)}
 starters_set  = {p.name for p in adjusted_lineup.players if p.role == "starter"}
 
 COL_WIDTHS = [3, 1, 2, 1, 1.2, 1.4, 1.1, 1.5, 1.8]
