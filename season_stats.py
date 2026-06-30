@@ -725,7 +725,12 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
         # is below 60% of season avg, it's likely a blowout sit or coach decision.
         # Drop it and recompute last3 from the remaining games.
         # Only applied with 8+ games of history to trust the season avg.
-        if gp >= 8 and trimmed_avg > 0 and l3_clean:
+        # Only apply anomaly filter to players with a meaningful regular role
+        # (avg >= 18 min). For low-minute situational players (avg < 18), their
+        # normal range IS low — removing "outlier" low games would incorrectly
+        # keep exceptional high-minute games (e.g. Harris getting 30 min when
+        # Clark is out) as the projected baseline.
+        if gp >= 8 and trimmed_avg >= 18 and l3_clean:
             anomaly_floor = trimmed_avg * 0.60
             l3_filtered = [m for m in l3_clean if m >= anomaly_floor]
             if l3_filtered and len(l3_filtered) < len(l3_clean):

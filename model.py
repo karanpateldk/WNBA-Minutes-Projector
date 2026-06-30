@@ -445,6 +445,14 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
         if last1 is not None and last1 < 0.5:
             last1 = None  # DNP last game — don't use as signal
 
+        # For situational/low-minute players (avg < 18), suppress last1 when it is
+        # more than 2x their season average — that game reflects a special circumstance
+        # (injury to teammate, foul trouble, blowout) not their normal role.
+        if (last1 is not None and avg_min < 18 and avg_min > 0
+                and last1 > avg_min * 2.0
+                and player not in injury_overrides):
+            last1 = None
+
         base_min = _weighted_minutes(
             clean_avg,
             last3_clean,
