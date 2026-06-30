@@ -18,7 +18,7 @@ import pandas as pd
 from io import BytesIO
 
 from roster_data import TEAMS, GAME_MINUTES
-from wnba_scraper import get_team_data, get_all_injuries, get_lineup_info, get_all_players
+from wnba_scraper import get_team_data, get_all_injuries, get_lineup_info, get_all_players, get_schedule_context
 from season_stats import get_team_season_stats
 from model import (
     apply_scenario,
@@ -51,7 +51,23 @@ st.markdown("""
     .status-badge {
         display: inline-block; padding: 2px 10px; border-radius: 12px;
         font-size: 0.78rem; font-weight: 600; color: #fff;
-        letter-spacing: 0.02em;
+        letter-spacing: 0.02em; white-space: nowrap;
+    }
+    /* Prevent column headers and player names from mid-word wrapping.
+       Targets every possible Streamlit column DOM nesting level. */
+    [data-testid="column"] p,
+    [data-testid="column"] span,
+    [data-testid="column"] b,
+    [data-testid="column"] strong {
+        white-space: nowrap !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    /* Allow note column text to wrap at word boundaries (it's intentionally long) */
+    [data-testid="column"]:last-child p,
+    [data-testid="column"]:last-child span {
+        white-space: normal !important;
+        overflow: visible;
     }
     .mins-big { font-size: 1.4rem; font-weight: 700; }
     .delta-pos { color: #28a745; font-weight: 600; }
@@ -143,6 +159,43 @@ components.html("""
 
 
 # ---------------------------------------------------------------------------
+# Auto-clear caches on every code change OR Streamlit reboot.
+#
+# Sentinel file stores:  "<app_mtime>|<process_pid>"
+# Clear triggers:
+#   1. app.py was modified  → code changed, always refresh
+#   2. PID changed          → server restarted (reboot button or manual restart)
+# Normal page interactions (same mtime + same PID) → skip, no overhead.
+# ---------------------------------------------------------------------------
+import os as _os
+from pathlib import Path as _Path
+
+_data_dir  = _Path(__file__).parent / "data"
+_sentinel  = _Path(__file__).parent / ".last_clear_stamp"
+_app_mtime = str(_Path(__file__).stat().st_mtime)
+_pid       = str(_os.getpid())
+_stamp     = f"{_app_mtime}|{_pid}"
+
+_should_clear = True
+if _sentinel.exists():
+    try:
+        _should_clear = _sentinel.read_text().strip() != _stamp
+    except Exception:
+        pass
+
+if _should_clear:
+    for _pat in ("season_*.json", "espn_roster_*.json", "schedule_*.json"):
+        for _f in _data_dir.glob(_pat):
+            try:
+                _f.unlink()
+            except Exception:
+                pass
+    try:
+        _sentinel.write_text(_stamp)
+    except Exception:
+        pass
+
+# ---------------------------------------------------------------------------
 # Session state init
 # ---------------------------------------------------------------------------
 
@@ -179,21 +232,24 @@ if "manual_added_players" not in st.session_state:
 # Data loading
 # ---------------------------------------------------------------------------
 
-@st.cache_data(ttl=240)
+# No Streamlit-level cache on these — the underlying file caches in
+# get_team_data / get_all_injuries handle freshness. A Streamlit cache on
+# top creates a double-cache that serves stale data when code changes deploy.
 def load_team(team_name: str) -> dict:
     return get_team_data(team_name)
 
-@st.cache_data(ttl=240)
 def load_lineup_info(team_name: str) -> dict:
     return get_lineup_info(team_name)
 
-@st.cache_data(ttl=240)
 def load_injuries() -> dict:
     return get_all_injuries()
 
-@st.cache_data(ttl=240)
 def load_season_stats(team_name: str) -> dict:
     return get_team_season_stats(team_name)
+
+@st.cache_data(ttl=1800)
+def load_schedule_context(team_name: str) -> dict:
+    return get_schedule_context(team_name)
 
 
 # ---------------------------------------------------------------------------
@@ -212,15 +268,26 @@ def render_player_row(
     color = INJURY_COLOR.get(p.status, "#6c757d")
 
     with col_name:
-        marker = " ★" if p.role == "starter" else ""
-        st.markdown(f"**{p.name}**{marker}")
+        if p.role == "starter":
+            # Last word + star are wrapped together so the star never orphans alone
+            parts = p.name.rsplit(" ", 1)
+            if len(parts) == 2:
+                name_html = (
+                    f'<b>{parts[0]}</b> '
+                    f'<span style="white-space:nowrap"><b>{parts[1]}</b> &#9733;</span>'
+                )
+            else:
+                name_html = f'<span style="white-space:nowrap"><b>{p.name}</b> &#9733;</span>'
+            st.markdown(name_html, unsafe_allow_html=True)
+        else:
+            st.markdown(f"**{p.name}**")
 
     with col_pos:
         st.markdown(p.pos)
 
     with col_status:
         st.markdown(
-            f'<span class="status-badge" style="background:{color}">'
+            f'<span class="status-badge" style="background:{color};white-space:nowrap">'
             f'{p.display_status}</span>',
             unsafe_allow_html=True,
         )
@@ -258,13 +325,45 @@ def render_player_row(
 
     with col_note:
         foul_note   = (foul_notes or {}).get(p.name)
-        # DNP only fires for truly Active players (not on injury report) who had 0 min last game
-        dnp_last = (last_game_min == 0
-                    and p.status == "Active"
-                    and p.projected_min > 0
-                    and not p.injury
-                    and team_data.get(p.name, {}).get("games_played", 0) >= 3
-                    and team_data.get(p.name, {}).get("recently_active", False))
+        _pinfo = team_data.get(p.name, {})
+
+        # Keywords in injury text that signal a long-term absence
+        _LT_KEYWORDS = (
+            "surgery", "surgical", "torn", "tear", "fracture", "fractured",
+            "out indefinitely", "indefinite", "season", "months", "month",
+            "weeks", "week", "acl", "achilles", "stress fracture", "labrum",
+        )
+        _inj_lower = (p.injury or "").lower()
+        _inj_is_longterm = any(kw in _inj_lower for kw in _LT_KEYWORDS)
+
+        # Absent = Active player, 0 last game, has real history
+        _absent = (
+            last_game_min == 0
+            and p.projected_min > 0
+            and _pinfo.get("games_played", 0) >= 3
+            and (_pinfo.get("recently_active", False) or _pinfo.get("last3_avg", 0) > 0)
+        )
+        _games_missed = _pinfo.get("games_missed_streak", 0) if _absent else 0
+
+        # Long-term: any of these signals
+        #   1. missed 5+ games (extended absence regardless of injury text)
+        #   2. injury text contains long-term keywords
+        #   3. absent AND has any injury text (injury reported + not playing = long-term)
+        long_term_injury = (
+            _absent
+            and p.status in ("Active", "Questionable", "Day-To-Day")
+            and (
+                _games_missed >= 5
+                or _inj_is_longterm
+                or (p.injury and _games_missed >= 2)  # injury reported + missing games
+            )
+        )
+        dnp_last = (
+            _absent
+            and p.status == "Active"
+            and not p.injury
+            and not long_term_injury
+        )
         last3_range = 0.0
         if p.name in team_data and isinstance(team_data[p.name], dict):
             last3_range = team_data[p.name].get("last3_range", 0.0) or 0.0
@@ -285,8 +384,10 @@ def render_player_row(
             )
         elif p.note and p.replaced_player and p.replaced_player in starters_set:
             st.caption(p.note)
-        elif p.status in ("Questionable", "Day-To-Day"):
+        elif p.status in ("Questionable", "Doubtful", "Day-To-Day"):
             note_text = f"{p.status} — {clean_injury}" if clean_injury else p.status
+            if p.note:
+                note_text += f" · {p.note}"
             st.markdown(
                 f'<span style="font-size:0.75rem;color:{color};font-weight:600">{note_text}</span>',
                 unsafe_allow_html=True,
@@ -301,15 +402,14 @@ def render_player_row(
                 f'<span style="font-size:0.75rem;color:{color};font-weight:600">{note_text}</span>',
                 unsafe_allow_html=True,
             )
-        elif p.status == "Doubtful":
-            note_text = f"Doubtful — {clean_injury}" if clean_injury else "Doubtful"
-            st.markdown(
-                f'<span style="font-size:0.75rem;color:{color};font-weight:600">{note_text}</span>',
-                unsafe_allow_html=True,
-            )
         elif clean_injury and p.status not in ("Active", "Probable"):
             st.markdown(
                 f'<span style="font-size:0.75rem;color:{color};font-weight:600">{clean_injury}</span>',
+                unsafe_allow_html=True,
+            )
+        elif long_term_injury:
+            st.markdown(
+                '<span style="font-size:0.75rem;color:#fd7e14;font-weight:600">Long-term injury</span>',
                 unsafe_allow_html=True,
             )
         elif dnp_last:
@@ -395,13 +495,12 @@ _games_processed = _meta.get("games_processed", 0)
 _role_avg_starter = _meta.get("role_avg_starter", 0.0)
 _role_avg_bench   = _meta.get("role_avg_bench", 0.0)
 
-# Inject role averages into each player dict so model.py can read them
-# without needing a separate parameter. They're team-wide constants.
-if _role_avg_starter or _role_avg_bench:
-    for _pname in team_data:
-        if isinstance(team_data[_pname], dict):
-            team_data[_pname]["role_avg_starter"] = _role_avg_starter
-            team_data[_pname]["role_avg_bench"]   = _role_avg_bench
+# Inject team-wide constants into each player dict so model.py can read them.
+for _pname in team_data:
+    if isinstance(team_data[_pname], dict):
+        team_data[_pname]["role_avg_starter"] = _role_avg_starter
+        team_data[_pname]["role_avg_bench"]   = _role_avg_bench
+        team_data[_pname]["rotation_depth"]   = _rotation_depth
 
 # Inject live injury statuses — always overrides cached team data.
 # The injury report is fresher than the season stats cache so it always wins.
@@ -412,8 +511,34 @@ for player, inj_info in injuries.items():
         team_data[player]["dnp_type"] = inj_info.get("dnp_type", "injury")
 
 # ---------------------------------------------------------------------------
-# Lineup source banner
+# Lineup source banner + schedule context
 # ---------------------------------------------------------------------------
+
+# Fetch schedule context (prev result + next game) — purely display, no model impact
+_sched = load_schedule_context(selected_team)
+_prev  = _sched.get("prev")
+_next  = _sched.get("next")
+
+def _schedule_line() -> str:
+    """Build a one-line schedule context string for the banner."""
+    parts = []
+    if _prev:
+        icon = "&#9989;" if _prev.get("win") else "&#10060;"
+        loc  = "vs" if _prev.get("home") else "@"
+        parts.append(
+            f'{icon} Last ({_prev["date"]}): {loc} {_prev["opponent"]} '
+            f'<strong>{_prev["team_score"]}-{_prev["opp_score"]}</strong>'
+        )
+    if _next:
+        loc  = "vs" if _next.get("home") else "@"
+        time = _next.get("game_time") or ""
+        time_str = f', {time}' if time else ""
+        parts.append(
+            f'&#128197; Next ({_next["date"]}): {loc} {_next["opponent"]}{time_str}'
+        )
+    return '&nbsp;&nbsp;<span style="opacity:0.35">|</span>&nbsp;&nbsp;'.join(parts) if parts else ""
+
+_sched_html = _schedule_line()
 
 if lineup_info.get("starters"):
     confirmed = lineup_info.get("confirmed", False)
@@ -427,20 +552,43 @@ if lineup_info.get("starters"):
     opp_str      = f" vs {opponent}" if opponent else ""
     time_str     = f" — {game_time}" if game_time else ""
     starters_str = ",  ".join(lineup_info["starters"])
+    sched_row    = f'<br><span style="font-size:0.78rem;opacity:0.65">{_sched_html}</span>' if _sched_html else ""
 
     st.markdown(
         f'<div class="{css}">'
         f'<strong>{icon} {label}</strong> (via {source}){opp_str}{time_str}<br>'
         f'<span style="font-size:0.9rem">{starters_str}</span>'
+        f'{sched_row}'
         f'</div>',
         unsafe_allow_html=True,
     )
 else:
-    st.info(
-        "No lineup found for today — using season depth chart as baseline. "
-        "Lineups typically appear on RotoWire 1-2 days before tip-off.",
-        icon="ℹ️",
-    )
+    _has_game_today = bool(lineup_info.get("game_time") or lineup_info.get("opponent"))
+    _sched_row = f'<br><span style="font-size:0.78rem;opacity:0.65">{_sched_html}</span>' if _sched_html else ""
+    if _has_game_today:
+        _opp   = lineup_info.get("opponent", "")
+        _gtime = lineup_info.get("game_time", "")
+        _opp_str  = f" vs {_opp}" if _opp else ""
+        _time_str = f" — tip-off {_gtime}" if _gtime else ""
+        st.markdown(
+            f'<div class="banner-projected">'
+            f'<strong>⏳ Waiting for lineup{_opp_str}{_time_str}</strong><br>'
+            f'<span style="font-size:0.85rem;opacity:0.8">'
+            f'Lineup not yet announced. Projecting based on recent rotation — '
+            f'check team page or beat writers on X near tip-off for confirmation.'
+            f'</span>'
+            f'{_sched_row}'
+            f'</div>',
+            unsafe_allow_html=True,
+        )
+    else:
+        _no_game_html = (
+            '<div class="banner-stats">'
+            '📅 No game today. Projections based on most recent rotation.'
+            + (_sched_row)
+            + '</div>'
+        )
+        st.markdown(_no_game_html, unsafe_allow_html=True)
 
 # Data freshness info bar
 if _games_processed > 0:
@@ -658,6 +806,15 @@ with st.expander("+ Add / override players manually"):
 # Inject added players into team_data for projection
 for _rid, _entry in st.session_state.manual_added_players.items():
     _name = _entry["name"]
+    # If this player exists in season data with high DNP rate, default to Out
+    # so manually re-adding a habitual DNP doesn't silently project minutes.
+    _season_info = next(
+        (v for k, v in team_data.items()
+         if k == _name and isinstance(v, dict)), {}
+    )
+    if _season_info.get("dnp_rate", 0) >= 0.40 and _entry.get("status") == "Active":
+        _entry = dict(_entry)
+        _entry["status"] = "Out"
     if _name not in team_data:
         team_data[_name] = {
             "pos":              _entry["pos"],
@@ -749,18 +906,18 @@ if selected_opponent:
 
 st.markdown('<div class="section-header">Projected Lineup</div>', unsafe_allow_html=True)
 
-# Confidence legend
+# Confidence legend — dots match what appears in the Conf column
 st.markdown(
-    '<div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;flex-wrap:wrap;font-size:0.75rem">'
-    '<span style="font-weight:600;opacity:0.8">Conf:</span>'
-    '<span style="background:#28a745;color:#fff;font-weight:700;padding:1px 6px;border-radius:8px">HIGH</span>'
-    '<span style="opacity:0.7">Consistent role &amp; sample</span>'
+    '<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;font-size:0.75rem">'
+    '<span style="font-weight:600;opacity:0.8;white-space:nowrap">Conf &#9679;:</span>'
+    '<span style="color:#28a745;font-size:1rem;line-height:1">&#9679;</span>'
+    '<span style="white-space:nowrap;opacity:0.8">HIGH — consistent role &amp; sample</span>'
     '<span style="opacity:0.35">&nbsp;|&nbsp;</span>'
-    '<span style="background:#e6a817;color:#fff;font-weight:700;padding:1px 6px;border-radius:8px">MED</span>'
-    '<span style="opacity:0.7">Some variability</span>'
+    '<span style="color:#e6a817;font-size:1rem;line-height:1">&#9679;</span>'
+    '<span style="white-space:nowrap;opacity:0.8">MED — some variability</span>'
     '<span style="opacity:0.35">&nbsp;|&nbsp;</span>'
-    '<span style="background:#dc3545;color:#fff;font-weight:700;padding:1px 6px;border-radius:8px">LOW</span>'
-    '<span style="opacity:0.7">Small sample or erratic mins</span>'
+    '<span style="color:#dc3545;font-size:1rem;line-height:1">&#9679;</span>'
+    '<span style="white-space:nowrap;opacity:0.8">LOW — small sample or injury</span>'
     '</div>',
     unsafe_allow_html=True,
 )
@@ -807,23 +964,24 @@ _OPP_ABBREV = {
 adj_col_label = f"vs {_OPP_ABBREV.get(selected_opponent, selected_opponent[:3].upper())}" if selected_opponent else "Adj"
 
 # Column headers — 9 cols: name, pos, status, last, wtd, proj, conf, adj, note
-hc = st.columns([3, 1, 2, 1, 1.2, 1.4, 0.9, 1.5, 2.0])
-hc[0].markdown("**Player**")
-hc[1].markdown("**Pos**")
-hc[2].markdown("**Status**")
-hc[3].markdown("**Last**")
-hc[4].markdown('<span title="Recent-weighted average — emphasizes last few games over the full season" style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>Wtd</b></span>', unsafe_allow_html=True)
-hc[5].markdown('<span title="Projected minutes — sample-size-aware blend of season average and recent games, adjusted for injury status, role, and rotation" style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>Proj</b></span>', unsafe_allow_html=True)
-hc[6].markdown('<div style="text-align:center"><span title="Confidence in this projection — see color key above" style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>Conf</b></span></div>', unsafe_allow_html=True)
-hc[7].markdown(f'<span title="{"Minutes vs " + selected_opponent + " this season" if selected_opponent else "Minutes gained or lost vs this player\'s normal average due to tonight\'s statuses"}" style="cursor:help;border-bottom:1px dotted;text-decoration:none"><b>{adj_col_label}</b></span>', unsafe_allow_html=True)
-hc[8].markdown("**Note**")
+hc = st.columns([3, 1, 2, 1, 1.2, 1.4, 1.1, 1.5, 1.8])
+_hs = "white-space:nowrap;cursor:help;border-bottom:1px dotted;text-decoration:none"
+hc[0].markdown('<span style="white-space:nowrap"><b>Player</b></span>', unsafe_allow_html=True)
+hc[1].markdown('<span style="white-space:nowrap"><b>Pos</b></span>', unsafe_allow_html=True)
+hc[2].markdown('<span style="white-space:nowrap"><b>Status</b></span>', unsafe_allow_html=True)
+hc[3].markdown('<span style="white-space:nowrap"><b>Last</b></span>', unsafe_allow_html=True)
+hc[4].markdown(f'<span title="Recent-weighted average — emphasizes last few games over the full season" style="{_hs}"><b>Wtd</b></span>', unsafe_allow_html=True)
+hc[5].markdown(f'<span title="Projected minutes — sample-size-aware blend of season average and recent games, adjusted for injury status, role, and rotation" style="{_hs}"><b>Proj</b></span>', unsafe_allow_html=True)
+hc[6].markdown(f'<div style="text-align:center"><span title="Confidence in this projection — see color key above" style="{_hs}"><b>Conf</b></span></div>', unsafe_allow_html=True)
+hc[7].markdown(f'<span title="{"Minutes vs " + selected_opponent + " this season" if selected_opponent else "Minutes gained or lost vs this player\'s normal average due to tonight\'s statuses"}" style="{_hs}"><b>{adj_col_label}</b></span>', unsafe_allow_html=True)
+hc[8].markdown('<span style="white-space:nowrap"><b>Note</b></span>', unsafe_allow_html=True)
 
 # Build lookup maps
 base_map      = {p.name: p.base_min for p in adjusted_lineup.players}
 last_game_map = {name: info.get("last_game_min", 0.0) for name, info in team_data.items()}
 starters_set  = {p.name for p in adjusted_lineup.players if p.role == "starter"}
 
-COL_WIDTHS = [3, 1, 2, 1, 1.2, 1.4, 0.9, 1.5, 2.0]
+COL_WIDTHS = [3, 1, 2, 1, 1.2, 1.4, 1.1, 1.5, 1.8]
 
 
 def _render_adj_cell(col, player_name: str, proj_min: float):
@@ -926,7 +1084,17 @@ if selected_opponent and h2h_player_mins:
 
 if show_charts:
     st.markdown('<div class="section-header">Starter Quarter Minutes Breakdown</div>', unsafe_allow_html=True)
-    st.caption("Average minutes each starter plays per quarter, derived from play-by-play data this season.")
+    st.markdown(
+        '<div style="font-size:0.72rem;opacity:0.6;margin-bottom:6px;display:flex;gap:10px;flex-wrap:wrap">'
+        '<span>Average minutes per quarter from play-by-play data this season.</span>'
+        '<span style="white-space:nowrap"><span style="color:#4a90e2">&#9646;</span> Q1</span>'
+        '<span style="white-space:nowrap"><span style="color:#7b68ee">&#9646;</span> Q2</span>'
+        '<span style="white-space:nowrap"><span style="color:#e67e22">&#9646;</span> Q3</span>'
+        '<span style="white-space:nowrap"><span style="color:#27ae60">&#9646;</span> Q4</span>'
+        '<span style="white-space:nowrap;opacity:0.7">Faded bar = player typically sits that quarter</span>'
+        '</div>',
+        unsafe_allow_html=True,
+    )
 
     # Collect starters that are active and have quarter data
     starter_rows = [
@@ -1000,8 +1168,12 @@ if show_charts:
         # Team quarter totals — useful for seeing how heavy the starter load is per quarter
         st.markdown("---")
         st.markdown(
-            '<div style="font-size:0.8rem;font-weight:600;opacity:0.7;margin-bottom:4px">'
-            'Combined starter minutes per quarter</div>',
+            '<div style="font-size:0.8rem;font-weight:600;opacity:0.7;margin-bottom:2px">'
+            'Combined starter minutes per quarter</div>'
+            '<div style="font-size:0.72rem;opacity:0.6;margin-bottom:6px">'
+            '🟢 Light load (&lt;32 min) &nbsp;|&nbsp; '
+            '🟡 Moderate (32–39 min) &nbsp;|&nbsp; '
+            '🔴 Heavy (&ge;40 min) &nbsp;&mdash;&nbsp; max possible: 50 min (5 starters &times; 10)</div>',
             unsafe_allow_html=True,
         )
 

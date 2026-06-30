@@ -489,6 +489,112 @@ def run_backtest(team_name: str, min_games: int = 5) -> dict:
 
 
 # ---------------------------------------------------------------------------
+# Injury scale backtest
+# ---------------------------------------------------------------------------
+
+def run_injury_scale_backtest(min_games: int = 5) -> None:
+    """
+    Test whether applying a minutes haircut for questionable players improves
+    accuracy over predicting full base minutes when they do play.
+
+    Approach: across all teams, for each player-game where the player played,
+    classify games into two buckets:
+      - "normal" game: actual minutes >= 80% of their rolling average (played normally)
+      - "reduced" game: actual minutes < 80% of rolling average (played fewer mins)
+
+    Then compare two prediction strategies:
+      - scale_1.00: predict base_min (no haircut — our new approach)
+      - scale_0.75: predict base_min × 0.75 (old Questionable haircut)
+
+    The hypothesis: for "normal" games, scale_1.00 wins (lower MAE).
+    For "reduced" games, scale_0.75 may win.
+    If normal >> reduced in sample size, scale_1.00 is the better default.
+    """
+    print("\n=== INJURY SCALE BACKTEST ===")
+    print("Testing: no haircut (1.00) vs old questionable haircut (0.75) vs doubtful (0.20)")
+    print("Proxy: 'reduced game' = actual < 80% of rolling average\n")
+
+    errors_normal_100 = []
+    errors_normal_075 = []
+    errors_reduced_100 = []
+    errors_reduced_075 = []
+
+    for team_name in sorted(ESPN_TEAM_IDS.keys()):
+        team_id = ESPN_TEAM_IDS.get(team_name)
+        if not team_id:
+            continue
+        games = get_all_games_with_dates(team_name)
+        if len(games) < min_games + 1:
+            continue
+
+        boxscores = {}
+        for gid, _ in games:
+            boxscores[gid] = _parse_boxscore(gid, team_id)
+
+        player_history = defaultdict(list)
+        for gid, _ in games:
+            box = boxscores.get(gid, [])
+            for p in box:
+                if p["dnp"] or p["minutes"] < 0.5:
+                    continue
+                player_history[p["name"]].append((gid, p["minutes"]))
+
+        for test_idx in range(min_games, len(games)):
+            test_gid, _ = games[test_idx]
+            train_gids = {gid for gid, _ in games[:test_idx]}
+
+            for p in boxscores.get(test_gid, []):
+                if p["dnp"] or p["minutes"] < 0.5:
+                    continue
+                name = p["name"]
+                train_mins = [m for gid, m in player_history[name] if gid in train_gids]
+                if len(train_mins) < min_games:
+                    continue
+
+                base = _weighted_blend(train_mins)
+                if base < 1.0:
+                    continue
+
+                actual = p["minutes"]
+                # Classify: did they play their normal role?
+                is_normal = actual >= 0.80 * base
+
+                pred_100 = base
+                pred_075 = round(base * 0.75, 1)
+
+                err_100 = pred_100 - actual
+                err_075 = pred_075 - actual
+
+                if is_normal:
+                    errors_normal_100.append(err_100)
+                    errors_normal_075.append(err_075)
+                else:
+                    errors_reduced_100.append(err_100)
+                    errors_reduced_075.append(err_075)
+
+    def _fmt(errors):
+        if not errors:
+            return "n=0"
+        mae = _mae(errors)
+        bias = _bias(errors)
+        p2 = _pct_within(errors, 2.0)
+        return f"MAE={mae:.2f}  bias={bias:+.2f}  <=2min={p2:.1f}%  (n={len(errors)})"
+
+    print(f"{'Bucket':<14} {'scale=1.00 (new)':<42} {'scale=0.75 (old)':<42}")
+    print("-" * 100)
+    print(f"{'Normal games':<14} {_fmt(errors_normal_100):<42} {_fmt(errors_normal_075):<42}")
+    print(f"{'Reduced games':<14} {_fmt(errors_reduced_100):<42} {_fmt(errors_reduced_075):<42}")
+
+    total_100 = errors_normal_100 + errors_reduced_100
+    total_075 = errors_normal_075 + errors_reduced_075
+    print(f"{'All games':<14} {_fmt(total_100):<42} {_fmt(total_075):<42}")
+
+    norm_pct = round(100 * len(errors_normal_100) / max(len(total_100), 1), 1)
+    print(f"\n{norm_pct}% of games were 'normal' (player played >=80% of their avg when healthy)")
+    print("=> If normal% is high, scale=1.00 (no haircut) is the better default for questionable players.")
+
+
+# ---------------------------------------------------------------------------
 # CLI
 # ---------------------------------------------------------------------------
 
@@ -501,12 +607,19 @@ def main():
                         help="Write per-prediction CSV to this file")
     parser.add_argument("--all-teams", action="store_true",
                         help="Run backtest for every team and print aggregate results")
+    parser.add_argument("--injury-scale-test", action="store_true",
+                        help="Test injury scale: no-haircut vs 0.75 for questionable players")
     args = parser.parse_args()
 
     ALL_METHODS = [
         "season_avg", "last3_median", "last5_median", "last10_median",
         "ewma", "ewma_context", "weighted_blend", "role_scaled_blend",
+        "norm_bench_first", "norm_no_bench_floor", "norm_higher_starter_cap",
     ]
+
+    if args.injury_scale_test:
+        run_injury_scale_backtest(min_games=args.min_games)
+        return
 
     if args.all_teams:
         # Accumulate raw signed errors across teams for aggregate stats
@@ -529,7 +642,7 @@ def main():
             avg = round(sum(vals) / len(vals), 2) if vals else 0.0
             # Aggregate %within not reconstructable without raw records; show "--"
             print(f"{method:<16} {avg:>8.2f} {'--':>8} {'--':>8}")
-        print(f"\n(n≈{n_total} total player-game samples)")
+        print(f"\n(n~{n_total} total player-game samples)")
     else:
         result = run_backtest(args.team, min_games=args.min_games)
         if result and args.csv and result.get("records"):

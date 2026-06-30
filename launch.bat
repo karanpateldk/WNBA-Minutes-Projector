@@ -9,11 +9,17 @@ timeout /t 2 /nobreak >nul
 echo Clearing cached bytecode...
 if exist __pycache__ rmdir /s /q __pycache__
 
+echo Clearing stale season and roster caches...
+if exist data\season_*.json del /q data\season_*.json
+if exist data\espn_roster_*.json del /q data\espn_roster_*.json
+if exist data\schedule_*.json del /q data\schedule_*.json
+if exist .cache_cleared_pid del /q .cache_cleared_pid
+
 echo Starting WNBA Minutes Projector...
 echo.
-echo The app will open in your browser at http://localhost:8501
-echo Keep this window open while using the app.
-echo Close this window to stop the app.
+echo App running at http://localhost:8501
+echo This window can be minimized - the app keeps running.
+echo Run this file again to restart with fresh data.
 echo.
-"C:\Users\kar.patel\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\Scripts\streamlit.exe" run "C:\Users\kar.patel\wnba_minutes\app.py" --server.headless false
+"C:\Users\kar.patel\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\Scripts\streamlit.exe" run "C:\Users\kar.patel\wnba_minutes\app.py" --server.headless true --server.fileWatcherType auto --server.port 8501 --browser.serverAddress localhost
 pause

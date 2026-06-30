@@ -32,6 +32,12 @@ except Exception:
 CACHE_DIR = Path(__file__).parent / "data"
 CACHE_DIR.mkdir(exist_ok=True)
 
+# ESPN sometimes uses different display names for the same player across games.
+# Map every variant to the canonical name so stats accumulate correctly.
+_PLAYER_NAME_ALIASES: dict[str, str] = {
+    "Alicia Florez Getino": "Alicia Florez",
+}
+
 HEADERS = {
     "User-Agent": (
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -351,6 +357,11 @@ def _parse_boxscore(game_id: str, team_id: int) -> list[dict]:
                     except (ValueError, TypeError):
                         fouls = 0
                 if name:
+                    # Normalize accented chars to ASCII so names match across sources
+                    import unicodedata as _ud
+                    name = _ud.normalize("NFD", name)
+                    name = "".join(c for c in name if _ud.category(c) != "Mn")
+                    name = _PLAYER_NAME_ALIASES.get(name, name)
                     results.append({
                         "name":    name,
                         "minutes": round(mins, 1),
@@ -384,7 +395,25 @@ def _parse_quarter_minutes(game_id: str, team_id: int,
     """
     Derive per-quarter minutes from play-by-play substitution events.
     Returns {player: {1: mins, 2: mins, 3: mins, 4: mins}}
+    Primary: Snowflake get_quarter_minutes (all game IDs).
+    Fallback: ESPN play-by-play API (numeric ESPN IDs only).
     """
+    # Primary: Snowflake — works for all game IDs
+    if _SF_AVAILABLE:
+        try:
+            team_name = _team_name_for_id(team_id)
+            if team_name:
+                sf_q = _sf.get_quarter_minutes(game_id, team_name)
+                if sf_q:
+                    # sf_q format: {player_name: {1: mins, 2: mins, ...}}
+                    return sf_q
+        except Exception:
+            pass
+
+    # Fallback: ESPN play-by-play (only works for numeric ESPN game IDs)
+    if _is_sr_uuid(game_id):
+        return {}  # can't query ESPN with a SR UUID
+
     data = _get(f"https://site.api.espn.com/apis/site/v2/sports/basketball/wnba/summary?event={game_id}")
     plays = data.get("plays", [])
     if not plays:
@@ -570,11 +599,14 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
             name = p["name"]
             if p["dnp"] or p["minutes"] < 0.5:
                 continue
-            all_minutes[name].append(p["minutes"])
+            # Cap at 40 min so OT games don't inflate averages —
+            # projections are for regulation (40 min game), not OT.
+            capped_mins = min(p["minutes"], 40.0)
+            all_minutes[name].append(capped_mins)
             games_played[name] += 1
             if p["starter"]:
                 starter_games[name] += 1
-            if p["minutes"] >= 5.0:
+            if capped_mins >= 5.0:
                 rotation_count += 1
             if game_date:
                 last_played_date[name] = game_date
@@ -582,7 +614,7 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
             if p.get("fouls", 0) >= 4:
                 foul_trouble_games[name] += 1
             else:
-                clean_minutes[name].append(p["minutes"])
+                clean_minutes[name].append(capped_mins)
             player_fouls_by_game[name].append(p.get("fouls", 0))
             player_margins_by_game[name].append(game_margins.get(gid, 0.0))
 
@@ -598,6 +630,17 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
         # Track most recent game starters
         if i == len(games_with_dates) - 1:
             most_recent_starters = [p["name"] for p in box if p["starter"] and not p["dnp"]]
+
+    # Count consecutive games missed at the end of the season for each player.
+    games_missed_streak: dict[str, int] = {}
+    for name in all_minutes:
+        streak = 0
+        for gid, _ in reversed(games_with_dates):
+            box = boxscore_cache.get(gid, [])
+            if any(p["name"] == name and not p["dnp"] and p["minutes"] >= 0.5 for p in box):
+                break
+            streak += 1
+        games_missed_streak[name] = streak
 
     if not all_minutes:
         return {}
@@ -648,9 +691,10 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
 
         l3       = last3_minutes.get(name, [])
         l3_clean = last3_clean_minutes.get(name, [])
-        # Use median for last-3 so a single bad game doesn't skew the window
+        # Use median for last-3 so a single bad game doesn't skew the window.
         last3_avg       = _median(l3)       if l3       else trimmed_avg
         last3_clean_avg = _median(l3_clean) if l3_clean else last3_avg
+
         # Range of last-3 game minutes — used to flag unstable usage.
         # Use clean list (foul-trouble games excluded) and also drop any game
         # where minutes were <40% of season avg (injury exit mid-game).
@@ -662,6 +706,16 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
         ft = foul_trouble_games[name]
         sp = round(starter_games[name] / gp, 2) if gp > 0 else 0.0
         foul_rate = round(ft / gp, 2) if gp > 0 else 0.0
+
+        # Anomaly filter for last3_clean_avg: if a non-foul game in the last3
+        # is below 60% of season avg, it's likely a blowout sit or coach decision.
+        # Drop it and recompute last3 from the remaining games.
+        # Only applied with 8+ games of history to trust the season avg.
+        if gp >= 8 and trimmed_avg > 0 and l3_clean:
+            anomaly_floor = trimmed_avg * 0.60
+            l3_filtered = [m for m in l3_clean if m >= anomaly_floor]
+            if l3_filtered and len(l3_filtered) < len(l3_clean):
+                last3_clean_avg = _median(l3_filtered)
 
         # EWMA with context filter
         fouls_seq   = player_fouls_by_game.get(name, [])
@@ -725,7 +779,10 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
             "recent_starter_pct": recent_sp,
             "plus_minus":         None,   # populated below from Snowflake
             "quarter_avgs":       q_avgs,
-            "last_played_date":   last_played_date.get(name, ""),
+            "last_played_date":    last_played_date.get(name, ""),
+            "games_missed_streak": games_missed_streak.get(name, 0),
+            "games_total":         len(games_with_dates),
+            "dnp_rate":            round(1 - gp / len(games_with_dates), 3) if games_with_dates else 0.0,
         }
 
     # Enrich with plus/minus from Snowflake

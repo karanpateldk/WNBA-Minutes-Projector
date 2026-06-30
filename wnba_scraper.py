@@ -204,48 +204,41 @@ def scrape_wnba_injuries() -> dict:
 
     injuries = {}
 
-    # Primary: Official WNBA injury report PDF
-    try:
-        from injuries import load_or_scrape_injuries
-        df = load_or_scrape_injuries(cache_minutes=60)
-        if not df.empty:
-            for _, row in df.iterrows():
-                name   = str(row.get("player_name", "")).strip()
-                status = str(row.get("status", "")).strip()
-                if not name or not status:
-                    continue
-                injuries[name] = {
-                    "status":   _normalize_status(status),
-                    "injury":   "",   # PDF doesn't include injury description
-                    "team":     "",   # PDF doesn't include team
-                    "dnp_type": "injury",
-                    "play_prob": float(row.get("play_prob", 1.0)),
-                }
-            print(f"[scraper] Loaded {len(injuries)} injuries from official WNBA PDF")
-    except Exception as e:
-        print(f"[scraper] WNBA PDF injuries failed: {e}")
-
-    # Enrich with Sportradar — adds injury description, team name, coach's decision flag
-    # Sportradar data supplements the PDF; PDF status takes precedence where both exist
+    # Primary: Snowflake Sportradar — richest data (status, injury type, comment,
+    # team, dnp_type). Returns 30-40 current injuries with full context.
     try:
         import snowflake_connector as _sf
         if _sf.is_available():
-            sf_injuries = _sf.get_all_injuries()
-            for name, info in sf_injuries.items():
-                if name in injuries:
-                    # Enrich PDF entry with Sportradar details
-                    injuries[name]["injury"]   = info.get("injury", "")
-                    injuries[name]["team"]     = info.get("team", "")
-                    injuries[name]["dnp_type"] = info.get("dnp_type", "injury")
-                    injuries[name]["comment"]  = info.get("comment", "")
-                else:
-                    # Player in Sportradar but not in PDF — use Sportradar data
-                    injuries[name] = info
-            print(f"[scraper] Enriched with Sportradar data ({len(sf_injuries)} entries)")
+            injuries = dict(_sf.get_all_injuries())
+            if injuries:
+                print(f"[scraper] Loaded {len(injuries)} injuries from Snowflake")
     except Exception as e:
-        print(f"[scraper] Snowflake injury enrichment failed: {e}")
+        print(f"[scraper] Snowflake injuries failed: {e}")
 
-    # Fallback: ESPN injuries API (only if both above failed)
+    # Fallback 1: Official WNBA injury report PDF
+    # Used when Snowflake is unavailable or returned nothing.
+    if not injuries:
+        try:
+            from injuries import load_or_scrape_injuries
+            df = load_or_scrape_injuries(cache_minutes=15)
+            if not df.empty:
+                for _, row in df.iterrows():
+                    name   = str(row.get("player_name", "")).strip()
+                    status = str(row.get("status", "")).strip()
+                    if not name or not status:
+                        continue
+                    injuries[name] = {
+                        "status":   _normalize_status(status),
+                        "injury":   "",
+                        "team":     "",
+                        "dnp_type": "injury",
+                        "play_prob": float(row.get("play_prob", 1.0)),
+                    }
+                print(f"[scraper] Loaded {len(injuries)} injuries from WNBA PDF (fallback)")
+        except Exception as e:
+            print(f"[scraper] WNBA PDF injuries failed: {e}")
+
+    # Fallback 2: ESPN injuries API
     if not injuries:
         try:
             resp = requests.get(
@@ -272,7 +265,7 @@ def scrape_wnba_injuries() -> dict:
             print(f"[scraper] ESPN injuries API failed: {e}")
 
     if injuries:
-        _save_cache(cache_key, injuries)
+        _save_cache(cache_key, injuries, ttl_hours=0.25)  # 15-min TTL — injury reports update frequently
     return injuries
 
 
@@ -459,8 +452,14 @@ def scrape_espn_roster(team_name: str) -> dict:
     try:
         import snowflake_connector as _sf
         if _sf.is_available():
-            roster = _sf.get_roster(team_name)
-            if roster:
+            raw_roster = _sf.get_roster(team_name)
+            if raw_roster:
+                import unicodedata as _ud
+                roster = {}
+                for pname, pdata in raw_roster.items():
+                    norm = _ud.normalize("NFD", pname)
+                    norm = "".join(c for c in norm if _ud.category(c) != "Mn")
+                    roster[norm] = pdata
                 _cache_path(cache_key).write_text(
                     json.dumps({"timestamp": datetime.now().isoformat(),
                                 "payload": roster, "ttl_hours": 6}, indent=2)
@@ -481,6 +480,11 @@ def scrape_espn_roster(team_name: str) -> dict:
                 name = player.get("displayName", "")
                 if not name or len(name) < 3:
                     continue
+                # Normalize accented characters to ASCII so name matches
+                # season stats which use plain ASCII (e.g. Saläun → Salaun)
+                import unicodedata
+                name = unicodedata.normalize("NFD", name)
+                name = "".join(c for c in name if unicodedata.category(c) != "Mn")
                 pos_info = player.get("position", {})
                 pos_raw  = pos_info.get("abbreviation", "") if isinstance(pos_info, dict) else ""
                 pos      = ESPN_POS_MAP.get(pos_raw, pos_raw or "?")
@@ -819,13 +823,17 @@ def get_team_data(team_name: str) -> dict:
     today_starter_set = set(today_starters)
     use_lineup_roles  = len(today_starters) >= 4
 
-    # Build player set: INTERSECTION of current ESPN roster and season stats.
-    # live_roster is the authority — anyone ESPN no longer lists (waived, traded)
-    # is excluded even if they have season stats. Season-stats-only players who
-    # somehow slipped past the ESPN roster check are also dropped.
-    # Falls back to union if the live roster fetch failed (empty dict).
+    # Build player set: ESPN roster is the authority for current roster membership,
+    # but supplement with season-stats players who have significant minutes and may
+    # have been missed by ESPN's roster cache (recent signings, API lag, etc.).
+    # Players with avg >= 8 min and 3+ games are kept even if ESPN dropped them —
+    # the user can set them Out manually if they've been waived.
     if live_roster:
         all_players = set(live_roster.keys())
+        for name, sp in season_players.items():
+            if name not in all_players:
+                if sp.get("avg_min", 0) >= 8.0 and sp.get("games_played", 0) >= 3:
+                    all_players.add(name)
     else:
         all_players = set(season_players.keys())
     total_games = season.get("games_processed", 1) or 1
@@ -849,10 +857,15 @@ def get_team_data(team_name: str) -> dict:
         status, injury = get_injury(player)
 
         # Auto-Out: never seen a minute this season AND not in today's confirmed lineup.
-        # Flag with zero_min_season so the UI can label them clearly and users can override.
+        # Applies even if on the injury report — gp=0 means they haven't played all
+        # season and aren't coming back tonight unless in a confirmed lineup.
         zero_min_season = (gp == 0 and player not in today_starter_set)
-        if zero_min_season and status == "Active":
+        games_missed = sp.get("games_missed_streak", 0) or 0
+        # Auto-Out: never played this season, OR missed 10+ straight games
+        # without being in today's confirmed lineup.
+        if (zero_min_season or (games_missed >= 10 and player not in today_starter_set)):
             status = "Out"
+            zero_min_season = True
 
         on_injury_report = status in ("Out", "Doubtful", "Questionable", "Day-To-Day", "Probable")
 
@@ -906,7 +919,20 @@ def get_team_data(team_name: str) -> dict:
             "lineup_confirmed":  lineup_confirmed,
             "zero_min_season":   zero_min_season,
             "recently_active":   recently_active,
-            "last_played_date":  last_played,
+            "last_played_date":    last_played,
+            "games_total":         sp.get("games_total", 0),
+            "dnp_rate":            sp.get("dnp_rate", 0.0),
+            "games_missed_streak": sp.get("games_missed_streak", 0),
+            # Snowflake-enriched fields — used by model for accuracy signals
+            "plus_minus":          sp.get("plus_minus"),
+            "crunch_time_poss":    sp.get("crunch_time_poss"),
+            "avg_min_close":       sp.get("avg_min_close"),
+            "blowout_dependent":   sp.get("blowout_dependent"),
+            "recent_starter_pct":  sp.get("recent_starter_pct"),
+            # Team-level role averages from Snowflake (same value on every player)
+            "role_avg_starter":    season.get("role_avg_starter", 0.0),
+            "role_avg_bench":      season.get("role_avg_bench", 0.0),
+            "rotation_depth":      season.get("rotation_depth", 9),
         }
 
     # Add any today's starters not yet in merged (new callups etc.)
@@ -947,7 +973,13 @@ def get_team_data(team_name: str) -> dict:
     ]
 
     def _bench_sort_score(p: dict) -> float:
-        return 0.75 * p["last3_avg"] + 0.25 * p["avg_min"]
+        raw = 0.75 * p["last3_avg"] + 0.25 * p["avg_min"]
+        # Only penalize bench players for DNP rate — starters with high DNP
+        # rates are injured, not fringe, and should be set Out manually.
+        is_starter = p.get("starter_pct", 0.0) >= 0.50
+        dnp = (p.get("dnp_rate", 0.0) or 0.0) if not is_starter else 0.0
+        missed = (p.get("games_missed_streak", 0) or 0) if not is_starter else 0
+        return raw * max(0.0, 1.0 - dnp) * max(0.0, 1.0 - missed * 0.15)
 
     active_bench.sort(key=lambda x: -_bench_sort_score(x[1]))
 
@@ -962,11 +994,14 @@ def get_team_data(team_name: str) -> dict:
         bench_cap += 1
     bench_cap = max(2, min(bench_cap, bench_slots))
 
+    # Only remove genuinely fringe players (avg < 6 min) who fall outside the
+    # bench cap. Players with real minutes stay in the roster so users can set
+    # their status manually — the model's rotation cap handles zeroing them out.
     to_remove = []
     for i, (name, p) in enumerate(active_bench):
         if p.get("recently_active"):
             continue
-        if i >= bench_cap:
+        if i >= bench_cap and p.get("avg_min", 0) < 6.0:
             to_remove.append(name)
     for name in to_remove:
         del merged[name]
@@ -1003,6 +1038,86 @@ def _fallback_trends(team_abbrev: str) -> dict:
 def get_lineup_info(team_name: str) -> dict:
     """Returns raw lineup metadata for display in the UI."""
     return get_lineup_for_team(team_name)
+
+
+def get_schedule_context(team_name: str) -> dict:
+    """
+    Returns previous result and next scheduled game for the team.
+    Primary source: Snowflake WNBA_SCHEDULE (full season, accurate scores).
+    Fallback: ESPN schedule API.
+    Cached for 30 minutes.
+    """
+    cache_key = f"schedule_{team_name.replace(' ', '_')}"
+    cached = _load_cache(cache_key)
+    if cached:
+        return cached
+
+    result = {"prev": None, "next": None}
+
+    # Primary: Snowflake
+    try:
+        import snowflake_connector as _sf
+        if _sf.is_available():
+            sf_result = _sf.get_schedule_context(team_name)
+            if sf_result.get("prev") or sf_result.get("next"):
+                # Normalise key name so app.py always sees "game_time"
+                if sf_result.get("next") and "time" in sf_result["next"]:
+                    sf_result["next"]["game_time"] = sf_result["next"].pop("time", "")
+                _save_cache(cache_key, sf_result, ttl_hours=0.5)
+                return sf_result
+    except Exception as e:
+        print(f"[scraper] Snowflake schedule context failed: {e}")
+
+    # Fallback: ESPN schedule API
+    team_id = ESPN_TEAM_IDS.get(team_name)
+    if team_id:
+        try:
+            url = f"https://site.api.espn.com/apis/site/v2/sports/basketball/wnba/teams/{team_id}/schedule"
+            r = requests.get(url, headers=HEADERS, timeout=10)
+            r.raise_for_status()
+            events = r.json().get("events", [])
+
+            for e in events:
+                comp = (e.get("competitions") or [{}])[0]
+                status_name = comp.get("status", {}).get("type", {}).get("name", "")
+                competitors = comp.get("competitors", [])
+                edate = e.get("date", "")[:10]
+
+                team_comp = next((c for c in competitors
+                                  if str(c.get("team", {}).get("id", "")) == str(team_id)), None)
+                opp_comp = next((c for c in competitors
+                                 if str(c.get("team", {}).get("id", "")) != str(team_id)), None)
+                if not opp_comp:
+                    continue
+                opp_name = opp_comp.get("team", {}).get("displayName", "")
+
+                if status_name == "STATUS_FINAL":
+                    try:
+                        ts = float((team_comp.get("score") or {}).get("value", 0))
+                        os_ = float((opp_comp.get("score") or {}).get("value", 0))
+                    except (TypeError, ValueError):
+                        ts = os_ = 0
+                    result["prev"] = {
+                        "date": edate, "opponent": opp_name,
+                        "team_score": int(ts), "opp_score": int(os_),
+                        "win": ts > os_,
+                    }
+                elif status_name == "STATUS_SCHEDULED" and result["next"] is None:
+                    game_time = ""
+                    try:
+                        from datetime import datetime
+                        dt = datetime.fromisoformat(e.get("date", "").replace("Z", "+00:00"))
+                        game_time = dt.strftime("%I:%M %p ET").lstrip("0")
+                    except Exception:
+                        game_time = edate
+                    result["next"] = {
+                        "date": edate, "opponent": opp_name, "game_time": game_time,
+                    }
+        except Exception as e:
+            print(f"[scraper] ESPN schedule context failed: {e}")
+
+    _save_cache(cache_key, result, ttl_hours=0.5)
+    return result
 
 
 def _normalize_name(name: str) -> str:

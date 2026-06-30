@@ -735,6 +735,86 @@ def get_todays_game(team_name: str) -> tuple[str, str, str]:
     return r["game_id"], opponent, r["tip_time"] or ""
 
 
+def get_schedule_context(team_name: str, season_year: int = CURRENT_SEASON_YEAR) -> dict:
+    """
+    Return the most recent completed game result and the next scheduled game.
+    Result format:
+      {
+        "prev": {"date": "YYYY-MM-DD", "opponent": str, "team_score": int,
+                 "opp_score": int, "win": bool, "home": bool} | None,
+        "next": {"date": "YYYY-MM-DD", "opponent": str,
+                 "time": "HH:MM ET", "home": bool} | None,
+      }
+    """
+    # Pull last completed game
+    prev_rows = _query(
+        """
+        SELECT
+            TO_VARCHAR(scheduled::DATE, 'YYYY-MM-DD')  AS game_date,
+            home_team_name, away_team_name,
+            home_team_points, away_team_points
+        FROM SPORTRADAR.DBO.WNBA_SCHEDULE
+        WHERE season_year = %s
+          AND game_status IN ('complete', 'closed')
+          AND (home_team_name = %s OR away_team_name = %s)
+        ORDER BY scheduled DESC
+        LIMIT 1
+        """,
+        (season_year, team_name, team_name),
+    )
+
+    # Pull next scheduled game
+    next_rows = _query(
+        """
+        SELECT
+            TO_VARCHAR(scheduled::DATE, 'YYYY-MM-DD')  AS game_date,
+            TO_VARCHAR(
+                CONVERT_TIMEZONE('UTC', 'America/New_York', scheduled),
+                'HH12:MI PM'
+            )                                          AS tip_time_et,
+            home_team_name, away_team_name
+        FROM SPORTRADAR.DBO.WNBA_SCHEDULE
+        WHERE season_year = %s
+          AND game_status NOT IN ('complete', 'closed')
+          AND (home_team_name = %s OR away_team_name = %s)
+          AND scheduled >= CURRENT_TIMESTAMP
+        ORDER BY scheduled ASC
+        LIMIT 1
+        """,
+        (season_year, team_name, team_name),
+    )
+
+    prev = None
+    if prev_rows:
+        r = prev_rows[0]
+        is_home = r["home_team_name"] == team_name
+        ts = int(r["home_team_points"] or 0) if is_home else int(r["away_team_points"] or 0)
+        os_ = int(r["away_team_points"] or 0) if is_home else int(r["home_team_points"] or 0)
+        opp = r["away_team_name"] if is_home else r["home_team_name"]
+        prev = {
+            "date":       r["game_date"],
+            "opponent":   opp,
+            "team_score": ts,
+            "opp_score":  os_,
+            "win":        ts > os_,
+            "home":       is_home,
+        }
+
+    nxt = None
+    if next_rows:
+        r = next_rows[0]
+        is_home = r["home_team_name"] == team_name
+        opp = r["away_team_name"] if is_home else r["home_team_name"]
+        nxt = {
+            "date":     r["game_date"],
+            "opponent": opp,
+            "time":     (r["tip_time_et"] or "").strip(),
+            "home":     is_home,
+        }
+
+    return {"prev": prev, "next": nxt}
+
+
 # ---------------------------------------------------------------------------
 # Opponent margins: for blowout/pace profiling in matchup.py
 # ---------------------------------------------------------------------------

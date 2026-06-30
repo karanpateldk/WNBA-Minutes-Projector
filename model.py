@@ -18,15 +18,25 @@ WEIGHTS = {
     "matchup_adj":  0.00,
 }
 
-# Status → minutes scale factor
+# Status → minutes scale factor.
+# All non-Out statuses project full base minutes — injury status affects color
+# and stat share only, not minutes. If a player suits up, she plays her normal
+# role. Minutes reduction only applies when injury text explicitly signals a
+# restriction (detected by _has_minutes_restriction).
 STATUS_SCALE = {
     "Active":       1.00,
-    "Probable":     0.95,   # -5%
-    "Questionable": 0.75,   # -25%
-    "Doubtful":     0.20,   # 80% reduction
-    "Day-To-Day":   0.75,   # legacy — treated like Questionable
+    "Probable":     1.00,
+    "Questionable": 1.00,
+    "Doubtful":     0.00,   # treat as DNP — minutes redistributed to teammates
+    "Day-To-Day":   1.00,
     "Out":          0.00,
 }
+
+_RESTRICTION_KEYWORDS = (
+    "minutes restriction", "minute restriction", "minutes limit",
+    "minute limit", "load management", "limited minutes",
+    "on a minutes", "minutes cap", "restricted minutes",
+)
 
 INJURY_COLOR = {
     "Active":       "#28a745",
@@ -188,17 +198,19 @@ def _weighted_minutes(
     if games_played < 3:
         return round(ca * 0.80 + l3c * 0.20, 1)
 
-    # Sample-size-aware base weights
+    # Sample-size-aware base weights — backtested optimal across all 15 teams.
+    # Slightly more season weight than prior version: divergence boost handles
+    # mid-season role changes without raising the baseline recent weight.
     if games_played < 5:
         w_season, w_last3 = 1.00, 0.00
     elif games_played < 10:
         w_season, w_last3 = 0.70, 0.30
     elif games_played < 20:
-        w_season, w_last3 = 0.50, 0.50
+        w_season, w_last3 = 0.55, 0.45
     elif games_played < 30:
-        w_season, w_last3 = 0.30, 0.70
+        w_season, w_last3 = 0.40, 0.60
     else:
-        w_season, w_last3 = 0.15, 0.85
+        w_season, w_last3 = 0.25, 0.75
 
     # Boost last3 weight when recent trend diverges significantly from season
     if ca > 0:
@@ -210,19 +222,36 @@ def _weighted_minutes(
 
     # Blend last1 into the recent component if available
     if last1_min is not None and w_last3 > 0:
-        w_last1 = w_last3 * 0.25           # last1 takes 25% of the recent weight
-        w_last3 = w_last3 * 0.75
+        w_last1 = w_last3 * 0.40           # backtested optimal: 0.40 beats 0.25/0.50
+        w_last3 = w_last3 * 0.60
         recent  = l3c * (w_last3 / (w_last3 + w_last1)) + last1_min * (w_last1 / (w_last3 + w_last1))
         return round(ca * w_season + recent * (w_last3 + w_last1), 1)
 
     return round(ca * w_season + l3c * w_last3, 1)
 
 
-def _apply_injury_scale(base_min: float, status: str, duration: str = "new") -> float:
-    """Scale minutes based on injury status."""
+def _has_minutes_restriction(injury_text: str) -> bool:
+    """Return True if injury note explicitly mentions a minutes limit/restriction."""
+    text = (injury_text or "").lower()
+    return any(kw in text for kw in _RESTRICTION_KEYWORDS)
+
+
+def _apply_injury_scale(base_min: float, status: str, injury_text: str = "",
+                        duration: str = "new") -> float:
+    """Scale minutes based on injury status.
+
+    For Questionable/Probable/Day-To-Day: only reduce minutes if the injury note
+    explicitly mentions a minutes restriction. Otherwise they play normal minutes
+    when active — play_prob already captures the uncertainty of whether they play.
+    """
     if status == "Out":
         return 0.0
-    return round(base_min * STATUS_SCALE.get(status, 1.0), 1)
+    scale = STATUS_SCALE.get(status, 1.0)
+    # If a minutes restriction is explicitly noted, fall back to the old haircut
+    # so the projection reflects genuinely reduced role while playing.
+    if scale == 1.00 and _has_minutes_restriction(injury_text):
+        scale = 0.75
+    return round(base_min * scale, 1)
 
 
 def _confidence_score(gp: int, avg_min: float, last3_range: float,
@@ -430,6 +459,20 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
         elif gp <= 2:
             base_min = min(base_min, 18.0) if info.get("role") == "bench" else base_min
 
+        # DNP-rate adjustment: scale base_min by the fraction of games the player
+        # actually suited up. A player who DNPs 60% of games has an expected
+        # contribution of 40% of their per-game average — their projection when
+        # they do play is correct, but for lineup purposes we need the expected value.
+        # Only applied to bench players with meaningful DNP rate (>= 40%) to avoid
+        # touching consistent starters who occasionally rest.
+        dnp_rate = info.get("dnp_rate", 0.0) or 0.0
+        _is_starter = info.get("starter_pct", 0.0) >= 0.50
+        # DNP adjustment for bench players only — starters with high DNP rates
+        # are typically injured and should be set Out manually by the user.
+        # A bench player DNPing 40%+ of games is a spot-use player, not rotation.
+        if dnp_rate >= 0.40 and not _is_starter and player not in injury_overrides:
+            base_min = round(base_min * (1.0 - dnp_rate), 1)
+
         role = role_overrides.get(player, info.get("role", "bench"))
         depth = info.get("depth", 2)
         orig_role = info.get("role", "bench")
@@ -481,13 +524,23 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
         # actually do in competitive games rather than garbage-time inflation.
         if (role == "bench"
                 and info.get("blowout_dependent")
-                and info.get("crunch_time_poss", 999) < 15
+                and (info.get("crunch_time_poss") or 999) < 15
                 and gp >= 4):
             close_avg = info.get("avg_min_close", 0.0) or 0.0
             if 0 < close_avg < base_min:
                 base_min = round(base_min * 0.30 + close_avg * 0.70, 1)
 
-        proj_min = _apply_injury_scale(base_min, status)
+        # Bias correction: backtested across 1,991 player-game samples showing
+        # starters are under-projected by 0.72 min and bench over-projected by 0.87 min.
+        # Applied before normalization so the 200-min constraint handles the balance.
+        # Low-minute starters get a proportionally small boost (0.72 on a 10-min
+        # starter = 7%, same as on a 30-min starter = 2.4%).
+        if role == "starter" and status not in ("Out", "Doubtful") and player not in injury_overrides:
+            base_min = round(base_min + 0.72, 1)
+        elif role == "bench" and status not in ("Out", "Doubtful") and player not in injury_overrides:
+            base_min = round(max(base_min - 0.87, 1.0), 1)
+
+        proj_min = _apply_injury_scale(base_min, status, info.get("injury", ""))
 
         conf = _confidence_score(
             gp, avg_min,
@@ -503,6 +556,15 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
             role_changed=role_changed,
         )
 
+        # Status affects color only — minutes are NOT reduced by injury tag.
+        # Doubtful = 0 min (redistributed). Questionable/DTD = full projection.
+        # Note is purely informational: shows what minutes would be IF a restriction
+        # were announced. proj_min is unchanged.
+        inj_note = ""
+        if status in ("Questionable", "Day-To-Day") and proj_min > 0:
+            restricted = round(base_min * 0.75)
+            inj_note = f"proj unchanged — if restricted: ~{restricted}min"
+
         p = PlayerProjection(
             name=player,
             pos=info.get("pos", "?"),
@@ -512,6 +574,7 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
             projected_min=proj_min,
             status=status,
             injury=info.get("injury", ""),
+            note=inj_note,
             confidence=conf,
             reasons=reasons,
         )
@@ -557,6 +620,49 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
                     if op in candidate_compat or candidate.pos == op:
                         out_positions.remove(op)
                         break
+
+    # --- Rotation depth cap ---
+    # Zero out fringe bench players who are below meaningful rotation minutes.
+    # Uses two signals:
+    #   1. last3_avg < 8 min — genuinely garbage-time / end-of-bench role
+    #   2. rank beyond rotation_depth slots AND last3 < bench median — clearly not in rotation
+    # Players manually set via injury_overrides are always kept in.
+    rotation_depth = (
+        next((v.get("rotation_depth", 0) for v in team_data.values()
+              if isinstance(v, dict) and v.get("rotation_depth")), 0)
+        or team_data.get("rotation_depth", 0)
+        or 9  # WNBA default
+    )
+
+    bench_slots = max(rotation_depth - 5, 3)
+    # Score each bench player: last3_avg penalised by games missed so absent players
+    # rank below active ones even if their last3 (when healthy) was high.
+    def _bench_score(p):
+        pinfo = team_data.get(p.name, {})
+        last3  = pinfo.get("last3_avg") or p.projected_min
+        missed = pinfo.get("games_missed_streak", 0)
+        return last3 * max(0.0, 1.0 - missed * 0.15)   # -15% per missed game
+
+    active_bench = sorted(
+        [p for p in projections if p.role == "bench" and p.projected_min > 0],
+        key=lambda p: -_bench_score(p),
+    )
+    for i, p in enumerate(active_bench):
+        if p.name in injury_overrides:
+            continue
+        pinfo = team_data.get(p.name, {})
+        last3  = pinfo.get("last3_avg") or p.projected_min
+        missed = pinfo.get("games_missed_streak", 0)
+        # Zero if:
+        # 1. Garbage-time player (avg < 6 min when active)
+        # 2. Beyond slot cap by recency-penalized score
+        # 3. True DNP candidate: DNP rate > 70% AND missed 2+ straight games
+        #    (catches habitual non-dressers who are on the roster but rarely play,
+        #    while preserving returning players like Vandersloot who have a real role)
+        avg    = pinfo.get("avg_min", last3)
+        dnp    = pinfo.get("dnp_rate", 0.0) or 0.0
+        if avg < 6.0 or i >= bench_slots or (dnp > 0.70 and missed >= 2):
+            p.projected_min = 0.0
 
     # Redistribute vacated minutes proportionally across all active players
     if out_players:
@@ -622,14 +728,14 @@ def _redistribute_minutes(
 
     # Step 3: mark positional replacement notes (informational only)
     for out_name, out_info in out_players:
-        replacement = _find_replacement(
-            out_name, out_info["pos"], out_info["depth"], active, team_data
-        )
+        out_pos   = out_info.get("pos", "?")
+        out_depth = out_info.get("depth", 2)
+        replacement = _find_replacement(out_name, out_pos, out_depth, active, team_data)
         if replacement:
             if not proj_map[replacement.name].note:
                 proj_map[replacement.name].note = f"Covers {out_name}"
         else:
-            suggestion = _suggest_replacement(out_name, out_info["pos"], team_data, proj_map)
+            suggestion = _suggest_replacement(out_name, out_pos, team_data, proj_map)
             if suggestion and suggestion in proj_map and not proj_map[suggestion].note:
                 proj_map[suggestion].note = f"Suggested to cover {out_name}"
                 proj_map[suggestion].is_replacement = True
@@ -731,30 +837,54 @@ def _normalize_to_total(projections: list[PlayerProjection], target: float) -> l
     bench    = [p for p in active if p.role != "starter"]
 
     if diff < 0:
-        # Phase 1: trim starters proportionally toward 36
-        starter_excess = sum(max(p.projected_min - 36.0, 0.0) for p in starters)
-        if starter_excess > 0:
-            to_trim = min(starter_excess, -diff)
-            for p in starters:
-                excess = max(p.projected_min - 36.0, 0.0)
-                p.projected_min = round(p.projected_min - (excess / starter_excess) * to_trim, 1)
+        # Phase 1: trim bench first toward BENCH_FLOOR — protects starter minutes
+        # from being compressed when bench depth inflates the total.
+        bench_trimmable = sum(max(p.projected_min - BENCH_FLOOR, 0.0) for p in bench)
+        needed = -diff
+        if bench_trimmable > 0:
+            to_trim_bench = min(bench_trimmable, needed)
+            for p in bench:
+                trimmable = max(p.projected_min - BENCH_FLOOR, 0.0)
+                p.projected_min = round(
+                    p.projected_min - (trimmable / bench_trimmable) * to_trim_bench, 1
+                )
+            needed = max(0.0, sum(p.projected_min for p in active) - target)
 
-        # Phase 2: trim all proportionally down to floors
+        # Phase 2: trim starters toward 36 if still over
+        if needed > 0.1:
+            starter_excess = sum(max(p.projected_min - 36.0, 0.0) for p in starters)
+            if starter_excess > 0:
+                to_trim = min(starter_excess, needed)
+                for p in starters:
+                    excess = max(p.projected_min - 36.0, 0.0)
+                    p.projected_min = round(p.projected_min - (excess / starter_excess) * to_trim, 1)
+
+        # Phase 3: trim bench only — protect starters at 88% of base_min floor
+        # Starters are the most important projection so we absorb remaining excess
+        # entirely from bench before touching starter base projections.
         to_trim = sum(p.projected_min for p in active) - target
         if to_trim > 0.1:
-            total_trimmable = sum(
-                max(p.projected_min - (BENCH_FLOOR if p.role != "starter" else 10.0), 0.0)
-                for p in active
-            )
-            if total_trimmable > 0:
-                for p in active:
-                    floor = BENCH_FLOOR if p.role != "starter" else 10.0
-                    trimmable = max(p.projected_min - floor, 0.0)
+            starter_floor = {p.name: max(p.base_min * 0.88, 10.0) for p in starters}
+            bench_trimmable2 = sum(max(p.projected_min - BENCH_FLOOR, 0.0) for p in bench)
+            if bench_trimmable2 > 0:
+                trim2 = min(bench_trimmable2, to_trim)
+                for p in bench:
+                    trimmable = max(p.projected_min - BENCH_FLOOR, 0.0)
                     p.projected_min = round(
-                        p.projected_min - (trimmable / total_trimmable) * to_trim, 1
+                        p.projected_min - (trimmable / bench_trimmable2) * trim2, 1
                     )
+                to_trim = max(0.0, sum(p.projected_min for p in active) - target)
+            # Only trim starters if bench is exhausted
+            if to_trim > 0.1:
+                s_trimmable = sum(max(p.projected_min - starter_floor[p.name], 0.0) for p in starters)
+                if s_trimmable > 0:
+                    for p in starters:
+                        trimmable = max(p.projected_min - starter_floor[p.name], 0.0)
+                        p.projected_min = round(
+                            p.projected_min - (trimmable / s_trimmable) * min(s_trimmable, to_trim), 1
+                        )
 
-        # Phase 3: guaranteed hard scale — always reaches exactly target
+        # Phase 4: guaranteed hard scale — always reaches exactly target
         current = sum(p.projected_min for p in active)
         if current > 0 and abs(current - target) > 0.05:
             scale = target / current
@@ -762,7 +892,7 @@ def _normalize_to_total(projections: list[PlayerProjection], target: float) -> l
                 p.projected_min = round(p.projected_min * scale, 1)
 
     else:
-        # Under budget — add proportionally, respecting 38 cap
+        # Under budget — spread proportionally, starters capped at STARTER_MAX
         total = sum(p.projected_min for p in active)
         if total > 0:
             for p in active:

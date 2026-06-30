@@ -2,10 +2,18 @@
 headless = true
 fileWatcherType = "none"
 port = 8501
+maxUploadSize = 50
+enableXsrfProtection = true
 
 [runner]
 fastReruns = false
 
+[browser]
+gatherUsageStats = false
+serverAddress = "0.0.0.0"
+serverPort = 8501
+
 [client]
 toolbarMode = "minimal"
+showSidebarNavigation = false
 
