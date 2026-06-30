@@ -594,14 +594,20 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
 
         game_starters = {p["name"] for p in box if p["starter"] and not p["dnp"]}
 
+        # Detect OT games and scale minutes down to regulation equivalent.
+        # In a double-OT (300 total team min), a player who played 50 min
+        # would have played ~33 min in regulation (50 * 200/300).
+        # This prevents OT games from inflating averages beyond regulation range.
+        team_total = sum(p["minutes"] for p in box if not p["dnp"])
+        ot_scale = min(1.0, 200.0 / team_total) if team_total > 205 else 1.0
+
         rotation_count = 0
         for p in box:
             name = p["name"]
             if p["dnp"] or p["minutes"] < 0.5:
                 continue
-            # Cap at 40 min so OT games don't inflate averages —
-            # projections are for regulation (40 min game), not OT.
-            capped_mins = min(p["minutes"], 40.0)
+            # Scale OT minutes to regulation equivalent, then cap at 40 as safety net
+            capped_mins = min(round(p["minutes"] * ot_scale, 1), 40.0)
             all_minutes[name].append(capped_mins)
             games_played[name] += 1
             if p["starter"]:
@@ -656,13 +662,16 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
 
     for idx, gid in enumerate(last3_game_ids):
         box = boxscore_cache.get(gid) or _parse_boxscore(gid, team_id)
+        _team_total_l3 = sum(q["minutes"] for q in box if not q["dnp"])
+        _ot_scale_l3 = min(1.0, 200.0 / _team_total_l3) if _team_total_l3 > 205 else 1.0
         for p in box:
             if not p["dnp"] and p["minutes"] >= 0.5:
-                last3_minutes[p["name"]].append(p["minutes"])
+                scaled = round(p["minutes"] * _ot_scale_l3, 1)
+                last3_minutes[p["name"]].append(scaled)
                 if p.get("fouls", 0) < 4:
-                    last3_clean_minutes[p["name"]].append(p["minutes"])
+                    last3_clean_minutes[p["name"]].append(scaled)
                 if idx == len(last3_game_ids) - 1:
-                    last_game_minutes[p["name"]] = p["minutes"]
+                    last_game_minutes[p["name"]] = scaled
 
     for gid in last5_game_ids:
         box = boxscore_cache.get(gid) or _parse_boxscore(gid, team_id)
