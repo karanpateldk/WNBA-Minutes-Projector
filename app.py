@@ -385,13 +385,24 @@ def render_player_row(
         elif p.note and p.replaced_player and p.replaced_player in starters_set:
             st.caption(p.note)
         elif p.status in ("Questionable", "Doubtful", "Day-To-Day"):
-            note_text = f"{p.status} — {clean_injury}" if clean_injury else p.status
-            if p.note:
-                note_text += f" · {p.note}"
-            st.markdown(
-                f'<span style="font-size:0.75rem;color:{color};font-weight:600">{note_text}</span>',
-                unsafe_allow_html=True,
-            )
+            # Status badge already shows Questionable/DTD/Doubtful — don't repeat it.
+            # Note column: show specific injury if meaningful, or DNP context if relevant.
+            if clean_injury:
+                # Real injury description (e.g. "Knee", "Hamstring") — show it
+                note_text = clean_injury
+                if _absent and _games_missed >= 1:
+                    note_text += " — DNP last game"
+                st.markdown(
+                    f'<span style="font-size:0.75rem;color:{color};font-weight:600">{note_text}</span>',
+                    unsafe_allow_html=True,
+                )
+            elif _absent and _games_missed >= 1:
+                # No specific injury but sat out recently — flag it
+                st.markdown(
+                    f'<span style="font-size:0.75rem;color:{color};font-weight:600">DNP last game</span>',
+                    unsafe_allow_html=True,
+                )
+            # Otherwise nothing — status badge is sufficient
         elif p.status == "Out" and p.projected_min == 0:
             dnp_type = team_data.get(p.name, {}).get("dnp_type", "injury")
             if dnp_type == "coach":

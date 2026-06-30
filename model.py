@@ -566,14 +566,8 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
             role_changed=role_changed,
         )
 
-        # Status affects color only — minutes are NOT reduced by injury tag.
-        # Doubtful = 0 min (redistributed). Questionable/DTD = full projection.
-        # Note is purely informational: shows what minutes would be IF a restriction
-        # were announced. proj_min is unchanged.
+        # Status badge handles the visual — no note needed from the model.
         inj_note = ""
-        if status in ("Questionable", "Day-To-Day") and proj_min > 0:
-            restricted = round(base_min * 0.75)
-            inj_note = f"proj unchanged — if restricted: ~{restricted}min"
 
         p = PlayerProjection(
             name=player,
