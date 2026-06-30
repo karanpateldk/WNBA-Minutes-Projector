@@ -391,15 +391,15 @@ def render_player_row(
                 # Real injury description (e.g. "Knee", "Hamstring") — show it
                 note_text = clean_injury
                 if _absent and _games_missed >= 1:
-                    note_text += " — DNP last game"
+                    note_text += " — missed last game"
                 st.markdown(
                     f'<span style="font-size:0.75rem;color:{color};font-weight:600">{note_text}</span>',
                     unsafe_allow_html=True,
                 )
             elif _absent and _games_missed >= 1:
-                # No specific injury but sat out recently — flag it
+                # No specific injury text but sat out recently
                 st.markdown(
-                    f'<span style="font-size:0.75rem;color:{color};font-weight:600">DNP last game</span>',
+                    f'<span style="font-size:0.75rem;color:{color};font-weight:600">Missed last game</span>',
                     unsafe_allow_html=True,
                 )
             # Otherwise nothing — status badge is sufficient
