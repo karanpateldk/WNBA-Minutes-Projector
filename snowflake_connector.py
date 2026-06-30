@@ -735,6 +735,54 @@ def get_todays_game(team_name: str) -> tuple[str, str, str]:
     return r["game_id"], opponent, r["tip_time"] or ""
 
 
+def get_minutes_without_player(team_name: str, absent_player: str,
+                               season_year: int = CURRENT_SEASON_YEAR) -> dict:
+    """
+    Return average minutes per player for games where `absent_player` did not play.
+    Used to calibrate redistribution when a key player is set to Out.
+    Result: {player_name: avg_minutes_in_absent_games}
+    Requires at least 3 absent games; returns {} if insufficient data.
+    """
+    rows = _query(
+        """
+        WITH absent_games AS (
+            -- Games where the specified player did not play (DNP or not in box)
+            SELECT DISTINCT g.GAME_ID
+            FROM SPORTRADAR.DBO.WNBA_GAMESUMMARY_PLAYERS g
+            WHERE g.SCHEDULED >= '2026-05-01'
+              AND (g.TEAM_MARKET || ' ' || g.TEAM_NAME = %s
+                   OR g.TEAM_MARKET = SPLIT_PART(%s, ' ', 1))
+              AND g.GAME_ID NOT IN (
+                  SELECT GAME_ID FROM SPORTRADAR.DBO.WNBA_GAMESUMMARY_PLAYERS
+                  WHERE PLAYER_FULL_NAME = %s AND PLAYER_PLAYED = TRUE
+              )
+        ),
+        player_mins AS (
+            SELECT
+                g.PLAYER_FULL_NAME,
+                AVG(
+                    TRY_CAST(SPLIT_PART(g.PLAYER_STATISTICS_MINUTES, ':', 1) AS INT) * 60 +
+                    TRY_CAST(SPLIT_PART(g.PLAYER_STATISTICS_MINUTES, ':', 2) AS INT)
+                ) / 60.0 AS avg_mins_when_absent,
+                COUNT(*) AS game_count
+            FROM SPORTRADAR.DBO.WNBA_GAMESUMMARY_PLAYERS g
+            JOIN absent_games ag ON g.GAME_ID = ag.GAME_ID
+            WHERE g.PLAYER_PLAYED = TRUE
+              AND g.PLAYER_STATISTICS_MINUTES IS NOT NULL
+            GROUP BY g.PLAYER_FULL_NAME
+            HAVING COUNT(*) >= 3
+        )
+        SELECT PLAYER_FULL_NAME,
+               ROUND(avg_mins_when_absent, 1) AS avg_mins,
+               game_count
+        FROM player_mins
+        ORDER BY avg_mins DESC
+        """,
+        (team_name, team_name, absent_player),
+    )
+    return {r["player_full_name"]: float(r["avg_mins"]) for r in rows}
+
+
 def get_schedule_context(team_name: str, season_year: int = CURRENT_SEASON_YEAR) -> dict:
     """
     Return the most recent completed game result and the next scheduled game.

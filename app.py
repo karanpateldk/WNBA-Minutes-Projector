@@ -509,8 +509,11 @@ _last_updated    = _meta.get("last_updated", "")[:10]
 _games_processed = _meta.get("games_processed", 0)
 _role_avg_starter = _meta.get("role_avg_starter", 0.0)
 _role_avg_bench   = _meta.get("role_avg_bench", 0.0)
+_team_name_meta   = _meta.get("team_name", selected_team)
 
 # Inject team-wide constants into each player dict so model.py can read them.
+# Also store team name so redistribution can fetch Snowflake without-player averages.
+team_data["__team_name__"] = _team_name_meta
 for _pname in team_data:
     if isinstance(team_data[_pname], dict):
         team_data[_pname]["role_avg_starter"] = _role_avg_starter

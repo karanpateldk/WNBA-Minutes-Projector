@@ -1033,6 +1033,7 @@ def get_team_data(team_name: str) -> dict:
     # Attach metadata under a reserved key so the UI can surface it.
     # Player keys are never "__meta__" so this won't collide.
     merged["__meta__"] = {
+        "team_name":       team_name,
         "rotation_depth":  rotation_depth,
         "bench_slots":     bench_slots,
         "last_updated":    season.get("last_updated", ""),

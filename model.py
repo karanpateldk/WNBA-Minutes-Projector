@@ -682,7 +682,7 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
 
     # Redistribute vacated minutes proportionally across all active players
     if out_players:
-        projections = _redistribute_minutes(projections, out_players, team_data)
+        projections = _redistribute_minutes(projections, out_players, team_data, injury_overrides)
 
     # Normalize to exactly GAME_MINUTES (handles rounding only)
     projections = _normalize_to_total(projections, GAME_MINUTES)
@@ -704,6 +704,7 @@ def _redistribute_minutes(
     projections: list[PlayerProjection],
     out_players: list[tuple[str, dict]],
     team_data: dict,
+    injury_overrides: dict | None = None,
 ) -> list[PlayerProjection]:
     """
     Redistribute all vacated minutes in a single pass to prevent compounding.
@@ -724,23 +725,77 @@ def _redistribute_minutes(
     if not active or not out_players:
         return projections
 
-    # Step 1: total pool of vacated minutes
-    total_vacated = sum(proj_map[name].base_min for name, _ in out_players
-                        if name in proj_map)
+    # Step 1: total pool of vacated minutes.
+    # For players manually set Out via injury_overrides, use their avg_min
+    # (what they actually play when active) rather than their DNP-discounted
+    # base_min. A player averaging 18 min who is set Out vacates ~18 min,
+    # not 12 min after DNP rate adjustment.
+    _overrides = injury_overrides or {}
+    def _vacated_mins(name, info):
+        p = proj_map.get(name)
+        if p is None:
+            return 0.0
+        pdata = team_data.get(name, {})
+        if name in _overrides:
+            l3c = pdata.get("last3_clean_avg") or pdata.get("last3_avg") or 0
+            avg = pdata.get("avg_min") or 0
+            return max(l3c, avg, p.base_min)
+        return p.base_min
+
+    total_vacated = sum(_vacated_mins(name, info) for name, info in out_players)
+
+    # Fetch Snowflake "without player" averages for manually-overridden Out players.
+    # These give the actual observed rotation when this player doesn't play,
+    # allowing more accurate redistribution than proportional sharing.
+    _without_targets: dict[str, float] = {}
+    try:
+        import snowflake_connector as _sf
+        if _sf.is_available():
+            team_name_key = next((v for v in team_data.values()
+                                  if isinstance(v, dict) and v.get("team_name")), None)
+            # Identify team name from team_data metadata
+            _team_name = team_data.get("__team_name__", "")
+            for out_name, _ in out_players:
+                if out_name in _overrides:
+                    wo = _sf.get_minutes_without_player(_team_name, out_name)
+                    if wo:
+                        _without_targets.update(wo)
+    except Exception:
+        pass
 
     if total_vacated <= 0:
         return projections
 
-    # Step 2: distribute proportionally by current projected minutes.
-    # Starters cap at 36 during redistribution so bench players keep a viable budget.
-    # After redistribution, _normalize_to_total handles final rounding to 200.
+    # Step 2: distribute vacated minutes.
+    # When Snowflake "without player" averages are available, use them as direct
+    # base_min targets (blend 70% toward observed, 30% current projection).
+    # This directly answers "what does this rotation look like without player X"
+    # rather than trying to proportionally distribute vacated minutes.
     REDIST_STARTER_CAP = 36.0
     total_active_min = sum(p.projected_min for p in active)
     if total_active_min > 0:
-        for p in active:
-            share = (p.projected_min / total_active_min) * total_vacated
-            cap = REDIST_STARTER_CAP if p.role == "starter" else 38.0
-            p.projected_min = round(min(p.projected_min + share, cap), 1)
+        if _without_targets:
+            for p in active:
+                wo_target = _without_targets.get(p.name, 0)
+                if wo_target > 0:
+                    # Starters: low Snowflake weight — their minutes are consistent
+                    #   regardless of who sits; don't override their strong baseline.
+                    # Bench: high Snowflake weight — they absorb the biggest role
+                    #   expansion when a key player sits; observed data is the signal.
+                    sf_weight = 0.40 if p.role == "starter" else 0.75
+                    blended = round(wo_target * sf_weight + p.projected_min * (1 - sf_weight), 1)
+                    cap = REDIST_STARTER_CAP if p.role == "starter" else 38.0
+                    p.projected_min = round(min(blended, cap), 1)
+                else:
+                    # Player not in without-player data — proportional fallback
+                    share = (p.projected_min / total_active_min) * total_vacated
+                    cap = REDIST_STARTER_CAP if p.role == "starter" else 38.0
+                    p.projected_min = round(min(p.projected_min + share, cap), 1)
+        else:
+            for p in active:
+                share = (p.projected_min / total_active_min) * total_vacated
+                cap = REDIST_STARTER_CAP if p.role == "starter" else 38.0
+                p.projected_min = round(min(p.projected_min + share, cap), 1)
 
     # Step 3: mark positional replacement notes for meaningful absences only.
     # Only set coverage notes when the out player has a significant base_min
