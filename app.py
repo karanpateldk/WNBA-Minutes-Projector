@@ -892,13 +892,19 @@ if selected_team == "New York Liberty":
         _m_role = next((p.role for p in adjusted_lineup.players if "Johannes" in p.name), "?")
         import snowflake_connector as _sfc_diag
         _sf_live = _sfc_diag.is_available()
+        _base_total = sum(p.base_min for p in adjusted_lineup.players if p.projected_min > 0)
+        _starters = [(p.name.split()[-1], round(p.base_min,1), round(p.projected_min,1))
+                     for p in adjusted_lineup.players if p.role=='starter' and p.projected_min>0]
+        _bench = [(p.name.split()[-1], round(p.base_min,1), round(p.projected_min,1))
+                  for p in adjusted_lineup.players if p.role=='bench' and p.projected_min>0]
+        _out = [p.name.split()[-1] for p in adjusted_lineup.players if p.projected_min==0]
         st.info(
-            f"**DIAG Marine Johannes** | role={_m.get('role')} sp={_m.get('starter_pct',0):.2f} "
-            f"rsp={_m.get('recent_starter_pct',0) or 0:.2f} avg={_m.get('avg_min',0):.1f} "
-            f"l3c={_m.get('last3_clean_avg',0) or 0:.1f} l1={_m.get('last_game_min',0):.1f} "
-            f"role_avg_bench={_m.get('role_avg_bench',0):.2f} | "
-            f"base={_m_base:.1f} proj={_m_proj:.1f} model_role={_m_role} | "
-            f"SF={_sf_live}"
+            f"**DIAG** base_total={_base_total:.1f} | "
+            f"Marine: base={_m_base:.1f} proj={_m_proj:.1f} role={_m_role} | "
+            f"SF={_sf_live} | "
+            f"Starters({len(_starters)}): {_starters} | "
+            f"Bench({len(_bench)}): {_bench} | "
+            f"Out: {_out}"
         )
 
 out_players = [p for p in adjusted_lineup.players if p.projected_min == 0]
