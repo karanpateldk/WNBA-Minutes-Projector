@@ -541,6 +541,8 @@ def compute_matchup_adjustments(
     # We compare their H2H avg to their season avg to get a delta.
 
     for player, info in team_data.items():
+        if not isinstance(info, dict):
+            continue
         if info.get("status") in ("Out", "Doubtful"):
             adjustments[player] = 0.0
             continue

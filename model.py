@@ -507,9 +507,15 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
 
         role_changed = (player in role_overrides and role != orig_role) or auto_role_changed
         if role_changed and auto_role_changed:
-            # Apply same blend as manual override: 60% personal history, 40% typical role
             target = typical_starter_min if role == "starter" else typical_bench_min
-            base_min = round(base_min * 0.60 + target * 0.40, 1)
+            # Only blend toward role average when it pulls in the right direction.
+            # If the player's personal projection already exceeds the team bench avg
+            # (e.g. Marine Johannes at 20 min vs team bench avg 13), blending toward
+            # the lower role average wrongly suppresses a high-usage player.
+            # Skip the blend when the target would pull base_min DOWN for a bench
+            # player — their actual minutes are above the team average by design.
+            if not (role == "bench" and target < base_min):
+                base_min = round(base_min * 0.60 + target * 0.40, 1)
 
         if player in role_overrides:
             depth = 1 if role == "starter" else 2
