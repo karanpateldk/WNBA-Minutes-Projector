@@ -39,7 +39,7 @@ ALL_PLAYERS = get_all_players()
 # ---------------------------------------------------------------------------
 
 st.set_page_config(
-    page_title="WNBA Minutes Projector",
+    page_title="WNBA Minutes Projector",  # v2026.06.30
     page_icon="🏀",
     layout="wide",
     initial_sidebar_state="expanded",
