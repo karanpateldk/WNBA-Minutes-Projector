@@ -732,31 +732,28 @@ def _redistribute_minutes(
     # not 12 min after DNP rate adjustment.
     _overrides = injury_overrides or {}
     def _vacated_mins(name, info):
+        """Use avg_min (healthy playing average) for ALL out players,
+        not just manually-overridden ones. A player's DNP-discounted
+        base_min under-represents how many minutes actually open up."""
         p = proj_map.get(name)
         if p is None:
             return 0.0
         pdata = team_data.get(name, {})
-        if name in _overrides:
-            l3c = pdata.get("last3_clean_avg") or pdata.get("last3_avg") or 0
-            avg = pdata.get("avg_min") or 0
-            return max(l3c, avg, p.base_min)
-        return p.base_min
+        l3c = pdata.get("last3_clean_avg") or pdata.get("last3_avg") or 0
+        avg = pdata.get("avg_min") or 0
+        return max(l3c, avg, p.base_min)
 
     total_vacated = sum(_vacated_mins(name, info) for name, info in out_players)
 
-    # Fetch Snowflake "without player" averages for manually-overridden Out players.
-    # These give the actual observed rotation when this player doesn't play,
-    # allowing more accurate redistribution than proportional sharing.
+    # Fetch Snowflake "without player" averages for ALL Out players (manual or auto).
+    # These give the actual observed rotation when this player doesn't play.
     _without_targets: dict[str, float] = {}
     try:
         import snowflake_connector as _sf
         if _sf.is_available():
-            team_name_key = next((v for v in team_data.values()
-                                  if isinstance(v, dict) and v.get("team_name")), None)
-            # Identify team name from team_data metadata
             _team_name = team_data.get("__team_name__", "")
-            for out_name, _ in out_players:
-                if out_name in _overrides:
+            if _team_name:
+                for out_name, _ in out_players:
                     wo = _sf.get_minutes_without_player(_team_name, out_name)
                     if wo:
                         _without_targets.update(wo)

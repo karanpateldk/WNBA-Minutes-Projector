@@ -905,7 +905,8 @@ def get_team_data(team_name: str) -> dict:
         else:
             # Use recent_starter_pct when it strongly diverges from season starter_pct
             # (≥0.40 gap with ≥5 games played) — recent role is more predictive.
-            recent_sp = sp.get("recent_starter_pct", start_pct) or start_pct
+            _rsp = sp.get("recent_starter_pct")
+            recent_sp = _rsp if _rsp is not None else start_pct
             effective_sp = (recent_sp if gp >= 5 and abs(recent_sp - start_pct) >= 0.40
                             else start_pct)
             role  = "starter" if effective_sp >= 0.50 else "bench"
