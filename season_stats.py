@@ -24,10 +24,24 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 try:
     import snowflake_connector as _sf
-    _SF_AVAILABLE = _sf.is_available()
+    # Don't call is_available() at import time — it opens a network connection
+    # which hangs app startup if credentials are wrong or network is slow.
+    # is_available() is called lazily on first use instead.
+    _SF_AVAILABLE = None   # None = not yet checked
 except Exception:
     _sf = None  # type: ignore
     _SF_AVAILABLE = False
+
+
+def _sf_ok() -> bool:
+    """Lazily check Snowflake availability on first call, then cache result."""
+    global _SF_AVAILABLE
+    if _SF_AVAILABLE is None:
+        try:
+            _SF_AVAILABLE = _sf is not None and _sf.is_available()
+        except Exception:
+            _SF_AVAILABLE = False
+    return bool(_SF_AVAILABLE)
 
 CACHE_DIR = Path(__file__).parent / "data"
 CACHE_DIR.mkdir(exist_ok=True)
@@ -250,7 +264,7 @@ def get_all_games_with_dates(team_name: str) -> list[tuple[str, str]]:
     Primary source: Sportradar Snowflake (WNBA_SCHEDULE, SEASON_TYPE='REG').
     Fallback: ESPN schedule API (used when Snowflake is unavailable).
     """
-    if _SF_AVAILABLE:
+    if _sf_ok():
         games = _sf.get_games_for_team(team_name)
         if games:
             return games
@@ -313,7 +327,7 @@ def _parse_boxscore(game_id: str, team_id: int) -> list[dict]:
     Primary source: Sportradar Snowflake (when game_id is a SR UUID or Snowflake is available).
     Fallback: ESPN summary API.
     """
-    if _SF_AVAILABLE and _is_sr_uuid(game_id):
+    if _sf_ok() and _is_sr_uuid(game_id):
         team_name = _team_name_for_id(team_id)
         if team_name:
             rows = _sf.get_boxscore(game_id, team_name)
@@ -399,7 +413,7 @@ def _parse_quarter_minutes(game_id: str, team_id: int,
     Fallback: ESPN play-by-play API (numeric ESPN IDs only).
     """
     # Primary: Snowflake — works for all game IDs
-    if _SF_AVAILABLE:
+    if _sf_ok():
         try:
             team_name = _team_name_for_id(team_id)
             if team_name:
@@ -571,7 +585,7 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
         boxscore_cache[gid] = box
 
         # Get game margin — from Snowflake if available, else ESPN summary
-        if _SF_AVAILABLE and _is_sr_uuid(gid):
+        if _sf_ok() and _is_sr_uuid(gid):
             game_margins[gid] = _sf.get_game_margin(gid, team_name)
         else:
             try:
@@ -808,7 +822,7 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
         }
 
     # Enrich with plus/minus from Snowflake
-    if _SF_AVAILABLE:
+    if _sf_ok():
         try:
             pm_map = _sf.get_player_plus_minus(team_name)
             for name, pm in pm_map.items():
@@ -820,7 +834,7 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
     # Fetch team-specific role minute averages and rotation stats from Snowflake
     role_avgs = {}
     rotation_stats = {}
-    if _SF_AVAILABLE:
+    if _sf_ok():
         try:
             ra = _sf.get_role_minute_averages(team_name)
             role_avgs = {k: float(v) if v is not None else 0.0 for k, v in ra.items()}

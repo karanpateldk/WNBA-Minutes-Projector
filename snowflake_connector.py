@@ -133,12 +133,17 @@ def get_connection():
                 schema=schema,
                 client_session_keep_alive=True,
                 insecure_mode=True,
+                login_timeout=15,    # fail fast if credentials are wrong
+                network_timeout=30,  # don't hang indefinitely on queries
             )
 
-        return _cached_connection(
-            creds["account"], creds["user"], creds["warehouse"],
-            creds["database"], creds["schema"], creds["pat"],
-        )
+        try:
+            return _cached_connection(
+                creds["account"], creds["user"], creds["warehouse"],
+                creds["database"], creds["schema"], creds["pat"],
+            )
+        except Exception:
+            return None
     except Exception:
         pass
 
