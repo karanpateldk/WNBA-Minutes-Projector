@@ -142,9 +142,14 @@ def get_connection():
                 creds["account"], creds["user"], creds["warehouse"],
                 creds["database"], creds["schema"], creds["pat"],
             )
-        except Exception:
+        except Exception as e:
+            # Store error so diagnostic can surface it
+            import builtins
+            builtins._sf_last_error = str(e)
             return None
-    except Exception:
+    except Exception as e:
+        import builtins
+        builtins._sf_last_error = str(e)
         pass
 
     # Outside Streamlit (CLI tools like backtest.py) — module-level singleton

@@ -898,10 +898,15 @@ if selected_team == "New York Liberty":
         _bench = [(p.name.split()[-1], round(p.base_min,1), round(p.projected_min,1))
                   for p in adjusted_lineup.players if p.role=='bench' and p.projected_min>0]
         _out = [p.name.split()[-1] for p in adjusted_lineup.players if p.projected_min==0]
+        import builtins as _bi
+        _sf_err = getattr(_bi, '_sf_last_error', 'none')
+        _creds = _sfc_diag._get_credentials()
         st.info(
             f"**DIAG** base_total={_base_total:.1f} | "
             f"Marine: base={_m_base:.1f} proj={_m_proj:.1f} role={_m_role} | "
-            f"SF={_sf_live} | "
+            f"SF={_sf_live} SF_ERR={_sf_err[:120]} | "
+            f"account={_creds.get('account','')} user={_creds.get('user','')} "
+            f"pat_len={len(_creds.get('pat',''))} | "
             f"Starters({len(_starters)}): {_starters} | "
             f"Bench({len(_bench)}): {_bench} | "
             f"Out: {_out}"
