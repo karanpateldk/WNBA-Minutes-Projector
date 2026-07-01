@@ -81,6 +81,14 @@ def _get_credentials() -> dict:
         for k in ("account", "user", "warehouse", "database", "schema"):
             if sf.get(k):
                 base[k] = sf[k]
+        # PAT can be stored at top level in secrets.toml as SNOWFLAKE_PAT
+        # or inside the [snowflake] section — check both
+        if not pat:
+            pat = (st.secrets.get("SNOWFLAKE_PAT", "")
+                   or st.secrets.get("SNOWFLAKE_TOKEN", "")
+                   or sf.get("pat", "")
+                   or sf.get("SNOWFLAKE_PAT", "")
+                   or sf.get("token", ""))
     except Exception:
         pass
 
