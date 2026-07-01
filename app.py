@@ -446,7 +446,7 @@ def render_player_row(
 with st.sidebar:
     st.markdown(
         '<p style="font-size:1.5rem;font-weight:700;margin-bottom:0">WNBA Minutes Projector</p>'
-        '<p style="font-size:1rem;color:#888;margin-top:2px">Karan Patel &nbsp;·&nbsp; <span style="font-size:0.8rem">build 2026-06-30.2</span></p>',
+        '<p style="font-size:1rem;color:#888;margin-top:2px">Karan Patel &nbsp;·&nbsp; <span style="font-size:0.8rem">build 2026-07-01.1</span></p>',
         unsafe_allow_html=True,
     )
     st.markdown("---")
