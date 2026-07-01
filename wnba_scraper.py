@@ -883,7 +883,19 @@ def get_team_data(team_name: str) -> dict:
             except Exception:
                 pass
         long_absent = games_missed >= 10 and _days_out >= 20
-        if (zero_min_season or (long_absent and player not in today_starter_set)):
+        # Also auto-Out players who have missed 3+ straight games AND have a
+        # meaningful DNP rate (not just a healthy rest), unless they're in today's
+        # confirmed lineup. This catches injured players when the injury report
+        # feed is unavailable (e.g. Snowflake down, WNBA PDF scraper failing).
+        dnp_rate_val = sp.get("dnp_rate", 0.0) or 0.0
+        recently_injured = (
+            games_missed >= 3
+            and dnp_rate_val >= 0.25
+            and player not in today_starter_set
+            and status not in ("Active", "Probable")   # already marked injured
+        )
+        if (zero_min_season or (long_absent and player not in today_starter_set)
+                or recently_injured):
             status = "Out"
             zero_min_season = True
 
