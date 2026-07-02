@@ -32,11 +32,11 @@ def _connect_direct():
     """Connect to Snowflake using env vars (for GitHub Actions) or local secrets."""
     import snowflake.connector
     pat      = os.getenv("SNOWFLAKE_PAT") or os.getenv("SNOWFLAKE_TOKEN", "")
-    account  = os.getenv("SNOWFLAKE_ACCOUNT", "DRAFTKINGS-DRAFTKINGS")
-    user     = os.getenv("SNOWFLAKE_USER", "KAR.PATEL")
-    wh       = os.getenv("SNOWFLAKE_WAREHOUSE", "QUERY_WH")
-    database = os.getenv("SNOWFLAKE_DATABASE", "SPORTRADAR")
-    schema   = os.getenv("SNOWFLAKE_SCHEMA", "DBO")
+    account  = os.getenv("SNOWFLAKE_ACCOUNT")  or "DRAFTKINGS-DRAFTKINGS"
+    user     = os.getenv("SNOWFLAKE_USER")     or "KAR.PATEL"
+    wh       = os.getenv("SNOWFLAKE_WAREHOUSE") or "QUERY_WH"
+    database = os.getenv("SNOWFLAKE_DATABASE") or "SPORTRADAR"
+    schema   = os.getenv("SNOWFLAKE_SCHEMA")   or "DBO"
 
     # Also try Streamlit secrets if running locally
     if not pat:

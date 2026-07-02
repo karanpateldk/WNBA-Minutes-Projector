@@ -31,12 +31,7 @@ jobs:
 
       - name: Export Snowflake data to CSV
         env:
-          SNOWFLAKE_PAT:       ${{ secrets.SNOWFLAKE_PAT }}
-          SNOWFLAKE_ACCOUNT:   ${{ secrets.SNOWFLAKE_ACCOUNT }}
-          SNOWFLAKE_USER:      ${{ secrets.SNOWFLAKE_USER }}
-          SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
-          SNOWFLAKE_DATABASE:  ${{ secrets.SNOWFLAKE_DATABASE }}
-          SNOWFLAKE_SCHEMA:    ${{ secrets.SNOWFLAKE_SCHEMA }}
+          SNOWFLAKE_PAT: ${{ secrets.SNOWFLAKE_PAT }}
         run: python export_snowflake_data.py
 
       - name: Commit and push updated CSVs
