@@ -1,0 +1,180 @@
+"""
+Export Snowflake data to CSV files for Streamlit Cloud.
+
+Run locally (where Snowflake is accessible):
+    python export_snowflake_data.py
+
+This generates 3 CSV files in the data/ folder:
+  - snowflake_player_stats.csv  (per-player recent role + advanced stats)
+  - snowflake_team_averages.csv (per-team role minute averages)
+  - snowflake_injuries.csv      (current injury report with full context)
+
+These CSVs are committed to GitHub and loaded by the app on Cloud when
+Snowflake is not directly accessible (IP allowlisting prevents connection).
+
+Run this script whenever you want to update the data:
+    python export_snowflake_data.py
+Then commit and push the generated CSVs.
+"""
+
+import csv
+import json
+from pathlib import Path
+from datetime import datetime
+
+DATA_DIR = Path(__file__).parent / "data"
+DATA_DIR.mkdir(exist_ok=True)
+
+
+def run():
+    import snowflake_connector as sf
+
+    if not sf.is_available():
+        print("ERROR: Snowflake not available. Run this script on your local machine.")
+        return
+
+    conn = sf.get_connection()
+    cur = conn.cursor()
+    print(f"Connected to Snowflake. Exporting data...")
+
+    # ── 1. Player stats: recent_starter_pct + advanced signals ───────────────
+    print("  Exporting player stats...")
+    cur.execute("""
+        WITH recent_games AS (
+            SELECT g.game_id
+            FROM SPORTRADAR.DBO.WNBA_GAMESUMMARY_PLAYERS g
+            JOIN SPORTRADAR.DBO.WNBA_SCHEDULE s ON g.game_id = s.game_id
+            WHERE s.season_type = 'REG' AND s.season_year = 2026
+              AND s.game_status IN ('complete','closed')
+            GROUP BY g.game_id
+            ORDER BY MAX(s.scheduled) DESC
+            LIMIT 150
+        ),
+        recent_stats AS (
+            SELECT
+                g.PLAYER_FULL_NAME,
+                g.TEAM_MARKET || ' ' || g.TEAM_NAME AS team_name,
+                ROUND(AVG(CASE WHEN g.PLAYER_STARTER THEN 1.0 ELSE 0.0 END), 4)
+                    AS recent_starter_pct,
+                COUNT(*) AS recent_gp
+            FROM SPORTRADAR.DBO.WNBA_GAMESUMMARY_PLAYERS g
+            JOIN recent_games rg ON g.game_id = rg.game_id
+            WHERE g.PLAYER_PLAYED = TRUE
+            GROUP BY 1, 2
+            HAVING COUNT(*) >= 3
+        ),
+        season_stats AS (
+            SELECT
+                g.PLAYER_FULL_NAME,
+                g.TEAM_MARKET || ' ' || g.TEAM_NAME AS team_name,
+                ROUND(AVG(CASE WHEN g.PLAYER_STARTER THEN 1.0 ELSE 0.0 END), 4)
+                    AS season_starter_pct,
+                COUNT(*) AS season_gp,
+                ROUND(AVG(
+                    TRY_CAST(SPLIT_PART(g.PLAYER_STATISTICS_MINUTES,':',1) AS INT)*60 +
+                    TRY_CAST(SPLIT_PART(g.PLAYER_STATISTICS_MINUTES,':',2) AS INT)
+                )/60.0, 2) AS avg_minutes
+            FROM SPORTRADAR.DBO.WNBA_GAMESUMMARY_PLAYERS g
+            JOIN SPORTRADAR.DBO.WNBA_SCHEDULE s ON g.game_id = s.game_id
+            WHERE s.season_type = 'REG' AND s.season_year = 2026
+              AND s.game_status IN ('complete','closed')
+              AND g.PLAYER_PLAYED = TRUE
+              AND g.PLAYER_STATISTICS_MINUTES IS NOT NULL
+            GROUP BY 1, 2
+            HAVING COUNT(*) >= 3
+        )
+        SELECT
+            s.PLAYER_FULL_NAME,
+            s.team_name,
+            s.season_starter_pct,
+            s.season_gp,
+            s.avg_minutes,
+            COALESCE(r.recent_starter_pct, s.season_starter_pct) AS recent_starter_pct,
+            COALESCE(r.recent_gp, 0) AS recent_gp
+        FROM season_stats s
+        LEFT JOIN recent_stats r
+            ON s.PLAYER_FULL_NAME = r.PLAYER_FULL_NAME
+            AND s.team_name = r.team_name
+        ORDER BY s.team_name, s.PLAYER_FULL_NAME
+    """)
+
+    player_rows = cur.fetchall()
+    player_cols = [d[0].lower() for d in cur.description]
+
+    with open(DATA_DIR / "snowflake_player_stats.csv", "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(player_cols + ["exported_at"])
+        ts = datetime.utcnow().isoformat()
+        for row in player_rows:
+            w.writerow(list(row) + [ts])
+    print(f"    -> {len(player_rows)} players written to snowflake_player_stats.csv")
+
+    # ── 2. Team role averages ─────────────────────────────────────────────────
+    print("  Exporting team averages...")
+    cur.execute("""
+        SELECT
+            g.TEAM_MARKET || ' ' || g.TEAM_NAME AS team_name,
+            ROUND(AVG(CASE WHEN g.PLAYER_STARTER THEN
+                TRY_CAST(SPLIT_PART(g.PLAYER_STATISTICS_MINUTES,':',1) AS INT)*60 +
+                TRY_CAST(SPLIT_PART(g.PLAYER_STATISTICS_MINUTES,':',2) AS INT)
+            END)/60.0, 2) AS avg_starter_mins,
+            ROUND(AVG(CASE WHEN NOT g.PLAYER_STARTER THEN
+                TRY_CAST(SPLIT_PART(g.PLAYER_STATISTICS_MINUTES,':',1) AS INT)*60 +
+                TRY_CAST(SPLIT_PART(g.PLAYER_STATISTICS_MINUTES,':',2) AS INT)
+            END)/60.0, 2) AS avg_bench_mins,
+            COUNT(DISTINCT g.game_id) AS games_played
+        FROM SPORTRADAR.DBO.WNBA_GAMESUMMARY_PLAYERS g
+        JOIN SPORTRADAR.DBO.WNBA_SCHEDULE s ON g.game_id = s.game_id
+        WHERE s.season_type = 'REG' AND s.season_year = 2026
+          AND s.game_status IN ('complete','closed')
+          AND g.PLAYER_PLAYED = TRUE
+          AND g.PLAYER_STATISTICS_MINUTES IS NOT NULL
+        GROUP BY 1
+        HAVING COUNT(DISTINCT g.game_id) >= 5
+        ORDER BY 1
+    """)
+
+    team_rows = cur.fetchall()
+    team_cols = [d[0].lower() for d in cur.description]
+
+    with open(DATA_DIR / "snowflake_team_averages.csv", "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(team_cols + ["exported_at"])
+        ts = datetime.utcnow().isoformat()
+        for row in team_rows:
+            w.writerow(list(row) + [ts])
+    print(f"    -> {len(team_rows)} teams written to snowflake_team_averages.csv")
+
+    # ── 3. Injuries ───────────────────────────────────────────────────────────
+    print("  Exporting injuries...")
+    injuries = sf.get_all_injuries()
+
+    with open(DATA_DIR / "snowflake_injuries.csv", "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["player_name", "status", "injury", "comment", "team",
+                    "dnp_type", "exported_at"])
+        ts = datetime.utcnow().isoformat()
+        for name, info in sorted(injuries.items()):
+            w.writerow([
+                name,
+                info.get("status", "Active"),
+                info.get("injury", ""),
+                info.get("comment", ""),
+                info.get("team", ""),
+                info.get("dnp_type", "injury"),
+                ts,
+            ])
+    print(f"    -> {len(injuries)} injuries written to snowflake_injuries.csv")
+
+    cur.close()
+    print()
+    print("Done. Now run:")
+    print("  git add data/snowflake_*.csv")
+    print("  git commit -m 'Update Snowflake data export'")
+    print("  git push origin main")
+    print()
+    print("Streamlit Cloud will pick up the new CSVs automatically.")
+
+
+if __name__ == "__main__":
+    run()
