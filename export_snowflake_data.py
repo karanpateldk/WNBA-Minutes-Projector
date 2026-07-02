@@ -18,6 +18,8 @@ Then commit and push the generated CSVs.
 """
 
 import csv
+import os
+import sys
 import json
 from pathlib import Path
 from datetime import datetime
@@ -26,16 +28,86 @@ DATA_DIR = Path(__file__).parent / "data"
 DATA_DIR.mkdir(exist_ok=True)
 
 
+def _connect_direct():
+    """Connect to Snowflake using env vars (for GitHub Actions) or local secrets."""
+    import snowflake.connector
+    pat      = os.getenv("SNOWFLAKE_PAT") or os.getenv("SNOWFLAKE_TOKEN", "")
+    account  = os.getenv("SNOWFLAKE_ACCOUNT", "DRAFTKINGS-DRAFTKINGS")
+    user     = os.getenv("SNOWFLAKE_USER", "KAR.PATEL")
+    wh       = os.getenv("SNOWFLAKE_WAREHOUSE", "QUERY_WH")
+    database = os.getenv("SNOWFLAKE_DATABASE", "SPORTRADAR")
+    schema   = os.getenv("SNOWFLAKE_SCHEMA", "DBO")
+
+    # Also try Streamlit secrets if running locally
+    if not pat:
+        try:
+            import streamlit as st
+            pat = (st.secrets.get("SNOWFLAKE_PAT", "")
+                   or st.secrets.get("snowflake", {}).get("pat", ""))
+            sf_sec = st.secrets.get("snowflake", {})
+            account  = sf_sec.get("account",   account)
+            user     = sf_sec.get("user",       user)
+            wh       = sf_sec.get("warehouse",  wh)
+            database = sf_sec.get("database",   database)
+        except Exception:
+            pass
+
+    # Fall back to local secrets.toml
+    if not pat:
+        secrets_path = Path(__file__).parent / ".streamlit" / "secrets.toml"
+        if secrets_path.exists():
+            try:
+                import re
+                text = secrets_path.read_text(encoding="utf-8")
+                m = re.search(r'SNOWFLAKE_PAT\s*=\s*"([^"]+)"', text)
+                if m:
+                    pat = m.group(1)
+            except Exception:
+                pass
+
+    if not pat:
+        print("ERROR: No Snowflake PAT found. Set SNOWFLAKE_PAT env var or secrets.toml.")
+        sys.exit(1)
+
+    return snowflake.connector.connect(
+        account=account,
+        user=user,
+        authenticator="programmatic_access_token",
+        token=pat,
+        warehouse=wh,
+        database=database,
+        schema=schema,
+        login_timeout=30,
+        insecure_mode=True,
+    )
+
+
 def run():
-    import snowflake_connector as sf
+    print("Connecting to Snowflake...")
+    # Try via snowflake_connector module first (handles Windows AppStore Python sandbox)
+    # Fall back to direct connection for GitHub Actions / Linux environments
+    conn = None
+    try:
+        import snowflake_connector as _sf_mod
+        conn = _sf_mod.get_connection()
+    except Exception:
+        pass
 
-    if not sf.is_available():
-        print("ERROR: Snowflake not available. Run this script on your local machine.")
-        return
+    if conn is None:
+        try:
+            conn = _connect_direct()
+        except Exception as e:
+            print(f"ERROR: Could not connect to Snowflake: {e}")
+            print("If running on GitHub Actions, DraftKings may block GitHub's IP ranges.")
+            print("Use a self-hosted runner on your local machine instead.")
+            sys.exit(1)
 
-    conn = sf.get_connection()
+    if conn is None:
+        print("ERROR: Snowflake unavailable. Run on a machine with Snowflake access.")
+        sys.exit(1)
+
     cur = conn.cursor()
-    print(f"Connected to Snowflake. Exporting data...")
+    print("Connected. Exporting data...")
 
     # ── 1. Player stats: recent_starter_pct + advanced signals ───────────────
     print("  Exporting player stats...")
@@ -199,7 +271,37 @@ def run():
 
     # ── 4. Injuries ───────────────────────────────────────────────────────────
     print("  Exporting injuries...")
-    injuries = sf.get_all_injuries()
+    # Query injuries directly (same logic as snowflake_connector.get_all_injuries)
+    cur.execute("""
+        SELECT
+            roster_market || ' ' || roster_name AS team_full,
+            player:full_name::varchar            AS player_name,
+            player:injuries                      AS injuries_variant
+        FROM SPORTRADAR.DBO.WNBA_ROSTER_CURRENT
+        WHERE player:injuries IS NOT NULL
+          AND ARRAY_SIZE(player:injuries) > 0
+    """)
+    inj_rows = cur.fetchall()
+    injuries = {}
+    for r in inj_rows:
+        name = r[1] or ""; team = r[0] or ""; inj_raw = r[2]
+        if not name or not inj_raw: continue
+        try:
+            inj_list = inj_raw if isinstance(inj_raw, list) else json.loads(str(inj_raw))
+            if not inj_list: continue
+            inj = max(inj_list, key=lambda x: x.get("update_date", ""))
+            desc = str(inj.get("desc", "")).strip()
+            status_map = {
+                "out": "Out", "day to day": "Day-To-Day", "day-to-day": "Day-To-Day",
+                "questionable": "Questionable", "probable": "Probable", "doubtful": "Doubtful",
+            }
+            status = status_map.get(str(inj.get("status","")).strip().lower(), str(inj.get("status","Active")))
+            injuries[name] = {
+                "status": status, "injury": desc,
+                "comment": str(inj.get("comment","")).strip(),
+                "team": team, "dnp_type": "coach" if "coach" in desc.lower() else "injury",
+            }
+        except Exception: continue
 
     with open(DATA_DIR / "snowflake_injuries.csv", "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
