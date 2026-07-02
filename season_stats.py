@@ -28,9 +28,11 @@ try:
     # which hangs app startup if credentials are wrong or network is slow.
     # is_available() is called lazily on first use instead.
     _SF_AVAILABLE = None   # None = not yet checked
+    _load_csv_boxscore = _sf._load_csv_boxscore
 except Exception:
     _sf = None  # type: ignore
     _SF_AVAILABLE = False
+    _load_csv_boxscore = lambda g, t: []
 
 
 def _sf_ok() -> bool:
@@ -269,6 +271,24 @@ def get_all_games_with_dates(team_name: str) -> list[tuple[str, str]]:
         if games:
             return games
 
+    # CSV fallback — extract game list from exported boxscore CSV
+    try:
+        import csv as _csv
+        from pathlib import Path as _Path
+        _box_path = _Path(__file__).parent / "data" / "snowflake_boxscores.csv"
+        if _box_path.exists():
+            seen = {}
+            with open(_box_path, encoding="utf-8") as f:
+                for row in _csv.DictReader(f):
+                    if row.get("team_name") == team_name and row.get("game_id"):
+                        gid = row["game_id"]; gdate = row.get("game_date","")
+                        if gid not in seen:
+                            seen[gid] = gdate
+            if seen:
+                return sorted(seen.items(), key=lambda x: x[1])
+    except Exception:
+        pass
+
     # ESPN fallback
     from datetime import date as _date
     _yr = _date.today().year if _date.today().month >= 5 else _date.today().year - 1
@@ -333,6 +353,15 @@ def _parse_boxscore(game_id: str, team_id: int) -> list[dict]:
             rows = _sf.get_boxscore(game_id, team_name)
             if rows:
                 return rows
+
+    # CSV fallback — used when Snowflake is unavailable (e.g. Streamlit Cloud)
+    # The exported snowflake_boxscores.csv contains full game history.
+    if not _sf_ok():
+        team_name = _team_name_for_id(team_id)
+        if team_name:
+            csv_rows = _load_csv_boxscore(game_id, team_name)
+            if csv_rows:
+                return csv_rows
 
     # ESPN fallback (numeric game IDs only)
     if _is_sr_uuid(game_id):

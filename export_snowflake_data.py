@@ -159,7 +159,45 @@ def run():
             w.writerow(list(row) + [ts])
     print(f"    -> {len(team_rows)} teams written to snowflake_team_averages.csv")
 
-    # ── 3. Injuries ───────────────────────────────────────────────────────────
+    # ── 3. Full boxscores — replaces ESPN boxscore API entirely ──────────────
+    print("  Exporting boxscores...")
+    cur.execute("""
+        SELECT
+            g.GAME_ID,
+            g.SCHEDULED::DATE                                         AS game_date,
+            g.TEAM_MARKET || ' ' || g.TEAM_NAME                      AS team_name,
+            g.PLAYER_FULL_NAME,
+            g.PLAYER_PLAYED,
+            COALESCE(g.PLAYER_STARTER, FALSE)                        AS starter,
+            COALESCE(
+                TRY_CAST(SPLIT_PART(g.PLAYER_STATISTICS_MINUTES,':',1) AS INT)*60 +
+                TRY_CAST(SPLIT_PART(g.PLAYER_STATISTICS_MINUTES,':',2) AS INT),
+                0
+            ) / 60.0                                                  AS minutes,
+            COALESCE(g.PLAYER_STATISTICS_PERSONAL_FOULS, 0)          AS personal_fouls,
+            COALESCE(g.PLAYER_STATISTICS_PLUS + g.PLAYER_STATISTICS_MINUS, 0)
+                                                                      AS plus_minus
+        FROM SPORTRADAR.DBO.WNBA_GAMESUMMARY_PLAYERS g
+        JOIN SPORTRADAR.DBO.WNBA_SCHEDULE s ON g.GAME_ID = s.GAME_ID
+        WHERE s.season_type = 'REG'
+          AND s.season_year = 2026
+          AND s.game_status IN ('complete', 'closed')
+          AND g.PLAYER_PLAYED = TRUE
+        ORDER BY g.SCHEDULED DESC, g.TEAM_MARKET, g.PLAYER_FULL_NAME
+    """)
+
+    box_rows = cur.fetchall()
+    box_cols = [d[0].lower() for d in cur.description]
+
+    with open(DATA_DIR / "snowflake_boxscores.csv", "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(box_cols + ["exported_at"])
+        ts = datetime.utcnow().isoformat()
+        for row in box_rows:
+            w.writerow(list(row) + [ts])
+    print(f"    -> {len(box_rows)} player-game rows written to snowflake_boxscores.csv")
+
+    # ── 4. Injuries ───────────────────────────────────────────────────────────
     print("  Exporting injuries...")
     injuries = sf.get_all_injuries()
 
@@ -183,11 +221,17 @@ def run():
     cur.close()
     print()
     print("Done. Now run:")
-    print("  git add data/snowflake_*.csv")
-    print("  git commit -m 'Update Snowflake data export'")
+    print("  git add -f data/snowflake_*.csv")
+    print("  git commit -m 'Update Snowflake data'")
     print("  git push origin main")
     print()
     print("Streamlit Cloud will pick up the new CSVs automatically.")
+    print()
+    print("Files exported:")
+    print("  snowflake_player_stats.csv  - recent roles + season stats (197 players)")
+    print("  snowflake_team_averages.csv - starter/bench minute averages (15 teams)")
+    print("  snowflake_injuries.csv      - current injury report (with full comments)")
+    print("  snowflake_boxscores.csv     - full game history replaces ESPN boxscore API")
 
 
 if __name__ == "__main__":

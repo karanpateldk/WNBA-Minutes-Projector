@@ -239,6 +239,41 @@ def _load_csv_team_averages() -> dict:
         return {}
 
 
+def _load_csv_boxscore(game_id: str, team_name: str) -> list[dict]:
+    """Load boxscore rows for a specific game+team from exported CSV."""
+    path = os.path.join(_CSV_DIR, "snowflake_boxscores.csv")
+    if not os.path.exists(path):
+        return []
+    try:
+        import csv as _csv
+        results = []
+        with open(path, encoding="utf-8") as f:
+            for row in _csv.DictReader(f):
+                if row.get("game_id") != game_id:
+                    continue
+                if row.get("team_name", "") != team_name:
+                    continue
+                try:
+                    mins = float(row.get("minutes") or 0)
+                    fouls = int(row.get("personal_fouls") or 0)
+                    starter = str(row.get("starter", "")).strip().lower() in ("true", "1", "yes")
+                    played = str(row.get("player_played", "")).strip().lower() in ("true", "1", "yes")
+                    name = row.get("player_full_name", "").strip()
+                    if name:
+                        results.append({
+                            "name":    name,
+                            "minutes": round(mins, 1),
+                            "fouls":   fouls,
+                            "starter": starter,
+                            "dnp":     not played,
+                        })
+                except Exception:
+                    continue
+        return results
+    except Exception:
+        return []
+
+
 def _load_csv_injuries() -> dict:
     """Load injuries from exported CSV. Returns {player_name: {fields}}."""
     path = os.path.join(_CSV_DIR, "snowflake_injuries.csv")
