@@ -184,6 +184,85 @@ def is_available() -> bool:
     return get_connection() is not None
 
 
+# ---------------------------------------------------------------------------
+# CSV fallback helpers — used when Snowflake is unreachable (e.g. Cloud)
+# ---------------------------------------------------------------------------
+
+_CSV_DIR = os.path.join(os.path.dirname(__file__), "data")
+
+
+def _load_csv_player_stats() -> dict:
+    """Load player stats from exported CSV. Returns {player_name: {fields}}."""
+    path = os.path.join(_CSV_DIR, "snowflake_player_stats.csv")
+    if not os.path.exists(path):
+        return {}
+    try:
+        import csv as _csv
+        result = {}
+        with open(path, encoding="utf-8") as f:
+            for row in _csv.DictReader(f):
+                name = row.get("player_full_name", "").strip()
+                if name:
+                    result[name] = {
+                        "team_name":          row.get("team_name", ""),
+                        "season_starter_pct": float(row.get("season_starter_pct") or 0),
+                        "season_gp":          int(row.get("season_gp") or 0),
+                        "avg_minutes":        float(row.get("avg_minutes") or 0),
+                        "recent_starter_pct": float(row.get("recent_starter_pct") or 0),
+                        "recent_gp":          int(row.get("recent_gp") or 0),
+                        "exported_at":        row.get("exported_at", ""),
+                    }
+        return result
+    except Exception:
+        return {}
+
+
+def _load_csv_team_averages() -> dict:
+    """Load team averages from exported CSV. Returns {team_name: {fields}}."""
+    path = os.path.join(_CSV_DIR, "snowflake_team_averages.csv")
+    if not os.path.exists(path):
+        return {}
+    try:
+        import csv as _csv
+        result = {}
+        with open(path, encoding="utf-8") as f:
+            for row in _csv.DictReader(f):
+                team = row.get("team_name", "").strip()
+                if team:
+                    result[team] = {
+                        "avg_starter_mins": float(row.get("avg_starter_mins") or 0),
+                        "avg_bench_mins":   float(row.get("avg_bench_mins") or 0),
+                        "games_played":     int(row.get("games_played") or 0),
+                    }
+        return result
+    except Exception:
+        return {}
+
+
+def _load_csv_injuries() -> dict:
+    """Load injuries from exported CSV. Returns {player_name: {fields}}."""
+    path = os.path.join(_CSV_DIR, "snowflake_injuries.csv")
+    if not os.path.exists(path):
+        return {}
+    try:
+        import csv as _csv
+        result = {}
+        with open(path, encoding="utf-8") as f:
+            for row in _csv.DictReader(f):
+                name = row.get("player_name", "").strip()
+                if name:
+                    result[name] = {
+                        "status":   row.get("status", "Active"),
+                        "injury":   row.get("injury", ""),
+                        "comment":  row.get("comment", ""),
+                        "team":     row.get("team", ""),
+                        "dnp_type": row.get("dnp_type", "injury"),
+                    }
+        return result
+    except Exception:
+        return {}
+
+
 def _query(sql: str, params: tuple = ()) -> list[dict]:
     """Execute SQL and return rows as list of lowercase-keyed dicts."""
     conn = get_connection()
@@ -301,6 +380,11 @@ def get_all_injuries() -> dict:
             }
         except Exception:
             continue
+
+    # If Snowflake returned nothing, fall back to exported CSV
+    if not result:
+        result = _load_csv_injuries()
+
     return result
 
 

@@ -831,13 +831,40 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
         except Exception:
             pass
 
-    # Fetch team-specific role minute averages and rotation stats from Snowflake
+    # Fetch team-specific role minute averages and rotation stats from Snowflake.
+    # Falls back to exported CSV when Snowflake is unavailable.
     role_avgs = {}
     rotation_stats = {}
     if _sf_ok():
         try:
             ra = _sf.get_role_minute_averages(team_name)
             role_avgs = {k: float(v) if v is not None else 0.0 for k, v in ra.items()}
+        except Exception:
+            pass
+
+    # CSV fallback for role averages
+    if not role_avgs.get("starter"):
+        try:
+            csv_teams = _sf.get_connection() and {} or _sf._load_csv_team_averages()
+            if not csv_teams:
+                csv_teams = _sf._load_csv_team_averages()
+            team_row = csv_teams.get(team_name, {})
+            if team_row.get("avg_starter_mins"):
+                role_avgs["starter"] = float(team_row["avg_starter_mins"] or 0)
+            if team_row.get("avg_bench_mins"):
+                role_avgs["bench"] = float(team_row["avg_bench_mins"] or 0)
+        except Exception:
+            pass
+
+    # Enrich players with recent_starter_pct from CSV when Snowflake unavailable
+    if not _sf_ok():
+        try:
+            csv_players = _sf._load_csv_player_stats()
+            for name in players:
+                if name in csv_players:
+                    row = csv_players[name]
+                    if row.get("recent_starter_pct") is not None:
+                        players[name]["recent_starter_pct"] = float(row["recent_starter_pct"])
         except Exception:
             pass
         try:
