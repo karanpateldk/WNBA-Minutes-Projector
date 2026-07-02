@@ -40,15 +40,29 @@ def run():
     # ── 1. Player stats: recent_starter_pct + advanced signals ───────────────
     print("  Exporting player stats...")
     cur.execute("""
-        WITH recent_games AS (
-            SELECT g.game_id
-            FROM SPORTRADAR.DBO.WNBA_GAMESUMMARY_PLAYERS g
-            JOIN SPORTRADAR.DBO.WNBA_SCHEDULE s ON g.game_id = s.game_id
+        WITH all_team_games AS (
+            -- Get last 5 games per team
+            SELECT s.game_id,
+                   s.home_team_name AS team_name,
+                   s.scheduled
+            FROM SPORTRADAR.DBO.WNBA_SCHEDULE s
             WHERE s.season_type = 'REG' AND s.season_year = 2026
               AND s.game_status IN ('complete','closed')
-            GROUP BY g.game_id
-            ORDER BY MAX(s.scheduled) DESC
-            LIMIT 150
+            UNION ALL
+            SELECT s.game_id,
+                   s.away_team_name AS team_name,
+                   s.scheduled
+            FROM SPORTRADAR.DBO.WNBA_SCHEDULE s
+            WHERE s.season_type = 'REG' AND s.season_year = 2026
+              AND s.game_status IN ('complete','closed')
+        ),
+        team_recent AS (
+            SELECT game_id, team_name,
+                   ROW_NUMBER() OVER (PARTITION BY team_name ORDER BY scheduled DESC) AS rn
+            FROM all_team_games
+        ),
+        recent_game_ids AS (
+            SELECT DISTINCT game_id FROM team_recent WHERE rn <= 5
         ),
         recent_stats AS (
             SELECT
@@ -58,10 +72,10 @@ def run():
                     AS recent_starter_pct,
                 COUNT(*) AS recent_gp
             FROM SPORTRADAR.DBO.WNBA_GAMESUMMARY_PLAYERS g
-            JOIN recent_games rg ON g.game_id = rg.game_id
+            JOIN recent_game_ids rg ON g.game_id = rg.game_id
             WHERE g.PLAYER_PLAYED = TRUE
             GROUP BY 1, 2
-            HAVING COUNT(*) >= 3
+            HAVING COUNT(*) >= 2
         ),
         season_stats AS (
             SELECT
@@ -118,7 +132,7 @@ def run():
                 TRY_CAST(SPLIT_PART(g.PLAYER_STATISTICS_MINUTES,':',1) AS INT)*60 +
                 TRY_CAST(SPLIT_PART(g.PLAYER_STATISTICS_MINUTES,':',2) AS INT)
             END)/60.0, 2) AS avg_starter_mins,
-            ROUND(AVG(CASE WHEN NOT g.PLAYER_STARTER THEN
+            ROUND(AVG(CASE WHEN (g.PLAYER_STARTER IS NULL OR g.PLAYER_STARTER = FALSE) THEN
                 TRY_CAST(SPLIT_PART(g.PLAYER_STATISTICS_MINUTES,':',1) AS INT)*60 +
                 TRY_CAST(SPLIT_PART(g.PLAYER_STATISTICS_MINUTES,':',2) AS INT)
             END)/60.0, 2) AS avg_bench_mins,
