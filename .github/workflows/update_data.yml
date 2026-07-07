@@ -29,10 +29,16 @@ jobs:
           & "C:\Users\kar.patel\AppData\Local\Microsoft\WindowsApps\python3.13.exe" export_snowflake_data.py
 
       - name: Commit and push updated CSVs
+        shell: powershell
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -f data/snowflake_*.csv
-          git diff --staged --quiet && echo "No changes to commit" || \
-            git commit -m "Auto-update Snowflake data $(date -u '+%Y-%m-%d %H:%M UTC')"
-          git push
+          $diff = git diff --staged --quiet
+          if ($LASTEXITCODE -ne 0) {
+            $ts = (Get-Date -Format "yyyy-MM-dd HH:mm") + " UTC"
+            git commit -m "Auto-update Snowflake data $ts"
+            git push
+          } else {
+            Write-Output "No changes to commit"
+          }
