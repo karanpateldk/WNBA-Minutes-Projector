@@ -13,6 +13,8 @@ on:
 jobs:
   export-and-push:
     runs-on: self-hosted
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repo
