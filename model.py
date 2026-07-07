@@ -554,19 +554,9 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
             if 0 < close_avg < base_min:
                 base_min = round(base_min * 0.30 + close_avg * 0.70, 1)
 
-        # Bias correction: backtested across 1,991 player-game samples showing
-        # starters are under-projected by 0.72 min and bench over-projected by 0.87 min.
-        # Applied before normalization so the 200-min constraint handles the balance.
-        # Low-minute starters get a proportionally small boost (0.72 on a 10-min
-        # starter = 7%, same as on a 30-min starter = 2.4%).
-        # High-minute bench players (avg >= 20 min) function like starters —
-        # apply the starter correction rather than bench reduction.
-        # Covers sixth-starter types like Loyd who comes off bench but plays 27 min.
-        _is_high_min_bench = (role == "bench" and avg_min >= 20.0)
-        if (role == "starter" or _is_high_min_bench) and status not in ("Out", "Doubtful") and player not in injury_overrides:
-            base_min = round(base_min + 0.72, 1)
-        elif role == "bench" and not _is_high_min_bench and status not in ("Out", "Doubtful") and player not in injury_overrides:
-            base_min = round(max(base_min - 0.87, 1.0), 1)
+        # Bias corrections (+0.72 starters / -0.87 bench) removed — these were
+        # calibrated on ESPN data which had systematic under/over-projection.
+        # Snowflake boxscore data is accurate so the corrections now overshoot.
 
         proj_min = _apply_injury_scale(base_min, status, info.get("injury", ""))
 
