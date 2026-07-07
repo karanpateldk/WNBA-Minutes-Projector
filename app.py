@@ -883,34 +883,6 @@ if selected_opponent:
 adjusted_lineup = apply_scenario(team_data, player_statuses, {}, role_overrides, opp_pace=_opp_pace)
 deltas = minutes_delta_summary(baseline_lineup, adjusted_lineup) if show_delta else {}
 
-# TEMPORARY DIAGNOSTIC — shows Marine's exact data so we can debug Cloud vs local discrepancy
-if selected_team == "New York Liberty":
-    _m = team_data.get("Marine Johannes", {})
-    if isinstance(_m, dict):
-        _m_proj = next((p.projected_min for p in adjusted_lineup.players if "Johannes" in p.name), 0)
-        _m_base = next((p.base_min for p in adjusted_lineup.players if "Johannes" in p.name), 0)
-        _m_role = next((p.role for p in adjusted_lineup.players if "Johannes" in p.name), "?")
-        import snowflake_connector as _sfc_diag
-        _sf_live = _sfc_diag.is_available()
-        _base_total = sum(p.base_min for p in adjusted_lineup.players if p.projected_min > 0)
-        _starters = [(p.name.split()[-1], round(p.base_min,1), round(p.projected_min,1))
-                     for p in adjusted_lineup.players if p.role=='starter' and p.projected_min>0]
-        _bench = [(p.name.split()[-1], round(p.base_min,1), round(p.projected_min,1))
-                  for p in adjusted_lineup.players if p.role=='bench' and p.projected_min>0]
-        _out = [p.name.split()[-1] for p in adjusted_lineup.players if p.projected_min==0]
-        import builtins as _bi
-        _sf_err = getattr(_bi, '_sf_last_error', 'none')
-        _creds = _sfc_diag._get_credentials()
-        st.info(
-            f"**DIAG** base_total={_base_total:.1f} | "
-            f"Marine: base={_m_base:.1f} proj={_m_proj:.1f} role={_m_role} | "
-            f"SF={_sf_live} SF_ERR={_sf_err[:120]} | "
-            f"account={_creds.get('account','')} user={_creds.get('user','')} "
-            f"pat_len={len(_creds.get('pat',''))} | "
-            f"Starters({len(_starters)}): {_starters} | "
-            f"Bench({len(_bench)}): {_bench} | "
-            f"Out: {_out}"
-        )
 
 out_players = [p for p in adjusted_lineup.players if p.projected_min == 0]
 active_players = [p for p in adjusted_lineup.players if p.projected_min > 0]
