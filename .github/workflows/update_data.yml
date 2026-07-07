@@ -20,13 +20,13 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Install dependencies
-        run: python -m pip install snowflake-connector-python pandas
-
       - name: Export Snowflake data to CSV
         env:
           SNOWFLAKE_PAT: ${{ secrets.SNOWFLAKE_PAT }}
-        run: python export_snowflake_data.py
+          PYTHONPATH: 'C:\Users\kar.patel\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages'
+        run: |
+          $env:PATH = "C:\Users\kar.patel\AppData\Local\Microsoft\WindowsApps;" + $env:PATH
+          & "C:\Users\kar.patel\AppData\Local\Microsoft\WindowsApps\python3.13.exe" export_snowflake_data.py
 
       - name: Commit and push updated CSVs
         run: |
