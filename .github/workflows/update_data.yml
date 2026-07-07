@@ -12,7 +12,7 @@ on:
 
 jobs:
   export-and-push:
-    runs-on: ubuntu-latest  # change to [self-hosted] if DK blocks GitHub IPs
+    runs-on: self-hosted
 
     steps:
       - name: Checkout repo
