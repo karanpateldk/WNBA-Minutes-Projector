@@ -49,7 +49,16 @@
       "Bash(python3 -c \"import ast; files=['season_stats.py','model.py','wnba_scraper.py','matchup.py','app.py','backtest.py']; [ast.parse\\(open\\(f, encoding='utf-8'\\).read\\(\\)\\) for f in files]; print\\('All syntax OK'\\)\")",
       "Bash(ls /c/Python*/python.exe)",
       "Bash(command -v python.exe)",
-      "Bash(/c/Users/kar.patel/AppData/Local/Microsoft/WindowsApps/python.exe *)"
+      "Bash(/c/Users/kar.patel/AppData/Local/Microsoft/WindowsApps/python.exe *)",
+      "Bash(python *)",
+      "Bash(python3 *)",
+      "Bash(py -c \"import ast; ast.parse\\(open\\('backtest.py'\\).read\\(\\)\\); print\\('syntax OK'\\)\")",
+      "Bash(\"/c/Users/kar.patel/AppData/Local/Programs/Python/Python312/python.exe\" -c \"import ast; ast.parse\\(open\\('backtest.py'\\).read\\(\\)\\); print\\('syntax OK'\\)\")",
+      "Read(//c/Program Files/**)",
+      "Read(//c/Users/kar.patel/**)",
+      "Bash(start \"\" \"launch.bat\")",
+      "Bash(/c/Users/kar.patel/AppData/Local/Microsoft/WindowsApps/python3.13.exe -c ' *)",
+      "Bash(\"/c/Users/kar.patel/AppData/Local/Microsoft/WindowsApps/python3.13.exe\" backtest.py --all-teams)"
     ]
   }
 }
