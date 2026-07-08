@@ -249,41 +249,39 @@ def run():
             COALESCE(g.PLAYER_STATISTICS_PERSONAL_FOULS, 0)          AS personal_fouls,
             COALESCE(g.PLAYER_STATISTICS_PLUS + g.PLAYER_STATISTICS_MINUS, 0)
                                                                       AS plus_minus,
-            -- Per-quarter minutes from PLAYER_STATISTICS_PERIODS variant
-            COALESCE((
-                SELECT (TRY_CAST(SPLIT_PART(p.value:minutes::varchar,':',1) AS INT)*60 +
-                        TRY_CAST(SPLIT_PART(p.value:minutes::varchar,':',2) AS INT)) / 60.0
-                FROM LATERAL FLATTEN(input => g.PLAYER_STATISTICS_PERIODS) p
-                WHERE p.value:type::varchar = 'quarter' AND p.value:number::int = 1
-                LIMIT 1
-            ), 0.0)                                                   AS q1_min,
-            COALESCE((
-                SELECT (TRY_CAST(SPLIT_PART(p.value:minutes::varchar,':',1) AS INT)*60 +
-                        TRY_CAST(SPLIT_PART(p.value:minutes::varchar,':',2) AS INT)) / 60.0
-                FROM LATERAL FLATTEN(input => g.PLAYER_STATISTICS_PERIODS) p
-                WHERE p.value:type::varchar = 'quarter' AND p.value:number::int = 2
-                LIMIT 1
-            ), 0.0)                                                   AS q2_min,
-            COALESCE((
-                SELECT (TRY_CAST(SPLIT_PART(p.value:minutes::varchar,':',1) AS INT)*60 +
-                        TRY_CAST(SPLIT_PART(p.value:minutes::varchar,':',2) AS INT)) / 60.0
-                FROM LATERAL FLATTEN(input => g.PLAYER_STATISTICS_PERIODS) p
-                WHERE p.value:type::varchar = 'quarter' AND p.value:number::int = 3
-                LIMIT 1
-            ), 0.0)                                                   AS q3_min,
-            COALESCE((
-                SELECT (TRY_CAST(SPLIT_PART(p.value:minutes::varchar,':',1) AS INT)*60 +
-                        TRY_CAST(SPLIT_PART(p.value:minutes::varchar,':',2) AS INT)) / 60.0
-                FROM LATERAL FLATTEN(input => g.PLAYER_STATISTICS_PERIODS) p
-                WHERE p.value:type::varchar = 'quarter' AND p.value:number::int = 4
-                LIMIT 1
-            ), 0.0)                                                   AS q4_min
+            -- Per-quarter minutes via LATERAL FLATTEN + conditional aggregation
+            COALESCE(MAX(CASE
+                WHEN p.value:type::varchar = 'quarter' AND p.value:number::int = 1
+                THEN (TRY_CAST(SPLIT_PART(p.value:minutes::varchar,':',1) AS INT)*60 +
+                      TRY_CAST(SPLIT_PART(p.value:minutes::varchar,':',2) AS INT)) / 60.0
+            END), 0.0)                                                AS q1_min,
+            COALESCE(MAX(CASE
+                WHEN p.value:type::varchar = 'quarter' AND p.value:number::int = 2
+                THEN (TRY_CAST(SPLIT_PART(p.value:minutes::varchar,':',1) AS INT)*60 +
+                      TRY_CAST(SPLIT_PART(p.value:minutes::varchar,':',2) AS INT)) / 60.0
+            END), 0.0)                                                AS q2_min,
+            COALESCE(MAX(CASE
+                WHEN p.value:type::varchar = 'quarter' AND p.value:number::int = 3
+                THEN (TRY_CAST(SPLIT_PART(p.value:minutes::varchar,':',1) AS INT)*60 +
+                      TRY_CAST(SPLIT_PART(p.value:minutes::varchar,':',2) AS INT)) / 60.0
+            END), 0.0)                                                AS q3_min,
+            COALESCE(MAX(CASE
+                WHEN p.value:type::varchar = 'quarter' AND p.value:number::int = 4
+                THEN (TRY_CAST(SPLIT_PART(p.value:minutes::varchar,':',1) AS INT)*60 +
+                      TRY_CAST(SPLIT_PART(p.value:minutes::varchar,':',2) AS INT)) / 60.0
+            END), 0.0)                                                AS q4_min
         FROM SPORTRADAR.DBO.WNBA_GAMESUMMARY_PLAYERS g
         JOIN SPORTRADAR.DBO.WNBA_SCHEDULE s ON g.GAME_ID = s.GAME_ID
+        LEFT JOIN LATERAL FLATTEN(input => g.PLAYER_STATISTICS_PERIODS, outer => true) p
         WHERE s.season_type = 'REG'
           AND s.season_year = 2026
           AND s.game_status IN ('complete', 'closed')
           AND g.PLAYER_PLAYED = TRUE
+        GROUP BY
+            g.GAME_ID, g.SCHEDULED, g.TEAM_MARKET, g.TEAM_NAME,
+            g.PLAYER_FULL_NAME, g.PLAYER_PLAYED, g.PLAYER_STARTER,
+            g.PLAYER_STATISTICS_MINUTES, g.PLAYER_STATISTICS_PERSONAL_FOULS,
+            g.PLAYER_STATISTICS_PLUS, g.PLAYER_STATISTICS_MINUS
         ORDER BY g.SCHEDULED DESC, g.TEAM_MARKET, g.PLAYER_FULL_NAME
     """)
 
