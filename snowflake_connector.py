@@ -1215,9 +1215,9 @@ def _parse_periods_variant(periods_raw) -> dict[int, float]:
         for period in data:
             if not isinstance(period, dict):
                 continue
-            ptype  = str(period.get("type", "")).lower()
+            ptype  = str(period.get("type", "")).upper()
             pnum   = int(period.get("number", 0))
-            if ptype != "quarter" or pnum < 1 or pnum > 4:
+            if ptype != "REG" or pnum < 1 or pnum > 4:
                 continue
             mins_str = period.get("minutes") or period.get("played_minutes") or "0"
             mins = _parse_minutes(str(mins_str))

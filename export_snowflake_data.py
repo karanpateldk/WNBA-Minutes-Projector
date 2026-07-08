@@ -251,22 +251,22 @@ def run():
                                                                       AS plus_minus,
             -- Per-quarter minutes via LATERAL FLATTEN + conditional aggregation
             COALESCE(MAX(CASE
-                WHEN p.value:type::varchar = 'quarter' AND p.value:number::int = 1
+                WHEN p.value:type::varchar = 'REG' AND p.value:number::int = 1
                 THEN (TRY_CAST(SPLIT_PART(p.value:minutes::varchar,':',1) AS INT)*60 +
                       TRY_CAST(SPLIT_PART(p.value:minutes::varchar,':',2) AS INT)) / 60.0
             END), 0.0)                                                AS q1_min,
             COALESCE(MAX(CASE
-                WHEN p.value:type::varchar = 'quarter' AND p.value:number::int = 2
+                WHEN p.value:type::varchar = 'REG' AND p.value:number::int = 2
                 THEN (TRY_CAST(SPLIT_PART(p.value:minutes::varchar,':',1) AS INT)*60 +
                       TRY_CAST(SPLIT_PART(p.value:minutes::varchar,':',2) AS INT)) / 60.0
             END), 0.0)                                                AS q2_min,
             COALESCE(MAX(CASE
-                WHEN p.value:type::varchar = 'quarter' AND p.value:number::int = 3
+                WHEN p.value:type::varchar = 'REG' AND p.value:number::int = 3
                 THEN (TRY_CAST(SPLIT_PART(p.value:minutes::varchar,':',1) AS INT)*60 +
                       TRY_CAST(SPLIT_PART(p.value:minutes::varchar,':',2) AS INT)) / 60.0
             END), 0.0)                                                AS q3_min,
             COALESCE(MAX(CASE
-                WHEN p.value:type::varchar = 'quarter' AND p.value:number::int = 4
+                WHEN p.value:type::varchar = 'REG' AND p.value:number::int = 4
                 THEN (TRY_CAST(SPLIT_PART(p.value:minutes::varchar,':',1) AS INT)*60 +
                       TRY_CAST(SPLIT_PART(p.value:minutes::varchar,':',2) AS INT)) / 60.0
             END), 0.0)                                                AS q4_min
