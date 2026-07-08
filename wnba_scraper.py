@@ -20,7 +20,7 @@ from roster_data import ROSTERS, TEAMS
 
 CACHE_DIR = Path(__file__).parent / "data"
 CACHE_DIR.mkdir(exist_ok=True)
-CACHE_TTL_HOURS = 2
+CACHE_TTL_HOURS = 6
 
 HEADERS = {
     "User-Agent": (
@@ -59,7 +59,7 @@ def _save_cache(key: str, payload, ttl_hours: float = CACHE_TTL_HOURS):
     )
 
 
-def _get(url: str, timeout: int = 10) -> BeautifulSoup | None:
+def _get(url: str, timeout: int = 5) -> BeautifulSoup | None:
     try:
         resp = requests.get(url, headers=HEADERS, timeout=timeout)
         resp.raise_for_status()
@@ -473,7 +473,7 @@ def scrape_espn_roster(team_name: str) -> dict:
     if team_id:
         url = f"https://site.api.espn.com/apis/site/v2/sports/basketball/wnba/teams/{team_id}/roster"
         try:
-            resp = requests.get(url, headers=HEADERS, timeout=10)
+            resp = requests.get(url, headers=HEADERS, timeout=5)
             resp.raise_for_status()
             data = resp.json()
             for player in data.get("athletes", []):
@@ -1111,7 +1111,7 @@ def get_schedule_context(team_name: str) -> dict:
     if team_id:
         try:
             url = f"https://site.api.espn.com/apis/site/v2/sports/basketball/wnba/teams/{team_id}/schedule"
-            r = requests.get(url, headers=HEADERS, timeout=10)
+            r = requests.get(url, headers=HEADERS, timeout=5)
             r.raise_for_status()
             events = r.json().get("events", [])
 

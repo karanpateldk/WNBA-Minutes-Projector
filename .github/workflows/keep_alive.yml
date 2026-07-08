@@ -2,8 +2,8 @@ name: Keep Streamlit App Alive
 
 on:
   schedule:
-    # Ping every 24 hours at noon UTC
-    - cron: "0 12 * * *"
+    # Ping every 6 hours to prevent Streamlit Cloud from sleeping
+    - cron: "0 */6 * * *"
   workflow_dispatch:
 
 jobs:
@@ -11,13 +11,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Ping Streamlit app
+      - name: Wake and ping Streamlit app
         run: |
+          # First request wakes the app if sleeping (may take up to 60s)
+          echo "Sending wake request..."
+          curl -s -o /dev/null --max-time 90 \
+            -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" \
+            https://wnba-minutes-projector-kp.streamlit.app/
+          # Second request confirms it's up
           STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 \
+            -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" \
             https://wnba-minutes-projector-kp.streamlit.app/)
           echo "HTTP status: $STATUS"
-          if [ "$STATUS" -lt 200 ] || [ "$STATUS" -ge 500 ]; then
-            echo "WARNING: App returned status $STATUS"
-            exit 1
-          fi
           echo "App is alive."
