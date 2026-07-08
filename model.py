@@ -890,8 +890,6 @@ def _suggest_replacement(
 
 
 STARTER_MAX = 38.0
-
-
 BENCH_FLOOR = 4.0   # minimum projected minutes for any active bench player
 
 def _normalize_to_total(projections: list[PlayerProjection], target: float) -> list[PlayerProjection]:
@@ -917,62 +915,35 @@ def _normalize_to_total(projections: list[PlayerProjection], target: float) -> l
     bench    = [p for p in active if p.role != "starter"]
 
     if diff < 0:
-        # Phase 1: trim bench first toward BENCH_FLOOR — protects starter minutes
-        # from being compressed when bench depth inflates the total.
-        bench_trimmable = sum(max(p.projected_min - BENCH_FLOOR, 0.0) for p in bench)
+        # Trim proportionally based on how much each player is projected ABOVE
+        # their own season average. Players furthest above their avg give back
+        # the most — role-agnostic so a 30-min starter over-projected by 6 min
+        # gives back more than a 15-min bench player over-projected by 1 min.
+        # Floor: each player keeps at least 85% of their season avg (base_min),
+        # with an absolute minimum of BENCH_FLOOR for low-minute players.
         needed = -diff
-        if bench_trimmable > 0:
-            to_trim_bench = min(bench_trimmable, needed)
-            for p in bench:
-                trimmable = max(p.projected_min - BENCH_FLOOR, 0.0)
+        floors = {p.name: max(p.base_min * 0.85, BENCH_FLOOR) for p in active}
+        trimmable_total = sum(max(p.projected_min - floors[p.name], 0.0) for p in active)
+
+        if trimmable_total > 0:
+            to_trim = min(trimmable_total, needed)
+            for p in active:
+                trimmable = max(p.projected_min - floors[p.name], 0.0)
                 p.projected_min = round(
-                    p.projected_min - (trimmable / bench_trimmable) * to_trim_bench, 1
+                    p.projected_min - (trimmable / trimmable_total) * to_trim, 1
                 )
             needed = max(0.0, sum(p.projected_min for p in active) - target)
 
-        # Phase 2: trim starters toward 36 if still over
+        # If still over after proportional trim, scale everyone down uniformly
         if needed > 0.1:
-            starter_excess = sum(max(p.projected_min - 36.0, 0.0) for p in starters)
-            if starter_excess > 0:
-                to_trim = min(starter_excess, needed)
-                for p in starters:
-                    excess = max(p.projected_min - 36.0, 0.0)
-                    p.projected_min = round(p.projected_min - (excess / starter_excess) * to_trim, 1)
-
-        # Phase 3: trim bench only — protect starters at 88% of base_min floor
-        # Starters are the most important projection so we absorb remaining excess
-        # entirely from bench before touching starter base projections.
-        to_trim = sum(p.projected_min for p in active) - target
-        if to_trim > 0.1:
-            starter_floor = {p.name: max(p.base_min * 0.88, 10.0) for p in starters}
-            bench_trimmable2 = sum(max(p.projected_min - BENCH_FLOOR, 0.0) for p in bench)
-            if bench_trimmable2 > 0:
-                trim2 = min(bench_trimmable2, to_trim)
-                for p in bench:
-                    trimmable = max(p.projected_min - BENCH_FLOOR, 0.0)
-                    p.projected_min = round(
-                        p.projected_min - (trimmable / bench_trimmable2) * trim2, 1
-                    )
-                to_trim = max(0.0, sum(p.projected_min for p in active) - target)
-            # Only trim starters if bench is exhausted
-            if to_trim > 0.1:
-                s_trimmable = sum(max(p.projected_min - starter_floor[p.name], 0.0) for p in starters)
-                if s_trimmable > 0:
-                    for p in starters:
-                        trimmable = max(p.projected_min - starter_floor[p.name], 0.0)
-                        p.projected_min = round(
-                            p.projected_min - (trimmable / s_trimmable) * min(s_trimmable, to_trim), 1
-                        )
-
-        # Phase 4: guaranteed hard scale — always reaches exactly target
-        current = sum(p.projected_min for p in active)
-        if current > 0 and abs(current - target) > 0.05:
-            scale = target / current
-            for p in active:
-                p.projected_min = round(p.projected_min * scale, 1)
+            current = sum(p.projected_min for p in active)
+            if current > 0:
+                scale = target / current
+                for p in active:
+                    p.projected_min = round(p.projected_min * scale, 1)
 
     else:
-        # Under budget — spread proportionally, starters capped at STARTER_MAX
+        # Under budget — spread proportionally to all active players
         total = sum(p.projected_min for p in active)
         if total > 0:
             for p in active:
