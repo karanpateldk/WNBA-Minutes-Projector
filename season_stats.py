@@ -36,14 +36,8 @@ except Exception:
 
 
 def _sf_ok() -> bool:
-    """Lazily check Snowflake availability on first call, then cache result."""
-    global _SF_AVAILABLE
-    if _SF_AVAILABLE is None:
-        try:
-            _SF_AVAILABLE = _sf is not None and _sf.is_available()
-        except Exception:
-            _SF_AVAILABLE = False
-    return bool(_SF_AVAILABLE)
+    """CSVs are the primary data source — always use CSV path."""
+    return False
 
 CACHE_DIR = Path(__file__).parent / "data"
 CACHE_DIR.mkdir(exist_ok=True)

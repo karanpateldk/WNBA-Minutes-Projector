@@ -180,8 +180,8 @@ def get_connection():
 
 
 def is_available() -> bool:
-    """True if Snowflake credentials exist and connection succeeds."""
-    return get_connection() is not None
+    """CSVs are the primary data source — skip live Snowflake entirely."""
+    return False
 
 
 # ---------------------------------------------------------------------------

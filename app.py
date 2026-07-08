@@ -873,12 +873,7 @@ st.markdown("---")
 # Fetch opponent pace from Snowflake when an opponent is selected
 _opp_pace = 0.0
 if selected_opponent:
-    try:
-        import snowflake_connector as _sf_app
-        if _sf_app.is_available():
-            _opp_pace = _sf_app.get_opponent_pace(selected_opponent)
-    except Exception:
-        pass
+    pass  # opponent pace via Snowflake not available; CSVs are primary data source
 
 adjusted_lineup = apply_scenario(team_data, player_statuses, {}, role_overrides, opp_pace=_opp_pace)
 deltas = minutes_delta_summary(baseline_lineup, adjusted_lineup) if show_delta else {}
