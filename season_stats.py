@@ -600,6 +600,7 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
     game_margins: dict[str, float] = {}   # game_id -> point differential (team - opp)
     player_fouls_by_game: dict[str, list[int]] = defaultdict(list)
     player_margins_by_game: dict[str, list[float]] = defaultdict(list)
+    player_first_game_idx: dict[str, int] = {}  # index of first game a player appeared
 
     for i, (gid, game_date) in enumerate(games_with_dates):
         box = _parse_boxscore(gid, team_id)
@@ -651,6 +652,8 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
                 capped_mins = p["minutes"]
             all_minutes[name].append(capped_mins)
             games_played[name] += 1
+            if name not in player_first_game_idx:
+                player_first_game_idx[name] = i
             if p["starter"]:
                 starter_games[name] += 1
             if capped_mins >= 5.0:
@@ -841,7 +844,7 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
             "last_played_date":    last_played_date.get(name, ""),
             "games_missed_streak": games_missed_streak.get(name, 0),
             "games_total":         len(games_with_dates),
-            "dnp_rate":            round(1 - gp / len(games_with_dates), 3) if games_with_dates else 0.0,
+            "dnp_rate":            round(1 - gp / max(len(games_with_dates) - player_first_game_idx.get(name, 0), gp), 3) if games_with_dates else 0.0,
         }
 
     # Enrich with plus/minus from Snowflake
