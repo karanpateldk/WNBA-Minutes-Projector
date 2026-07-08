@@ -608,27 +608,12 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
             continue
         boxscore_cache[gid] = box
 
-        # Get game margin — from Snowflake if available, else ESPN summary
+        # Get game margin — Snowflake only; skip ESPN to avoid slow network calls
+        # on Streamlit Cloud where all game IDs are SR UUIDs ESPN can't handle.
         if _sf_ok() and _is_sr_uuid(gid):
             game_margins[gid] = _sf.get_game_margin(gid, team_name)
         else:
-            try:
-                summary = _get(f"https://site.api.espn.com/apis/site/v2/sports/basketball/wnba/summary?event={gid}")
-                competitors = summary.get("header", {}).get("competitions", [{}])[0].get("competitors", [])
-                team_score = opp_score = None
-                for c in competitors:
-                    score_val = c.get("score", {})
-                    val = float(score_val.get("value", score_val)) if isinstance(score_val, dict) else float(score_val or 0)
-                    if str(c.get("team", {}).get("id", "")) == str(team_id):
-                        team_score = val
-                    else:
-                        opp_score = val
-                if team_score is not None and opp_score is not None:
-                    game_margins[gid] = team_score - opp_score
-                else:
-                    game_margins[gid] = 0.0
-            except Exception:
-                game_margins[gid] = 0.0
+            game_margins[gid] = 0.0
 
         game_starters = {p["name"] for p in box if p["starter"] and not p["dnp"]}
 
