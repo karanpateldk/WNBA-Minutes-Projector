@@ -671,11 +671,27 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
         if rotation_count > 0:
             rotation_counts_per_game.append(rotation_count)
 
-        # Quarter minutes from play-by-play
-        q_mins = _parse_quarter_minutes(gid, team_id, game_starters)
-        for player, q_data in q_mins.items():
-            for q, m in q_data.items():
-                quarter_acc[player][q].append(m)
+        # Quarter minutes — read directly from CSV boxscore rows (q1_min..q4_min)
+        # Fall back to play-by-play parsing only when CSV has no quarter data.
+        csv_has_quarters = any(
+            (p.get("q1_min", 0) + p.get("q2_min", 0) +
+             p.get("q3_min", 0) + p.get("q4_min", 0)) > 0
+            for p in box if not p["dnp"]
+        )
+        if csv_has_quarters:
+            for p in box:
+                if p["dnp"] or p["minutes"] < 0.5:
+                    continue
+                name = p["name"]
+                for q, key in ((1, "q1_min"), (2, "q2_min"), (3, "q3_min"), (4, "q4_min")):
+                    val = p.get(key, 0.0) or 0.0
+                    if val > 0:
+                        quarter_acc[name][q].append(val)
+        else:
+            q_mins = _parse_quarter_minutes(gid, team_id, game_starters)
+            for player, q_data in q_mins.items():
+                for q, m in q_data.items():
+                    quarter_acc[player][q].append(m)
 
         # Track most recent game starters
         if i == len(games_with_dates) - 1:

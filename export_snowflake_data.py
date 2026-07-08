@@ -248,7 +248,36 @@ def run():
             ) / 60.0                                                  AS minutes,
             COALESCE(g.PLAYER_STATISTICS_PERSONAL_FOULS, 0)          AS personal_fouls,
             COALESCE(g.PLAYER_STATISTICS_PLUS + g.PLAYER_STATISTICS_MINUS, 0)
-                                                                      AS plus_minus
+                                                                      AS plus_minus,
+            -- Per-quarter minutes from PLAYER_STATISTICS_PERIODS variant
+            COALESCE((
+                SELECT (TRY_CAST(SPLIT_PART(p.value:minutes::varchar,':',1) AS INT)*60 +
+                        TRY_CAST(SPLIT_PART(p.value:minutes::varchar,':',2) AS INT)) / 60.0
+                FROM LATERAL FLATTEN(input => g.PLAYER_STATISTICS_PERIODS) p
+                WHERE p.value:type::varchar = 'quarter' AND p.value:number::int = 1
+                LIMIT 1
+            ), 0.0)                                                   AS q1_min,
+            COALESCE((
+                SELECT (TRY_CAST(SPLIT_PART(p.value:minutes::varchar,':',1) AS INT)*60 +
+                        TRY_CAST(SPLIT_PART(p.value:minutes::varchar,':',2) AS INT)) / 60.0
+                FROM LATERAL FLATTEN(input => g.PLAYER_STATISTICS_PERIODS) p
+                WHERE p.value:type::varchar = 'quarter' AND p.value:number::int = 2
+                LIMIT 1
+            ), 0.0)                                                   AS q2_min,
+            COALESCE((
+                SELECT (TRY_CAST(SPLIT_PART(p.value:minutes::varchar,':',1) AS INT)*60 +
+                        TRY_CAST(SPLIT_PART(p.value:minutes::varchar,':',2) AS INT)) / 60.0
+                FROM LATERAL FLATTEN(input => g.PLAYER_STATISTICS_PERIODS) p
+                WHERE p.value:type::varchar = 'quarter' AND p.value:number::int = 3
+                LIMIT 1
+            ), 0.0)                                                   AS q3_min,
+            COALESCE((
+                SELECT (TRY_CAST(SPLIT_PART(p.value:minutes::varchar,':',1) AS INT)*60 +
+                        TRY_CAST(SPLIT_PART(p.value:minutes::varchar,':',2) AS INT)) / 60.0
+                FROM LATERAL FLATTEN(input => g.PLAYER_STATISTICS_PERIODS) p
+                WHERE p.value:type::varchar = 'quarter' AND p.value:number::int = 4
+                LIMIT 1
+            ), 0.0)                                                   AS q4_min
         FROM SPORTRADAR.DBO.WNBA_GAMESUMMARY_PLAYERS g
         JOIN SPORTRADAR.DBO.WNBA_SCHEDULE s ON g.GAME_ID = s.GAME_ID
         WHERE s.season_type = 'REG'
