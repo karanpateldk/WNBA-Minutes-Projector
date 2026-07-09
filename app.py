@@ -290,18 +290,7 @@ def render_player_row(
 
     with col_name:
         _pos_tag = f'<span style="font-size:0.7rem;opacity:0.55;font-weight:500;margin-left:4px">({p.pos})</span>'
-        if p.role == "starter":
-            parts = p.name.rsplit(" ", 1)
-            if len(parts) == 2:
-                name_html = (
-                    f'<b>{parts[0]}</b> '
-                    f'<span style="white-space:nowrap"><b>{parts[1]}</b> &#9733;</span>{_pos_tag}'
-                )
-            else:
-                name_html = f'<span style="white-space:nowrap"><b>{p.name}</b> &#9733;</span>{_pos_tag}'
-            st.markdown(name_html, unsafe_allow_html=True)
-        else:
-            st.markdown(f'<span style="white-space:nowrap"><b>{p.name}</b></span>{_pos_tag}', unsafe_allow_html=True)
+        st.markdown(f'<span style="white-space:nowrap"><b>{p.name}</b></span>{_pos_tag}', unsafe_allow_html=True)
 
     with col_status:
         st.markdown(
