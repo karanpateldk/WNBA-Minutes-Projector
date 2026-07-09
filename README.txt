@@ -17,56 +17,121 @@ QUICK START
 
 FILES
 -----
-app.py          Main Streamlit UI
-model.py        Minutes projection + redistribution logic
-scraper.py      RotoWire & ESPN data scrapers
-roster_data.py  Static fallback rosters (2025 season)
-test_model.py   Sanity checks (run before first launch)
-data/           Auto-created cache folder (refreshes every 2h)
+app.py                  Main Streamlit UI
+model.py                Minutes projection + redistribution logic
+season_stats.py         Per-player rolling stats from Snowflake CSVs
+snowflake_connector.py  Snowflake connection + CSV fallback helpers
+export_snowflake_data.py  Exports Snowflake data to CSV (run via GitHub Actions)
+wnba_scraper.py         Live roster, lineup, and injury scraping (ESPN/RotoWire)
+quarter_minutes.py      Per-quarter minute distribution logic
+roster_data.py          Static fallback rosters
+backtest.py             Accuracy backtesting tool
+
 
 HOW IT WORKS
 ------------
-1. Select a team in the sidebar
-2. The app scrapes RotoWire for recent minutes trends
-   and ESPN for the current injury report
-3. Each player shows their projected minutes based on
-   a weighted blend: 45% last-3-game avg + 35% season avg
-4. To adjust a player's status, use the dropdown under their name:
-   Active → full minutes
-   Probable → -3%
-   Day-To-Day → -20%
-   Questionable → shows a second "duration" dropdown:
-     Just listed  → -20%
-     < 1 week     → -28%
-     1-3 weeks    → -45%
-     Chronic      → -60%
-   Doubtful → -70%
-   Out → 0 min — lineup auto-redistributes
+1. Select a team in the sidebar.
+
+2. Data is loaded from Snowflake-exported CSVs (refreshed automatically
+   4x per day via GitHub Actions on a self-hosted runner):
+     - snowflake_boxscores.csv     full game-by-game minutes for every player
+     - snowflake_player_stats.csv  season + recent starter percentages
+     - snowflake_team_averages.csv team-level starter/bench minute averages
+     - snowflake_injuries.csv      current injury report
+
+   If the CSVs are unavailable, the app falls back to ESPN and RotoWire
+   scrapers for rosters and injuries. Projections may be less accurate
+   in fallback mode since live scraping is less reliable than Snowflake data.
+
+3. Each player's projected minutes use a sample-size-aware rolling average:
+     < 5 games:  100% season average (no recent signal yet)
+     5-10 games:  70% season / 30% last-3-game average
+     10-20 games: 55% season / 45% last-3-game average
+     20-30 games: 40% season / 60% last-3-game average
+     30+ games:   25% season / 75% last-3-game average
+
+   When a player's last-3 average diverges 20%+ from their season average
+   (e.g. a role change or injury return), the model boosts weight toward
+   recent games to capture the new trend. The last game is also blended in
+   as a signal for players in stable starter roles.
+
+   Blowout games and foul-trouble games are excluded from clean averages
+   to filter noise from unusual rotations.
+
+4. Normalization: all active player projections are trimmed proportionally
+   — players projected furthest above their own season average give back
+   the most minutes — so no single player crowds out teammates.
+   Total always sums to exactly 200 minutes (5 players x 40 min).
+
+
+INJURY STATUS EFFECTS
+---------------------
+   Active / Probable / Day-To-Day / Questionable
+     → Full projected minutes (play probability is uncertain but if they
+       play, they play normal minutes). Exception: if the injury note
+       explicitly mentions a "minutes restriction," a 25% haircut applies.
+
+   Doubtful
+     → Treated as DNP — minutes set to 0 and redistributed to teammates.
+
+   Out
+     → Minutes set to 0 and redistributed to teammates.
+
+There is no secondary duration dropdown. Doubtful and Out are the only
+statuses that affect projected minutes.
+
 
 WHEN A PLAYER IS OUT
 --------------------
-- The model finds the most similar position backup
-- Gives them ~60% of the vacated minutes
-- Spreads the remaining 40% proportionally to all active players
-- If no good replacement exists, the UI shows a "Suggested replacement"
-  you can promote with the dropdown
-- Total always re-normalizes to 200 min (5 players × 40 min)
+The model redistributes vacated minutes using the best available data:
 
-QUARTER ROTATION CHART
------------------------
-Estimates minutes per quarter using:
-  Starters: 30% / 20% / 30% / 20%  (heavier Q1 & Q3)
-  Bench:    15% / 30% / 15% / 40%  (heavier Q2 & Q4)
-These are approximations; WNBA rotations vary more than NBA.
+  Primary (when available): Snowflake "without player" game logs.
+    The model looks up historical games where this player did not play
+    and uses the actual observed minutes each teammate got in those games.
+    Projection = 60% observed without-player average + 40% current projection.
+
+  Fallback (when historical data is insufficient):
+    Vacated minutes are distributed proportionally across all active players
+    based on their current projected share of total minutes.
+    Starters are capped at 36 min, bench at 38 min.
+
+Total always re-normalizes to 200 min after redistribution.
+
+
+QUARTER MINUTES BREAKDOWN
+--------------------------
+Each player's per-quarter minutes are projected using their own historical
+quarter-by-quarter averages from Snowflake play-by-play data (Q1-Q4 minutes
+per game exported in snowflake_boxscores.csv). The same sample-size-aware
+rolling average logic used for total minutes applies per quarter, so teams
+with unusual rotation patterns (heavy Q2 bench, starters sitting Q4 in
+blowouts) are captured naturally without hardcoded weights.
+
 
 DATA FRESHNESS
 --------------
-Scraped data is cached for 2 hours.
-Press "Refresh Data" in the sidebar to force a reload.
-If scraping fails (ESPN/RotoWire down or blocked), the app
-automatically falls back to the static 2025 season averages in roster_data.py.
+Snowflake CSVs are automatically updated 4x per day (10am, 2pm, 6pm, 10pm ET)
+by a GitHub Actions workflow running on a local self-hosted runner.
+The app always reads the latest committed CSVs — no manual refresh needed.
 
-UPDATE ROSTERS
---------------
-Open roster_data.py and edit the ROSTERS dictionary.
-Each player needs: pos, avg_min, role (starter/bench), depth (1/2/3)
+Live roster and injury data (ESPN/RotoWire) is cached for 6 hours and
+refreshed automatically on the next app load after expiry.
+
+Note: if scraping from ESPN or RotoWire fails (site down or blocked),
+the app falls back to Snowflake CSV injury data. A warning will appear
+in the app when fallback mode is active.
+
+
+UPDATE DATA
+-----------
+To manually trigger a data refresh:
+  GitHub → Actions → "Update Snowflake Data" → Run workflow
+
+This re-runs the export script on the self-hosted runner, pulling the latest
+rosters, injury reports, boxscores (with per-quarter minutes), player stats,
+and team averages from Snowflake, then commits the updated CSVs to the repo.
+Streamlit Cloud picks up the new data automatically on next load.
+
+PAT ROTATION: The Snowflake Programmatic Access Token expires monthly.
+When it expires, update the SNOWFLAKE_PAT secret in:
+  GitHub → repo → Settings → Secrets and variables → Actions
