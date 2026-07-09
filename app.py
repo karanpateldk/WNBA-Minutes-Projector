@@ -289,7 +289,7 @@ def render_player_row(
     color = INJURY_COLOR.get(p.status, "#6c757d")
 
     with col_name:
-        _pos_tag = f'<span style="font-size:0.7rem;opacity:0.55;font-weight:500;margin-left:4px">{p.pos}</span>'
+        _pos_tag = f'<span style="font-size:0.7rem;opacity:0.55;font-weight:500;margin-left:4px">({p.pos})</span>'
         if p.role == "starter":
             parts = p.name.rsplit(" ", 1)
             if len(parts) == 2:
