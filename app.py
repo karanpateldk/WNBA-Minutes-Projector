@@ -32,7 +32,10 @@ from matchup import compute_matchup_adjustments, get_matchup_summary, get_player
 from quarter_minutes import distribute_quarters
 
 POSITIONS   = ["G", "G/F", "F", "F/C", "C"]
-ALL_PLAYERS = get_all_players()
+
+@st.cache_data(ttl=21600)
+def _load_all_players() -> list[str]:
+    return get_all_players()
 
 # Team brand primary colors — used for header accent and section dividers.
 # All chosen to be legible on both light and dark backgrounds.
@@ -732,7 +735,7 @@ if "manual_added_players" not in st.session_state:
     st.session_state.manual_added_players = {}
 
 with st.expander("+ Add / override players manually"):
-    manual_options = ["— select player —"] + ALL_PLAYERS
+    manual_options = ["— select player —"] + _load_all_players()
 
     # Header row
     hdr1, hdr2, hdr3, hdr4, hdr5, hdr_del = st.columns([3, 1.2, 1.5, 1.5, 1.5, 0.8])
