@@ -86,6 +86,11 @@ st.markdown("""
     [data-testid="column"]:last-child span {
         white-space: normal !important;
         overflow: visible;
+        line-height: 1.3;
+    }
+    [data-testid="column"]:last-child [data-testid="stMarkdownContainer"] {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
     }
     .mins-big { font-size: 1.4rem; font-weight: 700; }
 
@@ -289,12 +294,25 @@ def render_player_row(
     color = INJURY_COLOR.get(p.status, "#6c757d")
 
     with col_name:
-        _pos_tag = f'<span style="font-size:0.7rem;opacity:0.55;font-weight:500;margin-left:4px">({p.pos})</span>'
-        st.markdown(f'<span style="white-space:nowrap"><b>{p.name}</b></span>{_pos_tag}', unsafe_allow_html=True)
+        # Pos is wrapped with last name so it never orphans on a new line
+        parts = p.name.rsplit(" ", 1)
+        if len(parts) == 2:
+            _name_html = (
+                f'<b>{parts[0]}</b> '
+                f'<span style="white-space:nowrap"><b>{parts[1]}</b>'
+                f' <span style="font-size:0.75rem;opacity:0.7;font-weight:500">({p.pos})</span></span>'
+            )
+        else:
+            _name_html = (
+                f'<span style="white-space:nowrap"><b>{p.name}</b>'
+                f' <span style="font-size:0.75rem;opacity:0.7;font-weight:500">({p.pos})</span></span>'
+            )
+        st.markdown(_name_html, unsafe_allow_html=True)
 
     with col_status:
         st.markdown(
-            f'<span class="status-badge" style="background:{color};white-space:nowrap">'
+            f'<span class="status-badge" style="background:{color};white-space:nowrap;'
+            f'font-size:0.72rem">'
             f'{p.display_status}</span>',
             unsafe_allow_html=True,
         )
@@ -334,7 +352,6 @@ def render_player_row(
         foul_note   = (foul_notes or {}).get(p.name)
         _pinfo = team_data.get(p.name, {})
 
-        # Keywords in injury text that signal a long-term absence
         _LT_KEYWORDS = (
             "surgery", "surgical", "torn", "tear", "fracture", "fractured",
             "out indefinitely", "indefinite", "season", "months", "month",
@@ -343,7 +360,6 @@ def render_player_row(
         _inj_lower = (p.injury or "").lower()
         _inj_is_longterm = any(kw in _inj_lower for kw in _LT_KEYWORDS)
 
-        # Absent = Active player, 0 last game, has real history
         _absent = (
             last_game_min == 0
             and p.projected_min > 0
@@ -352,17 +368,13 @@ def render_player_row(
         )
         _games_missed = _pinfo.get("games_missed_streak", 0) if _absent else 0
 
-        # Long-term: any of these signals
-        #   1. missed 5+ games (extended absence regardless of injury text)
-        #   2. injury text contains long-term keywords
-        #   3. absent AND has any injury text (injury reported + not playing = long-term)
         long_term_injury = (
             _absent
             and p.status in ("Active", "Questionable", "Day-To-Day")
             and (
                 _games_missed >= 5
                 or _inj_is_longterm
-                or (p.injury and _games_missed >= 2)  # injury reported + missing games
+                or (p.injury and _games_missed >= 2)
             )
         )
         dnp_last = (
@@ -380,68 +392,46 @@ def render_player_row(
             and p.projected_min > 0
         )
 
-        # Clean up ESPN's generic injury strings (they sometimes set injury="out" or injury="day-to-day")
         _generic = {"out", "day-to-day", "dtd", "gtd", "game time decision", "available", "active", ""}
         clean_injury = p.injury if p.injury.lower().strip() not in _generic else ""
 
+        # Build a single compact note string — rendered in small text, no extra row height
+        _note_text = ""
+        _note_color = "#6c757d"
         if foul_note:
-            st.markdown(
-                f'<span style="font-size:0.75rem;color:#fd7e14;font-weight:600">⚠ {foul_note}</span>',
-                unsafe_allow_html=True,
-            )
+            _note_text = f"⚠ {foul_note}"
+            _note_color = "#fd7e14"
         elif p.note and p.replaced_player and p.replaced_player in starters_set:
-            st.caption(p.note)
+            _note_text = p.note
         elif p.status in ("Questionable", "Doubtful", "Day-To-Day"):
-            # Status badge already shows Questionable/DTD/Doubtful — don't repeat it.
-            # Note column: show specific injury if meaningful, or DNP context if relevant.
             if clean_injury:
-                # Real injury description (e.g. "Knee", "Hamstring") — show it
-                note_text = clean_injury
+                _note_text = clean_injury
                 if _absent and _games_missed >= 1:
-                    note_text += " — missed last game"
-                st.markdown(
-                    f'<span style="font-size:0.75rem;color:{color};font-weight:600">{note_text}</span>',
-                    unsafe_allow_html=True,
-                )
+                    _note_text += " · missed last"
+                _note_color = color
             elif _absent and _games_missed >= 1:
-                # No specific injury text but sat out recently
-                st.markdown(
-                    f'<span style="font-size:0.75rem;color:{color};font-weight:600">Missed last game</span>',
-                    unsafe_allow_html=True,
-                )
-            # Otherwise nothing — status badge is sufficient
+                _note_text = "Missed last game"
+                _note_color = color
         elif p.status == "Out" and p.projected_min == 0:
             dnp_type = team_data.get(p.name, {}).get("dnp_type", "injury")
-            if dnp_type == "coach":
-                note_text = "DNP — Coach's Decision"
-            else:
-                note_text = f"Out — {clean_injury}" if clean_injury else "Out"
-            st.markdown(
-                f'<span style="font-size:0.75rem;color:{color};font-weight:600">{note_text}</span>',
-                unsafe_allow_html=True,
-            )
+            _note_text = "Coach's Decision" if dnp_type == "coach" else (clean_injury or "")
+            _note_color = color
         elif clean_injury and p.status not in ("Active", "Probable"):
-            st.markdown(
-                f'<span style="font-size:0.75rem;color:{color};font-weight:600">{clean_injury}</span>',
-                unsafe_allow_html=True,
-            )
+            _note_text = clean_injury
+            _note_color = color
         elif long_term_injury:
-            st.markdown(
-                '<span style="font-size:0.75rem;color:#fd7e14;font-weight:600">Long-term injury</span>',
-                unsafe_allow_html=True,
-            )
+            _note_text = "Long-term injury"
+            _note_color = "#fd7e14"
         elif dnp_last:
-            # Use "DNP" only when we know it's a coach decision (healthy scratch).
-            # Otherwise use neutral "Missed last game" — could be unreported injury.
             _dnp_type = _pinfo.get("dnp_type", "")
-            _dnp_label = "DNP last game" if _dnp_type == "coach" else "Missed last game"
-            st.markdown(
-                f'<span style="font-size:0.75rem;color:#6c757d;font-weight:600">{_dnp_label}</span>',
-                unsafe_allow_html=True,
-            )
+            _note_text = "DNP last game" if _dnp_type == "coach" else "Missed last game"
         elif volatile:
+            _note_text = "Volatile mins"
+
+        if _note_text:
             st.markdown(
-                '<span style="font-size:0.75rem;color:#6c757d;font-weight:600">Volatile mins</span>',
+                f'<span style="font-size:0.72rem;color:{_note_color};font-weight:600;'
+                f'white-space:normal;line-height:1.3">{_note_text}</span>',
                 unsafe_allow_html=True,
             )
 
