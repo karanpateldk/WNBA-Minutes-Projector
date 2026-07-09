@@ -34,6 +34,26 @@ from quarter_minutes import distribute_quarters
 POSITIONS   = ["G", "G/F", "F", "F/C", "C"]
 ALL_PLAYERS = get_all_players()
 
+# Team brand primary colors — used for header accent and section dividers.
+# All chosen to be legible on both light and dark backgrounds.
+TEAM_COLORS = {
+    "Atlanta Dream":           "#E03A3E",
+    "Chicago Sky":             "#5091CD",
+    "Connecticut Sun":         "#F68B1F",
+    "Dallas Wings":            "#002B5C",
+    "Golden State Valkyries":  "#FFC72C",
+    "Indiana Fever":           "#C8102E",
+    "Las Vegas Aces":          "#A7182D",
+    "Los Angeles Sparks":      "#702F8A",
+    "Minnesota Lynx":          "#266092",
+    "New York Liberty":        "#86CEBC",
+    "Phoenix Mercury":         "#E56020",
+    "Portland Fire":           "#D62B2B",
+    "Seattle Storm":           "#2C5234",
+    "Toronto Tempo":           "#CE1141",
+    "Washington Mystics":      "#0C2340",
+}
+
 # ---------------------------------------------------------------------------
 # Page config
 # ---------------------------------------------------------------------------
@@ -53,8 +73,7 @@ st.markdown("""
         font-size: 0.78rem; font-weight: 600; color: #fff;
         letter-spacing: 0.02em; white-space: nowrap;
     }
-    /* Prevent column headers and player names from mid-word wrapping.
-       Targets every possible Streamlit column DOM nesting level. */
+    /* Prevent column headers and player names from mid-word wrapping. */
     [data-testid="column"] p,
     [data-testid="column"] span,
     [data-testid="column"] b,
@@ -63,24 +82,46 @@ st.markdown("""
         overflow: hidden;
         text-overflow: ellipsis;
     }
-    /* Allow note column text to wrap at word boundaries (it's intentionally long) */
     [data-testid="column"]:last-child p,
     [data-testid="column"]:last-child span {
         white-space: normal !important;
         overflow: visible;
     }
     .mins-big { font-size: 1.4rem; font-weight: 700; }
-    .delta-pos { color: #28a745; font-weight: 600; }
-    .delta-neg { color: #dc3545; font-weight: 600; }
 
-    /* warning box — semi-transparent so it reads in both modes */
+    /* delta pill — inline chip next to projected minutes */
+    .delta-pill {
+        display: inline-block;
+        font-size: 0.72rem; font-weight: 700;
+        padding: 1px 6px; border-radius: 10px;
+        margin-left: 4px; vertical-align: middle;
+    }
+    .delta-pill-pos { background: rgba(40,167,69,0.15); color: #28a745; }
+    .delta-pill-neg { background: rgba(220,53,69,0.15);  color: #dc3545; }
+    .delta-pill-neu { background: rgba(128,128,128,0.12); color: inherit; opacity: 0.6; }
+
+    /* confidence bar — left edge of each projection row */
+    .conf-bar {
+        width: 4px; border-radius: 2px;
+        display: inline-block; margin-right: 6px;
+        vertical-align: middle;
+    }
+
+    /* starter / bench divider */
+    .role-divider {
+        border: none;
+        border-top: 1px dashed rgba(128,128,128,0.35);
+        margin: 6px 0 8px 0;
+    }
+
+    /* warning box */
     .warning-box {
         background: rgba(255, 193, 7, 0.15);
         border-left: 4px solid #ffc107;
         padding: 10px; border-radius: 4px;
     }
 
-    /* section header uses currentColor so it adapts to dark mode */
+    /* section header */
     .section-header {
         font-size: 1.1rem; font-weight: 700; margin: 12px 0 6px 0;
         border-bottom: 2px solid rgba(128,128,128,0.3);
@@ -95,18 +136,10 @@ st.markdown("""
         margin-bottom: 6px;
         background: rgba(128,128,128,0.04);
     }
-    .player-card-name {
-        font-weight: 700;
-        font-size: 0.95rem;
-        margin-bottom: 2px;
-    }
-    .player-card-meta {
-        font-size: 0.75rem;
-        opacity: 0.6;
-        margin-bottom: 6px;
-    }
+    .player-card-name { font-weight: 700; font-size: 0.95rem; margin-bottom: 2px; }
+    .player-card-meta { font-size: 0.75rem; opacity: 0.6; margin-bottom: 6px; }
 
-    /* info banners — use rgba so they work in dark mode */
+    /* info banners */
     .banner-confirmed {
         background: rgba(40,167,69,0.12);
         border-left: 4px solid #28a745;
@@ -127,6 +160,12 @@ st.markdown("""
         border-left: 3px solid rgba(128,128,128,0.4);
         padding: 10px 14px; border-radius: 4px; margin-bottom: 8px; font-size: 0.83rem;
     }
+
+    /* sidebar polish */
+    [data-testid="stSidebar"] .stSelectbox label {
+        font-size: 0.8rem; font-weight: 600; opacity: 0.7;
+        text-transform: uppercase; letter-spacing: 0.05em;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -142,11 +181,11 @@ components.html("""
             if (input.dataset.clearBound) return;
             input.dataset.clearBound = "1";
             input.addEventListener("keydown", function(e) {
-                if (e.key === "Backspace" && input.value.length > 0) {
+                if (e.key === "Backspace") {
                     e.stopPropagation();
+                    e.preventDefault();
                     input.value = "";
                     input.dispatchEvent(new Event("input", {bubbles: true}));
-                    e.preventDefault();
                 }
             }, true);
         });
@@ -305,19 +344,32 @@ def render_player_row(
         if p.projected_min == 0:
             st.markdown("**OUT**")
         else:
+            # Delta pill: projected vs season avg (base_min is the weighted avg)
+            _avg = team_data.get(p.name, {}).get("avg_min", base_min) if isinstance(team_data.get(p.name), dict) else base_min
+            _delta = round(p.projected_min - _avg, 1)
+            if abs(_delta) < 0.5:
+                _pill = f'<span class="delta-pill delta-pill-neu">~avg</span>'
+            elif _delta > 0:
+                _pill = f'<span class="delta-pill delta-pill-pos">+{_delta:.1f}</span>'
+            else:
+                _pill = f'<span class="delta-pill delta-pill-neg">{_delta:.1f}</span>'
             st.markdown(
-                f'<div style="font-size:1.4rem;font-weight:700;line-height:1.3">{p.projected_min:.1f}</div>',
+                f'<div style="font-size:1.4rem;font-weight:700;line-height:1.3;display:inline">'
+                f'{p.projected_min:.1f}</div>{_pill}',
                 unsafe_allow_html=True,
             )
 
     with col_conf:
         conf = getattr(p, 'confidence', 0)
         if p.projected_min == 0:
-            dot_color = "#dc3545"
+            bar_color = "#dc3545"
         else:
-            dot_color = "#28a745" if conf >= 70 else ("#e6a817" if conf >= 45 else "#dc3545")
+            bar_color = "#28a745" if conf >= 70 else ("#e6a817" if conf >= 45 else "#dc3545")
+        bar_h = 32 if p.projected_min > 0 else 20
         st.markdown(
-            f'<div style="text-align:center;font-size:1.1rem;color:{dot_color};padding-top:4px">&#9679;</div>',
+            f'<div style="display:flex;align-items:center;height:{bar_h}px">'
+            f'<div style="width:5px;height:{bar_h}px;background:{bar_color};'
+            f'border-radius:3px;opacity:0.85"></div></div>',
             unsafe_allow_html=True,
         )
 
@@ -477,7 +529,11 @@ with st.sidebar:
     selected_opponent = None if selected_opponent_raw.startswith("—") else selected_opponent_raw
     st.session_state.selected_opponent = selected_opponent
 
-    st.markdown("---")
+    _tc = TEAM_COLORS.get(selected_team, "#4a90e2")
+    st.markdown(
+        f'<div style="height:3px;background:{_tc};border-radius:2px;margin:4px 0 12px 0"></div>',
+        unsafe_allow_html=True,
+    )
     st.markdown("**Data Sources**")
     st.caption("Stats & play-by-play: Sportradar (Snowflake)")
     st.caption("Injuries: Official WNBA PDF + Sportradar")
@@ -493,7 +549,14 @@ with st.sidebar:
 # Main content
 # ---------------------------------------------------------------------------
 
-st.header(f"{selected_team} — Minutes Projections")
+_team_color = TEAM_COLORS.get(selected_team, "#4a90e2")
+st.markdown(
+    f'<div style="border-left:5px solid {_team_color};padding-left:12px;margin-bottom:4px">'
+    f'<span style="font-size:1.6rem;font-weight:800">{selected_team}</span>'
+    f'<span style="font-size:1rem;opacity:0.6;margin-left:10px">Minutes Projections</span>'
+    f'</div>',
+    unsafe_allow_html=True,
+)
 
 with st.spinner("Loading team data..."):
     team_data = dict(load_team(selected_team))  # copy so mutations don't affect the cache
@@ -1024,14 +1087,27 @@ def _render_adj_cell(col, player_name: str, proj_min: float):
 
 
 # Starters section
-st.markdown("**Starters**")
+st.markdown(
+    f'<div style="border-left:3px solid {_team_color};padding-left:8px;font-weight:700;'
+    f'font-size:0.9rem;text-transform:uppercase;letter-spacing:0.06em;opacity:0.8;margin-bottom:4px">'
+    f'Starters</div>',
+    unsafe_allow_html=True,
+)
 for p in [x for x in adjusted_lineup.players if x.role == "starter" and x.projected_min > 0]:
     c = st.columns(COL_WIDTHS)
     render_player_row(p, base_map[p.name], last_game_map.get(p.name, 0.0), *c, starters_set=starters_set, foul_notes=h2h_foul_notes)
     _render_adj_cell(c[7], p.name, p.projected_min)
 
+# Starter / bench divider
+st.markdown('<hr class="role-divider">', unsafe_allow_html=True)
+
 # Bench section
-st.markdown("**Bench**")
+st.markdown(
+    f'<div style="border-left:3px solid {_team_color};padding-left:8px;font-weight:700;'
+    f'font-size:0.9rem;text-transform:uppercase;letter-spacing:0.06em;opacity:0.8;margin-bottom:4px">'
+    f'Bench</div>',
+    unsafe_allow_html=True,
+)
 for p in [x for x in adjusted_lineup.players if x.role == "bench" and x.projected_min > 0]:
     c = st.columns(COL_WIDTHS)
     render_player_row(p, base_map[p.name], last_game_map.get(p.name, 0.0), *c, starters_set=starters_set, foul_notes=h2h_foul_notes)
@@ -1039,7 +1115,13 @@ for p in [x for x in adjusted_lineup.players if x.role == "bench" and x.projecte
 
 # Out section
 if out_players:
-    st.markdown("**Out**")
+    st.markdown('<hr class="role-divider">', unsafe_allow_html=True)
+    st.markdown(
+        '<div style="padding-left:8px;font-weight:700;font-size:0.9rem;'
+        'text-transform:uppercase;letter-spacing:0.06em;opacity:0.5;margin-bottom:4px">'
+        'Out</div>',
+        unsafe_allow_html=True,
+    )
     for p in out_players:
         c = st.columns(COL_WIDTHS)
         render_player_row(p, base_map[p.name], last_game_map.get(p.name, 0.0), *c, starters_set=starters_set, foul_notes=h2h_foul_notes)
