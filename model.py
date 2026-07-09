@@ -177,9 +177,9 @@ def _weighted_minutes(
 
       <5 games:  100% season avg (no recent signal yet)
       5-10:       70% season / 30% last3
-      10-20:      50% season / 50% last3
-      20-30:      30% season / 70% last3
-      30+:        15% season / 85% last3
+      10-20:      55% season / 45% last3
+      20-30:      40% season / 60% last3
+      30+:        25% season / 75% last3
 
     When last3 diverges >=20% from season avg (role change / injury return),
     last3 weight gets an additional boost of up to 15%.

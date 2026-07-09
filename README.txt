@@ -43,7 +43,9 @@ HOW IT WORKS
    scrapers for rosters and injuries. Projections may be less accurate
    in fallback mode since live scraping is less reliable than Snowflake data.
 
-3. Each player's projected minutes use a sample-size-aware rolling average:
+3. Each player's projected minutes use a sample-size-aware rolling average
+   of their clean season average and last-3-game median:
+
      < 5 games:  100% season average (no recent signal yet)
      5-10 games:  70% season / 30% last-3-game average
      10-20 games: 55% season / 45% last-3-game average
@@ -52,11 +54,17 @@ HOW IT WORKS
 
    When a player's last-3 average diverges 20%+ from their season average
    (e.g. a role change or injury return), the model boosts weight toward
-   recent games to capture the new trend. The last game is also blended in
-   as a signal for players in stable starter roles.
+   recent games by up to an additional 15% to capture the new trend.
 
-   Blowout games and foul-trouble games are excluded from clean averages
-   to filter noise from unusual rotations.
+   The most recent single game is blended in as an additional signal
+   (40% of the last-3 weight) for players with enough history.
+
+   Blowout games and foul-trouble games are excluded from the clean averages
+   used in these blends to filter noise from unusual rotations.
+
+   Bench players who DNP 40%+ of their games since joining this team have
+   their projection scaled down by their DNP rate — they are spot-use players
+   whose expected contribution per game is lower than their per-game average.
 
 4. Normalization: all active player projections are trimmed proportionally
    — players projected furthest above their own season average give back
@@ -102,10 +110,13 @@ QUARTER MINUTES BREAKDOWN
 --------------------------
 Each player's per-quarter minutes are projected using their own historical
 quarter-by-quarter averages from Snowflake play-by-play data (Q1-Q4 minutes
-per game exported in snowflake_boxscores.csv). The same sample-size-aware
-rolling average logic used for total minutes applies per quarter, so teams
-with unusual rotation patterns (heavy Q2 bench, starters sitting Q4 in
-blowouts) are captured naturally without hardcoded weights.
+per game exported in snowflake_boxscores.csv).
+
+Per-quarter averages use a 75% last-3-game median / 25% season average blend,
+with foul-trouble and outlier games filtered out. This means a player whose
+Q4 role has changed recently (e.g. being rested in blowouts) will reflect
+that trend quickly. The historical shape is then scaled proportionally to
+match the player's total projected minutes, capped at 10 min per quarter.
 
 
 DATA FRESHNESS
