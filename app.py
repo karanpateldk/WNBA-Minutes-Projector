@@ -307,9 +307,18 @@ def render_player_row(
         st.markdown(p.pos)
 
     with col_status:
+        _STATUS_SHORT = {
+            "Questionable": "Quest.",
+            "Day-To-Day":   "DTD",
+            "Doubtful":     "Doubtful",
+            "Probable":     "Probable",
+            "Active":       "Active",
+            "Out":          "Out",
+        }
+        _disp = _STATUS_SHORT.get(p.display_status, p.display_status)
         st.markdown(
             f'<span class="status-badge" style="background:{color};white-space:nowrap">'
-            f'{p.display_status}</span>',
+            f'{_disp}</span>',
             unsafe_allow_html=True,
         )
 
@@ -1028,7 +1037,7 @@ base_map      = {p.name: p.base_min for p in adjusted_lineup.players}
 last_game_map = {name: info.get("last_game_min", 0.0) for name, info in team_data.items() if isinstance(info, dict)}
 starters_set  = {p.name for p in adjusted_lineup.players if p.role == "starter"}
 
-COL_WIDTHS = [3, 1, 2, 1, 1.2, 1.4, 1.1, 1.5, 1.8]
+COL_WIDTHS = [2.5, 1, 2.4, 1, 1.2, 1.4, 1.1, 1.5, 1.8]
 
 
 def _render_adj_cell(col, player_name: str, proj_min: float):
