@@ -89,24 +89,6 @@ st.markdown("""
     }
     .mins-big { font-size: 1.4rem; font-weight: 700; }
 
-    /* delta pill — inline chip next to projected minutes */
-    .delta-pill {
-        display: inline-block;
-        font-size: 0.72rem; font-weight: 700;
-        padding: 1px 6px; border-radius: 10px;
-        margin-left: 4px; vertical-align: middle;
-    }
-    .delta-pill-pos { background: rgba(40,167,69,0.15); color: #28a745; }
-    .delta-pill-neg { background: rgba(220,53,69,0.15);  color: #dc3545; }
-    .delta-pill-neu { background: rgba(128,128,128,0.12); color: inherit; opacity: 0.6; }
-
-    /* confidence bar — left edge of each projection row */
-    .conf-bar {
-        width: 4px; border-radius: 2px;
-        display: inline-block; margin-right: 6px;
-        vertical-align: middle;
-    }
-
     /* starter / bench divider */
     .role-divider {
         border: none;
@@ -151,8 +133,8 @@ st.markdown("""
         padding: 10px 14px; border-radius: 4px; margin-bottom: 12px;
     }
     .banner-stats {
-        background: rgba(74,144,226,0.1);
-        border-left: 3px solid #4a90e2;
+        background: rgba(128,128,128,0.08);
+        border-left: 3px solid rgba(128,128,128,0.4);
         padding: 8px 12px; border-radius: 4px; margin-bottom: 8px; font-size: 0.85rem;
     }
     .matchup-banner {
@@ -344,32 +326,19 @@ def render_player_row(
         if p.projected_min == 0:
             st.markdown("**OUT**")
         else:
-            # Delta pill: projected vs season avg (base_min is the weighted avg)
-            _avg = team_data.get(p.name, {}).get("avg_min", base_min) if isinstance(team_data.get(p.name), dict) else base_min
-            _delta = round(p.projected_min - _avg, 1)
-            if abs(_delta) < 0.5:
-                _pill = f'<span class="delta-pill delta-pill-neu">~avg</span>'
-            elif _delta > 0:
-                _pill = f'<span class="delta-pill delta-pill-pos">+{_delta:.1f}</span>'
-            else:
-                _pill = f'<span class="delta-pill delta-pill-neg">{_delta:.1f}</span>'
             st.markdown(
-                f'<div style="font-size:1.4rem;font-weight:700;line-height:1.3;display:inline">'
-                f'{p.projected_min:.1f}</div>{_pill}',
+                f'<div style="font-size:1.4rem;font-weight:700;line-height:1.3">{p.projected_min:.1f}</div>',
                 unsafe_allow_html=True,
             )
 
     with col_conf:
         conf = getattr(p, 'confidence', 0)
         if p.projected_min == 0:
-            bar_color = "#dc3545"
+            dot_color = "#dc3545"
         else:
-            bar_color = "#28a745" if conf >= 70 else ("#e6a817" if conf >= 45 else "#dc3545")
-        bar_h = 32 if p.projected_min > 0 else 20
+            dot_color = "#28a745" if conf >= 70 else ("#e6a817" if conf >= 45 else "#dc3545")
         st.markdown(
-            f'<div style="display:flex;align-items:center;height:{bar_h}px">'
-            f'<div style="width:5px;height:{bar_h}px;background:{bar_color};'
-            f'border-radius:3px;opacity:0.85"></div></div>',
+            f'<div style="text-align:center;font-size:1.1rem;color:{dot_color};padding-top:4px">&#9679;</div>',
             unsafe_allow_html=True,
         )
 
