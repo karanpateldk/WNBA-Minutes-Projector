@@ -40,21 +40,21 @@ def _load_all_players() -> list[str]:
 # Team brand primary colors — used for header accent and section dividers.
 # All chosen to be legible on both light and dark backgrounds.
 TEAM_COLORS = {
-    "Atlanta Dream":           "#E03A3E",
-    "Chicago Sky":             "#85C0E9",
-    "Connecticut Sun":         "#F68B1F",
-    "Dallas Wings":            "#4A90D9",
-    "Golden State Valkyries":  "#6A3FA0",
-    "Indiana Fever":           "#FFCD00",
-    "Las Vegas Aces":          "#4A4A4A",
-    "Los Angeles Sparks":      "#FFC72C",
-    "Minnesota Lynx":          "#266092",
-    "New York Liberty":        "#86CEBC",
-    "Phoenix Mercury":         "#E56020",
-    "Portland Fire":           "#D62B2B",
-    "Seattle Storm":           "#2C5234",
-    "Toronto Tempo":           "#CE1141",
-    "Washington Mystics":      "#C8102E",
+    "Atlanta Dream":           "#E03A3E",  # red — works both modes
+    "Chicago Sky":             "#4A8FBF",  # mid blue — darkened for light mode visibility
+    "Connecticut Sun":         "#E07818",  # orange — works both modes
+    "Dallas Wings":            "#4A90D9",  # blue — works both modes
+    "Golden State Valkyries":  "#7B4FBF",  # purple — works both modes
+    "Indiana Fever":           "#C8A000",  # darkened yellow — visible on white
+    "Las Vegas Aces":          "#808080",  # mid gray — visible on both modes
+    "Los Angeles Sparks":      "#C89800",  # darkened gold — visible on white
+    "Minnesota Lynx":          "#3A7ABF",  # lightened blue — visible on dark
+    "New York Liberty":        "#3AAFA0",  # darkened teal — visible on white
+    "Phoenix Mercury":         "#E56020",  # orange — works both modes
+    "Portland Fire":           "#D62B2B",  # red — works both modes
+    "Seattle Storm":           "#3A8A50",  # lightened green — visible on dark
+    "Toronto Tempo":           "#CE1141",  # red — works both modes
+    "Washington Mystics":      "#C8102E",  # red — works both modes
 }
 
 # ---------------------------------------------------------------------------
