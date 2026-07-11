@@ -569,6 +569,17 @@ def _schedule_line() -> str:
 
 _sched_html = _schedule_line()
 
+# Back-to-back detection: prev game was yesterday relative to next game
+_is_b2b = False
+if _prev and _next:
+    try:
+        from datetime import datetime as _dt
+        _d_prev = _dt.strptime(_prev["date"], "%Y-%m-%d")
+        _d_next = _dt.strptime(_next["date"], "%Y-%m-%d")
+        _is_b2b = (_d_next - _d_prev).days == 1
+    except Exception:
+        pass
+
 if lineup_info.get("starters"):
     confirmed = lineup_info.get("confirmed", False)
     source    = lineup_info.get("source", "")
@@ -622,10 +633,16 @@ else:
 # Data freshness info bar
 if _games_processed > 0:
     updated_str = f"Updated {_last_updated}" if _last_updated else "Cache age unknown"
+    _b2b_html = (
+        '&nbsp;&nbsp;<span style="color:#e05252;font-weight:700">&#9889; Back-to-back</span>'
+        '<span style="color:#e05252;font-size:0.8rem"> — expect more bench, fewer starter minutes</span>'
+        if _is_b2b else ""
+    )
     st.markdown(
         f'<div class="banner-stats">'
         f'<strong>Stats from:</strong> {_games_processed} games this season &nbsp;|&nbsp; '
         f'{updated_str} — press <em>Update Rosters &amp; Stats</em> to refresh'
+        f'{_b2b_html}'
         f'</div>',
         unsafe_allow_html=True,
     )
