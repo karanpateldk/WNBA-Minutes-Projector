@@ -41,20 +41,20 @@ def _load_all_players() -> list[str]:
 # All chosen to be legible on both light and dark backgrounds.
 TEAM_COLORS = {
     "Atlanta Dream":           "#E03A3E",
-    "Chicago Sky":             "#5091CD",
+    "Chicago Sky":             "#85C0E9",
     "Connecticut Sun":         "#F68B1F",
-    "Dallas Wings":            "#002B5C",
-    "Golden State Valkyries":  "#FFC72C",
-    "Indiana Fever":           "#C8102E",
-    "Las Vegas Aces":          "#A7182D",
-    "Los Angeles Sparks":      "#702F8A",
+    "Dallas Wings":            "#4A90D9",
+    "Golden State Valkyries":  "#6A3FA0",
+    "Indiana Fever":           "#FFCD00",
+    "Las Vegas Aces":          "#4A4A4A",
+    "Los Angeles Sparks":      "#FFC72C",
     "Minnesota Lynx":          "#266092",
     "New York Liberty":        "#86CEBC",
     "Phoenix Mercury":         "#E56020",
     "Portland Fire":           "#D62B2B",
     "Seattle Storm":           "#2C5234",
     "Toronto Tempo":           "#CE1141",
-    "Washington Mystics":      "#0C2340",
+    "Washington Mystics":      "#C8102E",
 }
 
 # ---------------------------------------------------------------------------
