@@ -872,9 +872,7 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
     # CSV fallback for role averages
     if not role_avgs.get("starter"):
         try:
-            csv_teams = _sf.get_connection() and {} or _sf._load_csv_team_averages()
-            if not csv_teams:
-                csv_teams = _sf._load_csv_team_averages()
+            csv_teams = _sf._load_csv_team_averages()
             team_row = csv_teams.get(team_name, {})
             if team_row.get("avg_starter_mins"):
                 role_avgs["starter"] = float(team_row["avg_starter_mins"] or 0)

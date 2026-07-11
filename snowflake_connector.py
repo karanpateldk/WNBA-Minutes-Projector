@@ -112,6 +112,10 @@ def get_connection():
     """
     global _connection
 
+    # CSVs are primary data source — skip connection attempt entirely.
+    # Snowflake is not reachable from Streamlit Cloud (IP blocked).
+    return None
+
     creds = _get_credentials()
     if not creds.get("pat") or not creds.get("account"):
         return None
