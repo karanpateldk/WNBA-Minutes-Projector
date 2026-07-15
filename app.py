@@ -835,10 +835,10 @@ with st.expander("+ Add / override players manually"):
         with mc4:
             typed = st.text_input("Mins", key=min_txt_key, label_visibility="collapsed")
             try:
-                st.session_state[min_key] = max(0, min(40, int(typed)))
+                manual_min = max(0, min(40, int(typed)))
+                st.session_state[min_key] = manual_min
             except ValueError:
-                pass
-            manual_min = st.session_state[min_key]
+                manual_min = st.session_state[min_key]
         with mc5:
             manual_status = st.selectbox("Status", get_status_options(), key=f"manual_status_{rid}",
                                          label_visibility="collapsed")
