@@ -433,8 +433,9 @@ def render_player_row(
 
         if _note_text:
             st.markdown(
-                f'<span style="font-size:0.72rem;color:{_note_color};font-weight:600;'
-                f'white-space:normal;line-height:1.3">{_note_text}</span>',
+                f'<div style="font-size:0.72rem;color:{_note_color};font-weight:600;'
+                f'white-space:nowrap;overflow:hidden;text-overflow:ellipsis;'
+                f'max-width:100%;line-height:1.6">{_note_text}</div>',
                 unsafe_allow_html=True,
             )
 
@@ -1121,7 +1122,7 @@ st.markdown(
 for p in [x for x in adjusted_lineup.players if x.role == "starter" and x.projected_min > 0]:
     c = st.columns(COL_WIDTHS)
     render_player_row(p, base_map[p.name], last_game_map.get(p.name, 0.0), *c, starters_set=starters_set, foul_notes=h2h_foul_notes)
-    _render_adj_cell(c[7], p.name, p.projected_min)
+    _render_adj_cell(c[6], p.name, p.projected_min)
 
 # Starter / bench divider
 st.markdown('<hr class="role-divider">', unsafe_allow_html=True)
@@ -1136,7 +1137,7 @@ st.markdown(
 for p in [x for x in adjusted_lineup.players if x.role == "bench" and x.projected_min > 0]:
     c = st.columns(COL_WIDTHS)
     render_player_row(p, base_map[p.name], last_game_map.get(p.name, 0.0), *c, starters_set=starters_set, foul_notes=h2h_foul_notes)
-    _render_adj_cell(c[7], p.name, p.projected_min)
+    _render_adj_cell(c[6], p.name, p.projected_min)
 
 # Out section
 if out_players:
