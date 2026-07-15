@@ -677,13 +677,6 @@ if "manual_added_players" not in st.session_state:
     st.session_state.manual_added_players = {}
 for _rid, _entry in st.session_state.manual_added_players.items():
     _name = _entry["name"]
-    _season_info = next(
-        (v for k, v in team_data.items()
-         if k == _name and isinstance(v, dict)), {}
-    )
-    if _season_info.get("dnp_rate", 0) >= 0.40 and _entry.get("status") == "Active":
-        _entry = dict(_entry)
-        _entry["status"] = "Out"
     if _name not in team_data:
         team_data[_name] = {
             "pos":              _entry["pos"],
@@ -920,12 +913,7 @@ for _rid, _entry in st.session_state.manual_added_players.items():
     _name = _entry["name"]
     if not _name:
         continue
-    _season_info = next(
-        (v for k, v in team_data.items() if k == _name and isinstance(v, dict)), {}
-    )
     _eff_status = _entry["status"]
-    if _season_info.get("dnp_rate", 0) >= 0.40 and _eff_status == "Active":
-        _eff_status = "Out"
     if _name not in team_data:
         team_data[_name] = {
             "pos":              _entry["pos"],
