@@ -746,9 +746,17 @@ def _render_status_grid(names: list[str]):
                 gs_str = f" / {gs} GS" if gs > 0 else ""
 
                 with st.container(border=True):
-                    _l3  = info.get("last3_avg") or info.get("last3_clean_avg") or 0.0
-                    _l3_str = f"L3: {_l3:.0f}" if _l3 > 0 else ""
+                    _l3     = info.get("last3_avg") or info.get("last3_clean_avg") or 0.0
                     _missed = info.get("games_missed_streak", 0)
+                    _mins_section = f"Szn: {avg:.0f}"
+                    if _l3 > 0:
+                        _mins_section += f" &nbsp;·&nbsp; L3: {_l3:.0f}"
+                    _gp_section = ""
+                    if gp > 0:
+                        _gp_section = f"{gp} GP"
+                        if gs > 0:
+                            _gp_section += f" &nbsp;·&nbsp; {gs} GS"
+                    _divider = ' &nbsp;<span style="opacity:0.3">|</span>&nbsp; ' if _gp_section else ""
                     _missed_html = (
                         f'<br><span style="font-size:0.72rem;color:#fd7e14;font-weight:600">'
                         f'Missed last {_missed} game{"s" if _missed > 1 else ""}</span>'
@@ -759,7 +767,7 @@ def _render_status_grid(names: list[str]):
                         f'<span style="font-size:0.75rem;color:{color}">({info.get("pos","?")})</span>'
                         f'</div>'
                         f'<div style="font-size:0.75rem;opacity:0.75;margin-bottom:4px">'
-                        f'{avg:.0f} mpg &nbsp;·&nbsp; {_l3_str} &nbsp;·&nbsp; {gp_str}'
+                        f'{_mins_section}{_divider}{_gp_section}'
                         f'{_missed_html}</div>',
                         unsafe_allow_html=True,
                     )
