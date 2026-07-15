@@ -5,7 +5,6 @@ Run: streamlit run app.py
 
 import sys
 import os
-import copy
 from pathlib import Path
 
 # Always resolve imports relative to this file's directory
@@ -264,19 +263,16 @@ if "manual_expander_open" not in st.session_state:
 # Data loading
 # ---------------------------------------------------------------------------
 
-@st.cache_data(ttl=900)   # 15 min — matches underlying file-cache TTL for team data
 def load_team(team_name: str) -> dict:
     return get_team_data(team_name)
 
-@st.cache_data(ttl=900)
 def load_lineup_info(team_name: str) -> dict:
     return get_lineup_info(team_name)
 
-@st.cache_data(ttl=900)   # 15 min — matches injury PDF cache TTL; avoids repeated HTTP on every render
+@st.cache_data(ttl=900)   # injuries hit the network (PDF + ESPN); cache to avoid slow load on every render
 def load_injuries() -> dict:
     return get_all_injuries()
 
-@st.cache_data(ttl=900)
 def load_season_stats(team_name: str) -> dict:
     return get_team_season_stats(team_name)
 
@@ -511,7 +507,7 @@ st.markdown(
 )
 
 with st.spinner("Loading team data..."):
-    team_data = copy.deepcopy(load_team(selected_team))  # deep copy so mutations never corrupt the cache
+    team_data = dict(load_team(selected_team))
     injuries = load_injuries()
     lineup_info = load_lineup_info(selected_team)
 
