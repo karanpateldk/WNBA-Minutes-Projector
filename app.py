@@ -748,9 +748,9 @@ def _render_status_grid(names: list[str]):
                 with st.container(border=True):
                     _l3     = info.get("last3_avg") or info.get("last3_clean_avg") or 0.0
                     _missed = info.get("games_missed_streak", 0)
-                    _mins_section = f"Szn: {avg:.0f}"
+                    _mins_section = f"SZN: {avg:.0f} min"
                     if _l3 > 0:
-                        _mins_section += f" &nbsp;·&nbsp; L3: {_l3:.0f}"
+                        _mins_section += f" &nbsp;·&nbsp; L3: {_l3:.0f} min"
                     _gp_section = ""
                     if gp > 0:
                         _gp_section = f"{gp} GP"
