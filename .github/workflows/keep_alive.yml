@@ -12,7 +12,9 @@ jobs:
 
     steps:
       - name: Install Playwright
-        run: npx playwright install chromium --with-deps
+        run: |
+          npm install playwright
+          npx playwright install chromium --with-deps
 
       - name: Wake Streamlit app via headless browser
         run: |
