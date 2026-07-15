@@ -669,6 +669,46 @@ status_options = get_status_options()
 player_statuses: dict[str, str] = {}
 role_overrides: dict[str, str] = {}
 
+# Inject manually added players into team_data BEFORE building player lists
+# so they appear in the status grid and projection on the same render.
+# session_state.manual_added_players is populated by the expander on the prior run.
+if "manual_added_players" not in st.session_state:
+    st.session_state.manual_added_players = {}
+for _rid, _entry in st.session_state.manual_added_players.items():
+    _name = _entry["name"]
+    _season_info = next(
+        (v for k, v in team_data.items()
+         if k == _name and isinstance(v, dict)), {}
+    )
+    if _season_info.get("dnp_rate", 0) >= 0.40 and _entry.get("status") == "Active":
+        _entry = dict(_entry)
+        _entry["status"] = "Out"
+    if _name not in team_data:
+        team_data[_name] = {
+            "pos":              _entry["pos"],
+            "role":             _entry["role"],
+            "depth":            1 if _entry["role"] == "starter" else 2,
+            "avg_min":          _entry["min"],
+            "last3_avg":        _entry["min"],
+            "clean_avg_min":    _entry["min"],
+            "last3_clean_avg":  _entry["min"],
+            "games_played":     1,
+            "games_started":    1 if _entry["role"] == "starter" else 0,
+            "status":           _entry["status"],
+            "injury":           "",
+            "zero_min_season":  False,
+            "recently_active":  True,
+        }
+    else:
+        team_data[_name]["avg_min"]          = _entry["min"]
+        team_data[_name]["last3_avg"]        = _entry["min"]
+        team_data[_name]["clean_avg_min"]    = _entry["min"]
+        team_data[_name]["last3_clean_avg"]  = _entry["min"]
+        team_data[_name]["pos"]              = _entry["pos"]
+        team_data[_name]["role"]             = _entry["role"]
+        team_data[_name]["status"]           = _entry["status"]
+        team_data[_name]["zero_min_season"]  = False
+
 # Separate players by category so the UI is scannable:
 #  1. Active / injured players (relevant to tonight)
 #  2. Zero-minute-season players (never played this year — auto-Out)
@@ -752,9 +792,6 @@ st.markdown("---")
 
 st.markdown('<div class="section-header">Add a Player Not Listed</div>', unsafe_allow_html=True)
 st.caption("Use this if a player is missing from the roster (e.g. a late signing, callup, or roster correction).")
-
-if "manual_added_players" not in st.session_state:
-    st.session_state.manual_added_players = {}
 
 with st.expander("+ Add / override players manually"):
     manual_options = ["— select player —"] + _load_all_players()
@@ -855,48 +892,11 @@ with st.expander("+ Add / override players manually"):
             st.session_state.manual_next_id += 1
         st.rerun()
 
-# Inject added players into team_data for projection
+# Populate player_statuses for manually added players (UI dropdown takes precedence)
 for _rid, _entry in st.session_state.manual_added_players.items():
     _name = _entry["name"]
-    # If this player exists in season data with high DNP rate, default to Out
-    # so manually re-adding a habitual DNP doesn't silently project minutes.
-    _season_info = next(
-        (v for k, v in team_data.items()
-         if k == _name and isinstance(v, dict)), {}
-    )
-    if _season_info.get("dnp_rate", 0) >= 0.40 and _entry.get("status") == "Active":
-        _entry = dict(_entry)
-        _entry["status"] = "Out"
-    if _name not in team_data:
-        team_data[_name] = {
-            "pos":              _entry["pos"],
-            "role":             _entry["role"],
-            "depth":            1 if _entry["role"] == "starter" else 2,
-            "avg_min":          _entry["min"],
-            "last3_avg":        _entry["min"],
-            "clean_avg_min":    _entry["min"],
-            "last3_clean_avg":  _entry["min"],
-            "games_played":     1,
-            "games_started":    1 if _entry["role"] == "starter" else 0,
-            "status":           _entry["status"],
-            "injury":           "",
-            "zero_min_season":  False,
-            "recently_active":  True,
-        }
-    else:
-        team_data[_name]["avg_min"]          = _entry["min"]
-        team_data[_name]["last3_avg"]        = _entry["min"]
-        team_data[_name]["clean_avg_min"]    = _entry["min"]
-        team_data[_name]["last3_clean_avg"]  = _entry["min"]
-        team_data[_name]["pos"]              = _entry["pos"]
-        team_data[_name]["role"]             = _entry["role"]
-        team_data[_name]["status"]           = _entry["status"]
-        team_data[_name]["zero_min_season"]  = False
     if _name not in player_statuses:
         player_statuses[_name] = _entry["status"]
-
-# Rebuild baseline with any added players included
-baseline_lineup = apply_scenario(team_data, {}, {}, {})
 
 st.markdown("---")
 
