@@ -769,12 +769,21 @@ def _render_status_grid(names: list[str]):
                     else:
                         st.session_state.role_overrides.pop(player, None)
 
-                    # Status below
-                    status = st.selectbox(
-                        "Status", status_options, index=default_idx,
-                        key=f"status_{player}", label_visibility="collapsed",
-                    )
-                    player_statuses[player] = status
+                    # Status below — manually added players are controlled from Add Players section
+                    if _manual_entry:
+                        color_badge = INJURY_COLOR.get(default_status, "#6c757d")
+                        st.markdown(
+                            f'<div style="font-size:0.75rem;color:{color_badge};font-weight:600;'
+                            f'padding:4px 0;opacity:0.85">{default_status} <span style="opacity:0.5">(set in Add Players)</span></div>',
+                            unsafe_allow_html=True,
+                        )
+                        player_statuses[player] = default_status
+                    else:
+                        status = st.selectbox(
+                            "Status", status_options, index=default_idx,
+                            key=f"status_{player}", label_visibility="collapsed",
+                        )
+                        player_statuses[player] = status
 
 _render_status_grid(relevant_players)
 
