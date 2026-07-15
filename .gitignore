@@ -3,6 +3,8 @@ data/
 !data/snowflake_player_stats.csv
 !data/snowflake_team_averages.csv
 !data/snowflake_injuries.csv
+!data/snowflake_boxscores.csv
+!data/snowflake_without_player.csv
 __pycache__/
 *.pyc
 *.pyo
