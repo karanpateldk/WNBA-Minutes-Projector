@@ -645,8 +645,15 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
                 rotation_count += 1
             if game_date:
                 last_played_date[name] = game_date
-            # Track foul trouble: 4+ fouls = curtailed minutes, exclude from clean avg
-            if p.get("fouls", 0) >= 4:
+            # Track foul trouble — exclude from clean avg when minutes were genuinely curtailed.
+            # Rules (WNBA foul-out = 6 fouls):
+            #   >= 5 fouls: always exclude (deep foul trouble, minutes clearly affected)
+            #   == 4 fouls: exclude only if minutes dropped >25% below current season avg
+            #               (4 fouls with normal minutes = not curtailed, keep it)
+            _fouls = p.get("fouls", 0)
+            _cur_avg = (sum(all_minutes[name]) / len(all_minutes[name])) if all_minutes[name] else 0
+            _curtailed = _fouls >= 5 or (_fouls == 4 and _cur_avg > 0 and capped_mins < _cur_avg * 0.75)
+            if _curtailed:
                 foul_trouble_games[name] += 1
             else:
                 clean_minutes[name].append(capped_mins)
@@ -697,7 +704,10 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
         return {}
 
     # Build last-3 averages, last-game minutes, and recent starter rate (last 5 games)
-    last3_game_ids  = [gid for gid, _ in games_with_dates[-3:]]
+    # Look back up to 8 team games to collect 3 *played* games per player.
+    # This prevents DNPs from shrinking the window — a player who DNP'd game N-1
+    # still gets their 3 most recent active games rather than 2.
+    last8_game_ids  = [gid for gid, _ in games_with_dates[-8:]]
     last5_game_ids  = [gid for gid, _ in games_with_dates[-5:]]
     last3_minutes:       dict[str, list[float]] = defaultdict(list)
     last3_clean_minutes: dict[str, list[float]] = defaultdict(list)
@@ -706,20 +716,31 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
     recent_starter_games: dict[str, int]        = defaultdict(int)
     recent_games_played:  dict[str, int]        = defaultdict(int)
 
-    for idx, gid in enumerate(last3_game_ids):
+    # Per-player played-game counter so we stop at 3 played games each
+    _player_l3_count: dict[str, int] = defaultdict(int)
+
+    for gid in reversed(last8_game_ids):
         box = boxscore_cache.get(gid) or _parse_boxscore(gid, team_id)
         _team_total_l3 = sum(q["minutes"] for q in box if not q["dnp"])
         _ot_scale_l3 = min(1.0, 200.0 / _team_total_l3) if _team_total_l3 > 205 else 1.0
         for p in box:
-            if not p["dnp"] and p["minutes"] >= 0.5:
-                # Only scale players who actually played into OT (> 40 min)
-                scaled = round(p["minutes"] * _ot_scale_l3, 1) if p["minutes"] > 40.0 else p["minutes"]
-                last3_minutes[p["name"]].append(scaled)
-                if p.get("fouls", 0) < 4:
-                    last3_clean_minutes[p["name"]].append(scaled)
-                if idx == len(last3_game_ids) - 1:
-                    last_game_minutes[p["name"]] = scaled
-                    last_game_fouls[p["name"]]   = p.get("fouls", 0)
+            if p["dnp"] or p["minutes"] < 0.5:
+                continue
+            name = p["name"]
+            if _player_l3_count[name] >= 3:
+                continue  # already have 3 played games for this player
+            scaled = round(p["minutes"] * _ot_scale_l3, 1) if p["minutes"] > 40.0 else p["minutes"]
+            last3_minutes[name].append(scaled)
+            _fouls_l3 = p.get("fouls", 0)
+            _cur_avg_l3 = (sum(all_minutes[name]) / len(all_minutes[name])) if all_minutes[name] else 0
+            _curtailed_l3 = _fouls_l3 >= 5 or (_fouls_l3 == 4 and _cur_avg_l3 > 0 and scaled < _cur_avg_l3 * 0.75)
+            if not _curtailed_l3:
+                last3_clean_minutes[name].append(scaled)
+            # last_game = most recent played game (first encounter in reverse order)
+            if name not in last_game_minutes:
+                last_game_minutes[name] = scaled
+                last_game_fouls[name]   = _fouls_l3
+            _player_l3_count[name] += 1
 
     for gid in last5_game_ids:
         box = boxscore_cache.get(gid) or _parse_boxscore(gid, team_id)
