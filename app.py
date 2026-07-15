@@ -769,15 +769,23 @@ def _render_status_grid(names: list[str]):
                     else:
                         st.session_state.role_overrides.pop(player, None)
 
-                    # Status below — manually added players are controlled from Add Players section
+                    # Status below — manually added players: read current dropdown value from session state
                     if _manual_entry:
-                        color_badge = INJURY_COLOR.get(default_status, "#6c757d")
+                        _rid_for_player = next(
+                            (r for r, e in st.session_state.manual_added_players.items() if e.get("name") == player),
+                            None
+                        )
+                        _live_status = (
+                            st.session_state.get(f"manual_status_{_rid_for_player}", default_status)
+                            if _rid_for_player is not None else default_status
+                        )
+                        color_badge = INJURY_COLOR.get(_live_status, "#6c757d")
                         st.markdown(
                             f'<div style="font-size:0.75rem;color:{color_badge};font-weight:600;'
-                            f'padding:4px 0;opacity:0.85">{default_status} <span style="opacity:0.5">(set in Add Players)</span></div>',
+                            f'padding:4px 0;opacity:0.85">{_live_status} <span style="opacity:0.5">(set in Add Players)</span></div>',
                             unsafe_allow_html=True,
                         )
-                        player_statuses[player] = default_status
+                        player_statuses[player] = _live_status
                     else:
                         status = st.selectbox(
                             "Status", status_options, index=default_idx,
@@ -832,15 +840,8 @@ with st.expander("+ Add / override players manually", expanded=_expander_open):
         # Row 1: all main widgets at equal height — ✕ aligns with the dropdowns
         mc1, mc2, mc3, mc4, mc5, mc_del = st.columns([3, 1.2, 1.5, 1.5, 1.5, 0.8])
         with mc1:
-            pick_col, clear_col = st.columns([5, 1])
-            with pick_col:
-                manual_pick = st.selectbox("Player", manual_options, key=f"manual_pick_{rid}",
-                                           label_visibility="collapsed")
-            with clear_col:
-                if manual_pick != "— select player —":
-                    if st.button("✕", key=f"clear_pick_{rid}", help="Clear player"):
-                        st.session_state[f"manual_pick_{rid}"] = "— select player —"
-                        st.rerun()
+            manual_pick = st.selectbox("Player", manual_options, key=f"manual_pick_{rid}",
+                                       label_visibility="collapsed")
             effective_name = manual_pick if manual_pick != "— select player —" else ""
         with mc2:
             manual_pos = st.selectbox("Pos", POSITIONS, key=f"manual_pos_{rid}",
@@ -905,7 +906,6 @@ with st.expander("+ Add / override players manually", expanded=_expander_open):
             st.session_state.pop(f"manual_min_text_{r}", None)
             st.session_state.pop(f"manual_min_pending_{r}", None)
             st.session_state.pop(f"manual_pick_{r}", None)
-            st.session_state.pop(f"clear_pick_{r}", None)
             st.session_state.pop(f"manual_pos_{r}", None)
             st.session_state.pop(f"manual_role_{r}", None)
             st.session_state.pop(f"manual_status_{r}", None)
@@ -922,7 +922,9 @@ for _rid, _entry in st.session_state.manual_added_players.items():
     _name = _entry["name"]
     if not _name:
         continue
-    _eff_status = _entry["status"]
+    # Read status directly from the widget's session state key so current-render
+    # changes (e.g. switching Out→Active) take effect immediately without a second render.
+    _eff_status = st.session_state.get(f"manual_status_{_rid}", _entry["status"])
     if _name not in team_data:
         team_data[_name] = {
             "pos":              _entry["pos"],
