@@ -25,16 +25,18 @@ jobs:
             const page = await browser.newPage();
             console.log('Loading app...');
             try {
-              await page.goto('https://wnba-minutes-projector-kp.streamlit.app/', { timeout: 120000 });
-              // If the app is sleeping, there's a 'Yes, get this app back up!' button
+              // Wait for network idle so the app fully boots (cold start can take 60-90s)
+              await page.goto('https://wnba-minutes-projector-kp.streamlit.app/', {
+                timeout: 180000,
+                waitUntil: 'networkidle',
+              });
+              // If the app is sleeping, there's a wake button — click it and wait again
               const wakeBtn = page.locator('text=Yes, get this app back up');
-              if (await wakeBtn.isVisible({ timeout: 5000 }).catch(() => false)) {
+              if (await wakeBtn.isVisible({ timeout: 3000 }).catch(() => false)) {
                 console.log('App was sleeping — clicking wake button...');
                 await wakeBtn.click();
-                await page.waitForTimeout(30000);
+                await page.waitForLoadState('networkidle', { timeout: 180000 });
               }
-              // Wait for Streamlit to finish loading
-              await page.waitForSelector('[data-testid=\"stApp\"]', { timeout: 90000 });
               console.log('App is alive. Title:', await page.title());
             } catch (e) {
               console.error('Error:', e.message);
