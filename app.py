@@ -255,6 +255,8 @@ if "manual_last_team" not in st.session_state:
     st.session_state.manual_last_team = ""
 if "manual_added_players" not in st.session_state:
     st.session_state.manual_added_players = {}
+if "manual_expander_open" not in st.session_state:
+    st.session_state.manual_expander_open = False
 
 
 # ---------------------------------------------------------------------------
@@ -322,7 +324,7 @@ def render_player_row(
         )
 
     with col_last:
-        if last_game_min > 0:
+        if last_game_min and last_game_min > 0:
             st.markdown(f"{last_game_min:.0f}")
         else:
             st.markdown("—")
@@ -718,7 +720,8 @@ for _rid, _entry in st.session_state.manual_added_players.items():
 # Filter to only dict entries — skip internal keys like __team_name__
 player_names = [k for k, v in team_data.items() if isinstance(v, dict)]
 
-zero_min_players = [p for p in player_names if team_data[p].get("zero_min_season")]
+_manually_added_names = {e["name"] for e in st.session_state.manual_added_players.values() if e.get("name")}
+zero_min_players = [p for p in player_names if team_data[p].get("zero_min_season") and p not in _manually_added_names]
 relevant_players = [p for p in player_names if p not in zero_min_players]
 
 # Sort by season avg minutes descending so the highest-usage players appear first
@@ -796,7 +799,8 @@ st.markdown("---")
 st.markdown('<div class="section-header">Add a Player Not Listed</div>', unsafe_allow_html=True)
 st.caption("Use this if a player is missing from the roster (e.g. a late signing, callup, or roster correction).")
 
-with st.expander("+ Add / override players manually"):
+_expander_open = bool(st.session_state.manual_added_players)
+with st.expander("+ Add / override players manually", expanded=_expander_open):
     manual_options = ["— select player —"] + _load_all_players()
 
     # Header row
@@ -874,6 +878,7 @@ with st.expander("+ Add / override players manually"):
             st.success(f"Added: {effective_name} — {manual_pos}, {manual_role}, {manual_min} min")
         elif not effective_name:
             st.session_state.manual_added_players.pop(rid, None)
+            rows_to_delete.append(rid)
 
         if row_i < len(st.session_state.manual_row_ids) - 1:
             st.markdown("---")
@@ -888,6 +893,10 @@ with st.expander("+ Add / override players manually"):
             st.session_state.pop(f"manual_min_val_{r}", None)
             st.session_state.pop(f"manual_min_text_{r}", None)
             st.session_state.pop(f"manual_min_pending_{r}", None)
+            st.session_state.pop(f"manual_pick_{r}", None)
+            st.session_state.pop(f"manual_pos_{r}", None)
+            st.session_state.pop(f"manual_role_{r}", None)
+            st.session_state.pop(f"manual_status_{r}", None)
             st.session_state.manual_added_players.pop(r, None)
         st.session_state.manual_row_ids = [r for r in st.session_state.manual_row_ids if r not in rows_to_delete]
         if not st.session_state.manual_row_ids:
@@ -934,8 +943,8 @@ for _rid, _entry in st.session_state.manual_added_players.items():
         team_data[_name]["pos"]             = _entry["pos"]
         team_data[_name]["status"]          = _eff_status
         team_data[_name]["zero_min_season"] = False
-    if _name not in player_statuses:
-        player_statuses[_name] = _eff_status
+    # Always write player_statuses — overrides any auto-Out from zero_min_season
+    player_statuses[_name] = player_statuses.get(_name, _eff_status)
 
 st.markdown("---")
 
