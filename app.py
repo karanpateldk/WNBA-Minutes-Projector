@@ -734,7 +734,9 @@ def _render_status_grid(names: list[str]):
         cols = st.columns(n_cols)
         for i, player in enumerate(row_players):
             info = team_data[player]
-            default_status = info.get("status", "Active")
+            # Manually added players: use the status from the add-players expander, not team_data
+            _manual_entry = next((e for e in st.session_state.manual_added_players.values() if e.get("name") == player), None)
+            default_status = _manual_entry["status"] if _manual_entry else info.get("status", "Active")
             if default_status not in status_options:
                 default_status = "Active"
             default_idx  = status_options.index(default_status)
