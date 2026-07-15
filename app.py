@@ -881,8 +881,10 @@ with st.expander("+ Add / override players manually", expanded=_expander_open):
             }
             st.success(f"Added: {effective_name} — {manual_pos}, {manual_role}, {manual_min} min")
         elif not effective_name:
-            st.session_state.manual_added_players.pop(rid, None)
-            rows_to_delete.append(rid)
+            # Only delete the row if it previously had a player — empty default rows stay
+            if rid in st.session_state.manual_added_players:
+                st.session_state.manual_added_players.pop(rid, None)
+                rows_to_delete.append(rid)
 
         if row_i < len(st.session_state.manual_row_ids) - 1:
             st.markdown("---")
