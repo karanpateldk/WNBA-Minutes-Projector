@@ -892,9 +892,19 @@ with st.expander("+ Add / override players manually"):
             st.session_state.manual_next_id += 1
         st.rerun()
 
-# Populate player_statuses for manually added players (UI dropdown takes precedence)
+# Sync current-render minutes/role/status from the expander into team_data.
+# The early inject block used last render's values for structural purposes (status grid);
+# this second pass ensures apply_scenario sees whatever the user just typed.
 for _rid, _entry in st.session_state.manual_added_players.items():
     _name = _entry["name"]
+    if _name in team_data and isinstance(team_data[_name], dict):
+        team_data[_name]["avg_min"]         = _entry["min"]
+        team_data[_name]["last3_avg"]       = _entry["min"]
+        team_data[_name]["clean_avg_min"]   = _entry["min"]
+        team_data[_name]["last3_clean_avg"] = _entry["min"]
+        team_data[_name]["role"]            = _entry["role"]
+        team_data[_name]["pos"]             = _entry["pos"]
+        team_data[_name]["zero_min_season"] = False
     if _name not in player_statuses:
         player_statuses[_name] = _entry["status"]
 
