@@ -261,18 +261,19 @@ if "manual_added_players" not in st.session_state:
 # Data loading
 # ---------------------------------------------------------------------------
 
-# No Streamlit-level cache on these — the underlying file caches in
-# get_team_data / get_all_injuries handle freshness. A Streamlit cache on
-# top creates a double-cache that serves stale data when code changes deploy.
+@st.cache_data(ttl=900)   # 15 min — matches underlying file-cache TTL for team data
 def load_team(team_name: str) -> dict:
     return get_team_data(team_name)
 
+@st.cache_data(ttl=900)
 def load_lineup_info(team_name: str) -> dict:
     return get_lineup_info(team_name)
 
+@st.cache_data(ttl=900)   # 15 min — matches injury PDF cache TTL; avoids repeated HTTP on every render
 def load_injuries() -> dict:
     return get_all_injuries()
 
+@st.cache_data(ttl=900)
 def load_season_stats(team_name: str) -> dict:
     return get_team_season_stats(team_name)
 
