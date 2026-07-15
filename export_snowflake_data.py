@@ -347,6 +347,80 @@ def run():
             ])
     print(f"    -> {len(injuries)} injuries written to snowflake_injuries.csv")
 
+    # ── 5. Without-player teammate averages ──────────────────────────────────
+    print("  Exporting without-player data...")
+    cur.execute("""
+        WITH player_games AS (
+            SELECT DISTINCT
+                g.TEAM_MARKET || ' ' || g.TEAM_NAME AS team_name,
+                g.PLAYER_FULL_NAME AS absent_player,
+                g.GAME_ID,
+                g.PLAYER_PLAYED
+            FROM SPORTRADAR.DBO.WNBA_GAMESUMMARY_PLAYERS g
+            JOIN SPORTRADAR.DBO.WNBA_SCHEDULE s ON g.GAME_ID = s.GAME_ID
+            WHERE s.season_type = 'REG' AND s.season_year = 2026
+              AND s.game_status IN ('complete','closed')
+        ),
+        significant_players AS (
+            -- Only players averaging >= 10 min (worth computing without-data for)
+            SELECT PLAYER_FULL_NAME, TEAM_MARKET || ' ' || TEAM_NAME AS team_name
+            FROM SPORTRADAR.DBO.WNBA_GAMESUMMARY_PLAYERS g
+            JOIN SPORTRADAR.DBO.WNBA_SCHEDULE s ON g.GAME_ID = s.GAME_ID
+            WHERE s.season_type = 'REG' AND s.season_year = 2026
+              AND s.game_status IN ('complete','closed')
+              AND g.PLAYER_PLAYED = TRUE
+            GROUP BY 1, 2
+            HAVING COUNT(*) >= 5
+               AND AVG(TRY_CAST(SPLIT_PART(PLAYER_STATISTICS_MINUTES,':',1) AS INT)*60 +
+                       TRY_CAST(SPLIT_PART(PLAYER_STATISTICS_MINUTES,':',2) AS INT))/60.0 >= 10
+        ),
+        absent_games AS (
+            SELECT sp.PLAYER_FULL_NAME AS absent_player, sp.team_name,
+                   s.GAME_ID
+            FROM significant_players sp
+            JOIN SPORTRADAR.DBO.WNBA_SCHEDULE s ON (
+                s.home_team_name = sp.team_name OR s.away_team_name = sp.team_name
+            )
+            WHERE s.season_type = 'REG' AND s.season_year = 2026
+              AND s.game_status IN ('complete','closed')
+              AND s.GAME_ID NOT IN (
+                  SELECT GAME_ID FROM SPORTRADAR.DBO.WNBA_GAMESUMMARY_PLAYERS
+                  WHERE PLAYER_FULL_NAME = sp.PLAYER_FULL_NAME AND PLAYER_PLAYED = TRUE
+              )
+        ),
+        teammate_mins AS (
+            SELECT
+                ag.absent_player,
+                ag.team_name,
+                g.PLAYER_FULL_NAME AS teammate,
+                ROUND(AVG(
+                    TRY_CAST(SPLIT_PART(g.PLAYER_STATISTICS_MINUTES,':',1) AS INT)*60 +
+                    TRY_CAST(SPLIT_PART(g.PLAYER_STATISTICS_MINUTES,':',2) AS INT)
+                )/60.0, 2) AS avg_mins,
+                COUNT(*) AS games_sampled
+            FROM absent_games ag
+            JOIN SPORTRADAR.DBO.WNBA_GAMESUMMARY_PLAYERS g ON g.GAME_ID = ag.GAME_ID
+            WHERE g.PLAYER_PLAYED = TRUE
+              AND g.PLAYER_STATISTICS_MINUTES IS NOT NULL
+              AND g.PLAYER_FULL_NAME != ag.absent_player
+            GROUP BY 1, 2, 3
+            HAVING COUNT(*) >= 2
+        )
+        SELECT absent_player, team_name, teammate, avg_mins, games_sampled
+        FROM teammate_mins
+        ORDER BY team_name, absent_player, avg_mins DESC
+    """)
+
+    without_rows = cur.fetchall()
+    without_cols = [d[0].lower() for d in cur.description]
+
+    with open(DATA_DIR / "snowflake_without_player.csv", "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(without_cols)
+        for row in without_rows:
+            w.writerow(list(row))
+    print(f"    -> {len(without_rows)} rows written to snowflake_without_player.csv")
+
     cur.close()
     print()
     print("Done. Now run:")
@@ -357,10 +431,11 @@ def run():
     print("Streamlit Cloud will pick up the new CSVs automatically.")
     print()
     print("Files exported:")
-    print("  snowflake_player_stats.csv  - recent roles + season stats (197 players)")
-    print("  snowflake_team_averages.csv - starter/bench minute averages (15 teams)")
-    print("  snowflake_injuries.csv      - current injury report (with full comments)")
-    print("  snowflake_boxscores.csv     - full game history replaces ESPN boxscore API")
+    print("  snowflake_player_stats.csv     - recent roles + season stats (197 players)")
+    print("  snowflake_team_averages.csv    - starter/bench minute averages (15 teams)")
+    print("  snowflake_injuries.csv         - current injury report (with full comments)")
+    print("  snowflake_boxscores.csv        - full game history replaces ESPN boxscore API")
+    print("  snowflake_without_player.csv   - teammate avg mins in absent-player games")
 
 
 if __name__ == "__main__":

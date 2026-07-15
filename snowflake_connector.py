@@ -306,6 +306,31 @@ def _load_csv_injuries() -> dict:
         return {}
 
 
+def _load_csv_without_player(team_name: str, absent_player: str) -> dict:
+    """Load without-player averages from exported CSV. Returns {teammate: avg_mins}."""
+    path = os.path.join(_CSV_DIR, "snowflake_without_player.csv")
+    if not os.path.exists(path):
+        return {}
+    try:
+        import csv as _csv
+        result = {}
+        with open(path, encoding="utf-8") as f:
+            for row in _csv.DictReader(f):
+                if row.get("absent_player", "").strip() == absent_player and \
+                   row.get("team_name", "").strip() == team_name:
+                    teammate = row.get("teammate", "").strip()
+                    try:
+                        avg = float(row.get("avg_mins") or 0)
+                        games = int(row.get("games_sampled") or 0)
+                        if teammate and avg > 0 and games >= 2:
+                            result[teammate] = avg
+                    except (ValueError, TypeError):
+                        continue
+        return result
+    except Exception:
+        return {}
+
+
 def _query(sql: str, params: tuple = ()) -> list[dict]:
     """Execute SQL and return rows as list of lowercase-keyed dicts."""
     conn = get_connection()
@@ -925,7 +950,10 @@ def get_minutes_without_player(team_name: str, absent_player: str,
         """,
         (team_name, team_name, absent_player),
     )
-    return {r["player_full_name"]: float(r["avg_mins"]) for r in rows}
+    if rows:
+        return {r["player_full_name"]: float(r["avg_mins"]) for r in rows}
+    # CSV fallback — used when Snowflake is not reachable (e.g. Streamlit Cloud)
+    return _load_csv_without_player(team_name, absent_player)
 
 
 def get_schedule_context(team_name: str, season_year: int = CURRENT_SEASON_YEAR) -> dict:
