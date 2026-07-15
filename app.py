@@ -830,8 +830,15 @@ with st.expander("+ Add / override players manually", expanded=_expander_open):
         # Row 1: all main widgets at equal height — ✕ aligns with the dropdowns
         mc1, mc2, mc3, mc4, mc5, mc_del = st.columns([3, 1.2, 1.5, 1.5, 1.5, 0.8])
         with mc1:
-            manual_pick = st.selectbox("Player", manual_options, key=f"manual_pick_{rid}",
-                                       label_visibility="collapsed")
+            pick_col, clear_col = st.columns([5, 1])
+            with pick_col:
+                manual_pick = st.selectbox("Player", manual_options, key=f"manual_pick_{rid}",
+                                           label_visibility="collapsed")
+            with clear_col:
+                if manual_pick != "— select player —":
+                    if st.button("✕", key=f"clear_pick_{rid}", help="Clear player"):
+                        st.session_state[f"manual_pick_{rid}"] = "— select player —"
+                        st.rerun()
             effective_name = manual_pick if manual_pick != "— select player —" else ""
         with mc2:
             manual_pos = st.selectbox("Pos", POSITIONS, key=f"manual_pos_{rid}",
@@ -894,6 +901,7 @@ with st.expander("+ Add / override players manually", expanded=_expander_open):
             st.session_state.pop(f"manual_min_text_{r}", None)
             st.session_state.pop(f"manual_min_pending_{r}", None)
             st.session_state.pop(f"manual_pick_{r}", None)
+            st.session_state.pop(f"clear_pick_{r}", None)
             st.session_state.pop(f"manual_pos_{r}", None)
             st.session_state.pop(f"manual_role_{r}", None)
             st.session_state.pop(f"manual_status_{r}", None)
