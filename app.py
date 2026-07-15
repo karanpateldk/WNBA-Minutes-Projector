@@ -892,7 +892,8 @@ for _rid, _entry in st.session_state.manual_added_players.items():
         team_data[_name]["role"]             = _entry["role"]
         team_data[_name]["status"]           = _entry["status"]
         team_data[_name]["zero_min_season"]  = False
-    player_statuses[_name] = _entry["status"]
+    if _name not in player_statuses:
+        player_statuses[_name] = _entry["status"]
 
 # Rebuild baseline with any added players included
 baseline_lineup = apply_scenario(team_data, {}, {}, {})
