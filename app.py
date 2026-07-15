@@ -433,9 +433,9 @@ def render_player_row(
 
         if _note_text:
             st.markdown(
-                f'<div style="font-size:0.72rem;color:{_note_color};font-weight:600;'
+                f'<div title="{_note_text}" style="font-size:0.72rem;color:{_note_color};font-weight:600;'
                 f'white-space:nowrap;overflow:hidden;text-overflow:ellipsis;'
-                f'max-width:100%;line-height:1.6">{_note_text}</div>',
+                f'max-width:100%;line-height:1.6;cursor:default">{_note_text}</div>',
                 unsafe_allow_html=True,
             )
 
