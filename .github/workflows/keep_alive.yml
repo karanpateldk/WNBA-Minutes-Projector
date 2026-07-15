@@ -11,16 +11,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Wake and ping Streamlit app
+      - name: Install Playwright
+        run: npx playwright install chromium --with-deps
+
+      - name: Wake Streamlit app via headless browser
         run: |
-          # First request wakes the app if sleeping (may take up to 60s)
-          echo "Sending wake request..."
-          curl -s -o /dev/null --max-time 90 \
-            -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" \
-            https://wnba-minutes-projector-kp.streamlit.app/
-          # Second request confirms it's up
-          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 \
-            -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" \
-            https://wnba-minutes-projector-kp.streamlit.app/)
-          echo "HTTP status: $STATUS"
-          echo "App is alive."
+          node -e "
+          const { chromium } = require('playwright');
+          (async () => {
+            const browser = await chromium.launch();
+            const page = await browser.newPage();
+            console.log('Loading app...');
+            try {
+              await page.goto('https://wnba-minutes-projector-kp.streamlit.app/', { timeout: 120000 });
+              // If the app is sleeping, there's a 'Yes, get this app back up!' button
+              const wakeBtn = page.locator('text=Yes, get this app back up');
+              if (await wakeBtn.isVisible({ timeout: 5000 }).catch(() => false)) {
+                console.log('App was sleeping — clicking wake button...');
+                await wakeBtn.click();
+                await page.waitForTimeout(30000);
+              }
+              // Wait for Streamlit to finish loading
+              await page.waitForSelector('[data-testid=\"stApp\"]', { timeout: 90000 });
+              console.log('App is alive. Title:', await page.title());
+            } catch (e) {
+              console.error('Error:', e.message);
+              process.exit(1);
+            } finally {
+              await browser.close();
+            }
+          })();
+          "
