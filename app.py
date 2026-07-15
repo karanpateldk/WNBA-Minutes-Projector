@@ -492,6 +492,7 @@ with st.sidebar:
     show_charts = st.checkbox("Show quarter breakdown", value=True)
     show_delta = st.checkbox("Show delta vs baseline", value=False)
     export_excel = st.button("Export to Excel", use_container_width=True)
+    export_csv   = st.button("Export to CSV",   use_container_width=True)
 
 
 # ---------------------------------------------------------------------------
@@ -560,11 +561,12 @@ def _schedule_line() -> str:
             f'<strong>{_prev["team_score"]}-{_prev["opp_score"]}</strong>'
         )
     if _next:
-        loc  = "vs" if _next.get("home") else "@"
-        time = _next.get("game_time") or ""
+        loc      = "vs" if _next.get("home") else "@"
+        ha_label = "HOME" if _next.get("home") else "AWAY"
+        time     = _next.get("game_time") or ""
         time_str = f', {time}' if time else ""
         parts.append(
-            f'&#128197; Next ({_next["date"]}): {loc} {_next["opponent"]}{time_str}'
+            f'&#128197; Next ({_next["date"]}): <strong>{ha_label}</strong> {loc} {_next["opponent"]}{time_str}'
         )
     return '&nbsp;&nbsp;<span style="opacity:0.35">|</span>&nbsp;&nbsp;'.join(parts) if parts else ""
 
@@ -586,7 +588,7 @@ if _prev and _next:
 
 _b2b_note = (
     '<br><span style="color:#e05252;font-size:0.8rem;font-weight:700">'
-    '&#9889; Back-to-back — expect more bench, fewer starter minutes</span>'
+    '&#9889; Back-to-back game</span>'
     if _is_b2b else ""
 )
 
@@ -744,13 +746,21 @@ def _render_status_grid(names: list[str]):
                 gs_str = f" / {gs} GS" if gs > 0 else ""
 
                 with st.container(border=True):
+                    _l3  = info.get("last3_avg") or info.get("last3_clean_avg") or 0.0
+                    _l3_str = f"L3: {_l3:.0f}" if _l3 > 0 else ""
+                    _missed = info.get("games_missed_streak", 0)
+                    _missed_html = (
+                        f'<br><span style="font-size:0.72rem;color:#fd7e14;font-weight:600">'
+                        f'Missed last {_missed} game{"s" if _missed > 1 else ""}</span>'
+                        if _missed >= 1 else ""
+                    )
                     st.markdown(
                         f'<div style="font-weight:600;margin-bottom:2px">{player} '
                         f'<span style="font-size:0.75rem;color:{color}">({info.get("pos","?")})</span>'
                         f'</div>'
                         f'<div style="font-size:0.75rem;opacity:0.75;margin-bottom:4px">'
-                        f'{avg:.0f} mpg &nbsp;·&nbsp; {gp_str}{gs_str}'
-                        f'</div>',
+                        f'{avg:.0f} mpg &nbsp;·&nbsp; {_l3_str} &nbsp;·&nbsp; {gp_str}'
+                        f'{_missed_html}</div>',
                         unsafe_allow_html=True,
                     )
 
@@ -977,6 +987,10 @@ active_players = [p for p in adjusted_lineup.players if p.projected_min > 0]
 if adjusted_lineup.warnings:
     for w in adjusted_lineup.warnings:
         st.markdown(f'<div class="warning-box">⚠️ {w}</div>', unsafe_allow_html=True)
+
+# Back-to-back warning — display only, no impact on projected minutes
+if _is_b2b:
+    st.warning("⚡ Back-to-back game — projections do not adjust for fatigue", icon=None)
 
 # Total minutes badge
 total_min = sum(p.projected_min for p in active_players)
@@ -1358,26 +1372,28 @@ if show_delta and deltas:
 # Export
 # ---------------------------------------------------------------------------
 
-if export_excel:
-    rows_export = []
+def _build_export_rows() -> list[dict]:
+    rows = []
     for p in adjusted_lineup.players:
-        base_val = base_map.get(p.name, p.projected_min)
+        base_val    = base_map.get(p.name, p.projected_min)
         matchup_adj = matchup_adjs.get(p.name, 0.0) if matchup_adjs else 0.0
-        rows_export.append({
-            "Player":         p.name,
-            "Pos":            p.pos,
-            "Role":           p.role,
-            "Status":         p.status,
-            "Injury":         p.injury,
-            "Base Min":       base_val,
-            "Proj Min":       p.projected_min,
-            "Matchup Adj":    matchup_adj if selected_opponent else "",
-            "Adj + Matchup":  round(p.projected_min + matchup_adj, 1) if selected_opponent else "",
-            "Change":         round(p.projected_min - base_val, 1),
-            "Note":         p.note,
+        rows.append({
+            "Player":        p.name,
+            "Pos":           p.pos,
+            "Role":          p.role,
+            "Status":        p.status,
+            "Injury":        p.injury,
+            "Base Min":      base_val,
+            "Proj Min":      p.projected_min,
+            "Matchup Adj":   matchup_adj if selected_opponent else "",
+            "Adj + Matchup": round(p.projected_min + matchup_adj, 1) if selected_opponent else "",
+            "Change":        round(p.projected_min - base_val, 1),
+            "Note":          p.note,
         })
+    return rows
 
-    df_export = pd.DataFrame(rows_export)
+if export_excel:
+    df_export = pd.DataFrame(_build_export_rows())
     buf = BytesIO()
     with pd.ExcelWriter(buf, engine="openpyxl") as writer:
         df_export.to_excel(writer, index=False, sheet_name="Projections")
@@ -1387,6 +1403,15 @@ if export_excel:
         data=buf,
         file_name=f"{selected_team.replace(' ','_')}_minutes.xlsx",
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    )
+
+if export_csv:
+    df_csv = pd.DataFrame(_build_export_rows())
+    st.download_button(
+        label="Download CSV",
+        data=df_csv.to_csv(index=False).encode("utf-8"),
+        file_name=f"{selected_team.replace(' ','_')}_minutes.csv",
+        mime="text/csv",
     )
 
 # ---------------------------------------------------------------------------
