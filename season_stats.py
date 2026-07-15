@@ -608,10 +608,11 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
             continue
         boxscore_cache[gid] = box
 
-        # Get game margin — Snowflake only; skip ESPN to avoid slow network calls
-        # on Streamlit Cloud where all game IDs are SR UUIDs ESPN can't handle.
+        # Get game margin from Snowflake (direct) or CSV (Cloud fallback).
         if _sf_ok() and _is_sr_uuid(gid):
             game_margins[gid] = _sf.get_game_margin(gid, team_name)
+        elif _sf is not None:
+            game_margins[gid] = _sf._load_csv_game_margin(gid, team_name)
         else:
             game_margins[gid] = 0.0
 

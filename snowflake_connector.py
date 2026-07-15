@@ -282,6 +282,36 @@ def _load_csv_boxscore(game_id: str, team_name: str) -> list[dict]:
         return []
 
 
+def _load_csv_game_margin(game_id: str, team_name: str) -> float:
+    """
+    Return point differential (team - opponent) for a game from the boxscores CSV.
+    Requires the home_team_name, home_points, away_points columns added in the
+    updated export. Returns 0.0 if columns are absent (old CSV) or game not found.
+    """
+    path = os.path.join(_CSV_DIR, "snowflake_boxscores.csv")
+    if not os.path.exists(path):
+        return 0.0
+    try:
+        import csv as _csv
+        with open(path, encoding="utf-8") as f:
+            reader = _csv.DictReader(f)
+            if "home_team_name" not in (reader.fieldnames or []):
+                return 0.0  # old CSV without score columns
+            for row in reader:
+                if row.get("game_id") != game_id:
+                    continue
+                try:
+                    home_team = row.get("home_team_name", "").strip()
+                    hp = float(row.get("home_points") or 0)
+                    ap = float(row.get("away_points") or 0)
+                    return round((hp - ap) if team_name == home_team else (ap - hp), 1)
+                except (ValueError, TypeError):
+                    return 0.0
+    except Exception:
+        pass
+    return 0.0
+
+
 def _load_csv_injuries() -> dict:
     """Load injuries from exported CSV. Returns {player_name: {fields}}."""
     path = os.path.join(_CSV_DIR, "snowflake_injuries.csv")
