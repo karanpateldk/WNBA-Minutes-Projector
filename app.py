@@ -5,6 +5,7 @@ Run: streamlit run app.py
 
 import sys
 import os
+import copy
 from pathlib import Path
 
 # Always resolve imports relative to this file's directory
@@ -510,7 +511,7 @@ st.markdown(
 )
 
 with st.spinner("Loading team data..."):
-    team_data = dict(load_team(selected_team))  # copy so mutations don't affect the cache
+    team_data = copy.deepcopy(load_team(selected_team))  # deep copy so mutations never corrupt the cache
     injuries = load_injuries()
     lineup_info = load_lineup_info(selected_team)
 
