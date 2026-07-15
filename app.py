@@ -892,21 +892,45 @@ with st.expander("+ Add / override players manually"):
             st.session_state.manual_next_id += 1
         st.rerun()
 
-# Sync current-render minutes/role/status from the expander into team_data.
-# The early inject block used last render's values for structural purposes (status grid);
-# this second pass ensures apply_scenario sees whatever the user just typed.
+# Full sync pass after expander — handles both first-add and minute changes.
+# The early inject only saw last render's session_state; this pass sees the current one.
 for _rid, _entry in st.session_state.manual_added_players.items():
     _name = _entry["name"]
-    if _name in team_data and isinstance(team_data[_name], dict):
+    if not _name:
+        continue
+    _season_info = next(
+        (v for k, v in team_data.items() if k == _name and isinstance(v, dict)), {}
+    )
+    _eff_status = _entry["status"]
+    if _season_info.get("dnp_rate", 0) >= 0.40 and _eff_status == "Active":
+        _eff_status = "Out"
+    if _name not in team_data:
+        team_data[_name] = {
+            "pos":              _entry["pos"],
+            "role":             _entry["role"],
+            "depth":            1 if _entry["role"] == "starter" else 2,
+            "avg_min":          _entry["min"],
+            "last3_avg":        _entry["min"],
+            "clean_avg_min":    _entry["min"],
+            "last3_clean_avg":  _entry["min"],
+            "games_played":     1,
+            "games_started":    1 if _entry["role"] == "starter" else 0,
+            "status":           _eff_status,
+            "injury":           "",
+            "zero_min_season":  False,
+            "recently_active":  True,
+        }
+    else:
         team_data[_name]["avg_min"]         = _entry["min"]
         team_data[_name]["last3_avg"]       = _entry["min"]
         team_data[_name]["clean_avg_min"]   = _entry["min"]
         team_data[_name]["last3_clean_avg"] = _entry["min"]
         team_data[_name]["role"]            = _entry["role"]
         team_data[_name]["pos"]             = _entry["pos"]
+        team_data[_name]["status"]          = _eff_status
         team_data[_name]["zero_min_season"] = False
     if _name not in player_statuses:
-        player_statuses[_name] = _entry["status"]
+        player_statuses[_name] = _eff_status
 
 st.markdown("---")
 
