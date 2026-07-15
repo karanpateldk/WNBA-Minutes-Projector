@@ -705,6 +705,8 @@ for _rid, _entry in st.session_state.manual_added_players.items():
         team_data[_name]["last3_avg"]        = _entry["min"]
         team_data[_name]["clean_avg_min"]    = _entry["min"]
         team_data[_name]["last3_clean_avg"]  = _entry["min"]
+        team_data[_name]["last_game_min"]    = None   # suppress last1 signal so model uses entered value
+        team_data[_name]["games_played"]     = 1      # forces _weighted_minutes to use entered value directly
         team_data[_name]["pos"]              = _entry["pos"]
         team_data[_name]["role"]             = _entry["role"]
         team_data[_name]["status"]           = _entry["status"]
@@ -926,6 +928,8 @@ for _rid, _entry in st.session_state.manual_added_players.items():
         team_data[_name]["last3_avg"]       = _entry["min"]
         team_data[_name]["clean_avg_min"]   = _entry["min"]
         team_data[_name]["last3_clean_avg"] = _entry["min"]
+        team_data[_name]["last_game_min"]   = None   # suppress last1 signal
+        team_data[_name]["games_played"]    = 1      # forces _weighted_minutes to use entered value
         team_data[_name]["role"]            = _entry["role"]
         team_data[_name]["pos"]             = _entry["pos"]
         team_data[_name]["status"]          = _eff_status
