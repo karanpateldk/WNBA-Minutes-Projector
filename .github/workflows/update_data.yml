@@ -35,7 +35,7 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f data/snowflake_*.csv
+          git add -f data/snowflake_*.csv data/accuracy_log.csv
           $diff = git diff --staged --quiet
           if ($LASTEXITCODE -ne 0) {
             $ts = (Get-Date -Format "yyyy-MM-dd HH:mm") + " UTC"

@@ -1466,7 +1466,7 @@ with st.expander("Full WNBA Injury Report"):
 
 st.markdown("---")
 
-_tab_accuracy, = st.tabs(["📊  Model Accuracy"])
+_tab_accuracy, _tab_rw = st.tabs(["📊  Model Accuracy", "🆚  vs RotoWire"])
 
 @st.cache_data(ttl=3600, show_spinner=False)
 def _run_backtest_cached(team: str) -> dict:
@@ -1605,3 +1605,96 @@ with _tab_accuracy:
                 st.warning(f"Not enough game data to backtest {bt_team} yet (need 6+ games).")
     else:
         st.info("Select a team and click **Run Backtest** to see accuracy metrics.", icon="📊")
+
+with _tab_rw:
+    st.markdown("## 🆚 Our Model vs RotoWire")
+    st.caption(
+        "Projections are snapshotted each morning when you run `export_snowflake_data.py` "
+        "with the RotoWire CSV in your Downloads folder. Actuals are filled automatically "
+        "from Snowflake boxscores after each game."
+    )
+    try:
+        import accuracy_tracker as _at
+        _stats = _at.compute_stats()
+        _our   = _stats["our"]
+        _rw    = _stats["rw"]
+        _n     = max(_our["n"], _rw["n"])
+
+        if _n == 0:
+            st.info(
+                "No data yet. Run `python export_snowflake_data.py` with the RotoWire CSV "
+                "in your Downloads folder to start tracking.",
+                icon="📋",
+            )
+        else:
+            # Head-to-head metrics
+            c1, c2, c3, c4 = st.columns(4)
+            c1.metric("Games tracked", _n)
+
+            def _delta(our_val, rw_val, lower_better=True):
+                if our_val is None or rw_val is None:
+                    return None
+                diff = round(our_val - rw_val, 2)
+                if lower_better:
+                    return f"{diff:+.2f}" if diff != 0 else "tied"
+                return f"{diff:+.1f}%" if diff != 0 else "tied"
+
+            c2.metric(
+                "MAE — Our Model",
+                f"{_our['mae']:.2f} min" if _our['mae'] is not None else "—",
+                delta=_delta(_our['mae'], _rw['mae'], lower_better=True),
+                delta_color="inverse",
+            )
+            c3.metric(
+                "MAE — RotoWire",
+                f"{_rw['mae']:.2f} min" if _rw['mae'] is not None else "—",
+            )
+            c4.metric(
+                "Within 2 min — Our Model",
+                f"{_our['within2']:.1f}%" if _our['within2'] is not None else "—",
+                delta=_delta(_our['within2'], _rw['within2'], lower_better=False),
+            )
+
+            # Summary table
+            _summary_rows = [
+                {
+                    "Metric":        "MAE (lower = better)",
+                    "Our Model":     f"{_our['mae']:.2f} min" if _our['mae'] is not None else "—",
+                    "RotoWire":      f"{_rw['mae']:.2f} min"  if _rw['mae']  is not None else "—",
+                    "Winner":        "Our Model ✓" if (_our['mae'] or 999) < (_rw['mae'] or 999)
+                                     else ("RotoWire ✓" if (_rw['mae'] or 999) < (_our['mae'] or 999) else "Tied"),
+                },
+                {
+                    "Metric":        "Within 2 min %",
+                    "Our Model":     f"{_our['within2']:.1f}%" if _our['within2'] is not None else "—",
+                    "RotoWire":      f"{_rw['within2']:.1f}%"  if _rw['within2']  is not None else "—",
+                    "Winner":        "Our Model ✓" if (_our['within2'] or 0) > (_rw['within2'] or 0)
+                                     else ("RotoWire ✓" if (_rw['within2'] or 0) > (_our['within2'] or 0) else "Tied"),
+                },
+                {
+                    "Metric":        "Within 4 min %",
+                    "Our Model":     f"{_our['within4']:.1f}%" if _our['within4'] is not None else "—",
+                    "RotoWire":      f"{_rw['within4']:.1f}%"  if _rw['within4']  is not None else "—",
+                    "Winner":        "Our Model ✓" if (_our['within4'] or 0) > (_rw['within4'] or 0)
+                                     else ("RotoWire ✓" if (_rw['within4'] or 0) > (_our['within4'] or 0) else "Tied"),
+                },
+            ]
+            st.dataframe(pd.DataFrame(_summary_rows), use_container_width=True, hide_index=True)
+
+            # Recent game log
+            with st.expander(f"Full log ({_n} player-games with actuals)"):
+                _log_rows = _stats["rows"]
+                if _log_rows:
+                    df_log = pd.DataFrame(_log_rows)
+                    # Add error columns
+                    for col, label in [("our_projected", "Our Error"), ("rw_projected", "RW Error")]:
+                        try:
+                            df_log[label] = (
+                                pd.to_numeric(df_log[col], errors="coerce") -
+                                pd.to_numeric(df_log["actual_minutes"], errors="coerce")
+                            ).round(1)
+                        except Exception:
+                            pass
+                    st.dataframe(df_log, use_container_width=True, hide_index=True)
+    except Exception as _e:
+        st.error(f"Accuracy tracker error: {_e}")

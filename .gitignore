@@ -5,6 +5,7 @@ data/
 !data/snowflake_injuries.csv
 !data/snowflake_boxscores.csv
 !data/snowflake_without_player.csv
+!data/accuracy_log.csv
 __pycache__/
 *.pyc
 *.pyo

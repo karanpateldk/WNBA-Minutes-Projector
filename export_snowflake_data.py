@@ -426,6 +426,18 @@ def run():
     print(f"    -> {len(without_rows)} rows written to snowflake_without_player.csv")
 
     cur.close()
+
+    # ── 6. Accuracy tracking ──────────────────────────────────────────────────
+    # Snapshot today's RotoWire projections (if CSV is in Downloads folder)
+    # and fill in actuals for any past rows now that boxscores are updated.
+    try:
+        import accuracy_tracker as _at
+        print("  Running accuracy tracker...")
+        _at.snapshot_today()
+        _at.fill_actuals()
+    except Exception as _e:
+        print(f"  [accuracy] Skipped: {_e}")
+
     print()
     print("Done. Now run:")
     print("  git add -f data/snowflake_*.csv")
