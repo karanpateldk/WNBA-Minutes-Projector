@@ -756,19 +756,28 @@ def _render_status_grid(names: list[str]):
                         _gp_section = f"{gp} GP"
                         if gs > 0:
                             _gp_section += f" &nbsp;·&nbsp; {gs} GS"
-                    _divider = ' &nbsp;<span style="opacity:0.3">|</span>&nbsp; ' if _gp_section else ""
                     _missed_html = (
-                        f'<br><span style="font-size:0.72rem;color:#fd7e14;font-weight:600">'
-                        f'Missed last {_missed} game{"s" if _missed > 1 else ""}</span>'
+                        f'<div style="font-size:0.72rem;color:#fd7e14;font-weight:600;margin-top:2px">'
+                        f'Missed last {_missed} game{"s" if _missed > 1 else ""}</div>'
                         if _missed >= 1 else ""
+                    )
+                    # Flex row: GP/GS and SZN/L3 sit side-by-side on wide cards,
+                    # wrap to separate lines on narrow cards automatically.
+                    _stats_html = (
+                        f'<div style="display:flex;flex-wrap:wrap;gap:2px 8px;'
+                        f'font-size:0.75rem;opacity:0.75;margin-bottom:4px">'
+                        f'<span style="white-space:nowrap">{_gp_section}</span>'
+                        f'<span style="white-space:nowrap">{_mins_section}</span>'
+                        f'</div>' if _gp_section else
+                        f'<div style="font-size:0.75rem;opacity:0.75;margin-bottom:4px">'
+                        f'{_mins_section}</div>'
                     )
                     st.markdown(
                         f'<div style="font-weight:600;margin-bottom:2px">{player} '
                         f'<span style="font-size:0.75rem;color:{color}">({info.get("pos","?")})</span>'
                         f'</div>'
-                        f'<div style="font-size:0.75rem;opacity:0.75;margin-bottom:4px">'
-                        f'{_mins_section}{_divider}{_gp_section}'
-                        f'{_missed_html}</div>',
+                        f'{_stats_html}'
+                        f'{_missed_html}',
                         unsafe_allow_html=True,
                     )
 
