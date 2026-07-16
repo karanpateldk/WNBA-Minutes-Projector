@@ -15,7 +15,6 @@ Players with rw_projected == 0 (team not playing) are skipped.
 from __future__ import annotations
 
 import csv
-import os
 from datetime import date
 from pathlib import Path
 
@@ -205,12 +204,6 @@ def snapshot_today(rw_path: Path | None = None) -> int:
                 break
     if path is None or not path.exists():
         print("[accuracy] No RotoWire CSV found — skipping snapshot")
-        return 0
-
-    # Check file date — skip if not modified today
-    mtime = date.fromtimestamp(os.path.getmtime(path))
-    if mtime != date.today():
-        print(f"[accuracy] RotoWire CSV last modified {mtime}, not today — skipping snapshot")
         return 0
 
     # Load existing log
