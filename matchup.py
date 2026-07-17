@@ -794,13 +794,21 @@ def get_matchup_summary(team_name: str, opp_name: str) -> dict:
     else:
         notes.append("No H2H games played yet this season")
 
-    # Blowout tendency — all from boxscores CSV so counts are consistent
-    csv_total, csv_bw, csv_bl = _get_blowout_stats(opp_name)
-    csv_blowouts = csv_bw + csv_bl
-    if csv_total >= 4:
-        notes.append(f"{csv_blowouts}/{csv_total} blowouts ({csv_bw} blowout wins · {csv_bl} blowout losses)")
+    # Blowout tendency — show both teams side by side from same CSV source
+    our_total, our_bw, our_bl = _get_blowout_stats(team_name)
+    opp_total, opp_bw, opp_bl = _get_blowout_stats(opp_name)
+    our_short  = team_name.split()[-1]   # e.g. "Dream"
+    opp_short  = opp_name.split()[-1]   # e.g. "Mystics"
+    our_blowouts = our_bw + our_bl
+    opp_blowouts = opp_bw + opp_bl
+    if our_total >= 4 or opp_total >= 4:
+        parts = []
+        if our_total >= 4:
+            parts.append(f"{our_short}: {our_blowouts}/{our_total} ({our_bw}W · {our_bl}L)")
+        if opp_total >= 4:
+            parts.append(f"{opp_short}: {opp_blowouts}/{opp_total} ({opp_bw}W · {opp_bl}L)")
+        notes.append("Blowouts — " + "  ·  ".join(parts))
     elif sample >= 4:
-        # Fallback to ESPN-derived counts if CSV data unavailable
         notes.append(f"{blowout_count}/{sample} blowouts")
 
 
