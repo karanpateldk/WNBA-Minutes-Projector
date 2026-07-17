@@ -1466,7 +1466,7 @@ with st.expander("Full WNBA Injury Report"):
 
 st.markdown("---")
 
-_tab_accuracy, _tab_rw = st.tabs(["📊  Model Accuracy", "🆚  vs RotoWire"])
+_tab_accuracy, _tab_rw = st.tabs(["📊  Model Accuracy", "🆚  RotoWire"])
 
 @st.cache_data(ttl=3600, show_spinner=False)
 def _run_backtest_cached(team: str) -> dict:
