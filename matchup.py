@@ -49,6 +49,48 @@ REGULAR_SEASON_START = _season_start()
 CACHE_DIR = Path(__file__).parent / "data"
 CACHE_DIR.mkdir(exist_ok=True)
 
+
+def _get_team_record(team_name: str) -> str:
+    """
+    Return W-L record string for team from snowflake_boxscores.csv,
+    e.g. '14-8'. Returns '' if data unavailable.
+    """
+    path = CACHE_DIR / "snowflake_boxscores.csv"
+    if not path.exists():
+        return ""
+    try:
+        import csv as _csv
+        seen_games: set = set()
+        wins = losses = 0
+        with open(path, encoding="utf-8") as f:
+            for row in _csv.DictReader(f):
+                gid = row.get("game_id", "")
+                if not gid or gid in seen_games:
+                    continue
+                row_team = row.get("team_name", "").strip()
+                if row_team != team_name:
+                    continue
+                seen_games.add(gid)
+                try:
+                    home = row.get("home_team_name", "").strip()
+                    hp   = float(row.get("home_points") or 0)
+                    ap   = float(row.get("away_points") or 0)
+                    if hp == 0 and ap == 0:
+                        continue
+                    team_pts = hp if home == team_name else ap
+                    opp_pts  = ap if home == team_name else hp
+                    if team_pts > opp_pts:
+                        wins += 1
+                    else:
+                        losses += 1
+                except (ValueError, TypeError):
+                    continue
+        if wins + losses == 0:
+            return ""
+        return f"{wins}-{losses}"
+    except Exception:
+        return ""
+
 HEADERS = {
     "User-Agent": (
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -750,14 +792,16 @@ def get_matchup_summary(team_name: str, opp_name: str) -> dict:
     else:
         notes.append("No H2H games played yet this season")
 
-    # Blowout tendency
+    # Blowout tendency — include opponent W-L for context
+    opp_record = _get_team_record(opp_name)
+    record_str = f" ({opp_record})" if opp_record else ""
     if sample >= 4:
         if blowout_rate >= 0.40:
-            notes.append(f"{blowout_count}/{sample} games decided by 15+ pts — bench gets extra run late")
+            notes.append(f"{blowout_count}/{sample} games decided by 15+ pts — bench gets extra run late{record_str}")
         elif blowout_rate <= 0.15:
-            notes.append(f"Only {blowout_count}/{sample} blowouts — close games, starters play full rotations")
+            notes.append(f"Only {blowout_count}/{sample} blowouts — mostly close games, starters play full rotations{record_str}")
         else:
-            notes.append(f"{blowout_count}/{sample} blowouts")
+            notes.append(f"{blowout_count}/{sample} blowouts{record_str}")
 
     # Rotation depth
     if opp_depth >= 10:
