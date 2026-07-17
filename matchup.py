@@ -50,19 +50,19 @@ CACHE_DIR = Path(__file__).parent / "data"
 CACHE_DIR.mkdir(exist_ok=True)
 
 
-def _get_blowout_record(team_name: str) -> str:
+def _get_blowout_stats(team_name: str) -> tuple[int, int, int]:
     """
-    Return blowout W-L string, e.g. '3-1' meaning 3 blowout wins, 1 blowout loss.
+    Return (total_games, blowout_wins, blowout_losses) from snowflake_boxscores.csv.
     A blowout is any game decided by 15+ points.
-    Returns '' if data unavailable.
+    Returns (0, 0, 0) if data unavailable.
     """
     path = CACHE_DIR / "snowflake_boxscores.csv"
     if not path.exists():
-        return ""
+        return (0, 0, 0)
     try:
         import csv as _csv
         seen_games: set = set()
-        blowout_wins = blowout_losses = 0
+        total = blowout_wins = blowout_losses = 0
         with open(path, encoding="utf-8") as f:
             for row in _csv.DictReader(f):
                 gid = row.get("game_id", "")
@@ -78,6 +78,7 @@ def _get_blowout_record(team_name: str) -> str:
                     ap   = float(row.get("away_points") or 0)
                     if hp == 0 and ap == 0:
                         continue
+                    total += 1
                     if abs(hp - ap) < 15:
                         continue  # not a blowout
                     team_pts = hp if home == team_name else ap
@@ -88,11 +89,9 @@ def _get_blowout_record(team_name: str) -> str:
                         blowout_losses += 1
                 except (ValueError, TypeError):
                     continue
-        if blowout_wins + blowout_losses == 0:
-            return ""
-        return f"{blowout_wins}-{blowout_losses}"
+        return (total, blowout_wins, blowout_losses)
     except Exception:
-        return ""
+        return (0, 0, 0)
 
 HEADERS = {
     "User-Agent": (
@@ -795,16 +794,20 @@ def get_matchup_summary(team_name: str, opp_name: str) -> dict:
     else:
         notes.append("No H2H games played yet this season")
 
-    # Blowout tendency — include blowout W-L for context (blowout wins-losses)
-    opp_record = _get_blowout_record(opp_name)
-    record_str = f" ({opp_record})" if opp_record else ""
-    if sample >= 4:
-        if blowout_rate >= 0.40:
-            notes.append(f"{blowout_count}/{sample} games decided by 15+ pts — bench gets extra run late{record_str}")
-        elif blowout_rate <= 0.15:
-            notes.append(f"Only {blowout_count}/{sample} blowouts — mostly close games, starters play full rotations{record_str}")
+    # Blowout tendency — all from boxscores CSV so counts are consistent
+    csv_total, csv_bw, csv_bl = _get_blowout_stats(opp_name)
+    csv_blowouts = csv_bw + csv_bl
+    if csv_total >= 4:
+        bl_str = f"{csv_blowouts}/{csv_total} blowouts ({csv_bw} blowout wins · {csv_bl} blowout losses)"
+        if csv_blowouts / csv_total >= 0.40:
+            notes.append(f"{bl_str} — bench gets extra run late")
+        elif csv_blowouts / csv_total <= 0.15:
+            notes.append(f"{bl_str} — mostly close games, starters play full rotations")
         else:
-            notes.append(f"{blowout_count}/{sample} blowouts{record_str}")
+            notes.append(bl_str)
+    elif sample >= 4:
+        # Fallback to ESPN-derived counts if CSV data unavailable
+        notes.append(f"{blowout_count}/{sample} blowouts")
 
     # Rotation depth
     if opp_depth >= 10:
