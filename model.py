@@ -745,18 +745,18 @@ def _redistribute_minutes(
 
     total_vacated = sum(_vacated_mins(name, info) for name, info in out_players)
 
-    # Fetch Snowflake "without player" averages for ALL Out players (manual or auto).
-    # These give the actual observed rotation when this player doesn't play.
+    # Fetch without-player averages for ALL Out players — uses CSV fallback when
+    # Snowflake is unavailable (Streamlit Cloud). get_minutes_without_player()
+    # handles the CSV path automatically.
     _without_targets: dict[str, float] = {}
     try:
         import snowflake_connector as _sf
-        if _sf.is_available():
-            _team_name = team_data.get("__team_name__", "")
-            if _team_name:
-                for out_name, _ in out_players:
-                    wo = _sf.get_minutes_without_player(_team_name, out_name)
-                    if wo:
-                        _without_targets.update(wo)
+        _team_name = team_data.get("__team_name__", "")
+        if _team_name:
+            for out_name, _ in out_players:
+                wo = _sf.get_minutes_without_player(_team_name, out_name)
+                if wo:
+                    _without_targets.update(wo)
     except Exception:
         pass
 
