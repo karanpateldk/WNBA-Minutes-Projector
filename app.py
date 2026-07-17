@@ -1332,9 +1332,9 @@ if show_charts:
             '<div style="font-size:0.8rem;font-weight:600;opacity:0.7;margin-bottom:2px">'
             'Combined starter minutes per quarter</div>'
             '<div style="font-size:0.72rem;opacity:0.6;margin-bottom:6px">'
-            '🟢 Light load (&lt;32 min) &nbsp;|&nbsp; '
-            '🟡 Moderate (32–39 min) &nbsp;|&nbsp; '
-            '🔴 Heavy (&ge;40 min) &nbsp;&mdash;&nbsp; max possible: 50 min (5 starters &times; 10)</div>',
+            '🟢 Light (&lt;33 min) &nbsp;|&nbsp; '
+            '🟡 Moderate (33–37 min) &nbsp;|&nbsp; '
+            '🔴 Heavy (&ge;37 min) &nbsp;&mdash;&nbsp; league range this season: 30–40 min per quarter</div>',
             unsafe_allow_html=True,
         )
 
@@ -1350,8 +1350,8 @@ if show_charts:
         tot_cols = st.columns(4)
         for q in [1, 2, 3, 4]:
             tot = team_q_totals[q]
-            # WNBA: 5 starters × 10 min quarter = 50 max; ~35-42 is typical heavy starter load
-            intensity = "🔴" if tot >= 40 else ("🟡" if tot >= 32 else "🟢")
+            # Thresholds based on actual 2026 season range (30–40 min per quarter across all teams)
+            intensity = "🔴" if tot >= 37 else ("🟡" if tot >= 33 else "🟢")
             tot_cols[q - 1].markdown(
                 f'<div style="text-align:center;font-size:0.85rem">'
                 f'<div style="font-weight:600">{Q_LABELS[q]}</div>'
