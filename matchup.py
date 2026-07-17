@@ -798,13 +798,7 @@ def get_matchup_summary(team_name: str, opp_name: str) -> dict:
     csv_total, csv_bw, csv_bl = _get_blowout_stats(opp_name)
     csv_blowouts = csv_bw + csv_bl
     if csv_total >= 4:
-        bl_str = f"{csv_blowouts}/{csv_total} blowouts ({csv_bw} blowout wins · {csv_bl} blowout losses)"
-        if csv_blowouts / csv_total >= 0.40:
-            notes.append(f"{bl_str} — bench gets extra run late")
-        elif csv_blowouts / csv_total <= 0.15:
-            notes.append(f"{bl_str} — mostly close games, starters play full rotations")
-        else:
-            notes.append(bl_str)
+        notes.append(f"{csv_blowouts}/{csv_total} blowouts ({csv_bw} blowout wins · {csv_bl} blowout losses)")
     elif sample >= 4:
         # Fallback to ESPN-derived counts if CSV data unavailable
         notes.append(f"{blowout_count}/{sample} blowouts")
