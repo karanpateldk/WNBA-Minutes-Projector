@@ -265,15 +265,16 @@ def _load_csv_boxscore(game_id: str, team_name: str) -> list[dict]:
                     name = row.get("player_full_name", "").strip()
                     if name:
                         results.append({
-                            "name":    name,
-                            "minutes": round(mins, 1),
-                            "fouls":   fouls,
-                            "starter": starter,
-                            "dnp":     not played,
-                            "q1_min":  round(float(row.get("q1_min") or 0), 2),
-                            "q2_min":  round(float(row.get("q2_min") or 0), 2),
-                            "q3_min":  round(float(row.get("q3_min") or 0), 2),
-                            "q4_min":  round(float(row.get("q4_min") or 0), 2),
+                            "name":       name,
+                            "minutes":    round(mins, 1),
+                            "fouls":      fouls,
+                            "starter":    starter,
+                            "dnp":        not played,
+                            "dnp_reason": str(row.get("dnp_reason") or "").strip().lower(),
+                            "q1_min":     round(float(row.get("q1_min") or 0), 2),
+                            "q2_min":     round(float(row.get("q2_min") or 0), 2),
+                            "q3_min":     round(float(row.get("q3_min") or 0), 2),
+                            "q4_min":     round(float(row.get("q4_min") or 0), 2),
                         })
                 except Exception:
                     continue

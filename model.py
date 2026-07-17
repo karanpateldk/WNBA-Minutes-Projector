@@ -488,7 +488,7 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
         # DNP adjustment for bench players only — starters with high DNP rates
         # are typically injured and should be set Out manually by the user.
         # A bench player DNPing 40%+ of games is a spot-use player, not rotation.
-        if dnp_rate >= 0.40 and not _is_starter and player not in injury_overrides:
+        if dnp_rate >= 0.25 and not _is_starter and player not in injury_overrides:
             base_min = round(base_min * (1.0 - dnp_rate), 1)
 
         role = role_overrides.get(player, info.get("role", "bench"))

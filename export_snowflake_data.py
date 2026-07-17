@@ -249,6 +249,7 @@ def run():
             COALESCE(g.PLAYER_STATISTICS_PERSONAL_FOULS, 0)          AS personal_fouls,
             COALESCE(g.PLAYER_STATISTICS_PLUS + g.PLAYER_STATISTICS_MINUS, 0)
                                                                       AS plus_minus,
+            COALESCE(g.PLAYER_NOT_PLAYING_REASON, '')                 AS dnp_reason,
             s.HOME_TEAM_NAME,
             COALESCE(s.HOME_TEAM_POINTS, 0)                           AS home_points,
             COALESCE(s.AWAY_TEAM_POINTS, 0)                           AS away_points,
@@ -285,6 +286,7 @@ def run():
             g.PLAYER_FULL_NAME, g.PLAYER_PLAYED, g.PLAYER_STARTER,
             g.PLAYER_STATISTICS_MINUTES, g.PLAYER_STATISTICS_PERSONAL_FOULS,
             g.PLAYER_STATISTICS_PLUS, g.PLAYER_STATISTICS_MINUS,
+            g.PLAYER_NOT_PLAYING_REASON,
             s.HOME_TEAM_NAME, s.HOME_TEAM_POINTS, s.AWAY_TEAM_POINTS
         ORDER BY g.SCHEDULED DESC, g.TEAM_MARKET, g.PLAYER_FULL_NAME
     """)

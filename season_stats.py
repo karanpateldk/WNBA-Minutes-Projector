@@ -591,6 +591,7 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
     foul_trouble_games: dict[str, int]         = defaultdict(int)   # games with 4+ fouls
     starter_games:      dict[str, int]         = defaultdict(int)
     games_played:       dict[str, int]         = defaultdict(int)
+    coach_dnp_games:    dict[str, int]         = defaultdict(int)   # healthy-scratch DNPs only
     last_played_date:   dict[str, str]         = {}
     quarter_acc:        dict[str, dict[int, list[float]]] = defaultdict(lambda: defaultdict(list))
 
@@ -629,6 +630,17 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
         for p in box:
             name = p["name"]
             if p["dnp"] or p["minutes"] < 0.5:
+                # Track healthy-scratch DNPs separately from injury DNPs.
+                # dnp_reason is empty or 'coach'/'rest' for healthy scratches;
+                # injury DNPs have reasons like 'injury', 'illness', etc.
+                if p["dnp"]:
+                    reason = p.get("dnp_reason", "").lower()
+                    _injury_keywords = ("injur", "illness", "sick", "surgery", "pain",
+                                        "fracture", "sprain", "strain", "rest")
+                    _is_injury_dnp = any(kw in reason for kw in _injury_keywords)
+                    if not _is_injury_dnp and name in games_played:
+                        # Only count coach DNPs for players already in rotation
+                        coach_dnp_games[name] += 1
                 continue
             # Only apply OT scale when the player actually played into overtime
             # (minutes > 40). Players under 40 min played regulation-only time.
@@ -867,7 +879,9 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
             "last_played_date":    last_played_date.get(name, ""),
             "games_missed_streak": games_missed_streak.get(name, 0),
             "games_total":         len(games_with_dates),
-            "dnp_rate":            round(1 - gp / max(len(games_with_dates) - player_first_game_idx.get(name, 0), gp), 3) if games_with_dates else 0.0,
+            # dnp_rate uses only coach/healthy-scratch DNPs — injury DNPs shouldn't
+            # penalise projection since the player would have played if healthy.
+            "dnp_rate":            round(coach_dnp_games.get(name, 0) / max(gp + coach_dnp_games.get(name, 0), 1), 3),
         }
 
     # Enrich with plus/minus from Snowflake
