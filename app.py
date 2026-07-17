@@ -758,7 +758,7 @@ def _render_status_grid(names: list[str]):
                             _gp_section += f" &nbsp;·&nbsp; {gs} GS"
                     _missed_html = (
                         f'<div style="font-size:0.72rem;color:#fd7e14;font-weight:600;margin-top:2px">'
-                        f'Missed last {_missed} game{"s" if _missed > 1 else ""}</div>'
+                        f'{"Missed last game" if _missed == 1 else f"Missed last {_missed} games"}</div>'
                         if _missed >= 1 else ""
                     )
                     # Flex row: GP/GS and SZN/L3 sit side-by-side on wide cards,
