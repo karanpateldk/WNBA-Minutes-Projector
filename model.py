@@ -768,36 +768,25 @@ def _redistribute_minutes(
     # base_min targets (blend 70% toward observed, 30% current projection).
     # This directly answers "what does this rotation look like without player X"
     # rather than trying to proportionally distribute vacated minutes.
-    REDIST_STARTER_CAP = 36.0
     total_active_min = sum(p.projected_min for p in active)
     if total_active_min > 0:
         if _without_targets:
-            # Use Snowflake without-player averages as direct targets.
-            # These are the actual observed minutes when this player didn't play —
-            # they already sum to ~200 so just set them directly and let
-            # normalization handle minor rounding only.
-            # Blend only slightly with current projection to anchor to recent form.
             wo_sum = sum(_without_targets.get(p.name, 0) for p in active)
-            if wo_sum > 50:  # only use if we have meaningful coverage
+            if wo_sum > 50:
                 for p in active:
                     wo_target = _without_targets.get(p.name, 0)
                     if wo_target > 0:
-                        # 60% observed without-player avg, 40% current base projection
                         p.projected_min = round(
                             wo_target * 0.60 + p.projected_min * 0.40, 1
                         )
-                    # players not in without-targets keep their current projection
             else:
-                # Insufficient without-player data — proportional fallback
                 for p in active:
                     share = (p.projected_min / total_active_min) * total_vacated
-                    cap = REDIST_STARTER_CAP if p.role == "starter" else 38.0
-                    p.projected_min = round(min(p.projected_min + share, cap), 1)
+                    p.projected_min = round(p.projected_min + share, 1)
         else:
             for p in active:
                 share = (p.projected_min / total_active_min) * total_vacated
-                cap = REDIST_STARTER_CAP if p.role == "starter" else 38.0
-                p.projected_min = round(min(p.projected_min + share, cap), 1)
+                p.projected_min = round(p.projected_min + share, 1)
 
     # Step 3: mark positional replacement notes for meaningful absences only.
     # Only set coverage notes when the out player has a significant base_min
@@ -889,7 +878,6 @@ def _suggest_replacement(
     return None
 
 
-STARTER_MAX = 38.0
 BENCH_FLOOR = 4.0   # minimum projected minutes for any active bench player
 
 def _normalize_to_total(projections: list[PlayerProjection], target: float) -> list[PlayerProjection]:
@@ -948,7 +936,7 @@ def _normalize_to_total(projections: list[PlayerProjection], target: float) -> l
         if total > 0:
             for p in active:
                 share = (p.projected_min / total) * diff
-                p.projected_min = round(min(p.projected_min + share, STARTER_MAX), 1)
+                p.projected_min = round(p.projected_min + share, 1)
 
     # Fix any rounding drift — adjust the highest-minute player by the remainder
     current = sum(p.projected_min for p in active)
