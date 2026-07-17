@@ -803,11 +803,6 @@ def get_matchup_summary(team_name: str, opp_name: str) -> dict:
         # Fallback to ESPN-derived counts if CSV data unavailable
         notes.append(f"{blowout_count}/{sample} blowouts")
 
-    # Rotation depth
-    if opp_depth >= 10:
-        notes.append(f"Runs a {opp_depth}-player rotation — expect deeper bench usage")
-    elif opp_depth <= 7:
-        notes.append(f"Tight {opp_depth}-player rotation — starters carry heavy minutes")
 
     return {
         "notes":            notes,
