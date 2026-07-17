@@ -50,10 +50,11 @@ CACHE_DIR = Path(__file__).parent / "data"
 CACHE_DIR.mkdir(exist_ok=True)
 
 
-def _get_team_record(team_name: str) -> str:
+def _get_blowout_record(team_name: str) -> str:
     """
-    Return W-L record string for team from snowflake_boxscores.csv,
-    e.g. '14-8'. Returns '' if data unavailable.
+    Return blowout W-L string, e.g. '3-1' meaning 3 blowout wins, 1 blowout loss.
+    A blowout is any game decided by 15+ points.
+    Returns '' if data unavailable.
     """
     path = CACHE_DIR / "snowflake_boxscores.csv"
     if not path.exists():
@@ -61,7 +62,7 @@ def _get_team_record(team_name: str) -> str:
     try:
         import csv as _csv
         seen_games: set = set()
-        wins = losses = 0
+        blowout_wins = blowout_losses = 0
         with open(path, encoding="utf-8") as f:
             for row in _csv.DictReader(f):
                 gid = row.get("game_id", "")
@@ -77,17 +78,19 @@ def _get_team_record(team_name: str) -> str:
                     ap   = float(row.get("away_points") or 0)
                     if hp == 0 and ap == 0:
                         continue
+                    if abs(hp - ap) < 15:
+                        continue  # not a blowout
                     team_pts = hp if home == team_name else ap
                     opp_pts  = ap if home == team_name else hp
                     if team_pts > opp_pts:
-                        wins += 1
+                        blowout_wins += 1
                     else:
-                        losses += 1
+                        blowout_losses += 1
                 except (ValueError, TypeError):
                     continue
-        if wins + losses == 0:
+        if blowout_wins + blowout_losses == 0:
             return ""
-        return f"{wins}-{losses}"
+        return f"{blowout_wins}-{blowout_losses}"
     except Exception:
         return ""
 
@@ -792,8 +795,8 @@ def get_matchup_summary(team_name: str, opp_name: str) -> dict:
     else:
         notes.append("No H2H games played yet this season")
 
-    # Blowout tendency — include opponent W-L for context
-    opp_record = _get_team_record(opp_name)
+    # Blowout tendency — include blowout W-L for context (blowout wins-losses)
+    opp_record = _get_blowout_record(opp_name)
     record_str = f" ({opp_record})" if opp_record else ""
     if sample >= 4:
         if blowout_rate >= 0.40:
