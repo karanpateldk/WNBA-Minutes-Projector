@@ -1128,9 +1128,14 @@ def _render_adj_cell(col, player_name: str, proj_min: float):
     if selected_opponent:
         games = h2h_player_mins.get(player_name, [])
         if games:
-            # Show each game's minutes separated by " / "
-            parts = ", ".join(f"{m:.0f}" for m in games)
-            col.markdown(f'<span style="font-size:0.82rem">{parts}</span>', unsafe_allow_html=True)
+            # Attach OT suffix per game using matchup_summary h2h_scores order
+            h2h_meta = matchup_summary.get("h2h_results_meta", [])
+            parts = []
+            for i, m in enumerate(games):
+                ot = h2h_meta[i]["ot"] if i < len(h2h_meta) else ""
+                ot_label = f" ({ot})" if ot else ""
+                parts.append(f"{m:.0f}{ot_label}")
+            col.markdown(f'<span style="font-size:0.82rem">{", ".join(parts)}</span>', unsafe_allow_html=True)
         else:
             col.markdown('<span style="color:#aaa;font-size:0.82rem">—</span>', unsafe_allow_html=True)
     else:

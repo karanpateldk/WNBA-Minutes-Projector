@@ -263,9 +263,41 @@ def _get_h2h_game_ids_sf(team_name: str, opp_name: str) -> list[str]:
 # Head-to-head history: team vs opponent this season
 # ---------------------------------------------------------------------------
 
+def _ot_suffix(game_id: str, team_name: str) -> str:
+    """
+    Return OT suffix string for a game, e.g. '' / 'OT' / '2OT' / '4OT'.
+    Derived from total team minutes in snowflake_boxscores.csv:
+      regulation = ~200 min total; each OT adds ~5 min per team (10 total).
+    """
+    try:
+        import csv as _csv
+        path = CACHE_DIR / "snowflake_boxscores.csv"
+        if not path.exists():
+            return ""
+        total_mins = 0.0
+        with open(path, encoding="utf-8") as f:
+            for row in _csv.DictReader(f):
+                if row.get("game_id") != game_id:
+                    continue
+                if row.get("team_name", "") != team_name:
+                    continue
+                try:
+                    total_mins += float(row.get("minutes") or 0)
+                except (ValueError, TypeError):
+                    pass
+        if total_mins < 10:
+            return ""
+        ot_periods = max(0, round((total_mins - 200) / 5))
+        if ot_periods == 0:
+            return ""
+        return "OT" if ot_periods == 1 else f"{ot_periods}OT"
+    except Exception:
+        return ""
+
+
 def _get_h2h_results(team_name: str, opp_name: str) -> list[dict]:
     """
-    Returns list of {margin, team_score, opp_score, display} for each completed
+    Returns list of {margin, team_score, opp_score, display, ot} for each completed
     regular-season game between team_name and opp_name this season.
 
     Primary: Snowflake WNBA_SCHEDULE with SEASON_TYPE='REG' — unambiguous.
@@ -305,11 +337,14 @@ def _get_h2h_results(team_name: str, opp_name: str) -> list[dict]:
                     else:
                         ts, os_ = float(r["away_team_points"] or 0), float(r["home_team_points"] or 0)
                     margin = ts - os_
+                    ot = _ot_suffix(r["game_id"], team_name)
+                    ot_str = f" ({ot})" if ot else ""
                     results.append({
                         "margin":     margin,
                         "team_score": ts,
                         "opp_score":  os_,
-                        "display":    f"{'W' if margin > 0 else 'L'} {max(ts,os_):.0f}-{min(ts,os_):.0f}",
+                        "ot":         ot,
+                        "display":    f"{'W' if margin > 0 else 'L'} {max(ts,os_):.0f}-{min(ts,os_):.0f}{ot_str}",
                     })
                 except (TypeError, ValueError):
                     continue
@@ -349,14 +384,20 @@ def _get_h2h_results(team_name: str, opp_name: str) -> list[dict]:
                     val = _parse_score(c.get("score"))
                     if val is not None:
                         scores[tid] = val
+                # OT from ESPN: period > 4 means OT
+                period = comp.get("status", {}).get("period", 4)
+                ot_periods = max(0, (period or 4) - 4)
+                ot = ("OT" if ot_periods == 1 else f"{ot_periods}OT") if ot_periods > 0 else ""
                 if team_id_str in scores and opp_id_str in scores:
                     ts, os_ = scores[team_id_str], scores[opp_id_str]
                     margin = ts - os_
+                    ot_str = f" ({ot})" if ot else ""
                     results.append({
                         "margin":     margin,
                         "team_score": ts,
                         "opp_score":  os_,
-                        "display":    f"{'W' if margin > 0 else 'L'} {max(ts,os_)}-{min(ts,os_)}",
+                        "ot":         ot,
+                        "display":    f"{'W' if margin > 0 else 'L'} {max(ts,os_)}-{min(ts,os_)}{ot_str}",
                     })
 
     _save_cache(cache_key, results, ttl_hours=6.0)
@@ -705,9 +746,7 @@ def get_matchup_summary(team_name: str, opp_name: str) -> dict:
     # H2H results this season
     if h2h_scores:
         scores_str = "  |  ".join(h2h_scores)
-        avg_margin = sum(h2h_margins) / n_h2h
-        sign = "+" if avg_margin >= 0 else ""
-        notes.append(f"H2H results: {scores_str} &nbsp; (avg margin {sign}{avg_margin:.0f} pts)")
+        notes.append(f"H2H results: {scores_str}")
     else:
         notes.append("No H2H games played yet this season")
 
@@ -727,13 +766,14 @@ def get_matchup_summary(team_name: str, opp_name: str) -> dict:
         notes.append(f"Tight {opp_depth}-player rotation — starters carry heavy minutes")
 
     return {
-        "notes":        notes,
-        "confidence":   confidence,
-        "sample_games": sample,
-        "h2h_games":    n_h2h,
-        "h2h_scores":   h2h_scores,
-        "opp_depth":    opp_depth,
-        "blowout_rate": blowout_rate,
-        "blowout_count": blowout_count,
-        "blowout_sample": sample,
+        "notes":            notes,
+        "confidence":       confidence,
+        "sample_games":     sample,
+        "h2h_games":        n_h2h,
+        "h2h_scores":       h2h_scores,
+        "h2h_results_meta": h2h_results,   # full list with ot field for Adj cell
+        "opp_depth":        opp_depth,
+        "blowout_rate":     blowout_rate,
+        "blowout_count":    blowout_count,
+        "blowout_sample":   sample,
     }
