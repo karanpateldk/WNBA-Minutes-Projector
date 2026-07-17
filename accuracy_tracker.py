@@ -87,13 +87,38 @@ def _read_rw_csv(path: Path) -> list[dict]:
 
 def _load_our_projections() -> dict[str, float]:
     """
-    Load our model's season avg as the projection snapshot.
-    Uses snowflake_player_stats.csv avg_minutes as the proxy —
-    this is what the model anchors to before last3/injury adjustments.
-    Returns {player_name: avg_minutes}.
+    Run the real model for every team and return {player_name: projected_min}.
+    This is what the app actually shows — weighted blend of season avg + last3 +
+    injury adjustments — not just a raw season average.
+    Falls back to season avg if the model can't be loaded.
     """
-    path = DATA_DIR / "snowflake_player_stats.csv"
     result = {}
+    try:
+        import sys
+        sys.path.insert(0, str(Path(__file__).parent))
+        from wnba_scraper import get_team_data
+        from model import build_projection
+        from roster_data import TEAMS
+
+        for team_name in TEAMS:
+            try:
+                team_data = dict(get_team_data(team_name))
+                team_data.pop("__meta__", None)
+                lineup = build_projection(team_data)
+                for p in lineup.players:
+                    if p.projected_min > 0 and p.name not in result:
+                        result[p.name] = round(p.projected_min, 1)
+            except Exception as e:
+                print(f"[accuracy] Model failed for {team_name}: {e}")
+                continue
+        if result:
+            print(f"[accuracy] Loaded real model projections for {len(result)} players")
+            return result
+    except Exception as e:
+        print(f"[accuracy] Could not run model, falling back to season avg: {e}")
+
+    # Fallback: raw season average from CSV
+    path = DATA_DIR / "snowflake_player_stats.csv"
     if not path.exists():
         return result
     try:
@@ -107,7 +132,7 @@ def _load_our_projections() -> dict[str, float]:
                 if name and avg > 0:
                     result[name] = round(avg, 1)
     except Exception as e:
-        print(f"[accuracy] Failed to load our projections: {e}")
+        print(f"[accuracy] Failed to load fallback projections: {e}")
     return result
 
 
