@@ -757,7 +757,7 @@ def get_matchup_summary(team_name: str, opp_name: str) -> dict:
         elif blowout_rate <= 0.15:
             notes.append(f"Only {blowout_count}/{sample} blowouts — close games, starters play full rotations")
         else:
-            notes.append(f"{blowout_count}/{sample} blowouts &nbsp;|&nbsp; avg margin {avg_margin_all:+.0f} pts")
+            notes.append(f"{blowout_count}/{sample} blowouts")
 
     # Rotation depth
     if opp_depth >= 10:

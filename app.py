@@ -1133,7 +1133,8 @@ def _render_adj_cell(col, player_name: str, proj_min: float):
             parts = []
             for i, m in enumerate(games):
                 ot = h2h_meta[i]["ot"] if i < len(h2h_meta) else ""
-                ot_label = f" ({ot})" if ot else ""
+                ot_label = (f' <span style="font-size:0.65rem;opacity:0.55;font-weight:400">({ot})</span>'
+                            if ot else "")
                 parts.append(f"{m:.0f}{ot_label}")
             col.markdown(f'<span style="font-size:0.82rem">{", ".join(parts)}</span>', unsafe_allow_html=True)
         else:
