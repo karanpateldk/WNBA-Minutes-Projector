@@ -233,12 +233,23 @@ def snapshot_today(rw_path: Path | None = None) -> int:
 
     # Load existing log
     existing = _load_existing_log()
-    existing_keys = {(r["date"], r["player"]) for r in existing}
 
-    # Skip if already snapshotted today
-    today_count = sum(1 for r in existing if r["date"] == today)
-    if today_count > 0:
-        print(f"[accuracy] Already have {today_count} rows for {today} — skipping snapshot")
+    # If today already has rows, refresh our_projected with current model values
+    # (model may have been updated since the initial snapshot)
+    today_rows = [r for r in existing if r["date"] == today]
+    if today_rows:
+        our_proj = _load_our_projections()
+        our_names = set(our_proj.keys())
+        refreshed = 0
+        for r in existing:
+            if r["date"] != today:
+                continue
+            matched = _fuzzy_match(r["player"], our_names)
+            if matched and our_proj.get(matched):
+                r["our_projected"] = our_proj[matched]
+                refreshed += 1
+        _save_log(existing)
+        print(f"[accuracy] Refreshed our_projected for {refreshed}/{len(today_rows)} rows for {today}")
         return 0
 
     rw_rows = _read_rw_csv(path)
