@@ -276,7 +276,7 @@ def load_injuries() -> dict:
 def load_season_stats(team_name: str) -> dict:
     return get_team_season_stats(team_name)
 
-@st.cache_data(ttl=1800)
+@st.cache_data(ttl=300)  # 5 min — schedule context must stay fresh to avoid stale B2B detection
 def load_schedule_context(team_name: str) -> dict:
     return get_schedule_context(team_name)
 
