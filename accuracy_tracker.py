@@ -21,9 +21,34 @@ from pathlib import Path
 DATA_DIR = Path(__file__).parent / "data"
 LOG_PATH = DATA_DIR / "accuracy_log.csv"
 BOXSCORES_PATH = DATA_DIR / "snowflake_boxscores.csv"
+RW_DOWNLOADS_DIR = Path("C:/Users/kar.patel/Downloads")
 RW_DOWNLOADS = [
     Path("C:/Users/kar.patel/Downloads/wnba-daily-projections.csv"),
 ]
+
+
+def _find_all_rw_csvs() -> list[tuple[str, Path]]:
+    """
+    Find all RotoWire projection CSVs in Downloads and return (date_str, path) pairs.
+    Uses file modification date as the game date.
+    """
+    import glob as _glob
+    from datetime import datetime as _dt
+    results = []
+    pattern = str(RW_DOWNLOADS_DIR / "wnba-daily-projections*.csv")
+    for filepath in _glob.glob(pattern):
+        p = Path(filepath)
+        try:
+            mdate = _dt.fromtimestamp(p.stat().st_mtime).strftime("%Y-%m-%d")
+            results.append((mdate, p))
+        except Exception:
+            continue
+    # Dedupe by date — keep the most recently modified file per date
+    by_date: dict[str, Path] = {}
+    for mdate, p in results:
+        if mdate not in by_date or p.stat().st_mtime > by_date[mdate].stat().st_mtime:
+            by_date[mdate] = p
+    return sorted(by_date.items())
 
 LOG_COLS = ["date", "game_label", "player", "rw_team", "rw_projected", "our_projected", "actual_minutes"]
 
@@ -235,13 +260,25 @@ def _fuzzy_match(rw_name: str, our_names: set[str]) -> str | None:
     return None
 
 
-def snapshot_today(rw_path: Path | None = None) -> int:
+def snapshot_all_available(rw_path: Path | None = None) -> int:
     """
-    Read today's RotoWire CSV, snapshot our projections, and append to log.
+    Snapshot all available RotoWire CSVs in Downloads that haven't been logged yet.
+    Returns total new rows added across all dates.
+    """
+    all_csvs = _find_all_rw_csvs()
+    total = 0
+    for mdate, path in all_csvs:
+        total += snapshot_today(rw_path=path, force_date=mdate)
+    return total
+
+
+def snapshot_today(rw_path: Path | None = None, force_date: str | None = None) -> int:
+    """
+    Read a RotoWire CSV, snapshot our projections, and append to log.
     Returns the number of new rows added.
-    Skips if today's date already has entries in the log.
+    Skips if that date already has entries in the log.
     """
-    today = str(date.today())
+    today = force_date or str(date.today())
 
     # Find RotoWire file
     path = rw_path
@@ -427,6 +464,114 @@ def compute_stats() -> dict:
         "game_count": len(unique_games),
         "game_list":  game_list,
     }
+
+
+def backfill_from_boxscores(since_date: str = "2026-07-16") -> int:
+    """
+    Backfill accuracy log with our model projections + actuals for all games
+    in snowflake_boxscores.csv since `since_date` that aren't already logged.
+    rw_projected is left empty for backfilled rows (no RotoWire data available).
+    Returns number of new rows added.
+    """
+    existing = _load_existing_log()
+    existing_keys = {(r["date"], r["player"]) for r in existing}
+
+    # Load actuals from boxscores
+    actuals_by_date: dict[str, list[dict]] = {}
+    if not BOXSCORES_PATH.exists():
+        return 0
+    try:
+        import csv as _csv
+        with open(BOXSCORES_PATH, encoding="utf-8") as f:
+            for row in _csv.DictReader(f):
+                gdate = row.get("game_date", "")[:10]
+                if gdate < since_date:
+                    continue
+                played = str(row.get("player_played","")).lower() in ("true","1")
+                if not played:
+                    continue
+                try:
+                    mins = float(row.get("minutes") or 0)
+                except (ValueError, TypeError):
+                    mins = 0.0
+                actuals_by_date.setdefault(gdate, []).append({
+                    "player":    row.get("player_full_name","").strip(),
+                    "team":      row.get("team_name","").strip(),
+                    "home_team": row.get("home_team_name","").strip(),
+                    "minutes":   round(mins, 1),
+                })
+    except Exception as e:
+        print(f"[accuracy] Backfill failed reading boxscores: {e}")
+        return 0
+
+    # Run model for each team/date combo not already in log
+    try:
+        import sys
+        sys.path.insert(0, str(Path(__file__).parent))
+        from wnba_scraper import get_team_data
+        from model import build_projection
+    except Exception as e:
+        print(f"[accuracy] Backfill failed loading model: {e}")
+        return 0
+
+    new_rows = []
+    dates_to_fill = sorted(d for d in actuals_by_date if d >= since_date)
+
+    for gdate in dates_to_fill:
+        day_players = actuals_by_date[gdate]
+        teams_that_day = {p["team"] for p in day_players}
+
+        # Build game labels for this date
+        sorted_teams = sorted(teams_that_day)
+        lmap: dict[str, str] = {}
+        for i in range(0, len(sorted_teams) - 1, 2):
+            label = f"{sorted_teams[i]} vs {sorted_teams[i+1]}"
+            lmap[sorted_teams[i]]   = label
+            lmap[sorted_teams[i+1]] = label
+        if len(sorted_teams) % 2 == 1:
+            lmap[sorted_teams[-1]] = sorted_teams[-1]
+
+        # Get model projections for each team
+        team_proj: dict[str, float] = {}
+        for team in teams_that_day:
+            try:
+                td = dict(get_team_data(team))
+                td.pop("__meta__", None)
+                lineup = build_projection(td)
+                for p in lineup.players:
+                    if p.projected_min > 0:
+                        team_proj[p.name] = round(p.projected_min, 1)
+            except Exception:
+                continue
+
+        for p in day_players:
+            key = (gdate, p["player"])
+            if key in existing_keys:
+                continue
+            our_min = team_proj.get(p["player"], "")
+            if not our_min:
+                # fuzzy match
+                matched = _fuzzy_match(p["player"], set(team_proj.keys()))
+                our_min = team_proj.get(matched, "") if matched else ""
+            if p["minutes"] < 0.5 and not our_min:
+                continue  # skip true DNPs we have no projection for
+            new_rows.append({
+                "date":           gdate,
+                "game_label":     lmap.get(p["team"], p["team"]),
+                "player":         p["player"],
+                "rw_team":        p["team"][:3].upper(),
+                "rw_projected":   "",  # no RotoWire data for backfilled games
+                "our_projected":  our_min,
+                "actual_minutes": p["minutes"],
+            })
+            existing_keys.add(key)
+
+    if new_rows:
+        _save_log(existing + new_rows)
+        print(f"[accuracy] Backfilled {len(new_rows)} player-games across {len(dates_to_fill)} dates")
+    else:
+        print("[accuracy] Backfill: no new rows to add")
+    return len(new_rows)
 
 
 if __name__ == "__main__":

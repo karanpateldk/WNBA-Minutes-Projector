@@ -435,8 +435,9 @@ def run():
     try:
         import accuracy_tracker as _at
         print("  Running accuracy tracker...")
-        _at.snapshot_today()
+        _at.snapshot_all_available()  # reads all RotoWire CSVs in Downloads
         _at.fill_actuals()
+        _at.backfill_from_boxscores()
     except Exception as _e:
         print(f"  [accuracy] Skipped: {_e}")
 
