@@ -199,6 +199,34 @@ def _load_existing_log() -> list[dict]:
         return []
 
 
+def _teams_by_date() -> dict:
+    """Return {date: set(team_name)} from boxscores CSV for validation."""
+    result: dict[str, set] = {}
+    if not BOXSCORES_PATH.exists():
+        return result
+    try:
+        import csv as _csv
+        with open(BOXSCORES_PATH, encoding="utf-8") as f:
+            for row in _csv.DictReader(f):
+                d = row.get("game_date", "")
+                t = row.get("team_name", "").strip()
+                if d and t:
+                    result.setdefault(d, set()).add(t)
+    except Exception:
+        pass
+    return result
+
+
+_ABBREV_TO_FULL_SAVE = {
+    "ATL": "Atlanta Dream", "CHI": "Chicago Sky", "CON": "Connecticut Sun",
+    "DAL": "Dallas Wings", "GSV": "Golden State Valkyries", "IND": "Indiana Fever",
+    "LAS": "Las Vegas Aces", "LVA": "Las Vegas Aces", "LOS": "Los Angeles Sparks",
+    "MIN": "Minnesota Lynx", "NYL": "New York Liberty", "PHO": "Phoenix Mercury",
+    "POR": "Portland Fire", "SEA": "Seattle Storm", "TOR": "Toronto Tempo",
+    "WAS": "Washington Mystics",
+}
+
+
 def _save_log(rows: list[dict]) -> None:
     # Backfill game_label for rows that predate the column being added
     team_pairs: dict[str, str] = {}  # date -> teams seen
@@ -223,10 +251,31 @@ def _save_log(rows: list[dict]) -> None:
         if not r.get("game_label"):
             r["game_label"] = date_labels.get(r.get("date",""), {}).get(r.get("rw_team",""), "")
 
+    # Validate: drop rows where the player's team didn't play on that date.
+    # Also dedupe by (date, player). This prevents bad RotoWire date mismatches
+    # from accumulating regardless of which code path adds the row.
+    tbd = _teams_by_date()
+    seen_keys: set = set()
+    valid_rows = []
+    for r in rows:
+        d = r.get("date", "")
+        player = r.get("player", "")
+        key = (d, player)
+        if key in seen_keys:
+            continue
+        if tbd:
+            rw_team = r.get("rw_team", "").strip()
+            full_team = _ABBREV_TO_FULL_SAVE.get(rw_team.upper(), rw_team)
+            teams_on_date = tbd.get(d, set())
+            if teams_on_date and full_team not in teams_on_date:
+                continue  # team didn't play on this date
+        seen_keys.add(key)
+        valid_rows.append(r)
+
     with open(LOG_PATH, "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=LOG_COLS, extrasaction="ignore")
         w.writeheader()
-        w.writerows(rows)
+        w.writerows(valid_rows)
 
 
 def _fuzzy_match(rw_name: str, our_names: set[str]) -> str | None:
