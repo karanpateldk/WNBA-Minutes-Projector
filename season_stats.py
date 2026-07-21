@@ -917,7 +917,11 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
         except Exception:
             pass
 
-    # Enrich players with recent_starter_pct from CSV when Snowflake unavailable
+    # Enrich players with CSV data when Snowflake unavailable.
+    # last3_true/last5_true are per-player actual played games (no team-window bias).
+    # trend_3v6 = last3 avg minus games 4-6 avg; positive = trending up.
+    # Healthy DNPs are excluded from Snowflake's computation, so trend reflects
+    # genuine role changes not absence-inflated averages.
     if not _sf_ok():
         try:
             csv_players = _sf._load_csv_player_stats()
@@ -926,6 +930,15 @@ def rebuild_team(team_name: str, force: bool = False) -> dict:
                     row = csv_players[name]
                     if row.get("recent_starter_pct") is not None:
                         players[name]["recent_starter_pct"] = float(row["recent_starter_pct"])
+                    # Override last3/last3_clean with Snowflake's true per-player window
+                    l3t = row.get("last3_true")
+                    if l3t and float(l3t) > 0:
+                        players[name]["last3_avg"]       = round(float(l3t), 1)
+                        players[name]["last3_clean_avg"] = round(float(l3t), 1)
+                    l5t = row.get("last5_true")
+                    if l5t and float(l5t) > 0:
+                        players[name]["last5_true"] = round(float(l5t), 1)
+                    players[name]["trend_3v6"] = round(float(row.get("trend_3v6") or 0), 2)
         except Exception:
             pass
         try:

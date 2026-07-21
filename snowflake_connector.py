@@ -215,6 +215,10 @@ def _load_csv_player_stats() -> dict:
                         "recent_starter_pct": float(row.get("recent_starter_pct") or 0),
                         "recent_gp":          int(row.get("recent_gp") or 0),
                         "exported_at":        row.get("exported_at", ""),
+                        # True per-player last3/last5/trend (healthy DNPs excluded)
+                        "last3_true":         float(row.get("last3_true") or 0) or None,
+                        "last5_true":         float(row.get("last5_true") or 0) or None,
+                        "trend_3v6":          float(row.get("trend_3v6") or 0),
                     }
         return result
     except Exception:

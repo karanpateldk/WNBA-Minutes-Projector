@@ -169,6 +169,36 @@ def run():
             GROUP BY 1, 2
             HAVING COUNT(*) >= 3
         )
+        -- True per-player last3/last5/trend (not team-game-window based)
+        ,player_game_ranks AS (
+            SELECT
+                g.PLAYER_FULL_NAME,
+                g.TEAM_MARKET || ' ' || g.TEAM_NAME AS team_name,
+                ROUND((TRY_CAST(SPLIT_PART(g.PLAYER_STATISTICS_MINUTES,':',1) AS INT)*60 +
+                       TRY_CAST(SPLIT_PART(g.PLAYER_STATISTICS_MINUTES,':',2) AS INT))/60.0, 2) AS minutes,
+                ROW_NUMBER() OVER (PARTITION BY g.PLAYER_FULL_NAME, g.TEAM_MARKET, g.TEAM_NAME
+                                   ORDER BY s.scheduled DESC) AS rn
+            FROM SPORTRADAR.DBO.WNBA_GAMESUMMARY_PLAYERS g
+            JOIN SPORTRADAR.DBO.WNBA_SCHEDULE s ON g.GAME_ID = s.GAME_ID
+            WHERE s.season_type = 'REG' AND s.season_year = 2026
+              AND s.game_status IN ('complete','closed')
+              AND g.PLAYER_PLAYED = TRUE
+              AND g.PLAYER_STATISTICS_MINUTES IS NOT NULL
+        ),
+        player_trends AS (
+            SELECT
+                player_full_name,
+                team_name,
+                ROUND(AVG(CASE WHEN rn <= 3 THEN minutes END), 2) AS last3_true,
+                ROUND(AVG(CASE WHEN rn <= 5 THEN minutes END), 2) AS last5_true,
+                -- trend: last3 avg minus games 4-6 avg (positive = trending up)
+                ROUND(
+                    AVG(CASE WHEN rn BETWEEN 1 AND 3 THEN minutes END) -
+                    AVG(CASE WHEN rn BETWEEN 4 AND 6 THEN minutes END)
+                , 2) AS trend_3v6
+            FROM player_game_ranks
+            GROUP BY 1, 2
+        )
         SELECT
             s.PLAYER_FULL_NAME,
             s.team_name,
@@ -176,11 +206,17 @@ def run():
             s.season_gp,
             s.avg_minutes,
             COALESCE(r.recent_starter_pct, s.season_starter_pct) AS recent_starter_pct,
-            COALESCE(r.recent_gp, 0) AS recent_gp
+            COALESCE(r.recent_gp, 0) AS recent_gp,
+            COALESCE(t.last3_true, s.avg_minutes) AS last3_true,
+            COALESCE(t.last5_true, s.avg_minutes) AS last5_true,
+            COALESCE(t.trend_3v6, 0) AS trend_3v6
         FROM season_stats s
         LEFT JOIN recent_stats r
             ON s.PLAYER_FULL_NAME = r.PLAYER_FULL_NAME
             AND s.team_name = r.team_name
+        LEFT JOIN player_trends t
+            ON s.PLAYER_FULL_NAME = t.player_full_name
+            AND s.team_name = t.team_name
         ORDER BY s.team_name, s.PLAYER_FULL_NAME
     """)
 

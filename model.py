@@ -167,6 +167,7 @@ def _weighted_minutes(
     clean_avg: float | None = None,
     last3_clean_avg: float | None = None,
     ols_coeffs: tuple[float, float, float] | None = None,
+    trend_3v6: float = 0.0,
     last1_min: float | None = None,
 ) -> float:
     """
@@ -219,6 +220,15 @@ def _weighted_minutes(
             boost = min(divergence - 0.20, 0.15)
             w_last3  = min(w_last3 + boost, 0.90)
             w_season = 1.0 - w_last3
+
+    # Additional trend boost from Snowflake's true per-player trend signal.
+    # trend_3v6 > 5: role clearly expanding — trust last3 more
+    # trend_3v6 < -5: role clearly shrinking — trust last3 more (it captures the drop)
+    # Both cases: push last3 weight up, season avg down
+    if abs(trend_3v6) >= 5.0 and games_played >= 8:
+        trend_boost = min((abs(trend_3v6) - 5.0) / 20.0, 0.15)
+        w_last3  = min(w_last3 + trend_boost, 0.92)
+        w_season = 1.0 - w_last3
 
     # Blend last1 into the recent component if available
     if last1_min is not None and w_last3 > 0:
@@ -471,6 +481,7 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
             last3_clean_avg=last3_clean,
             ols_coeffs=ols_coeffs,
             last1_min=last1,
+            trend_3v6=info.get("trend_3v6", 0.0) or 0.0,
         )
         if gp == 0:
             base_min = min(base_min, 3.0)
