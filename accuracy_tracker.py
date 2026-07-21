@@ -371,11 +371,63 @@ def snapshot_all_available(rw_path: Path | None = None) -> int:
     return total
 
 
+def _load_actuals_by_player() -> dict[str, tuple[str, str, float]]:
+    """
+    Return {player_name: (game_date, matchup_label, actual_minutes)}
+    for the most recent game each player played, from boxscores.
+    Used to match RotoWire projections to the actual game played.
+    """
+    if not BOXSCORES_PATH.exists():
+        return {}
+    result: dict[str, tuple[str, str, float]] = {}
+    teams_by_game: dict[str, list[str]] = {}
+    try:
+        import csv as _csv
+        # First pass: build game -> teams lookup for matchup labels
+        with open(BOXSCORES_PATH, encoding="utf-8") as f:
+            for row in _csv.DictReader(f):
+                gid = row.get("game_id", "")
+                t = row.get("team_name", "").strip()
+                d = row.get("game_date", "")
+                if gid and t:
+                    teams_by_game.setdefault(gid, []).append(t)
+        # Second pass: per player, find latest game
+        game_dates: dict[str, str] = {}
+        with open(BOXSCORES_PATH, encoding="utf-8") as f:
+            for row in _csv.DictReader(f):
+                gid = row.get("game_id", "")
+                d = row.get("game_date", "")
+                if gid and d:
+                    game_dates[gid] = d
+        with open(BOXSCORES_PATH, encoding="utf-8") as f:
+            rows_sorted = sorted(_csv.DictReader(f),
+                                 key=lambda r: r.get("game_date", ""), reverse=True)
+        seen: set = set()
+        for row in rows_sorted:
+            name = row.get("player_full_name", "").strip()
+            gid = row.get("game_id", "")
+            d = row.get("game_date", "")
+            if not name or not d or name in seen:
+                continue
+            try:
+                mins = float(row.get("minutes") or 0)
+            except (ValueError, TypeError):
+                mins = 0.0
+            teams = sorted(teams_by_game.get(gid, []))
+            label = " vs ".join(teams[:2]) if len(teams) >= 2 else d
+            result[name] = (d, label, mins)
+            seen.add(name)
+    except Exception:
+        pass
+    return result
+
+
 def snapshot_today(rw_path: Path | None = None, force_date: str | None = None) -> int:
     """
     Read a RotoWire CSV, snapshot our projections, and append to log.
+    Matches each player to their actual game using boxscores — no date guessing.
     Returns the number of new rows added.
-    Skips if that date already has entries in the log.
+    Skips if entries for the same players+actuals already exist in the log.
     """
     today = force_date or str(date.today())
 
@@ -483,13 +535,11 @@ def fill_actuals() -> int:
             continue  # already filled
         gdate = row.get("date", "")
         player = row.get("player", "")
-        # Try exact match first
         key = (player, gdate)
         if key in actuals:
             row["actual_minutes"] = actuals[key]
             updated += 1
             continue
-        # Try fuzzy match against actuals keys
         actual_names = {k[0] for k in actuals if k[1] == gdate}
         matched = _fuzzy_match(player, actual_names)
         if matched:
