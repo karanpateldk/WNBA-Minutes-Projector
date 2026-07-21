@@ -24,9 +24,9 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes
 2026-07-17,MIN vs NYL,Breanna Stewart,NYL,32.0,34.4,
 2026-07-17,GSV vs IND,Kelsey Mitchell,IND,31.0,31.1,33.6
 2026-07-17,GSV vs IND,Caitlin Clark,IND,31.0,27.3,29.5
-2026-07-17,MIN vs NYL,Kayla McBride,MIN,32.0,31.6,
+2026-07-17,MIN vs NYL,Kayla McBride,MIN,32.0,31.7,
 2026-07-17,MIN vs NYL,Natasha Howard,MIN,31.0,27.8,
-2026-07-17,MIN vs NYL,Olivia Miles,MIN,26.0,31.7,
+2026-07-17,MIN vs NYL,Olivia Miles,MIN,26.0,31.6,
 2026-07-17,GSV vs IND,Aliyah Boston,IND,29.0,26.1,
 2026-07-17,POR vs WAS,Carla Leite,POR,26.0,29.2,
 2026-07-17,MIN vs NYL,Jonquel Jones,NYL,29.0,30.5,
@@ -155,8 +155,8 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes
 2026-07-20,LVA vs MIN,A'ja Wilson,LVA,32.0,29.6,27.8
 2026-07-20,TOR vs WAS,Marina Mabrey,TOR,31.0,31.9,30.6
 2026-07-20,NYL vs SEA,Breanna Stewart,NYL,33.0,34.4,42.3
-2026-07-20,LVA vs MIN,Olivia Miles,MIN,31.0,31.7,35.9
-2026-07-20,LVA vs MIN,Kayla McBride,MIN,33.0,31.6,32.0
+2026-07-20,LVA vs MIN,Olivia Miles,MIN,31.0,31.6,35.9
+2026-07-20,LVA vs MIN,Kayla McBride,MIN,33.0,31.7,32.0
 2026-07-20,LVA vs MIN,Natasha Howard,MIN,32.0,27.8,24.0
 2026-07-20,LVA vs MIN,Jackie Young,LVA,32.0,31.7,32.8
 2026-07-20,NYL vs SEA,Dominique Malonga,SEA,29.0,27.1,27.0
@@ -442,11 +442,11 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes
 2026-07-21,Las Vegas Aces vs Minnesota Lynx,Antonia Delaere,MIN,,9.9,5.4
 2026-07-21,Las Vegas Aces vs Minnesota Lynx,Courtney Williams,MIN,,31.6,33.4
 2026-07-21,Las Vegas Aces vs Minnesota Lynx,Dorka Juhasz,MIN,,18.3,19.2
-2026-07-21,Las Vegas Aces vs Minnesota Lynx,Kayla McBride,MIN,,31.6,32.0
+2026-07-21,Las Vegas Aces vs Minnesota Lynx,Kayla McBride,MIN,,31.7,32.0
 2026-07-21,Las Vegas Aces vs Minnesota Lynx,Maya Caldwell,MIN,,11.4,12.9
 2026-07-21,Las Vegas Aces vs Minnesota Lynx,Natasha Howard,MIN,,27.8,24.0
 2026-07-21,Las Vegas Aces vs Minnesota Lynx,Nia Coffey,MIN,,26.6,28.1
-2026-07-21,Las Vegas Aces vs Minnesota Lynx,Olivia Miles,MIN,,31.7,35.9
+2026-07-21,Las Vegas Aces vs Minnesota Lynx,Olivia Miles,MIN,,31.6,35.9
 2026-07-21,New York Liberty vs Seattle Storm,Awa Fam,SEA,,30.4,30.8
 2026-07-21,New York Liberty vs Seattle Storm,Dominique Malonga,SEA,,27.1,27.0
 2026-07-21,New York Liberty vs Seattle Storm,Flau'jae Johnson,SEA,,29.0,28.5
@@ -559,11 +559,11 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes
 2026-07-18,Minnesota Lynx vs New York Liberty,Courtney Williams,MIN,,31.6,32.3
 2026-07-18,Minnesota Lynx vs New York Liberty,Dorka Juhasz,MIN,,18.3,21.3
 2026-07-18,Minnesota Lynx vs New York Liberty,Eliska Hamzova,MIN,,,2.9
-2026-07-18,Minnesota Lynx vs New York Liberty,Kayla McBride,MIN,,31.6,32.5
+2026-07-18,Minnesota Lynx vs New York Liberty,Kayla McBride,MIN,,31.7,32.5
 2026-07-18,Minnesota Lynx vs New York Liberty,Maya Caldwell,MIN,,11.4,8.2
 2026-07-18,Minnesota Lynx vs New York Liberty,Natasha Howard,MIN,,27.8,25.3
 2026-07-18,Minnesota Lynx vs New York Liberty,Nia Coffey,MIN,,26.6,19.9
-2026-07-18,Minnesota Lynx vs New York Liberty,Olivia Miles,MIN,,31.7,33.8
+2026-07-18,Minnesota Lynx vs New York Liberty,Olivia Miles,MIN,,31.6,33.8
 2026-07-18,Minnesota Lynx vs New York Liberty,Anneli Maley,NEW,,,13.6
 2026-07-18,Minnesota Lynx vs New York Liberty,Breanna Stewart,NEW,,34.4,31.7
 2026-07-18,Minnesota Lynx vs New York Liberty,Han Xu,NEW,,13.0,12.8
