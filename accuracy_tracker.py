@@ -438,11 +438,36 @@ def compute_stats() -> dict:
         except (ValueError, TypeError):
             pass
 
-    # Count unique games (date + game_label)
-    unique_games = {(r.get("date",""), r.get("game_label", r.get("rw_team","")))
-                    for r in filled_rows}
+    # Count unique games — dedupe by (date, sorted teams) so abbreviation labels
+    # and full-name labels for the same game aren't counted twice.
+    # Two teams playing each other on DIFFERENT dates are correctly kept separate.
+    _ABBREV_TO_FULL = {
+        "ATL": "Atlanta Dream", "CHI": "Chicago Sky", "CON": "Connecticut Sun",
+        "DAL": "Dallas Wings",  "GSV": "Golden State Valkyries", "IND": "Indiana Fever",
+        "LAS": "Las Vegas Aces", "LVA": "Las Vegas Aces", "LOS": "Los Angeles Sparks",
+        "MIN": "Minnesota Lynx", "NYL": "New York Liberty", "PHO": "Phoenix Mercury",
+        "POR": "Portland Fire",  "SEA": "Seattle Storm", "TOR": "Toronto Tempo",
+        "WAS": "Washington Mystics",
+    }
+    def _normalize_label(label: str) -> str:
+        parts = [p.strip() for p in label.split("vs")]
+        if len(parts) == 2:
+            parts = [_ABBREV_TO_FULL.get(p.upper(), p) for p in parts]
+            return " vs ".join(sorted(parts))
+        return label
+
+    seen_game_keys: set = set()
+    canonical_games: list = []
+    for r in filled_rows:
+        d = r.get("date", "")
+        lbl = r.get("game_label", r.get("rw_team", ""))
+        key = (d, _normalize_label(lbl))
+        if key not in seen_game_keys:
+            seen_game_keys.add(key)
+            canonical_games.append((d, lbl))
+
     game_list = sorted(
-        {f"{d} — {g}" for d, g in unique_games if g},
+        {f"{d} — {g}" for d, g in canonical_games if g},
         reverse=True
     )
 
@@ -461,7 +486,7 @@ def compute_stats() -> dict:
         "our":        _stats(our_errors),
         "rw":         _stats(rw_errors),
         "rows":       filled_rows,
-        "game_count": len(unique_games),
+        "game_count": len(seen_game_keys),
         "game_list":  game_list,
     }
 
