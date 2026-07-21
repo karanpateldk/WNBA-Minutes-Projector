@@ -277,7 +277,7 @@ def run():
     cur.execute("""
         SELECT
             g.GAME_ID,
-            g.SCHEDULED::DATE                                         AS game_date,
+            CONVERT_TIMEZONE('UTC','America/New_York',g.SCHEDULED)::DATE AS game_date,
             g.TEAM_MARKET || ' ' || g.TEAM_NAME                      AS team_name,
             g.PLAYER_FULL_NAME,
             g.PLAYER_PLAYED,
