@@ -27,27 +27,75 @@ RW_DOWNLOADS = [
 ]
 
 
+_RW_ABBREV = {
+    "ATL": "Atlanta Dream", "CHI": "Chicago Sky", "CON": "Connecticut Sun",
+    "DAL": "Dallas Wings", "GSV": "Golden State Valkyries", "GSW": "Golden State Valkyries",
+    "IND": "Indiana Fever", "LVA": "Las Vegas Aces", "LAS": "Las Vegas Aces",
+    "LOS": "Los Angeles Sparks", "LAX": "Los Angeles Sparks",
+    "MIN": "Minnesota Lynx", "NYL": "New York Liberty", "PHO": "Phoenix Mercury",
+    "POR": "Portland Fire", "SEA": "Seattle Storm", "TOR": "Toronto Tempo",
+    "WAS": "Washington Mystics",
+}
+
+
 def _find_all_rw_csvs() -> list[tuple[str, Path]]:
     """
-    Find all RotoWire projection CSVs in Downloads and return (date_str, path) pairs.
-    Uses file modification date as the game date.
+    Find all RotoWire projection CSVs and map each to the actual ET game date
+    by finding which date ALL the starters-level projected teams played.
+    Falls back to file modification date if no confident match found.
     """
     import glob as _glob
     from datetime import datetime as _dt
+
+    # Build teams-by-date from ET-corrected boxscores
+    tbd: dict[str, set] = {}
+    if BOXSCORES_PATH.exists():
+        try:
+            import csv as _csv
+            with open(BOXSCORES_PATH, encoding="utf-8") as f:
+                for row in _csv.DictReader(f):
+                    d = row.get("game_date", "")
+                    t = row.get("team_name", "").strip()
+                    if d and t:
+                        tbd.setdefault(d, set()).add(t)
+        except Exception:
+            pass
+
     results = []
     pattern = str(RW_DOWNLOADS_DIR / "wnba-daily-projections*.csv")
     for filepath in _glob.glob(pattern):
         p = Path(filepath)
         try:
-            mdate = _dt.fromtimestamp(p.stat().st_mtime).strftime("%Y-%m-%d")
-            results.append((mdate, p))
+            rw_rows = _read_rw_csv(p)
+            # Get teams with meaningful minutes (starters) — high-minute teams are the signal
+            starter_teams = {_RW_ABBREV.get(r["rw_team"].upper(), r["rw_team"])
+                             for r in rw_rows if float(r.get("rw_projected", 0) or 0) >= 20}
+
+            best_date = None
+            best_score = 0
+            mdate_fallback = _dt.fromtimestamp(p.stat().st_mtime).strftime("%Y-%m-%d")
+
+            if tbd and starter_teams:
+                for d, box_teams in tbd.items():
+                    # Score: how many starter-level teams from CSV played on this date
+                    overlap = len(starter_teams & box_teams)
+                    # Penalise if there are teams in CSV that didn't play this date
+                    missing = len(starter_teams - box_teams)
+                    score = overlap - missing * 2  # heavy penalty for mismatches
+                    if score > best_score and overlap >= 2:
+                        best_score = score
+                        best_date = d
+
+            game_date = best_date if best_date else mdate_fallback
+            results.append((game_date, p))
         except Exception:
             continue
-    # Dedupe by date — keep the most recently modified file per date
+
+    # Dedupe by date
     by_date: dict[str, Path] = {}
-    for mdate, p in results:
-        if mdate not in by_date or p.stat().st_mtime > by_date[mdate].stat().st_mtime:
-            by_date[mdate] = p
+    for gdate, p in results:
+        if gdate not in by_date:
+            by_date[gdate] = p
     return sorted(by_date.items())
 
 LOG_COLS = ["date", "game_label", "player", "rw_team", "rw_projected", "our_projected", "actual_minutes"]
@@ -251,9 +299,9 @@ def _save_log(rows: list[dict]) -> None:
         if not r.get("game_label"):
             r["game_label"] = date_labels.get(r.get("date",""), {}).get(r.get("rw_team",""), "")
 
-    # Validate: drop rows where the player's team didn't play on that date.
-    # Also dedupe by (date, player). This prevents bad RotoWire date mismatches
-    # from accumulating regardless of which code path adds the row.
+    # Dedupe by (date, player). For backfilled rows (no rw_projected), also
+    # validate the team played on that date. RotoWire rows are trusted as-is
+    # since RotoWire only projects teams playing that day.
     tbd = _teams_by_date()
     seen_keys: set = set()
     valid_rows = []
@@ -263,12 +311,14 @@ def _save_log(rows: list[dict]) -> None:
         key = (d, player)
         if key in seen_keys:
             continue
-        if tbd:
+        # Only validate backfilled rows (no RotoWire projection)
+        is_backfill = not str(r.get("rw_projected") or "").strip()
+        if is_backfill and tbd:
             rw_team = r.get("rw_team", "").strip()
             full_team = _ABBREV_TO_FULL_SAVE.get(rw_team.upper(), rw_team)
             teams_on_date = tbd.get(d, set())
             if teams_on_date and full_team not in teams_on_date:
-                continue  # team didn't play on this date
+                continue  # backfill team didn't play on this date
         seen_keys.add(key)
         valid_rows.append(r)
 
@@ -366,16 +416,17 @@ def snapshot_today(rw_path: Path | None = None, force_date: str | None = None) -
         print("[accuracy] No RotoWire rows parsed — skipping snapshot")
         return 0
 
-    # Prevent duplicate snapshots: if all players in this CSV were already
-    # snapshotted on a different date, the CSV hasn't changed — skip.
-    rw_players = {r["player"] for r in rw_rows}
-    for existing_row in existing:
-        if existing_row["date"] != today and existing_row["player"] in rw_players:
-            already_dates = {r["date"] for r in existing if r["player"] in rw_players}
-            if len(rw_players & {r["player"] for r in existing}) >= len(rw_players) * 0.8:
-                print(f"[accuracy] RotoWire CSV appears to be a duplicate of {already_dates} — skipping snapshot")
-                return 0
-            break
+    # Prevent duplicate snapshots only when date is auto-detected (not force_date).
+    # When force_date is set we're explicitly mapping this CSV to a specific date.
+    if not force_date:
+        rw_players = {r["player"] for r in rw_rows}
+        for existing_row in existing:
+            if existing_row["date"] != today and existing_row["player"] in rw_players:
+                already_dates = {r["date"] for r in existing if r["player"] in rw_players}
+                if len(rw_players & {r["player"] for r in existing}) >= len(rw_players) * 0.8:
+                    print(f"[accuracy] RotoWire CSV appears to be a duplicate of {already_dates} — skipping snapshot")
+                    return 0
+                break
 
     our_proj = _load_our_projections()
     our_names = set(our_proj.keys())
@@ -462,7 +513,8 @@ def compute_stats() -> dict:
     """
     rows = _load_existing_log()
     our_errors, rw_errors = [], []
-    filled_rows = []
+    filled_rows = []       # all rows with actuals (for full log display)
+    rw_filled_rows = []    # only rows with both RotoWire projection AND actuals
 
     for row in rows:
         actual = row.get("actual_minutes", "")
@@ -475,15 +527,19 @@ def compute_stats() -> dict:
 
         filled_rows.append(row)
 
+        has_rw = bool(row.get("rw_projected", "").strip())
+
         try:
             our_f = float(row.get("our_projected", ""))
-            our_errors.append(abs(our_f - actual_f))
+            if has_rw:  # only compare our model on rows where RW also projected
+                our_errors.append(abs(our_f - actual_f))
         except (ValueError, TypeError):
             pass
 
         try:
             rw_f = float(row.get("rw_projected", ""))
             rw_errors.append(abs(rw_f - actual_f))
+            rw_filled_rows.append(row)
         except (ValueError, TypeError):
             pass
 
@@ -505,9 +561,10 @@ def compute_stats() -> dict:
             return " vs ".join(sorted(parts))
         return label
 
+    # Game count and list based only on rows with RotoWire projections
     seen_game_keys: set = set()
     canonical_games: list = []
-    for r in filled_rows:
+    for r in rw_filled_rows:
         d = r.get("date", "")
         lbl = r.get("game_label", r.get("rw_team", ""))
         key = (d, _normalize_label(lbl))
@@ -534,7 +591,7 @@ def compute_stats() -> dict:
     return {
         "our":        _stats(our_errors),
         "rw":         _stats(rw_errors),
-        "rows":       filled_rows,
+        "rows":       rw_filled_rows,  # only rows with RW projections shown in log
         "game_count": len(seen_game_keys),
         "game_list":  game_list,
     }
