@@ -1633,9 +1633,13 @@ with _tab_rw:
                 icon="📋",
             )
         else:
+            _game_count = _stats.get("game_count", 0)
+            _game_list  = _stats.get("game_list", [])
+
             # Head-to-head metrics
             c1, c2, c3, c4 = st.columns(4)
-            c1.metric("Games tracked", _n)
+            c1.metric("Games tracked", _game_count)
+
 
             def _delta(our_val, rw_val, lower_better=True):
                 if our_val is None or rw_val is None:
@@ -1687,8 +1691,14 @@ with _tab_rw:
             ]
             st.dataframe(pd.DataFrame(_summary_rows), use_container_width=True, hide_index=True)
 
+            # Games tracked list
+            if _game_list:
+                with st.expander(f"Games tracked ({_game_count})"):
+                    for g in _game_list:
+                        st.markdown(f"- {g}")
+
             # Recent game log
-            with st.expander(f"Full log ({_n} player-games with actuals)"):
+            with st.expander(f"Full player log ({_n} player-games with actuals)"):
                 _log_rows = _stats["rows"]
                 if _log_rows:
                     df_log = pd.DataFrame(_log_rows)

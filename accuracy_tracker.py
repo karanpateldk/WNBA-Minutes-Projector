@@ -25,7 +25,7 @@ RW_DOWNLOADS = [
     Path("C:/Users/kar.patel/Downloads/wnba-daily-projections.csv"),
 ]
 
-LOG_COLS = ["date", "player", "rw_team", "rw_projected", "our_projected", "actual_minutes"]
+LOG_COLS = ["date", "game_label", "player", "rw_team", "rw_projected", "our_projected", "actual_minutes"]
 
 # RotoWire team abbreviation → full name used in season_stats
 _RW_TEAM_MAP = {
@@ -175,8 +175,31 @@ def _load_existing_log() -> list[dict]:
 
 
 def _save_log(rows: list[dict]) -> None:
+    # Backfill game_label for rows that predate the column being added
+    team_pairs: dict[str, str] = {}  # date -> teams seen
+    for r in rows:
+        d = r.get("date", "")
+        t = r.get("rw_team", "")
+        if d and t:
+            team_pairs.setdefault(d, set()).add(t)  # type: ignore[arg-type]
+    date_labels: dict[str, dict[str, str]] = {}
+    for d, teams in team_pairs.items():
+        sorted_teams = sorted(teams)
+        lmap: dict[str, str] = {}
+        for i in range(0, len(sorted_teams) - 1, 2):
+            label = f"{sorted_teams[i]} vs {sorted_teams[i+1]}"
+            lmap[sorted_teams[i]]   = label
+            lmap[sorted_teams[i+1]] = label
+        if len(sorted_teams) % 2 == 1:
+            lmap[sorted_teams[-1]] = sorted_teams[-1]
+        date_labels[d] = lmap
+
+    for r in rows:
+        if not r.get("game_label"):
+            r["game_label"] = date_labels.get(r.get("date",""), {}).get(r.get("rw_team",""), "")
+
     with open(LOG_PATH, "w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=LOG_COLS)
+        w = csv.DictWriter(f, fieldnames=LOG_COLS, extrasaction="ignore")
         w.writeheader()
         w.writerows(rows)
 
@@ -271,18 +294,31 @@ def snapshot_today(rw_path: Path | None = None) -> int:
     our_proj = _load_our_projections()
     our_names = set(our_proj.keys())
 
+    # Build game labels from unique teams in the CSV e.g. "NYL vs DAL"
+    teams_in_csv = sorted({r["rw_team"] for r in rw_rows})
+    # Pair teams into games (every 2 teams = 1 game)
+    game_label_map: dict[str, str] = {}
+    for i in range(0, len(teams_in_csv) - 1, 2):
+        label = f"{teams_in_csv[i]} vs {teams_in_csv[i+1]}"
+        game_label_map[teams_in_csv[i]]   = label
+        game_label_map[teams_in_csv[i+1]] = label
+    # If odd team count, last team gets its own label
+    if len(teams_in_csv) % 2 == 1:
+        game_label_map[teams_in_csv[-1]] = teams_in_csv[-1]
+
     new_rows = []
     unmatched = []
     for rw in rw_rows:
         matched = _fuzzy_match(rw["player"], our_names)
         our_min = our_proj.get(matched, "") if matched else ""
         new_rows.append({
-            "date":          today,
-            "player":        rw["player"],
-            "rw_team":       rw["rw_team"],
-            "rw_projected":  rw["rw_projected"],
-            "our_projected": our_min,
-            "actual_minutes": "",  # filled in later by fill_actuals()
+            "date":           today,
+            "game_label":     game_label_map.get(rw["rw_team"], rw["rw_team"]),
+            "player":         rw["player"],
+            "rw_team":        rw["rw_team"],
+            "rw_projected":   rw["rw_projected"],
+            "our_projected":  our_min,
+            "actual_minutes": "",
         })
         if not matched:
             unmatched.append(rw["player"])
@@ -365,6 +401,14 @@ def compute_stats() -> dict:
         except (ValueError, TypeError):
             pass
 
+    # Count unique games (date + game_label)
+    unique_games = {(r.get("date",""), r.get("game_label", r.get("rw_team","")))
+                    for r in filled_rows}
+    game_list = sorted(
+        {f"{d} — {g}" for d, g in unique_games if g},
+        reverse=True
+    )
+
     def _stats(errors: list[float]) -> dict:
         if not errors:
             return {"mae": None, "within2": None, "within4": None, "n": 0}
@@ -377,9 +421,11 @@ def compute_stats() -> dict:
         }
 
     return {
-        "our":  _stats(our_errors),
-        "rw":   _stats(rw_errors),
-        "rows": filled_rows,
+        "our":        _stats(our_errors),
+        "rw":         _stats(rw_errors),
+        "rows":       filled_rows,
+        "game_count": len(unique_games),
+        "game_list":  game_list,
     }
 
 
