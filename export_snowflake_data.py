@@ -171,19 +171,24 @@ def run():
         )
         -- True per-player last3/last5/trend (not team-game-window based)
         ,player_game_ranks AS (
+            -- Include all games where player was on roster (played or healthy DNP = 0 min).
+            -- Injury DNPs excluded: those have PLAYER_NOT_PLAYING_REASON set.
+            -- A healthy scratch genuinely played 0 min and should count in the average.
             SELECT
                 g.PLAYER_FULL_NAME,
                 g.TEAM_MARKET || ' ' || g.TEAM_NAME AS team_name,
-                ROUND((TRY_CAST(SPLIT_PART(g.PLAYER_STATISTICS_MINUTES,':',1) AS INT)*60 +
-                       TRY_CAST(SPLIT_PART(g.PLAYER_STATISTICS_MINUTES,':',2) AS INT))/60.0, 2) AS minutes,
+                CASE WHEN g.PLAYER_PLAYED = TRUE
+                     THEN ROUND((TRY_CAST(SPLIT_PART(g.PLAYER_STATISTICS_MINUTES,':',1) AS INT)*60 +
+                                 TRY_CAST(SPLIT_PART(g.PLAYER_STATISTICS_MINUTES,':',2) AS INT))/60.0, 2)
+                     ELSE 0.0
+                END AS minutes,
                 ROW_NUMBER() OVER (PARTITION BY g.PLAYER_FULL_NAME, g.TEAM_MARKET, g.TEAM_NAME
                                    ORDER BY s.scheduled DESC) AS rn
             FROM SPORTRADAR.DBO.WNBA_GAMESUMMARY_PLAYERS g
             JOIN SPORTRADAR.DBO.WNBA_SCHEDULE s ON g.GAME_ID = s.GAME_ID
             WHERE s.season_type = 'REG' AND s.season_year = 2026
               AND s.game_status IN ('complete','closed')
-              AND g.PLAYER_PLAYED = TRUE
-              AND g.PLAYER_STATISTICS_MINUTES IS NOT NULL
+              AND (g.PLAYER_PLAYED = TRUE OR g.PLAYER_NOT_PLAYING_REASON IS NULL)
         ),
         player_trends AS (
             SELECT
