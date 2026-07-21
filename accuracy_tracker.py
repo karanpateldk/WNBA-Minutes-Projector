@@ -257,6 +257,17 @@ def snapshot_today(rw_path: Path | None = None) -> int:
         print("[accuracy] No RotoWire rows parsed — skipping snapshot")
         return 0
 
+    # Prevent duplicate snapshots: if all players in this CSV were already
+    # snapshotted on a different date, the CSV hasn't changed — skip.
+    rw_players = {r["player"] for r in rw_rows}
+    for existing_row in existing:
+        if existing_row["date"] != today and existing_row["player"] in rw_players:
+            already_dates = {r["date"] for r in existing if r["player"] in rw_players}
+            if len(rw_players & {r["player"] for r in existing}) >= len(rw_players) * 0.8:
+                print(f"[accuracy] RotoWire CSV appears to be a duplicate of {already_dates} — skipping snapshot")
+                return 0
+            break
+
     our_proj = _load_our_projections()
     our_names = set(our_proj.keys())
 
