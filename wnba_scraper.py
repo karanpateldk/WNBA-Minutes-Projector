@@ -966,6 +966,7 @@ def get_team_data(team_name: str) -> dict:
             "avg_min_close":       sp.get("avg_min_close"),
             "blowout_dependent":   sp.get("blowout_dependent"),
             "recent_starter_pct":  sp.get("recent_starter_pct"),
+            "trend_3v6":           sp.get("trend_3v6", 0.0),
             # Team-level role averages from Snowflake (same value on every player)
             "role_avg_starter":    season.get("role_avg_starter", 0.0),
             "role_avg_bench":      season.get("role_avg_bench", 0.0),
