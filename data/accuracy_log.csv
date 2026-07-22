@@ -1,38 +1,38 @@
 date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes
 2026-07-16,POR vs WAS,Sonia Citron,WAS,32.0,31.4,29.3
 2026-07-16,POR vs WAS,Kiki Iriafen,WAS,29.0,29.6,24.0
-2026-07-16,POR vs WAS,Carla Leite,POR,27.0,29.2,23.0
+2026-07-16,POR vs WAS,Carla Leite,POR,27.0,26.4,23.0
 2026-07-16,POR vs WAS,Shakira Austin,WAS,29.0,30.6,33.5
-2026-07-16,POR vs WAS,Bridget Carleton,POR,30.0,31.4,26.0
-2026-07-16,POR vs WAS,Sarah Ashlee Barker,POR,26.0,27.4,24.0
+2026-07-16,POR vs WAS,Bridget Carleton,POR,30.0,28.4,26.0
+2026-07-16,POR vs WAS,Sarah Ashlee Barker,POR,26.0,24.7,24.0
 2026-07-16,POR vs WAS,Michaela Onyenwere,WAS,25.0,28.6,26.1
-2026-07-16,POR vs WAS,Emily Engstler,POR,26.0,27.5,21.8
-2026-07-16,POR vs WAS,Frieda Buhner,POR,20.0,16.0,18.2
+2026-07-16,POR vs WAS,Emily Engstler,POR,26.0,24.8,21.8
+2026-07-16,POR vs WAS,Frieda Buhner,POR,20.0,14.4,18.2
 2026-07-16,POR vs WAS,Lauren Betts,WAS,17.0,15.3,12.3
 2026-07-16,POR vs WAS,Georgia Amoore,WAS,22.0,25.0,15.7
-2026-07-16,POR vs WAS,Serah Williams,POR,18.0,20.8,24.7
+2026-07-16,POR vs WAS,Serah Williams,POR,18.0,18.8,24.7
 2026-07-16,POR vs WAS,Cotie McMahon,WAS,18.0,14.4,12.1
-2026-07-16,POR vs WAS,Nyadiew Puoch,POR,20.0,10.5,14.0
-2026-07-16,POR vs WAS,Teja Oblak,POR,10.0,12.7,17.0
+2026-07-16,POR vs WAS,Nyadiew Puoch,POR,20.0,,14.0
+2026-07-16,POR vs WAS,Teja Oblak,POR,10.0,11.5,17.0
 2026-07-16,POR vs WAS,Alicia Florez,WAS,15.0,13.3,17.7
-2026-07-16,POR vs WAS,Karlie Samuelson,POR,12.0,15.9,13.4
-2026-07-16,POR vs WAS,Luisa Geiselsoder,POR,8.0,13.6,15.3
+2026-07-16,POR vs WAS,Karlie Samuelson,POR,12.0,12.7,13.4
+2026-07-16,POR vs WAS,Luisa Geiselsoder,POR,8.0,12.3,15.3
 2026-07-16,POR vs WAS,Cassandre Prosper,WAS,9.0,11.8,16.6
 2026-07-16,POR vs WAS,Holly Winterburn,POR,3.0,,2.6
 2026-07-16,POR vs WAS,Lucy Olsen,WAS,2.0,,2.6
 2026-07-16,POR vs WAS,Angela Dugalic,WAS,2.0,,7.6
 2026-07-17,SEA vs TOR,Marina Mabrey,TOR,32.0,31.9,31.3
-2026-07-17,LAS vs PHO,Kahleah Copper,PHO,34.0,31.6,34.7
+2026-07-17,LAS vs PHO,Kahleah Copper,PHO,34.0,31.0,34.7
 2026-07-17,CON vs IND,Kelsey Mitchell,IND,31.0,31.1,33.6
 2026-07-17,ATL vs CHI,Allisha Gray,ATL,35.0,39.4,29.8
 2026-07-17,CON vs IND,Caitlin Clark,IND,31.0,27.3,29.5
 2026-07-17,ATL vs CHI,Rhyne Howard,ATL,35.0,40.3,31.3
 2026-07-17,ATL vs CHI,Sydney Taylor,CHI,26.0,25.0,26.2
 2026-07-17,CON vs IND,Aliyah Boston,IND,29.0,26.1,
-2026-07-17,LAS vs PHO,Nneka Ogwumike,LAS,30.0,33.6,31.3
+2026-07-17,LAS vs PHO,Nneka Ogwumike,LAS,30.0,33.5,31.3
 2026-07-17,SEA vs TOR,Dominique Malonga,SEA,28.0,27.1,29.3
 2026-07-17,ATL vs CHI,Angel Reese,ATL,32.0,,33.0
-2026-07-17,LAS vs PHO,Alyssa Thomas,PHO,35.0,32.4,35.7
+2026-07-17,LAS vs PHO,Alyssa Thomas,PHO,35.0,31.7,35.7
 2026-07-17,LAS vs PHO,Dearica Hamby,LAS,30.0,30.3,26.3
 2026-07-17,ATL vs CHI,Azura Stevens,CHI,32.0,27.2,27.9
 2026-07-17,SEA vs TOR,Natisha Hiedeman,SEA,28.0,28.6,29.6
@@ -47,10 +47,10 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes
 2026-07-17,ATL vs CHI,Kamilla Cardoso,CHI,21.0,25.4,24.3
 2026-07-17,SEA vs TOR,Flau'jae Johnson,SEA,25.0,29.0,31.2
 2026-07-17,LAS vs PHO,Ariel Atkins,LAS,28.0,32.2,34.0
-2026-07-17,LAS vs PHO,DeWanna Bonner,PHO,28.0,27.7,29.5
+2026-07-17,LAS vs PHO,DeWanna Bonner,PHO,28.0,27.1,29.5
 2026-07-17,SEA vs TOR,Nyara Sabally,TOR,21.0,,21.0
-2026-07-17,LAS vs PHO,Cameron Brink,LAS,18.0,18.2,18.6
-2026-07-17,LAS vs PHO,Valeriane Ayayi,PHO,23.0,15.0,18.3
+2026-07-17,LAS vs PHO,Cameron Brink,LAS,18.0,18.3,18.6
+2026-07-17,LAS vs PHO,Valeriane Ayayi,PHO,23.0,14.7,18.3
 2026-07-17,LAS vs PHO,Erica Wheeler,LAS,28.0,32.9,31.7
 2026-07-17,SEA vs TOR,Maria Conde,TOR,29.0,29.6,30.7
 2026-07-17,CON vs IND,Diamond Miller,CON,25.0,27.5,21.5
@@ -66,15 +66,15 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes
 2026-07-17,LAS vs PHO,Alexa Held,PHO,23.0,,
 2026-07-17,SEA vs TOR,Jade Melbourne,SEA,20.0,23.6,29.6
 2026-07-17,ATL vs CHI,Naz Hillmon,ATL,24.0,37.0,25.0
-2026-07-17,LAS vs PHO,Noemie Brochant,PHO,27.0,22.1,23.1
-2026-07-17,LAS vs PHO,Monique Akoa Makani,PHO,15.0,25.7,19.5
+2026-07-17,LAS vs PHO,Noemie Brochant,PHO,27.0,21.7,23.1
+2026-07-17,LAS vs PHO,Monique Akoa Makani,PHO,15.0,25.2,19.5
 2026-07-17,ATL vs CHI,Jacy Sheldon,CHI,18.0,20.5,27.7
 2026-07-17,CON vs IND,Monique Billings,IND,19.0,22.2,30.8
 2026-07-17,SEA vs TOR,Kia Nurse,TOR,15.0,15.4,17.6
 2026-07-17,CON vs IND,Lexie Hull,IND,20.0,19.9,13.6
 2026-07-17,SEA vs TOR,Zia Cooke,SEA,12.0,17.3,7.6
 2026-07-17,SEA vs TOR,Stefanie Dolson,SEA,18.0,12.0,3.2
-2026-07-17,LAS vs PHO,Sami Whitcomb,PHO,12.0,,13.0
+2026-07-17,LAS vs PHO,Sami Whitcomb,PHO,12.0,12.7,13.0
 2026-07-17,CON vs IND,Raven Johnson,IND,15.0,,2.7
 2026-07-17,SEA vs TOR,Katie Lou Samuelson,SEA,15.0,15.9,18.6
 2026-07-17,CON vs IND,Myisha Hines-Allen,IND,15.0,12.8,9.2
@@ -111,22 +111,22 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes
 2026-07-18,MIN vs NYL,Breanna Stewart,NYL,32.0,34.4,31.7
 2026-07-18,GSV vs IND,Kelsey Mitchell,IND,31.0,31.1,29.6
 2026-07-18,GSV vs IND,Caitlin Clark,IND,31.0,27.3,26.2
-2026-07-18,MIN vs NYL,Kayla McBride,MIN,32.0,31.7,32.5
+2026-07-18,MIN vs NYL,Kayla McBride,MIN,32.0,31.6,32.5
 2026-07-18,MIN vs NYL,Natasha Howard,MIN,31.0,27.8,25.3
 2026-07-18,GSV vs IND,Aliyah Boston,IND,29.0,26.1,23.6
 2026-07-18,MIN vs NYL,Olivia Miles,MIN,26.0,31.6,33.8
 2026-07-18,MIN vs NYL,Jonquel Jones,NYL,29.0,30.5,27.4
 2026-07-18,POR vs WAS,Sonia Citron,WAS,33.0,31.4,29.7
 2026-07-18,MIN vs NYL,Sabrina Ionescu,NYL,33.0,31.9,33.5
-2026-07-18,MIN vs NYL,Courtney Williams,MIN,29.0,31.6,32.3
+2026-07-18,MIN vs NYL,Courtney Williams,MIN,29.0,31.7,32.3
 2026-07-18,POR vs WAS,Kiki Iriafen,WAS,30.0,29.6,24.1
 2026-07-18,GSV vs IND,Gabby Williams,GSV,24.0,25.7,27.6
-2026-07-18,POR vs WAS,Carla Leite,POR,23.0,29.2,30.8
-2026-07-18,POR vs WAS,Megan Gustafson,POR,25.0,,
-2026-07-18,POR vs WAS,Bridget Carleton,POR,30.0,31.4,32.4
+2026-07-18,POR vs WAS,Carla Leite,POR,23.0,26.4,30.8
+2026-07-18,POR vs WAS,Megan Gustafson,POR,25.0,26.0,
+2026-07-18,POR vs WAS,Bridget Carleton,POR,30.0,28.4,32.4
 2026-07-18,POR vs WAS,Shakira Austin,WAS,29.0,30.6,31.4
 2026-07-18,GSV vs IND,Veronica Burton,GSV,29.0,27.9,32.5
-2026-07-18,POR vs WAS,Sarah Ashlee Barker,POR,28.0,27.4,30.1
+2026-07-18,POR vs WAS,Sarah Ashlee Barker,POR,28.0,24.7,30.1
 2026-07-18,GSV vs IND,Janelle Salaun,GSV,18.0,18.8,17.9
 2026-07-18,MIN vs NYL,Pauline Astier,NYL,23.0,25.2,22.6
 2026-07-18,MIN vs NYL,Dorka Juhasz,MIN,25.0,18.3,21.3
@@ -137,8 +137,8 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes
 2026-07-18,GSV vs IND,Sophie Cunningham,IND,21.0,22.0,21.6
 2026-07-18,GSV vs IND,Kayla Thornton,GSV,25.0,27.3,27.3
 2026-07-18,GSV vs IND,Tiffany Hayes,GSV,18.0,13.7,12.1
-2026-07-18,POR vs WAS,Emily Engstler,POR,21.0,27.5,28.7
-2026-07-18,POR vs WAS,Frieda Buhner,POR,18.0,16.0,16.8
+2026-07-18,POR vs WAS,Emily Engstler,POR,21.0,24.8,28.7
+2026-07-18,POR vs WAS,Frieda Buhner,POR,18.0,14.4,16.8
 2026-07-18,MIN vs NYL,Rebekah Gardner,NYL,20.0,13.3,
 2026-07-18,POR vs WAS,Cotie McMahon,WAS,22.0,14.4,17.6
 2026-07-18,GSV vs IND,Monique Billings,IND,19.0,22.2,17.8
@@ -152,20 +152,20 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes
 2026-07-18,GSV vs IND,Raven Johnson,IND,15.0,,3.5
 2026-07-18,MIN vs NYL,Anastasiia Kosu,MIN,11.0,11.1,13.5
 2026-07-18,GSV vs IND,Myisha Hines-Allen,IND,15.0,12.8,14.3
-2026-07-18,POR vs WAS,Luisa Geiselsoder,POR,14.0,13.6,11.4
+2026-07-18,POR vs WAS,Luisa Geiselsoder,POR,14.0,12.3,11.4
 2026-07-18,MIN vs NYL,Han Xu,NYL,9.0,13.0,12.8
 2026-07-18,MIN vs NYL,Anneli Maley,NYL,11.0,,13.6
-2026-07-18,POR vs WAS,Serah Williams,POR,11.0,20.8,23.1
+2026-07-18,POR vs WAS,Serah Williams,POR,11.0,18.8,23.1
 2026-07-18,MIN vs NYL,Maya Caldwell,MIN,12.0,11.4,8.2
 2026-07-18,GSV vs IND,Laeticia Amihere,GSV,11.0,11.7,13.1
-2026-07-18,POR vs WAS,Nyadiew Puoch,POR,15.0,10.5,7.7
-2026-07-18,POR vs WAS,Teja Oblak,POR,7.0,12.7,9.8
+2026-07-18,POR vs WAS,Nyadiew Puoch,POR,15.0,,7.7
+2026-07-18,POR vs WAS,Teja Oblak,POR,7.0,11.5,9.8
 2026-07-18,GSV vs IND,Tyasha Harris,IND,10.0,17.0,20.7
 2026-07-18,POR vs WAS,Angela Dugalic,WAS,8.0,,3.5
 2026-07-18,POR vs WAS,Cassandre Prosper,WAS,9.0,11.8,6.6
 2026-07-18,MIN vs NYL,Antonia Delaere,MIN,7.0,9.9,10.3
 2026-07-18,POR vs WAS,Alicia Florez,WAS,7.0,13.3,7.3
-2026-07-18,POR vs WAS,Karlie Samuelson,POR,6.0,15.9,
+2026-07-18,POR vs WAS,Karlie Samuelson,POR,6.0,12.7,
 2026-07-18,GSV vs IND,Juste Jocyte,GSV,4.0,,
 2026-07-18,GSV vs IND,Makayla Timpson,IND,6.0,21.6,24.0
 2026-07-18,MIN vs NYL,Marine Fauthoux,NYL,2.0,13.4,15.1
@@ -177,19 +177,19 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes
 2026-07-18,POR vs WAS,Lucy Olsen,WAS,1.0,,
 2026-07-18,GSV vs IND,Grace VanSlooten,IND,1.0,,
 2026-07-18,POR vs WAS,Rori Harmon,WAS,1.0,,
-2026-07-19,LAS vs PHO,Kahleah Copper,PHO,34.0,31.6,34.8
-2026-07-19,CON vs DAL,Paige Bueckers,DAL,33.0,,32.0
+2026-07-19,LAS vs PHO,Kahleah Copper,PHO,34.0,31.0,34.8
+2026-07-19,CON vs DAL,Paige Bueckers,DAL,33.0,31.5,32.0
 2026-07-19,ATL vs CHI,Allisha Gray,ATL,35.0,39.4,34.9
 2026-07-19,ATL vs CHI,Rhyne Howard,ATL,35.0,40.3,34.6
-2026-07-19,LAS vs PHO,Nneka Ogwumike,LAS,30.0,33.6,32.7
+2026-07-19,LAS vs PHO,Nneka Ogwumike,LAS,30.0,33.5,32.7
 2026-07-19,ATL vs CHI,Sydney Taylor,CHI,26.0,25.0,27.7
 2026-07-19,ATL vs CHI,Angel Reese,ATL,32.0,,20.3
-2026-07-19,CON vs DAL,Jessica Shepard,DAL,33.0,36.4,38.5
+2026-07-19,CON vs DAL,Jessica Shepard,DAL,33.0,32.2,38.5
 2026-07-19,LAS vs PHO,Dearica Hamby,LAS,30.0,30.3,25.2
-2026-07-19,LAS vs PHO,Alyssa Thomas,PHO,34.0,32.4,34.2
+2026-07-19,LAS vs PHO,Alyssa Thomas,PHO,34.0,31.7,34.2
 2026-07-19,ATL vs CHI,Azura Stevens,CHI,32.0,27.2,29.8
-2026-07-19,CON vs DAL,Azzi Fudd,DAL,31.0,35.7,32.6
-2026-07-19,CON vs DAL,Arike Ogunbowale,DAL,28.0,33.9,31.1
+2026-07-19,CON vs DAL,Azzi Fudd,DAL,31.0,31.5,32.6
+2026-07-19,CON vs DAL,Arike Ogunbowale,DAL,28.0,29.9,31.1
 2026-07-19,CON vs DAL,Leila Lacan,CON,29.0,32.5,36.7
 2026-07-19,CON vs DAL,Brittney Griner,CON,26.0,28.1,30.9
 2026-07-19,LAS vs PHO,Rae Burrell,LAS,27.0,30.7,28.1
@@ -197,41 +197,41 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes
 2026-07-19,ATL vs CHI,Natasha Cloud,CHI,32.0,28.1,32.2
 2026-07-19,ATL vs CHI,Kamilla Cardoso,CHI,21.0,25.4,24.3
 2026-07-19,LAS vs PHO,Ariel Atkins,LAS,28.0,32.2,31.5
-2026-07-19,LAS vs PHO,Cameron Brink,LAS,18.0,18.2,20.6
+2026-07-19,LAS vs PHO,Cameron Brink,LAS,18.0,18.3,20.6
 2026-07-19,LAS vs PHO,Erica Wheeler,LAS,28.0,32.9,35.2
 2026-07-19,CON vs DAL,Olivia Nelson-Ododa,CON,22.0,25.2,26.1
-2026-07-19,LAS vs PHO,DeWanna Bonner,PHO,26.0,27.7,28.6
+2026-07-19,LAS vs PHO,DeWanna Bonner,PHO,26.0,27.1,28.6
 2026-07-19,CON vs DAL,Aaliyah Edwards,CON,19.0,,4.5
 2026-07-19,ATL vs CHI,Courtney Vandersloot,CHI,20.0,19.3,21.3
 2026-07-19,ATL vs CHI,Brionna Jones,ATL,18.0,18.3,15.1
 2026-07-19,ATL vs CHI,Naz Hillmon,ATL,26.0,37.0,33.9
 2026-07-19,CON vs DAL,Kennedy Burke,CON,24.0,21.3,19.7
 2026-07-19,ATL vs CHI,Gabriela Jaquez,CHI,21.0,17.1,14.7
-2026-07-19,LAS vs PHO,Valeriane Ayayi,PHO,18.0,15.0,14.4
+2026-07-19,LAS vs PHO,Valeriane Ayayi,PHO,18.0,14.7,14.4
 2026-07-19,CON vs DAL,Diamond Miller,CON,20.0,27.5,31.2
 2026-07-19,CON vs DAL,Aneesah Morrow,CON,17.0,,
-2026-07-19,LAS vs PHO,Monique Akoa Makani,PHO,17.0,25.7,32.2
-2026-07-19,LAS vs PHO,Natasha Mack,PHO,18.0,22.0,19.5
-2026-07-19,CON vs DAL,Awak Kuier,DAL,18.0,21.4,9.1
+2026-07-19,LAS vs PHO,Monique Akoa Makani,PHO,17.0,25.2,32.2
+2026-07-19,LAS vs PHO,Natasha Mack,PHO,18.0,21.6,19.5
+2026-07-19,CON vs DAL,Awak Kuier,DAL,18.0,19.0,9.1
 2026-07-19,CON vs DAL,Charlisse Leger-Walker,CON,20.0,28.1,28.6
 2026-07-19,ATL vs CHI,Isobel Borlase,ATL,16.0,14.8,11.5
 2026-07-19,LAS vs PHO,Alexa Held,PHO,17.0,,
 2026-07-19,ATL vs CHI,Jacy Sheldon,CHI,18.0,20.5,19.5
-2026-07-19,LAS vs PHO,Noemie Brochant,PHO,20.0,22.1,23.1
-2026-07-19,LAS vs PHO,Sami Whitcomb,PHO,14.0,,
-2026-07-19,CON vs DAL,Maddy Siegrist,DAL,12.0,12.2,11.9
-2026-07-19,CON vs DAL,Aziaha James,DAL,10.0,9.4,7.4
-2026-07-19,CON vs DAL,Li Yueru,DAL,12.0,15.6,13.3
+2026-07-19,LAS vs PHO,Noemie Brochant,PHO,20.0,21.7,23.1
+2026-07-19,LAS vs PHO,Sami Whitcomb,PHO,14.0,12.7,
+2026-07-19,CON vs DAL,Maddy Siegrist,DAL,12.0,10.8,11.9
+2026-07-19,CON vs DAL,Aziaha James,DAL,10.0,,7.4
+2026-07-19,CON vs DAL,Li Yueru,DAL,12.0,13.8,13.3
 2026-07-19,LAS vs PHO,Jihyun Park,LAS,16.0,11.6,14.9
 2026-07-19,CON vs DAL,Saniya Rivers,CON,13.0,16.6,
-2026-07-19,CON vs DAL,Odyssey Sims,DAL,10.0,16.9,16.9
+2026-07-19,CON vs DAL,Odyssey Sims,DAL,10.0,14.9,16.9
 2026-07-19,ATL vs CHI,Aicha Coulibaly,CHI,10.0,9.6,5.5
 2026-07-19,ATL vs CHI,Rachel Banham,CHI,10.0,,4.6
 2026-07-19,ATL vs CHI,Elizabeth Williams,CHI,10.0,17.0,15.7
 2026-07-19,LAS vs PHO,Emma Cannon,LAS,5.0,,1.4
 2026-07-19,LAS vs PHO,Kiana Williams,LAS,9.0,,
 2026-07-19,ATL vs CHI,Madina Okot,ATL,5.0,11.0,10.7
-2026-07-19,CON vs DAL,Sug Sutton,DAL,7.0,18.5,
+2026-07-19,CON vs DAL,Sug Sutton,DAL,7.0,16.4,
 2026-07-19,LAS vs PHO,Kate Martin,LAS,6.0,,
 2026-07-19,CON vs DAL,Alysha Clark,DAL,6.0,,7.3
 2026-07-19,CON vs DAL,Hailey Van Lith,CON,2.0,9.0,3.4
@@ -247,16 +247,16 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes
 2026-07-20,TOR vs WAS,Marina Mabrey,TOR,31.0,31.9,30.6
 2026-07-20,NYL vs SEA,Breanna Stewart,NYL,33.0,34.4,42.3
 2026-07-20,LVA vs MIN,Olivia Miles,MIN,31.0,31.6,35.9
-2026-07-20,LVA vs MIN,Kayla McBride,MIN,33.0,31.7,32.0
+2026-07-20,LVA vs MIN,Kayla McBride,MIN,33.0,31.6,32.0
 2026-07-20,LVA vs MIN,Natasha Howard,MIN,32.0,27.8,24.0
 2026-07-20,LVA vs MIN,Jackie Young,LVA,32.0,31.7,32.8
 2026-07-20,NYL vs SEA,Jonquel Jones,NYL,31.0,30.5,33.1
 2026-07-20,NYL vs SEA,Dominique Malonga,SEA,29.0,27.1,27.0
 2026-07-20,NYL vs SEA,Sabrina Ionescu,NYL,34.0,31.9,35.8
-2026-07-20,DAL vs GSV,Azzi Fudd,DAL,36.0,35.7,42.7
-2026-07-20,DAL vs GSV,Arike Ogunbowale,DAL,33.0,33.9,37.8
-2026-07-20,DAL vs GSV,Jessica Shepard,DAL,34.0,36.4,38.1
-2026-07-20,LVA vs MIN,Courtney Williams,MIN,33.0,31.6,33.4
+2026-07-20,DAL vs GSV,Azzi Fudd,DAL,36.0,31.5,42.7
+2026-07-20,DAL vs GSV,Arike Ogunbowale,DAL,33.0,29.9,37.8
+2026-07-20,DAL vs GSV,Jessica Shepard,DAL,34.0,32.2,38.1
+2026-07-20,LVA vs MIN,Courtney Williams,MIN,33.0,31.7,33.4
 2026-07-20,NYL vs SEA,Natisha Hiedeman,SEA,31.0,28.6,28.0
 2026-07-20,DAL vs GSV,Gabby Williams,GSV,26.0,25.7,25.9
 2026-07-20,TOR vs WAS,Sonia Citron,WAS,31.0,31.4,32.0
@@ -279,18 +279,18 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes
 2026-07-20,DAL vs GSV,Kayla Thornton,GSV,26.0,27.3,28.8
 2026-07-20,DAL vs GSV,Cecilia Zandalasini,GSV,20.0,19.3,17.0
 2026-07-20,DAL vs GSV,Tiffany Hayes,GSV,18.0,13.7,9.6
-2026-07-20,DAL vs GSV,Maddy Siegrist,DAL,17.0,12.2,10.9
+2026-07-20,DAL vs GSV,Maddy Siegrist,DAL,17.0,10.8,10.9
 2026-07-20,LVA vs MIN,Dorka Juhasz,MIN,21.0,18.3,19.2
-2026-07-20,DAL vs GSV,Aziaha James,DAL,13.0,9.4,7.9
+2026-07-20,DAL vs GSV,Aziaha James,DAL,13.0,,7.9
 2026-07-20,NYL vs SEA,Han Xu,NYL,14.0,13.0,11.5
 2026-07-20,TOR vs WAS,Lauren Betts,WAS,18.0,15.3,14.0
 2026-07-20,TOR vs WAS,Kia Nurse,TOR,15.0,15.4,18.4
 2026-07-20,LVA vs MIN,Nia Coffey,MIN,20.0,26.6,28.1
-2026-07-20,DAL vs GSV,Odyssey Sims,DAL,15.0,16.9,21.0
+2026-07-20,DAL vs GSV,Odyssey Sims,DAL,15.0,14.9,21.0
 2026-07-20,TOR vs WAS,Georgia Amoore,WAS,22.0,25.0,27.2
-2026-07-20,DAL vs GSV,Li Yueru,DAL,15.0,15.6,16.1
+2026-07-20,DAL vs GSV,Li Yueru,DAL,15.0,13.8,16.1
 2026-07-20,TOR vs WAS,Temi Fagbenle,TOR,15.0,17.3,14.6
-2026-07-20,DAL vs GSV,Awak Kuier,DAL,15.0,21.4,24.9
+2026-07-20,DAL vs GSV,Awak Kuier,DAL,15.0,19.0,24.9
 2026-07-20,TOR vs WAS,Cotie McMahon,WAS,18.0,14.4,11.5
 2026-07-20,DAL vs GSV,Kaila Charles,GSV,16.0,16.5,17.5
 2026-07-20,NYL vs SEA,Katie Lou Samuelson,SEA,17.0,15.9,14.7
@@ -303,7 +303,7 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes
 2026-07-20,NYL vs SEA,Jordan Horston,SEA,16.0,16.1,13.2
 2026-07-20,NYL vs SEA,Marine Fauthoux,NYL,10.0,13.4,27.1
 2026-07-20,LVA vs MIN,Justine Pissott,LVA,10.0,11.2,9.7
-2026-07-20,DAL vs GSV,Sug Sutton,DAL,9.0,18.5,21.7
+2026-07-20,DAL vs GSV,Sug Sutton,DAL,9.0,16.4,21.7
 2026-07-20,LVA vs MIN,Anastasiia Kosu,MIN,10.0,11.1,8.8
 2026-07-20,NYL vs SEA,Rebekah Gardner,NYL,10.0,13.3,15.4
 2026-07-20,DAL vs GSV,Alysha Clark,DAL,13.0,,3.9
@@ -326,8 +326,8 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes
 2026-07-20,TOR vs WAS,Lucy Olsen,WAS,1.0,,
 2026-07-20,TOR vs WAS,Rori Harmon,WAS,1.0,,
 2026-07-16,Portland Fire vs Washington Mystics,Rori Harmon,WAS,,,2.6
-2026-07-17,Los Angeles Sparks vs Phoenix Mercury,Lexi Held,PHO,,14.6,19.1
-2026-07-17,Los Angeles Sparks vs Phoenix Mercury,Marta Suarez,PHO,,8.9,7.0
+2026-07-17,Los Angeles Sparks vs Phoenix Mercury,Lexi Held,PHO,,14.3,19.1
+2026-07-17,Los Angeles Sparks vs Phoenix Mercury,Marta Suarez,PHO,,,7.0
 2026-07-17,Atlanta Dream vs Chicago Sky,Aaliyah Nye,ATL,,,0.9
 2026-07-17,Atlanta Dream vs Chicago Sky,Jaylyn Sherrod,ATL,,,7.0
 2026-07-17,Atlanta Dream vs Chicago Sky,Shatori Walker-Kimbrough,ATL,,,0.9
@@ -335,147 +335,8 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes
 2026-07-17,Seattle Storm vs Toronto Tempo,Kayla Alexander,TOR,,10.7,0.9
 2026-07-18,Minnesota Lynx vs New York Liberty,Anastasiia Olairi Kosu,MIN,,11.1,13.5
 2026-07-18,Minnesota Lynx vs New York Liberty,Eliska Hamzova,MIN,,,2.9
-2026-07-18,Portland Fire vs Washington Mystics,Jordan Harrison,POR,,10.9,9.2
-2026-07-19,Los Angeles Sparks vs Phoenix Mercury,Lexi Held,PHO,,14.6,13.2
+2026-07-18,Portland Fire vs Washington Mystics,Jordan Harrison,POR,,,9.2
+2026-07-19,Los Angeles Sparks vs Phoenix Mercury,Lexi Held,PHO,,14.3,13.2
 2026-07-19,Atlanta Dream vs Chicago Sky,Jaylyn Sherrod,ATL,,,5.1
 2026-07-19,Atlanta Dream vs Chicago Sky,Chloe Bibby,CHI,,10.8,4.7
 2026-07-20,Las Vegas Aces vs Minnesota Lynx,Anastasiia Olairi Kosu,MIN,,11.1,8.8
-2026-06-17,LAS vs LVA,A'ja Wilson,LVA,33.0,29.6,37.0
-2026-06-17,PHO vs POR,Kahleah Copper,PHO,34.0,31.6,30.2
-2026-06-17,MIN vs NYL,Breanna Stewart,NYL,32.0,34.4,35.4
-2026-06-17,DAL vs IND,Kelsey Mitchell,IND,31.0,31.1,
-2026-06-17,DAL vs IND,Caitlin Clark,IND,31.0,27.3,
-2026-06-17,DAL vs IND,Paige Bueckers,DAL,33.0,,35.9
-2026-06-17,MIN vs NYL,Kayla McBride,MIN,32.0,31.7,24.6
-2026-06-17,DAL vs IND,Aliyah Boston,IND,29.0,26.1,
-2026-06-17,LAS vs LVA,Nneka Ogwumike,LAS,30.0,33.6,29.8
-2026-06-17,MIN vs NYL,Natasha Howard,MIN,31.0,27.8,29.2
-2026-06-17,SEA vs WAS,Dominique Malonga,SEA,28.0,27.1,34.6
-2026-06-17,MIN vs NYL,Olivia Miles,MIN,26.0,31.6,26.0
-2026-06-17,PHO vs POR,Alyssa Thomas,PHO,35.0,32.4,35.4
-2026-06-17,SEA vs WAS,Sonia Citron,WAS,33.0,31.4,38.2
-2026-06-17,MIN vs NYL,Jonquel Jones,NYL,29.0,30.5,28.1
-2026-06-17,LAS vs LVA,Jackie Young,LVA,33.0,31.7,37.9
-2026-06-17,LAS vs LVA,Dearica Hamby,LAS,30.0,30.3,25.4
-2026-06-17,SEA vs WAS,Kiki Iriafen,WAS,30.0,29.6,
-2026-06-17,MIN vs NYL,Sabrina Ionescu,NYL,30.0,31.9,27.7
-2026-06-17,DAL vs IND,Jessica Shepard,DAL,32.0,36.4,32.8
-2026-06-17,SEA vs WAS,Natisha Hiedeman,SEA,28.0,28.6,32.7
-2026-06-17,MIN vs NYL,Courtney Williams,MIN,29.0,31.6,25.5
-2026-06-17,SEA vs WAS,Shakira Austin,WAS,29.0,30.6,
-2026-06-17,CHI vs CON,Brittney Griner,CON,26.0,28.1,22.9
-2026-06-17,DAL vs IND,Arike Ogunbowale,DAL,28.0,33.9,27.8
-2026-06-17,PHO vs POR,Bridget Carleton,POR,30.0,31.4,28.6
-2026-06-17,PHO vs POR,Carla Leite,POR,23.0,29.2,29.1
-2026-06-17,CHI vs CON,Kamilla Cardoso,CHI,27.0,25.4,23.9
-2026-06-17,PHO vs POR,Megan DiLeo,POR,25.0,,
-2026-06-17,LAS vs LVA,Rae Burrell,LAS,27.0,30.7,26.4
-2026-06-17,DAL vs IND,Azzi Fudd,DAL,31.0,35.7,37.4
-2026-06-17,CHI vs CON,Leila Lacan,CON,29.0,32.5,28.4
-2026-06-17,PHO vs POR,Sarah Ashlee Barker,POR,28.0,27.4,23.6
-2026-06-17,CHI vs CON,Sydney Taylor,CHI,19.0,25.0,28.3
-2026-06-17,LAS vs LVA,Chelsea Gray,LVA,32.0,31.3,34.6
-2026-06-17,SEA vs WAS,Flau'jae Johnson,SEA,25.0,29.0,22.3
-2026-06-17,SEA vs WAS,Awa Fam,SEA,30.0,30.4,29.5
-2026-06-17,LAS vs LVA,NaLyssa Smith,LVA,23.0,21.7,30.7
-2026-06-17,PHO vs POR,DeWanna Bonner,PHO,28.0,27.7,20.1
-2026-06-17,MIN vs NYL,Pauline Astier,NYL,24.0,25.2,23.2
-2026-06-17,CHI vs CON,Azura Stevens,CHI,23.0,27.2,19.5
-2026-06-17,LAS vs LVA,Ariel Atkins,LAS,28.0,32.2,29.6
-2026-06-17,PHO vs POR,Valeriane Ayayi,PHO,22.0,15.0,11.3
-2026-06-17,CHI vs CON,Olivia Nelson-Ododa,CON,22.0,25.2,9.6
-2026-06-17,LAS vs LVA,Erica Wheeler,LAS,28.0,32.9,24.5
-2026-06-17,SEA vs WAS,Michaela Onyenwere,WAS,25.0,28.6,31.9
-2026-06-17,LAS vs LVA,Cameron Brink,LAS,18.0,18.2,
-2026-06-17,CHI vs CON,Aaliyah Edwards,CON,19.0,,17.7
-2026-06-17,CHI vs CON,Skylar Diggins,CHI,20.0,,31.2
-2026-06-17,LAS vs LVA,Jewell Loyd,LVA,28.0,24.6,24.2
-2026-06-17,CHI vs CON,Kennedy Burke,CON,24.0,21.3,22.5
-2026-06-17,MIN vs NYL,Nia Coffey,MIN,27.0,26.6,28.5
-2026-06-17,PHO vs POR,Emily Engstler,POR,21.0,27.5,26.6
-2026-06-17,DAL vs IND,Sophie Cunningham,IND,21.0,22.0,
-2026-06-17,CHI vs CON,Natasha Cloud,CHI,23.0,28.1,27.6
-2026-06-17,PHO vs POR,Noemie Brochant,PHO,27.0,22.1,18.8
-2026-06-17,CHI vs CON,Diamond Miller,CON,20.0,27.5,11.5
-2026-06-17,CHI vs CON,Aneesah Morrow,CON,17.0,,21.4
-2026-06-17,SEA vs WAS,Jade Melbourne,SEA,20.0,23.6,30.0
-2026-06-17,MIN vs NYL,Dorka Juhasz,MIN,25.0,18.3,
-2026-06-17,PHO vs POR,Monique Akoa Makani,PHO,17.0,25.7,20.2
-2026-06-17,PHO vs POR,Alexa Held,PHO,20.0,,
-2026-06-17,PHO vs POR,Frieda Buhner,POR,18.0,16.0,12.9
-2026-06-17,CHI vs CON,Courtney Vandersloot,CHI,16.0,19.3,
-2026-06-17,SEA vs WAS,Cotie McMahon,WAS,22.0,14.4,21.1
-2026-06-17,DAL vs IND,Awak Kuier,DAL,18.0,21.4,23.6
-2026-06-17,MIN vs NYL,Rebekah Gardner,NYL,17.0,13.3,15.5
-2026-06-17,CHI vs CON,Charlisse Leger-Walker,CON,20.0,28.1,19.1
-2026-06-17,MIN vs NYL,Marine Johannes,NYL,14.0,21.0,16.6
-2026-06-17,DAL vs IND,Monique Billings,IND,19.0,22.2,
-2026-06-17,SEA vs WAS,Georgia Amoore,WAS,21.0,25.0,19.4
-2026-06-17,DAL vs IND,Lexie Hull,IND,20.0,19.9,
-2026-06-17,SEA vs WAS,Zia Cooke,SEA,12.0,17.3,23.4
-2026-06-17,CHI vs CON,Gabriela Jaquez,CHI,15.0,17.1,28.9
-2026-06-17,PHO vs POR,Sami Whitcomb,PHO,14.0,,
-2026-06-17,SEA vs WAS,Lauren Betts,WAS,14.0,15.3,32.2
-2026-06-17,CHI vs CON,DiJonai Carrington,CHI,12.0,,
-2026-06-17,DAL vs IND,Maddy Siegrist,DAL,12.0,12.2,7.2
-2026-06-17,DAL vs IND,Aziaha James,DAL,10.0,9.4,6.3
-2026-06-17,MIN vs NYL,Betnijah Laney-Hamilton,NYL,14.0,,
-2026-06-17,CHI vs CON,Elizabeth Williams,CHI,15.0,17.0,15.9
-2026-06-17,SEA vs WAS,Stefanie Dolson,SEA,18.0,12.0,9.2
-2026-06-17,DAL vs IND,Raven Johnson,IND,15.0,,
-2026-06-17,SEA vs WAS,Katie Lou Samuelson,SEA,15.0,15.9,11.4
-2026-06-17,DAL vs IND,Myisha Hines-Allen,IND,15.0,12.8,
-2026-06-17,MIN vs NYL,Anastasiia Kosu,MIN,11.0,11.1,10.1
-2026-06-17,LAS vs LVA,Jihyun Park,LAS,16.0,11.6,22.0
-2026-06-17,PHO vs POR,Luisa Geiselsoder,POR,14.0,13.6,
-2026-06-17,MIN vs NYL,Han Xu,NYL,9.0,13.0,10.8
-2026-06-17,CHI vs CON,Saniya Rivers,CON,13.0,16.6,20.9
-2026-06-17,PHO vs POR,Serah Williams,POR,11.0,20.8,12.3
-2026-06-17,DAL vs IND,Alanna Smith,DAL,14.0,,16.4
-2026-06-17,SEA vs WAS,Jordan Horston,SEA,15.0,16.1,
-2026-06-17,MIN vs NYL,Maya Caldwell,MIN,12.0,11.4,25.4
-2026-06-17,CHI vs CON,Aicha Coulibaly,CHI,11.0,9.6,10.7
-2026-06-17,LAS vs LVA,Stephanie Talbot,LVA,17.0,19.4,19.6
-2026-06-17,MIN vs NYL,Rebecca Allen,NYL,18.0,17.3,
-2026-06-17,LAS vs LVA,Dana Evans,LVA,10.0,18.2,
-2026-06-17,PHO vs POR,Nyadiew Puoch,POR,15.0,10.5,10.9
-2026-06-17,LAS vs LVA,Emma Cannon,LAS,5.0,,4.0
-2026-06-17,LAS vs LVA,Cheyenne Parker-Tyus,LVA,7.0,,3.7
-2026-06-17,LAS vs LVA,Kiana Williams,LAS,9.0,,
-2026-06-17,DAL vs IND,Tyasha Harris,IND,10.0,17.0,
-2026-06-17,PHO vs POR,Teja Oblak,POR,7.0,12.7,11.0
-2026-06-17,DAL vs IND,Odyssey Sims,DAL,8.0,16.9,
-2026-06-17,SEA vs WAS,Angela Dugalic,WAS,8.0,,26.9
-2026-06-17,DAL vs IND,Sug Sutton,DAL,7.0,18.5,12.7
-2026-06-17,LAS vs LVA,Kate Martin,LAS,6.0,,6.8
-2026-06-17,CHI vs CON,Jacy Sheldon,CHI,7.0,20.5,10.4
-2026-06-17,CHI vs CON,Maddy Westbeld,CHI,7.0,,
-2026-06-17,LAS vs LVA,Kierstan Bell,LVA,10.0,,4.7
-2026-06-17,SEA vs WAS,Cassandre Prosper,WAS,9.0,11.8,10.2
-2026-06-17,DAL vs IND,Li Yueru,DAL,5.0,15.6,
-2026-06-17,SEA vs WAS,Alicia Florez,WAS,7.0,13.3,
-2026-06-17,MIN vs NYL,Anneli Maley,NYL,11.0,,
-2026-06-17,MIN vs NYL,Antonia Delaere,MIN,7.0,9.9,15.2
-2026-06-17,PHO vs POR,Karlie Samuelson,POR,6.0,15.9,17.2
-2026-06-17,CHI vs CON,Rachel Banham,CHI,5.0,,3.5
-2026-06-17,DAL vs IND,Makayla Timpson,IND,6.0,21.6,
-2026-06-17,SEA vs WAS,Mackenzie Holmes,SEA,5.0,,4.3
-2026-06-17,LAS vs LVA,Brianna Turner,LVA,7.0,12.3,7.6
-2026-06-17,LAS vs LVA,Chance Gray,LAS,3.0,10.5,13.3
-2026-06-17,CHI vs CON,Hailey Van Lith,CON,2.0,9.0,
-2026-06-17,CHI vs CON,Nell Angloma,CON,2.0,11.7,13.8
-2026-06-17,SEA vs WAS,Taylor Thierry,SEA,4.0,,2.6
-2026-06-17,CHI vs CON,Raegan Beers,CON,2.0,,7.4
-2026-06-17,CHI vs CON,Gianna Kneepkens,CON,2.0,,4.7
-2026-06-17,PHO vs POR,Kyara Linskens,PHO,2.0,,5.1
-2026-06-17,PHO vs POR,Holly Winterburn,POR,2.0,,
-2026-06-17,DAL vs IND,Alysha Clark,DAL,2.0,,
-2026-06-17,CHI vs CON,Ashlon Jackson,CON,2.0,,
-2026-06-17,DAL vs IND,Damiris Dantas,IND,1.0,,
-2026-06-17,MIN vs NYL,Raquel Carrera,NYL,1.0,,
-2026-06-17,PHO vs POR,Shay Ciezki,PHO,1.0,,
-2026-06-17,SEA vs WAS,Lucy Olsen,WAS,1.0,,20.1
-2026-06-17,DAL vs IND,Bree Hall,IND,1.0,,
-2026-06-17,DAL vs IND,Grace VanSlooten,IND,1.0,,
-2026-06-17,MIN vs NYL,Marine Fauthoux,NYL,1.0,13.4,
-2026-06-17,SEA vs WAS,Rori Harmon,WAS,1.0,,

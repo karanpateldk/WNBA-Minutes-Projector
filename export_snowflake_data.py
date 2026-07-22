@@ -476,7 +476,7 @@ def run():
     try:
         import accuracy_tracker as _at
         print("  Running accuracy tracker...")
-        _at.snapshot_all_available()  # reads all RotoWire CSVs in Downloads
+        _at.snapshot_today()   # only today's RotoWire CSV — historical files managed manually
         _at.fill_actuals()
         _at.backfill_from_boxscores()
     except Exception as _e:
