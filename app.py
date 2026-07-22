@@ -447,7 +447,7 @@ def render_player_row(
 with st.sidebar:
     st.markdown(
         '<p style="font-size:1.5rem;font-weight:700;margin-bottom:0">WNBA Minutes Projector</p>'
-        '<p style="font-size:1rem;color:#888;margin-top:2px">Karan Patel &nbsp;·&nbsp; <span style="font-size:0.8rem">build 2026-07-01.1</span></p>',
+        '<p style="font-size:1rem;color:#888;margin-top:2px">Karan Patel</p>',
         unsafe_allow_html=True,
     )
     st.markdown("---")
@@ -1106,7 +1106,7 @@ _hs = "white-space:nowrap;cursor:help;border-bottom:1px dotted;text-decoration:n
 hc[0].markdown('<span style="white-space:nowrap"><b>Player</b></span>', unsafe_allow_html=True)
 hc[1].markdown('<span style="white-space:nowrap"><b>Status</b></span>', unsafe_allow_html=True)
 hc[2].markdown('<span style="white-space:nowrap"><b>Last</b></span>', unsafe_allow_html=True)
-hc[3].markdown(f'<span title="Recent-weighted average — emphasizes last few games over the full season" style="{_hs}"><b>Wtd</b></span>', unsafe_allow_html=True)
+hc[3].markdown(f'<span title="Recent-weighted average — emphasizes last few games over the full season" style="{_hs}"><b>Weighted</b></span>', unsafe_allow_html=True)
 hc[4].markdown(f'<span title="Projected minutes — sample-size-aware blend of season average and recent games, adjusted for injury status, role, and rotation" style="{_hs}"><b>Proj</b></span>', unsafe_allow_html=True)
 hc[5].markdown(f'<div style="text-align:center"><span title="Confidence in this projection — see color key above" style="{_hs}"><b>Conf</b></span></div>', unsafe_allow_html=True)
 hc[6].markdown(f'<span title="{"Minutes vs " + selected_opponent + " this season" if selected_opponent else "Minutes gained or lost vs this player\'s normal average due to tonight\'s statuses"}" style="{_hs}"><b>{adj_col_label}</b></span>', unsafe_allow_html=True)
@@ -1636,11 +1636,7 @@ with _tab_rw:
             _game_count = _stats.get("game_count", 0)
             _game_list  = _stats.get("game_list", [])
 
-            # Head-to-head metrics
-            c1, c2, c3, c4 = st.columns(4)
-            c1.metric("Games tracked", _game_count)
-
-
+            # Head-to-head metrics — row 1: games + MAE side by side
             def _delta(our_val, rw_val, lower_better=True):
                 if our_val is None or rw_val is None:
                     return None
@@ -1649,6 +1645,8 @@ with _tab_rw:
                     return f"{diff:+.2f}" if diff != 0 else "tied"
                 return f"{diff:+.1f}%" if diff != 0 else "tied"
 
+            c1, c2, c3, c4, c5 = st.columns(5)
+            c1.metric("Games tracked", _game_count)
             c2.metric(
                 "MAE — Our Model",
                 f"{_our['mae']:.2f} min" if _our['mae'] is not None else "—",
@@ -1663,6 +1661,10 @@ with _tab_rw:
                 "Within 2 min — Our Model",
                 f"{_our['within2']:.1f}%" if _our['within2'] is not None else "—",
                 delta=_delta(_our['within2'], _rw['within2'], lower_better=False),
+            )
+            c5.metric(
+                "Within 2 min — RotoWire",
+                f"{_rw['within2']:.1f}%" if _rw['within2'] is not None else "—",
             )
 
             # Summary table
