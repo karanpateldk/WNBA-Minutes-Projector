@@ -482,6 +482,22 @@ def run():
     except Exception as _e:
         print(f"  [accuracy] Skipped: {_e}")
 
+    # ── 7. Pre-warm app caches so Streamlit loads fast after reboot ──────────
+    print("  Warming app caches (injuries, lineups, players)...")
+    try:
+        import sys as _sys
+        _sys.path.insert(0, str(DATA_DIR.parent))
+        from wnba_scraper import get_all_injuries as _gi, get_lineup_info as _gl, get_all_players as _gp
+        from roster_data import TEAMS as _teams
+        _gi()   # injuries
+        _gp()   # all players list
+        for _t in _teams:
+            try: _gl(_t)
+            except Exception: pass
+        print("    -> caches warmed")
+    except Exception as _e:
+        print(f"    -> cache warm skipped: {_e}")
+
     print()
     print("Done. Now run:")
     print("  git add -f data/snowflake_*.csv")
