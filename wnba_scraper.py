@@ -743,7 +743,7 @@ def get_lineup_for_team(team_name: str) -> dict:
         }
         _cache_path(cache_key).write_text(
             json.dumps({"timestamp": datetime.now().isoformat(),
-                        "payload": result, "ttl_hours": 1}, indent=2)
+                        "payload": result, "ttl_hours": 6}, indent=2)
         )
         return result
 
