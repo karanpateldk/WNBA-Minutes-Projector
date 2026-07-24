@@ -344,8 +344,10 @@ def render_player_row(
             dot_color = "#dc3545"
         else:
             dot_color = "#28a745" if conf >= 70 else ("#e6a817" if conf >= 45 else "#dc3545")
+        conf_label = "High" if conf >= 70 else ("Medium" if conf >= 45 else "Low")
         st.markdown(
-            f'<div style="text-align:center;font-size:1.1rem;color:{dot_color};padding-top:4px">&#9679;</div>',
+            f'<div title="Confidence: {conf}/100 ({conf_label}) — based on games played, role consistency, minute variance, and injury status" '
+            f'style="text-align:center;font-size:1.1rem;color:{dot_color};padding-top:4px;cursor:help">&#9679;</div>',
             unsafe_allow_html=True,
         )
 
@@ -1104,9 +1106,9 @@ adj_col_label = f"vs {_OPP_ABBREV.get(selected_opponent, selected_opponent[:3].u
 hc = st.columns([3, 2.4, 1, 1.2, 1.4, 1.1, 1.5, 1.8])
 _hs = "white-space:nowrap;cursor:help;border-bottom:1px dotted;text-decoration:none"
 hc[0].markdown('<span style="white-space:nowrap"><b>Player</b></span>', unsafe_allow_html=True)
-hc[1].markdown('<span style="white-space:nowrap"><b>Status</b></span>', unsafe_allow_html=True)
-hc[2].markdown('<span style="white-space:nowrap"><b>Last</b></span>', unsafe_allow_html=True)
-hc[3].markdown(f'<span title="Recent-weighted average — emphasizes last few games over the full season" style="{_hs}"><b>Weighted</b></span>', unsafe_allow_html=True)
+hc[1].markdown(f'<span title="Injury status from the official report — Active, Questionable, Day-To-Day, Doubtful, Out" style="{_hs}"><b>Status</b></span>', unsafe_allow_html=True)
+hc[2].markdown(f'<span title="Minutes played in the most recent game" style="{_hs}"><b>Last</b></span>', unsafe_allow_html=True)
+hc[3].markdown(f'<span title="Recent-weighted average — emphasizes last few games over the full season" style="{_hs}"><b>Wtd Avg</b></span>', unsafe_allow_html=True)
 hc[4].markdown(f'<span title="Projected minutes — sample-size-aware blend of season average and recent games, adjusted for injury status, role, and rotation" style="{_hs}"><b>Proj</b></span>', unsafe_allow_html=True)
 hc[5].markdown(f'<div style="text-align:center"><span title="Confidence in this projection — see color key above" style="{_hs}"><b>Conf</b></span></div>', unsafe_allow_html=True)
 hc[6].markdown(f'<span title="{"Minutes vs " + selected_opponent + " this season" if selected_opponent else "Minutes gained or lost vs this player\'s normal average due to tonight\'s statuses"}" style="{_hs}"><b>{adj_col_label}</b></span>', unsafe_allow_html=True)
