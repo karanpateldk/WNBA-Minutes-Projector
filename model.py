@@ -964,9 +964,9 @@ def _check_lineup(projections: list[PlayerProjection]) -> list[str]:
     total = sum(p.projected_min for p in projections)
     if abs(total - GAME_MINUTES) > 2:
         warnings.append(f"Total minutes ({total:.1f}) deviates from {GAME_MINUTES}. Check lineup.")
-    players_over_38 = [p for p in projections if p.projected_min > 38]
-    for p in players_over_38:
-        warnings.append(f"{p.name} projected {p.projected_min} min — unusually high for WNBA.")
+    players_over_40 = [p for p in projections if p.projected_min >= 40]
+    for p in players_over_40:
+        warnings.append(f"{p.name} projected {p.projected_min:.1f} min — played entire game with no substitution.")
     return warnings
 
 

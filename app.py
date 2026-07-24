@@ -322,19 +322,19 @@ def render_player_row(
 
     with col_last:
         if last_game_min and last_game_min > 0:
-            st.markdown(f"{last_game_min:.0f}")
+            st.markdown(f'<div style="text-align:center">{last_game_min:.0f}</div>', unsafe_allow_html=True)
         else:
-            st.markdown("—")
+            st.markdown('<div style="text-align:center">—</div>', unsafe_allow_html=True)
 
     with col_base:
-        st.markdown(f"{base_min:.1f}")
+        st.markdown(f'<div style="text-align:center">{base_min:.1f}</div>', unsafe_allow_html=True)
 
     with col_proj:
         if p.projected_min == 0:
-            st.markdown("**OUT**")
+            st.markdown('<div style="text-align:center"><b>OUT</b></div>', unsafe_allow_html=True)
         else:
             st.markdown(
-                f'<div style="font-size:1.4rem;font-weight:700;line-height:1.3">{p.projected_min:.1f}</div>',
+                f'<div style="font-size:1.4rem;font-weight:700;line-height:1.3;text-align:center">{p.projected_min:.1f}</div>',
                 unsafe_allow_html=True,
             )
 
@@ -1105,13 +1105,14 @@ adj_col_label = f"vs {_OPP_ABBREV.get(selected_opponent, selected_opponent[:3].u
 # Column headers — 8 cols: name, status, last, wtd, proj, conf, adj, note
 hc = st.columns([3, 2.4, 1, 1.2, 1.4, 1.1, 1.5, 1.8])
 _hs = "white-space:nowrap;cursor:help;border-bottom:1px dotted;text-decoration:none"
+_hc = "text-align:center;white-space:nowrap"  # center-aligned header style
 hc[0].markdown('<span style="white-space:nowrap"><b>Player</b></span>', unsafe_allow_html=True)
 hc[1].markdown(f'<span title="Injury status from the official report — Active, Questionable, Day-To-Day, Doubtful, Out" style="{_hs}"><b>Status</b></span>', unsafe_allow_html=True)
-hc[2].markdown(f'<span title="Minutes played in the most recent game" style="{_hs}"><b>Last</b></span>', unsafe_allow_html=True)
-hc[3].markdown(f'<span title="Recent-weighted average — emphasizes last few games over the full season" style="{_hs}"><b>Wtd Avg</b></span>', unsafe_allow_html=True)
-hc[4].markdown(f'<span title="Projected minutes — sample-size-aware blend of season average and recent games, adjusted for injury status, role, and rotation" style="{_hs}"><b>Proj</b></span>', unsafe_allow_html=True)
-hc[5].markdown(f'<div style="text-align:center"><span title="Confidence in this projection — see color key above" style="{_hs}"><b>Conf</b></span></div>', unsafe_allow_html=True)
-hc[6].markdown(f'<span title="{"Minutes vs " + selected_opponent + " this season" if selected_opponent else "Minutes gained or lost vs this player\'s normal average due to tonight\'s statuses"}" style="{_hs}"><b>{adj_col_label}</b></span>', unsafe_allow_html=True)
+hc[2].markdown(f'<div style="{_hc}"><span title="Minutes played in the most recent game" style="{_hs}"><b>Last</b></span></div>', unsafe_allow_html=True)
+hc[3].markdown(f'<div style="{_hc}"><span title="Recent-weighted average — emphasizes last few games over the full season" style="{_hs}"><b>Wtd Avg</b></span></div>', unsafe_allow_html=True)
+hc[4].markdown(f'<div style="{_hc}"><span title="Projected minutes — sample-size-aware blend of season average and recent games, adjusted for injury status, role, and rotation" style="{_hs}"><b>Proj</b></span></div>', unsafe_allow_html=True)
+hc[5].markdown(f'<div style="{_hc}"><span title="Confidence in this projection — see color key above" style="{_hs}"><b>Conf</b></span></div>', unsafe_allow_html=True)
+hc[6].markdown(f'<div style="{_hc}"><span title="{"Minutes vs " + selected_opponent + " this season" if selected_opponent else "Minutes gained or lost vs this player\'s normal average due to tonight\'s statuses"}" style="{_hs}"><b>{adj_col_label}</b></span></div>', unsafe_allow_html=True)
 hc[7].markdown('<span style="white-space:nowrap"><b>Note</b></span>', unsafe_allow_html=True)
 
 # Build lookup maps
@@ -1138,18 +1139,18 @@ def _render_adj_cell(col, player_name: str, proj_min: float):
                 ot_label = (f' <span style="font-size:0.65rem;opacity:0.55;font-weight:400">({ot})</span>'
                             if ot else "")
                 parts.append(f"{m:.0f}{ot_label}")
-            col.markdown(f'<span style="font-size:0.82rem">{", ".join(parts)}</span>', unsafe_allow_html=True)
+            col.markdown(f'<div style="text-align:center;font-size:0.82rem">{", ".join(parts)}</div>', unsafe_allow_html=True)
         else:
-            col.markdown('<span style="color:#aaa;font-size:0.82rem">—</span>', unsafe_allow_html=True)
+            col.markdown('<div style="text-align:center;color:#aaa;font-size:0.82rem">—</div>', unsafe_allow_html=True)
     else:
         # Fall back to injury delta vs baseline
         delta = round(proj_min - base_map.get(player_name, proj_min), 1)
         if abs(delta) >= 0.5:
             cls  = "delta-pos" if delta > 0 else "delta-neg"
             sign = "+" if delta > 0 else ""
-            col.markdown(f'<span class="{cls}">{sign}{delta:.1f}</span>', unsafe_allow_html=True)
+            col.markdown(f'<div style="text-align:center"><span class="{cls}">{sign}{delta:.1f}</span></div>', unsafe_allow_html=True)
         else:
-            col.markdown("—")
+            col.markdown('<div style="text-align:center">—</div>', unsafe_allow_html=True)
 
 
 # Starters section
