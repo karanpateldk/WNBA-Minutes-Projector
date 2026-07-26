@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-24T16:43:59.207510",
+  "timestamp": "2026-07-25T22:33:31.991755",
   "payload": {
     "starters": [
       "Naz Hillmon",
@@ -14,5 +14,5 @@
     "opponent": "",
     "game_injuries": {}
   },
-  "ttl_hours": 1
+  "ttl_hours": 6
 }

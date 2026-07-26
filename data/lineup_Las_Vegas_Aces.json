@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-24T16:44:05.579642",
+  "timestamp": "2026-07-25T22:34:01.518948",
   "payload": {
     "starters": [
       "Stephanie Talbot",
@@ -14,5 +14,5 @@
     "opponent": "",
     "game_injuries": {}
   },
-  "ttl_hours": 1
+  "ttl_hours": 6
 }

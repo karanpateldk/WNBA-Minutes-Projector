@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-24T16:44:11.255118",
+  "timestamp": "2026-07-25T22:33:06.988220",
   "payload": {
     "starters": [
       "Bridget Carleton",
@@ -14,5 +14,5 @@
     "opponent": "",
     "game_injuries": {}
   },
-  "ttl_hours": 1
+  "ttl_hours": 6
 }
