@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-25T22:33:01.903550",
+  "timestamp": "2026-07-27T17:12:43.323816",
   "payload": {
     "starters": [
       "Michaela Onyenwere",
@@ -10,8 +10,8 @@
     ],
     "source": "ESPN (projected \u2014 based on most recent game lineup)",
     "confirmed": false,
-    "game_time": "",
-    "opponent": "",
+    "game_time": "7/28 - 7:30 PM EDT",
+    "opponent": "Connecticut Sun",
     "game_injuries": {}
   },
   "ttl_hours": 6

@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-25T22:34:01.518948",
+  "timestamp": "2026-07-27T17:13:48.503008",
   "payload": {
     "starters": [
       "Stephanie Talbot",
@@ -8,11 +8,24 @@
       "Chelsea Gray",
       "Jackie Young"
     ],
-    "source": "ESPN (projected \u2014 based on most recent game lineup)",
+    "source": "ESPN (projected \u2014 based on most recent game lineup (adjusted: Kierstan Bell, Janiah Barker, Cheyenne Parker-Tyus out))",
     "confirmed": false,
-    "game_time": "",
-    "opponent": "",
-    "game_injuries": {}
+    "game_time": "7/28 - 10:00 PM EDT",
+    "opponent": "Portland Fire",
+    "game_injuries": {
+      "Cheyenne Parker-Tyus": {
+        "status": "Out",
+        "injury": "out"
+      },
+      "Kierstan Bell": {
+        "status": "Out",
+        "injury": "out"
+      },
+      "Janiah Barker": {
+        "status": "Out",
+        "injury": "out"
+      }
+    }
   },
   "ttl_hours": 6
 }

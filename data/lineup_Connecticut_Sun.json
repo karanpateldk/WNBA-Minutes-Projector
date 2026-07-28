@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-25T22:33:36.526391",
+  "timestamp": "2026-07-27T17:13:07.509836",
   "payload": {
     "starters": [
       "Diamond Miller",
@@ -8,11 +8,24 @@
       "Charlisse Leger-Walker",
       "Leila Lacan"
     ],
-    "source": "ESPN (projected \u2014 based on most recent game lineup)",
+    "source": "ESPN (projected \u2014 based on most recent game lineup (adjusted: Brittney Griner out))",
     "confirmed": false,
-    "game_time": "",
-    "opponent": "",
-    "game_injuries": {}
+    "game_time": "7/28 - 7:30 PM EDT",
+    "opponent": "Washington Mystics",
+    "game_injuries": {
+      "Saniya Rivers": {
+        "status": "Day-To-Day",
+        "injury": "day-to-day"
+      },
+      "Aaliyah Edwards": {
+        "status": "Day-To-Day",
+        "injury": "day-to-day"
+      },
+      "Brittney Griner": {
+        "status": "Out",
+        "injury": "out"
+      }
+    }
   },
   "ttl_hours": 6
 }

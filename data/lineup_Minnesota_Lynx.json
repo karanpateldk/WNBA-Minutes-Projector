@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-25T22:33:52.844513",
+  "timestamp": "2026-07-27T17:13:40.032732",
   "payload": {
     "starters": [
       "Natasha Howard",
@@ -8,11 +8,16 @@
       "Courtney Williams",
       "Olivia Miles"
     ],
-    "source": "ESPN (projected \u2014 based on most recent game lineup)",
+    "source": "ESPN (projected \u2014 based on most recent game lineup (adjusted: Emma Cechova out))",
     "confirmed": false,
-    "game_time": "",
-    "opponent": "",
-    "game_injuries": {}
+    "game_time": "7/28 - 8:00 PM EDT",
+    "opponent": "Toronto Tempo",
+    "game_injuries": {
+      "Emma Cechova": {
+        "status": "Out",
+        "injury": "out"
+      }
+    }
   },
   "ttl_hours": 6
 }
