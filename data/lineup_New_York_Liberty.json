@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-27T17:13:35.066560",
+  "timestamp": "2026-07-28T10:20:57.795105",
   "payload": {
     "starters": [
       "Breanna Stewart",
@@ -8,16 +8,12 @@
       "Sabrina Ionescu",
       "Pauline Astier"
     ],
-    "source": "ESPN (projected \u2014 based on most recent game lineup (adjusted: Leonie Fiebich, Marine Johannes, Satou Sabally, Anneli Maley out))",
+    "source": "ESPN (projected \u2014 based on most recent game lineup (adjusted: Leonie Fiebich, Satou Sabally, Marine Johannes out))",
     "confirmed": false,
     "game_time": "7/28 - 10:00 PM EDT",
     "opponent": "Los Angeles Sparks",
     "game_injuries": {
       "Satou Sabally": {
-        "status": "Out",
-        "injury": "out"
-      },
-      "Anneli Maley": {
         "status": "Out",
         "injury": "out"
       },

@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-27T17:12:57.693128",
+  "timestamp": "2026-07-28T10:20:29.725950",
   "payload": {
     "starters": [
       "Monique Billings",
@@ -8,18 +8,18 @@
       "Lexie Hull",
       "Caitlin Clark"
     ],
-    "source": "ESPN (projected \u2014 based on most recent game lineup (adjusted: Raven Johnson, Damiris Dantas out))",
+    "source": "ESPN (projected \u2014 based on most recent game lineup (adjusted: Bree Hall, Damiris Dantas out))",
     "confirmed": false,
     "game_time": "7/28 - 9:30 PM EDT",
     "opponent": "Seattle Storm",
     "game_injuries": {
+      "Bree Hall": {
+        "status": "Out",
+        "injury": "out"
+      },
       "Caitlin Clark": {
         "status": "Day-To-Day",
         "injury": "day-to-day"
-      },
-      "Raven Johnson": {
-        "status": "Out",
-        "injury": "out"
       },
       "Damiris Dantas": {
         "status": "Out",

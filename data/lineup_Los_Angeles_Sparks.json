@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-27T17:13:25.949934",
+  "timestamp": "2026-07-28T10:20:47.173312",
   "payload": {
     "starters": [
       "Nneka Ogwumike",
@@ -8,23 +8,11 @@
       "Ariel Atkins",
       "Rae Burrell"
     ],
-    "source": "ESPN (projected \u2014 based on most recent game lineup (adjusted: Kelsey Plum, Alissa Pili, Tonie Morgan out))",
+    "source": "ESPN (projected \u2014 based on most recent game lineup (adjusted: Kelsey Plum out))",
     "confirmed": false,
     "game_time": "7/28 - 10:00 PM EDT",
     "opponent": "New York Liberty",
     "game_injuries": {
-      "Nneka Ogwumike": {
-        "status": "Day-To-Day",
-        "injury": "day-to-day"
-      },
-      "Tonie Morgan": {
-        "status": "Out",
-        "injury": "out"
-      },
-      "Alissa Pili": {
-        "status": "Out",
-        "injury": "out"
-      },
       "Kelsey Plum": {
         "status": "Out",
         "injury": "out"

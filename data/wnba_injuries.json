@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-27T17:12:43.998881",
+  "timestamp": "2026-07-28T10:20:09.316274",
   "payload": {
     "Indya Nivar": {
       "status": "Out",
@@ -85,9 +85,15 @@
       "team": "",
       "dnp_type": "injury"
     },
-    "Raven Johnson": {
+    "Bree Hall": {
       "status": "Out",
       "injury": "out",
+      "team": "",
+      "dnp_type": "injury"
+    },
+    "Caitlin Clark": {
+      "status": "Day-To-Day",
+      "injury": "day-to-day",
       "team": "",
       "dnp_type": "injury"
     },
@@ -115,24 +121,6 @@
       "team": "",
       "dnp_type": "injury"
     },
-    "Nneka Ogwumike": {
-      "status": "Day-To-Day",
-      "injury": "day-to-day",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "Tonie Morgan": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "Alissa Pili": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
     "Kelsey Plum": {
       "status": "Out",
       "injury": "out",
@@ -146,12 +134,6 @@
       "dnp_type": "injury"
     },
     "Satou Sabally": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "Anneli Maley": {
       "status": "Out",
       "injury": "out",
       "team": "",
