@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-28T10:21:05.738697",
+  "timestamp": "2026-07-29T14:12:24.998713",
   "payload": {
     "starters": [
       "Jessica Shepard",
@@ -10,8 +10,8 @@
     ],
     "source": "ESPN (projected \u2014 based on most recent game lineup)",
     "confirmed": false,
-    "game_time": "",
-    "opponent": "",
+    "game_time": "7/29 - 8:00 PM EDT",
+    "opponent": "Atlanta Dream",
     "game_injuries": {}
   },
   "ttl_hours": 6

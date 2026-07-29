@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-28T10:20:25.225638",
+  "timestamp": "2026-07-29T14:11:34.681736",
   "payload": {
     "starters": [
       "DeWanna Bonner",
@@ -8,11 +8,16 @@
       "Kahleah Copper",
       "Monique Akoa Makani"
     ],
-    "source": "ESPN (projected \u2014 based on most recent game lineup)",
+    "source": "ESPN (projected \u2014 based on most recent game lineup (adjusted: Jovana Nogic out))",
     "confirmed": false,
-    "game_time": "",
-    "opponent": "",
-    "game_injuries": {}
+    "game_time": "7/29 - 10:00 PM EDT",
+    "opponent": "Golden State Valkyries",
+    "game_injuries": {
+      "Jovana Nogic": {
+        "status": "Out",
+        "injury": "out"
+      }
+    }
   },
   "ttl_hours": 6
 }

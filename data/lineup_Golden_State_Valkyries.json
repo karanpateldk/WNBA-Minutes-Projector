@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-28T10:21:01.366245",
+  "timestamp": "2026-07-29T14:12:09.124180",
   "payload": {
     "starters": [
       "Kayla Thornton",
@@ -8,11 +8,20 @@
       "Kiah Stokes",
       "Veronica Burton"
     ],
-    "source": "ESPN (projected \u2014 based on most recent game lineup)",
+    "source": "ESPN (projected \u2014 based on most recent game lineup (adjusted: Iliana Rupert out))",
     "confirmed": false,
-    "game_time": "",
-    "opponent": "",
-    "game_injuries": {}
+    "game_time": "7/29 - 10:00 PM EDT",
+    "opponent": "Phoenix Mercury",
+    "game_injuries": {
+      "Gabby Williams": {
+        "status": "Day-To-Day",
+        "injury": "day-to-day"
+      },
+      "Iliana Rupert": {
+        "status": "Out",
+        "injury": "out"
+      }
+    }
   },
   "ttl_hours": 6
 }

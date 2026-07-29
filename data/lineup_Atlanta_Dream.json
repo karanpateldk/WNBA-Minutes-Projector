@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-28T10:20:32.905517",
+  "timestamp": "2026-07-29T14:11:43.929999",
   "payload": {
     "starters": [
       "Naz Hillmon",
@@ -8,11 +8,20 @@
       "Jordin Canada",
       "Rhyne Howard"
     ],
-    "source": "ESPN (projected \u2014 based on most recent game lineup)",
+    "source": "ESPN (projected \u2014 based on most recent game lineup (adjusted: Te-Hina Paopao, Indya Nivar out))",
     "confirmed": false,
-    "game_time": "",
-    "opponent": "",
-    "game_injuries": {}
+    "game_time": "7/29 - 8:00 PM EDT",
+    "opponent": "Dallas Wings",
+    "game_injuries": {
+      "Te-Hina Paopao": {
+        "status": "Out",
+        "injury": "out"
+      },
+      "Indya Nivar": {
+        "status": "Out",
+        "injury": "out"
+      }
+    }
   },
   "ttl_hours": 6
 }
