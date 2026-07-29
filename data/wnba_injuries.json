@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-29T14:11:16.557818",
+  "timestamp": "2026-07-29T15:52:20.436154",
   "payload": {
     "Te-Hina Paopao": {
       "status": "Out",
@@ -14,6 +14,12 @@
       "dnp_type": "injury"
     },
     "DiJonai Carrington": {
+      "status": "Out",
+      "injury": "out",
+      "team": "",
+      "dnp_type": "injury"
+    },
+    "Azura Stevens": {
       "status": "Out",
       "injury": "out",
       "team": "",
@@ -187,15 +193,15 @@
       "team": "",
       "dnp_type": "injury"
     },
-    "Isabelle Harrison": {
+    "Nyara Sabally": {
       "status": "Out",
       "injury": "out",
       "team": "",
       "dnp_type": "injury"
     },
-    "Nyara Sabally": {
-      "status": "Out",
-      "injury": "out",
+    "Isabelle Harrison": {
+      "status": "Day-To-Day",
+      "injury": "day-to-day",
       "team": "",
       "dnp_type": "injury"
     },
