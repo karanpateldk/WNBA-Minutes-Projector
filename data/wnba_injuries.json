@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-29T17:19:56.477979",
+  "timestamp": "2026-07-29T17:35:43.044215",
   "payload": {
     "Te-Hina Paopao": {
       "status": "Out",
@@ -103,9 +103,9 @@
       "team": "",
       "dnp_type": "injury"
     },
-    "NaLyssa Smith": {
-      "status": "Day-To-Day",
-      "injury": "day-to-day",
+    "Kierstan Bell": {
+      "status": "Out",
+      "injury": "out",
       "team": "",
       "dnp_type": "injury"
     },
@@ -115,9 +115,9 @@
       "team": "",
       "dnp_type": "injury"
     },
-    "Kierstan Bell": {
-      "status": "Out",
-      "injury": "out",
+    "NaLyssa Smith": {
+      "status": "Day-To-Day",
+      "injury": "day-to-day",
       "team": "",
       "dnp_type": "injury"
     },
