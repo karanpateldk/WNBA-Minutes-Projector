@@ -1,18 +1,34 @@
 {
-  "timestamp": "2026-07-29T17:20:03.119340",
+  "timestamp": "2026-07-30T12:34:06.069103",
   "payload": {
     "starters": [
-      "Azura Stevens",
       "Kamilla Cardoso",
       "Courtney Vandersloot",
       "Natasha Cloud",
       "Sydney Taylor"
     ],
-    "source": "ESPN (projected \u2014 based on most recent game lineup)",
+    "source": "ESPN (projected \u2014 based on most recent game lineup (adjusted: Rickea Jackson, DiJonai Carrington, Azura Stevens, Skylar Diggins out))",
     "confirmed": false,
-    "game_time": "",
-    "opponent": "",
-    "game_injuries": {}
+    "game_time": "7/30 - 8:00 PM EDT",
+    "opponent": "Connecticut Sun",
+    "game_injuries": {
+      "DiJonai Carrington": {
+        "status": "Out",
+        "injury": "out"
+      },
+      "Azura Stevens": {
+        "status": "Out",
+        "injury": "out"
+      },
+      "Skylar Diggins": {
+        "status": "Out",
+        "injury": "out"
+      },
+      "Rickea Jackson": {
+        "status": "Out",
+        "injury": "out"
+      }
+    }
   },
   "ttl_hours": 6
 }

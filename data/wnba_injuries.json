@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-29T17:35:43.044215",
+  "timestamp": "2026-07-30T12:33:45.905615",
   "payload": {
     "Te-Hina Paopao": {
       "status": "Out",
@@ -31,18 +31,6 @@
       "team": "",
       "dnp_type": "injury"
     },
-    "Chloe Bibby": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "Maddy Westbeld": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
     "Rickea Jackson": {
       "status": "Out",
       "injury": "out",
@@ -61,21 +49,9 @@
       "team": "",
       "dnp_type": "injury"
     },
-    "Hailey Van Lith": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "Ashlon Jackson": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
     "Gabby Williams": {
-      "status": "Day-To-Day",
-      "injury": "day-to-day",
+      "status": "Out",
+      "injury": "out",
       "team": "",
       "dnp_type": "injury"
     },
@@ -127,9 +103,9 @@
       "team": "",
       "dnp_type": "injury"
     },
-    "Kelsey Plum": {
-      "status": "Out",
-      "injury": "out",
+    "Dorka Juhasz": {
+      "status": "Day-To-Day",
+      "injury": "day-to-day",
       "team": "",
       "dnp_type": "injury"
     },
@@ -145,13 +121,19 @@
       "team": "",
       "dnp_type": "injury"
     },
-    "Marine Johannes": {
+    "Leonie Fiebich": {
       "status": "Out",
       "injury": "out",
       "team": "",
       "dnp_type": "injury"
     },
-    "Leonie Fiebich": {
+    "Shay Ciezki": {
+      "status": "Out",
+      "injury": "out",
+      "team": "",
+      "dnp_type": "injury"
+    },
+    "Kara Dunn": {
       "status": "Out",
       "injury": "out",
       "team": "",

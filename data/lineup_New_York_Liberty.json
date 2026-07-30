@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-29T17:19:55.613996",
+  "timestamp": "2026-07-30T12:34:34.151627",
   "payload": {
     "starters": [
       "Breanna Stewart",
@@ -8,11 +8,20 @@
       "Sabrina Ionescu",
       "Pauline Astier"
     ],
-    "source": "ESPN (projected \u2014 based on most recent game lineup)",
+    "source": "ESPN (projected \u2014 based on most recent game lineup (adjusted: Leonie Fiebich, Satou Sabally out))",
     "confirmed": false,
-    "game_time": "",
-    "opponent": "",
-    "game_injuries": {}
+    "game_time": "7/30 - 10:00 PM EDT",
+    "opponent": "Las Vegas Aces",
+    "game_injuries": {
+      "Satou Sabally": {
+        "status": "Out",
+        "injury": "out"
+      },
+      "Leonie Fiebich": {
+        "status": "Out",
+        "injury": "out"
+      }
+    }
   },
   "ttl_hours": 6
 }
