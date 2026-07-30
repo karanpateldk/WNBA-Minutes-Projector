@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-29T14:12:24.998713",
+  "timestamp": "2026-07-29T17:20:13.672785",
   "payload": {
     "starters": [
       "Jessica Shepard",
@@ -8,11 +8,11 @@
       "Paige Bueckers",
       "Azzi Fudd"
     ],
-    "source": "ESPN (projected \u2014 based on most recent game lineup)",
-    "confirmed": false,
-    "game_time": "7/29 - 8:00 PM EDT",
+    "source": "ESPN (confirmed)",
+    "confirmed": true,
+    "game_time": "4:05 - 1st",
     "opponent": "Atlanta Dream",
     "game_injuries": {}
   },
-  "ttl_hours": 6
+  "ttl_hours": 0.25
 }
