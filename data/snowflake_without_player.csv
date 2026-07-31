@@ -42,15 +42,15 @@ Aicha Coulibaly,Chicago Sky,Aziaha James,6.09,2
 Aicha Coulibaly,Chicago Sky,Raegan Beers,5.53,2
 Aicha Coulibaly,Chicago Sky,Alanna Smith,5.47,2
 Azura Stevens,Chicago Sky,Rickea Jackson,29.50,4
-Azura Stevens,Chicago Sky,Gabriela Jaquez,29.37,5
-Azura Stevens,Chicago Sky,Jacy Sheldon,28.79,5
 Azura Stevens,Chicago Sky,Skylar Diggins,28.20,4
-Azura Stevens,Chicago Sky,Natasha Cloud,26.94,4
-Azura Stevens,Chicago Sky,Kamilla Cardoso,26.61,5
+Azura Stevens,Chicago Sky,Natasha Cloud,27.70,5
+Azura Stevens,Chicago Sky,Gabriela Jaquez,26.69,6
+Azura Stevens,Chicago Sky,Jacy Sheldon,26.41,6
+Azura Stevens,Chicago Sky,Kamilla Cardoso,25.66,6
 Azura Stevens,Chicago Sky,Rachel Banham,16.05,5
-Azura Stevens,Chicago Sky,Elizabeth Williams,15.54,5
-Azura Stevens,Chicago Sky,Aicha Coulibaly,14.81,4
-Azura Stevens,Chicago Sky,Sydney Taylor,6.80,3
+Azura Stevens,Chicago Sky,Elizabeth Williams,16.05,6
+Azura Stevens,Chicago Sky,Aicha Coulibaly,14.47,5
+Azura Stevens,Chicago Sky,Sydney Taylor,12.80,4
 Courtney Vandersloot,Chicago Sky,Kayla McBride,35.50,3
 Courtney Vandersloot,Chicago Sky,Paige Bueckers,34.13,2
 Courtney Vandersloot,Chicago Sky,Olivia Miles,33.17,3
@@ -123,35 +123,35 @@ Rachel Banham,Chicago Sky,Chelsea Gray,37.80,2
 Rachel Banham,Chicago Sky,Jackie Young,37.65,2
 Rachel Banham,Chicago Sky,Jewell Loyd,33.32,2
 Rachel Banham,Chicago Sky,Skylar Diggins,31.59,3
-Rachel Banham,Chicago Sky,Kamilla Cardoso,28.56,3
+Rachel Banham,Chicago Sky,Sydney Taylor,28.33,4
+Rachel Banham,Chicago Sky,Natasha Cloud,28.11,4
 Rachel Banham,Chicago Sky,Azura Stevens,27.98,3
-Rachel Banham,Chicago Sky,Sydney Taylor,27.52,3
-Rachel Banham,Chicago Sky,Natasha Cloud,27.23,3
+Rachel Banham,Chicago Sky,Kamilla Cardoso,26.65,4
 Rachel Banham,Chicago Sky,Stephanie Talbot,24.09,2
 Rachel Banham,Chicago Sky,NaLyssa Smith,23.63,2
-Rachel Banham,Chicago Sky,Courtney Vandersloot,17.05,2
-Rachel Banham,Chicago Sky,Gabriela Jaquez,16.63,3
-Rachel Banham,Chicago Sky,Jacy Sheldon,14.97,3
+Rachel Banham,Chicago Sky,Courtney Vandersloot,19.07,3
+Rachel Banham,Chicago Sky,Gabriela Jaquez,15.79,4
+Rachel Banham,Chicago Sky,Jacy Sheldon,14.86,4
+Rachel Banham,Chicago Sky,Elizabeth Williams,14.44,4
 Rachel Banham,Chicago Sky,Chennedy Carter,13.50,2
-Rachel Banham,Chicago Sky,Elizabeth Williams,13.04,3
 Rachel Banham,Chicago Sky,Cheyenne Parker-Tyus,12.12,2
 Rachel Banham,Chicago Sky,Kierstan Bell,11.58,2
-Rachel Banham,Chicago Sky,Aicha Coulibaly,9.28,2
+Rachel Banham,Chicago Sky,Aicha Coulibaly,10.55,3
 Skylar Diggins,Chicago Sky,Nneka Ogwumike,32.34,2
 Skylar Diggins,Chicago Sky,Rae Burrell,32.23,2
 Skylar Diggins,Chicago Sky,Ariel Atkins,31.34,2
-Skylar Diggins,Chicago Sky,Natasha Cloud,31.03,8
+Skylar Diggins,Chicago Sky,Natasha Cloud,31.00,9
 Skylar Diggins,Chicago Sky,Azura Stevens,29.96,7
 Skylar Diggins,Chicago Sky,Erica Wheeler,29.74,2
 Skylar Diggins,Chicago Sky,Dearica Hamby,28.15,2
-Skylar Diggins,Chicago Sky,Kamilla Cardoso,26.32,7
-Skylar Diggins,Chicago Sky,Sydney Taylor,22.93,8
-Skylar Diggins,Chicago Sky,Jacy Sheldon,20.71,8
-Skylar Diggins,Chicago Sky,Gabriela Jaquez,19.45,8
-Skylar Diggins,Chicago Sky,Courtney Vandersloot,19.22,7
-Skylar Diggins,Chicago Sky,Elizabeth Williams,15.02,8
-Skylar Diggins,Chicago Sky,Aicha Coulibaly,11.04,6
-Skylar Diggins,Chicago Sky,Chloe Bibby,10.98,3
+Skylar Diggins,Chicago Sky,Kamilla Cardoso,25.64,8
+Skylar Diggins,Chicago Sky,Sydney Taylor,23.80,9
+Skylar Diggins,Chicago Sky,Jacy Sheldon,20.02,9
+Skylar Diggins,Chicago Sky,Courtney Vandersloot,19.71,8
+Skylar Diggins,Chicago Sky,Gabriela Jaquez,18.77,9
+Skylar Diggins,Chicago Sky,Elizabeth Williams,15.42,9
+Skylar Diggins,Chicago Sky,Chloe Bibby,12.79,4
+Skylar Diggins,Chicago Sky,Aicha Coulibaly,11.33,7
 Skylar Diggins,Chicago Sky,Rachel Banham,10.03,8
 Skylar Diggins,Chicago Sky,Chance Gray,8.85,2
 Skylar Diggins,Chicago Sky,Jihyun Park,8.05,2
@@ -164,18 +164,23 @@ Sydney Taylor,Chicago Sky,Natasha Cloud,26.49,2
 Sydney Taylor,Chicago Sky,Jacy Sheldon,26.19,2
 Sydney Taylor,Chicago Sky,Elizabeth Williams,15.69,2
 Sydney Taylor,Chicago Sky,Rachel Banham,13.17,2
-Aaliyah Edwards,Connecticut Sun,Aneesah Morrow,27.52,8
-Aaliyah Edwards,Connecticut Sun,Leila Lacan,26.28,5
-Aaliyah Edwards,Connecticut Sun,Kennedy Burke,25.80,7
+Aaliyah Edwards,Connecticut Sun,Natasha Cloud,28.39,2
+Aaliyah Edwards,Connecticut Sun,Aneesah Morrow,27.87,9
+Aaliyah Edwards,Connecticut Sun,Kamilla Cardoso,26.73,2
+Aaliyah Edwards,Connecticut Sun,Leila Lacan,26.70,6
 Aaliyah Edwards,Connecticut Sun,Brittney Griner,25.73,5
-Aaliyah Edwards,Connecticut Sun,Saniya Rivers,25.54,8
-Aaliyah Edwards,Connecticut Sun,Diamond Miller,24.25,8
-Aaliyah Edwards,Connecticut Sun,Charlisse Leger-Walker,18.15,8
-Aaliyah Edwards,Connecticut Sun,Olivia Nelson-Ododa,17.29,8
+Aaliyah Edwards,Connecticut Sun,Kennedy Burke,25.19,8
+Aaliyah Edwards,Connecticut Sun,Saniya Rivers,25.00,9
+Aaliyah Edwards,Connecticut Sun,Diamond Miller,24.71,9
+Aaliyah Edwards,Connecticut Sun,Sydney Taylor,21.88,2
+Aaliyah Edwards,Connecticut Sun,Jacy Sheldon,20.74,2
+Aaliyah Edwards,Connecticut Sun,Elizabeth Williams,19.78,2
+Aaliyah Edwards,Connecticut Sun,Charlisse Leger-Walker,19.47,9
+Aaliyah Edwards,Connecticut Sun,Olivia Nelson-Ododa,18.13,9
 Aaliyah Edwards,Connecticut Sun,Hailey Van Lith,15.57,4
-Aaliyah Edwards,Connecticut Sun,Raegan Beers,12.59,6
-Aaliyah Edwards,Connecticut Sun,Nell Angloma,10.33,5
+Aaliyah Edwards,Connecticut Sun,Raegan Beers,12.62,7
 Aaliyah Edwards,Connecticut Sun,Gianna Kneepkens,9.60,7
+Aaliyah Edwards,Connecticut Sun,Nell Angloma,9.08,6
 Aneesah Morrow,Connecticut Sun,Kayla McBride,38.09,2
 Aneesah Morrow,Connecticut Sun,Alyssa Thomas,34.96,2
 Aneesah Morrow,Connecticut Sun,Kahleah Copper,34.76,2
@@ -221,41 +226,47 @@ Ashlon Jackson,Connecticut Sun,DeWanna Bonner,29.08,2
 Ashlon Jackson,Connecticut Sun,Jackie Young,29.01,2
 Ashlon Jackson,Connecticut Sun,Natasha Howard,28.97,2
 Ashlon Jackson,Connecticut Sun,Chelsea Gray,28.66,2
-Ashlon Jackson,Connecticut Sun,Leila Lacan,28.63,17
+Ashlon Jackson,Connecticut Sun,Leila Lacan,28.64,18
 Ashlon Jackson,Connecticut Sun,Emily Engstler,28.56,2
 Ashlon Jackson,Connecticut Sun,Jewell Loyd,27.26,2
 Ashlon Jackson,Connecticut Sun,A'ja Wilson,26.43,2
+Ashlon Jackson,Connecticut Sun,Sydney Taylor,26.42,2
 Ashlon Jackson,Connecticut Sun,Aliyah Boston,26.27,2
+Ashlon Jackson,Connecticut Sun,Natasha Cloud,26.04,2
 Ashlon Jackson,Connecticut Sun,Marine Johannes,25.98,2
 Ashlon Jackson,Connecticut Sun,Brittney Griner,25.91,14
 Ashlon Jackson,Connecticut Sun,Monique Akoa Makani,25.83,2
 Ashlon Jackson,Connecticut Sun,Monique Billings,23.83,2
-Ashlon Jackson,Connecticut Sun,Antonia Delaere,23.79,2
 Ashlon Jackson,Connecticut Sun,Lexie Hull,23.79,2
-Ashlon Jackson,Connecticut Sun,Kennedy Burke,23.74,22
+Ashlon Jackson,Connecticut Sun,Antonia Delaere,23.79,2
+Ashlon Jackson,Connecticut Sun,Aneesah Morrow,23.70,15
 Ashlon Jackson,Connecticut Sun,Chennedy Carter,23.68,2
+Ashlon Jackson,Connecticut Sun,Kennedy Burke,23.62,23
 Ashlon Jackson,Connecticut Sun,Betnijah Laney-Hamilton,23.37,2
 Ashlon Jackson,Connecticut Sun,Lauren Betts,23.33,2
-Ashlon Jackson,Connecticut Sun,Aneesah Morrow,23.20,14
 Ashlon Jackson,Connecticut Sun,Noemie Brochant,23.11,2
-Ashlon Jackson,Connecticut Sun,Saniya Rivers,22.93,19
+Ashlon Jackson,Connecticut Sun,Charlisse Leger-Walker,22.88,23
 Ashlon Jackson,Connecticut Sun,Pauline Astier,22.84,2
+Ashlon Jackson,Connecticut Sun,Saniya Rivers,22.82,20
+Ashlon Jackson,Connecticut Sun,Diamond Miller,22.78,23
 Ashlon Jackson,Connecticut Sun,Sarah Ashlee Barker,22.73,2
-Ashlon Jackson,Connecticut Sun,Charlisse Leger-Walker,22.56,22
-Ashlon Jackson,Connecticut Sun,Diamond Miller,22.52,22
 Ashlon Jackson,Connecticut Sun,Georgia Amoore,22.25,2
+Ashlon Jackson,Connecticut Sun,Kamilla Cardoso,22.08,2
 Ashlon Jackson,Connecticut Sun,Dorka Juhasz,22.03,2
 Ashlon Jackson,Connecticut Sun,Han Xu,21.97,2
+Ashlon Jackson,Connecticut Sun,Olivia Nelson-Ododa,21.91,21
 Ashlon Jackson,Connecticut Sun,Isabelle Harrison,21.89,2
-Ashlon Jackson,Connecticut Sun,Olivia Nelson-Ododa,21.77,20
 Ashlon Jackson,Connecticut Sun,Cotie McMahon,21.60,2
 Ashlon Jackson,Connecticut Sun,Maria Conde,21.04,2
 Ashlon Jackson,Connecticut Sun,Megan Gustafson,19.47,2
 Ashlon Jackson,Connecticut Sun,Sophie Cunningham,19.33,2
 Ashlon Jackson,Connecticut Sun,Aaliyah Edwards,19.04,15
 Ashlon Jackson,Connecticut Sun,NaLyssa Smith,17.42,2
+Ashlon Jackson,Connecticut Sun,Gabriela Jaquez,17.27,2
 Ashlon Jackson,Connecticut Sun,Stephanie Talbot,17.09,2
 Ashlon Jackson,Connecticut Sun,Nia Coffey,17.06,2
+Ashlon Jackson,Connecticut Sun,Jacy Sheldon,17.03,2
+Ashlon Jackson,Connecticut Sun,Elizabeth Williams,16.79,2
 Ashlon Jackson,Connecticut Sun,Hailey Van Lith,16.50,7
 Ashlon Jackson,Connecticut Sun,Valeriane Ayayi,16.33,2
 Ashlon Jackson,Connecticut Sun,Lexi Held,16.16,2
@@ -271,9 +282,9 @@ Ashlon Jackson,Connecticut Sun,Anastasiia Olairi Kosu,11.95,2
 Ashlon Jackson,Connecticut Sun,Tyasha Harris,11.67,2
 Ashlon Jackson,Connecticut Sun,Serah Williams,10.60,2
 Ashlon Jackson,Connecticut Sun,Brianna Turner,10.47,2
+Ashlon Jackson,Connecticut Sun,Raegan Beers,9.89,18
 Ashlon Jackson,Connecticut Sun,Eliska Hamzova,9.82,2
-Ashlon Jackson,Connecticut Sun,Raegan Beers,9.72,17
-Ashlon Jackson,Connecticut Sun,Nell Angloma,9.24,18
+Ashlon Jackson,Connecticut Sun,Nell Angloma,8.90,19
 Ashlon Jackson,Connecticut Sun,Gianna Kneepkens,7.82,17
 Ashlon Jackson,Connecticut Sun,Tima Pouye,6.63,2
 Ashlon Jackson,Connecticut Sun,Cassandre Prosper,6.36,2
@@ -282,7 +293,7 @@ Ashlon Jackson,Connecticut Sun,Kia Nurse,3.89,2
 Brittney Griner,Connecticut Sun,Jackie Young,29.01,2
 Brittney Griner,Connecticut Sun,Chelsea Gray,28.66,2
 Brittney Griner,Connecticut Sun,Natisha Hiedeman,28.65,2
-Brittney Griner,Connecticut Sun,Leila Lacan,27.89,6
+Brittney Griner,Connecticut Sun,Leila Lacan,28.02,7
 Brittney Griner,Connecticut Sun,Jewell Loyd,27.26,2
 Brittney Griner,Connecticut Sun,Janelle Salaun,26.72,2
 Brittney Griner,Connecticut Sun,A'ja Wilson,26.43,2
@@ -290,17 +301,17 @@ Brittney Griner,Connecticut Sun,Stefanie Dolson,26.29,2
 Brittney Griner,Connecticut Sun,Kaila Charles,25.69,2
 Brittney Griner,Connecticut Sun,Veronica Burton,25.10,2
 Brittney Griner,Connecticut Sun,Jade Melbourne,24.99,2
-Brittney Griner,Connecticut Sun,Olivia Nelson-Ododa,23.81,9
+Brittney Griner,Connecticut Sun,Olivia Nelson-Ododa,23.91,10
+Brittney Griner,Connecticut Sun,Charlisse Leger-Walker,23.69,13
 Brittney Griner,Connecticut Sun,Chennedy Carter,23.68,2
-Brittney Griner,Connecticut Sun,Kennedy Burke,23.51,12
 Brittney Griner,Connecticut Sun,Flau'jae Johnson,23.42,2
-Brittney Griner,Connecticut Sun,Saniya Rivers,23.40,11
-Brittney Griner,Connecticut Sun,Charlisse Leger-Walker,23.16,12
+Brittney Griner,Connecticut Sun,Kennedy Burke,23.31,13
+Brittney Griner,Connecticut Sun,Saniya Rivers,23.17,12
+Brittney Griner,Connecticut Sun,Aneesah Morrow,22.76,9
+Brittney Griner,Connecticut Sun,Diamond Miller,22.35,13
 Brittney Griner,Connecticut Sun,Mackenzie Holmes,22.23,2
-Brittney Griner,Connecticut Sun,Diamond Miller,21.84,12
-Brittney Griner,Connecticut Sun,Zia Cooke,21.81,2
 Brittney Griner,Connecticut Sun,Aaliyah Edwards,21.81,9
-Brittney Griner,Connecticut Sun,Aneesah Morrow,21.77,8
+Brittney Griner,Connecticut Sun,Zia Cooke,21.81,2
 Brittney Griner,Connecticut Sun,Kaitlyn Chen,21.73,2
 Brittney Griner,Connecticut Sun,Jordan Horston,19.56,2
 Brittney Griner,Connecticut Sun,Laeticia Amihere,18.14,2
@@ -310,12 +321,12 @@ Brittney Griner,Connecticut Sun,Stephanie Talbot,17.09,2
 Brittney Griner,Connecticut Sun,Kiah Stokes,16.88,2
 Brittney Griner,Connecticut Sun,Tiffany Hayes,16.81,2
 Brittney Griner,Connecticut Sun,Cheyenne Parker-Tyus,15.63,2
-Brittney Griner,Connecticut Sun,Cecilia Zandalasini,15.49,2
 Brittney Griner,Connecticut Sun,Hailey Van Lith,15.49,7
+Brittney Griner,Connecticut Sun,Cecilia Zandalasini,15.49,2
 Brittney Griner,Connecticut Sun,Kayla Thornton,14.70,2
-Brittney Griner,Connecticut Sun,Raegan Beers,14.38,12
+Brittney Griner,Connecticut Sun,Raegan Beers,14.26,13
 Brittney Griner,Connecticut Sun,Ashlon Jackson,14.13,4
-Brittney Griner,Connecticut Sun,Nell Angloma,13.05,11
+Brittney Griner,Connecticut Sun,Nell Angloma,12.20,12
 Brittney Griner,Connecticut Sun,Brianna Turner,10.47,2
 Brittney Griner,Connecticut Sun,Gianna Kneepkens,10.21,11
 Brittney Griner,Connecticut Sun,Taylor Thierry,6.83,2
@@ -331,28 +342,34 @@ Hailey Van Lith,Connecticut Sun,Caitlin Clark,31.54,2
 Hailey Van Lith,Connecticut Sun,Michaela Onyenwere,30.34,3
 Hailey Van Lith,Connecticut Sun,Kiki Iriafen,30.32,2
 Hailey Van Lith,Connecticut Sun,Natasha Howard,28.97,2
-Hailey Van Lith,Connecticut Sun,Leila Lacan,27.91,16
+Hailey Van Lith,Connecticut Sun,Leila Lacan,27.96,17
 Hailey Van Lith,Connecticut Sun,Shakira Austin,27.58,2
+Hailey Van Lith,Connecticut Sun,Sydney Taylor,26.42,2
 Hailey Van Lith,Connecticut Sun,Aliyah Boston,26.27,2
+Hailey Van Lith,Connecticut Sun,Natasha Cloud,26.04,2
 Hailey Van Lith,Connecticut Sun,Georgia Amoore,25.81,3
 Hailey Van Lith,Connecticut Sun,Brittney Griner,24.65,11
 Hailey Van Lith,Connecticut Sun,Monique Billings,23.83,2
+Hailey Van Lith,Connecticut Sun,Charlisse Leger-Walker,23.82,17
 Hailey Van Lith,Connecticut Sun,Antonia Delaere,23.79,2
 Hailey Van Lith,Connecticut Sun,Lexie Hull,23.79,2
-Hailey Van Lith,Connecticut Sun,Kennedy Burke,23.55,16
-Hailey Van Lith,Connecticut Sun,Charlisse Leger-Walker,23.43,16
-Hailey Van Lith,Connecticut Sun,Olivia Nelson-Ododa,22.82,16
-Hailey Van Lith,Connecticut Sun,Diamond Miller,22.44,16
+Hailey Van Lith,Connecticut Sun,Kennedy Burke,23.40,17
+Hailey Van Lith,Connecticut Sun,Olivia Nelson-Ododa,22.94,17
+Hailey Van Lith,Connecticut Sun,Diamond Miller,22.79,17
 Hailey Van Lith,Connecticut Sun,Cotie McMahon,22.42,3
+Hailey Van Lith,Connecticut Sun,Kamilla Cardoso,22.08,2
 Hailey Van Lith,Connecticut Sun,Dorka Juhasz,22.03,2
 Hailey Van Lith,Connecticut Sun,Isabelle Harrison,21.89,2
-Hailey Van Lith,Connecticut Sun,Saniya Rivers,21.69,14
+Hailey Van Lith,Connecticut Sun,Saniya Rivers,21.62,15
+Hailey Van Lith,Connecticut Sun,Aneesah Morrow,21.48,10
 Hailey Van Lith,Connecticut Sun,Lauren Betts,21.33,3
 Hailey Van Lith,Connecticut Sun,Maria Conde,21.04,2
-Hailey Van Lith,Connecticut Sun,Aneesah Morrow,20.45,9
 Hailey Van Lith,Connecticut Sun,Aaliyah Edwards,19.79,12
 Hailey Van Lith,Connecticut Sun,Sophie Cunningham,19.33,2
+Hailey Van Lith,Connecticut Sun,Gabriela Jaquez,17.27,2
 Hailey Van Lith,Connecticut Sun,Nia Coffey,17.06,2
+Hailey Van Lith,Connecticut Sun,Jacy Sheldon,17.03,2
+Hailey Van Lith,Connecticut Sun,Elizabeth Williams,16.79,2
 Hailey Van Lith,Connecticut Sun,Maya Caldwell,15.04,2
 Hailey Van Lith,Connecticut Sun,Makayla Timpson,14.13,2
 Hailey Van Lith,Connecticut Sun,Angela Dugalic,13.11,3
@@ -361,8 +378,8 @@ Hailey Van Lith,Connecticut Sun,Lucy Olsen,12.25,2
 Hailey Van Lith,Connecticut Sun,Anastasiia Olairi Kosu,11.95,2
 Hailey Van Lith,Connecticut Sun,Tyasha Harris,11.67,2
 Hailey Van Lith,Connecticut Sun,Eliska Hamzova,9.82,2
-Hailey Van Lith,Connecticut Sun,Raegan Beers,9.38,12
-Hailey Van Lith,Connecticut Sun,Nell Angloma,8.39,15
+Hailey Van Lith,Connecticut Sun,Raegan Beers,9.64,13
+Hailey Van Lith,Connecticut Sun,Nell Angloma,8.04,16
 Hailey Van Lith,Connecticut Sun,Tima Pouye,6.63,2
 Hailey Van Lith,Connecticut Sun,Cassandre Prosper,6.36,2
 Hailey Van Lith,Connecticut Sun,Gianna Kneepkens,6.28,10
@@ -647,21 +664,24 @@ Brianna Turner,Las Vegas Aces,Stephanie Talbot,16.10,3
 Brianna Turner,Las Vegas Aces,Chennedy Carter,15.26,2
 Brianna Turner,Las Vegas Aces,Cheyenne Parker-Tyus,15.11,3
 Brianna Turner,Las Vegas Aces,Kierstan Bell,10.24,3
-Chennedy Carter,Las Vegas Aces,Chelsea Gray,32.93,14
+Chennedy Carter,Las Vegas Aces,Breanna Stewart,36.52,2
+Chennedy Carter,Las Vegas Aces,Chelsea Gray,32.99,15
 Chennedy Carter,Las Vegas Aces,Jessica Shepard,32.87,2
-Chennedy Carter,Las Vegas Aces,Jackie Young,32.13,14
+Chennedy Carter,Las Vegas Aces,Jackie Young,32.37,15
+Chennedy Carter,Las Vegas Aces,A'ja Wilson,31.96,15
 Chennedy Carter,Las Vegas Aces,Alyssa Thomas,31.93,2
-Chennedy Carter,Las Vegas Aces,A'ja Wilson,31.69,14
 Chennedy Carter,Las Vegas Aces,Paige Bueckers,30.44,2
 Chennedy Carter,Las Vegas Aces,Azzi Fudd,30.15,2
 Chennedy Carter,Las Vegas Aces,Kahleah Copper,29.58,2
+Chennedy Carter,Las Vegas Aces,Sabrina Ionescu,29.48,2
 Chennedy Carter,Las Vegas Aces,Arike Ogunbowale,29.34,2
+Chennedy Carter,Las Vegas Aces,Jonquel Jones,27.86,2
 Chennedy Carter,Las Vegas Aces,Bridget Carleton,27.63,2
-Chennedy Carter,Las Vegas Aces,Jewell Loyd,27.08,13
+Chennedy Carter,Las Vegas Aces,Jewell Loyd,27.06,14
 Chennedy Carter,Las Vegas Aces,Kayla Thornton,26.96,2
 Chennedy Carter,Las Vegas Aces,Veronica Burton,25.12,2
-Chennedy Carter,Las Vegas Aces,NaLyssa Smith,24.52,13
 Chennedy Carter,Las Vegas Aces,Gabby Williams,24.51,2
+Chennedy Carter,Las Vegas Aces,NaLyssa Smith,24.13,14
 Chennedy Carter,Las Vegas Aces,Emily Engstler,24.08,2
 Chennedy Carter,Las Vegas Aces,Awak Kuier,23.74,2
 Chennedy Carter,Las Vegas Aces,Monique Akoa Makani,23.01,2
@@ -669,21 +689,24 @@ Chennedy Carter,Las Vegas Aces,Janelle Salaun,22.99,2
 Chennedy Carter,Las Vegas Aces,Carla Leite,21.08,2
 Chennedy Carter,Las Vegas Aces,Valeriane Ayayi,20.98,2
 Chennedy Carter,Las Vegas Aces,DeWanna Bonner,20.88,2
+Chennedy Carter,Las Vegas Aces,Pauline Astier,20.66,2
 Chennedy Carter,Las Vegas Aces,Kaila Charles,19.41,2
 Chennedy Carter,Las Vegas Aces,Noemie Brochant,19.23,2
 Chennedy Carter,Las Vegas Aces,Kiah Stokes,19.10,2
 Chennedy Carter,Las Vegas Aces,Lexi Held,18.78,2
 Chennedy Carter,Las Vegas Aces,Cecilia Zandalasini,18.47,2
 Chennedy Carter,Las Vegas Aces,Frieda Buhner,18.40,2
-Chennedy Carter,Las Vegas Aces,Stephanie Talbot,17.40,14
 Chennedy Carter,Las Vegas Aces,Tiffany Hayes,17.23,2
-Chennedy Carter,Las Vegas Aces,Dana Evans,17.04,4
+Chennedy Carter,Las Vegas Aces,Dana Evans,17.00,5
+Chennedy Carter,Las Vegas Aces,Stephanie Talbot,16.97,15
 Chennedy Carter,Las Vegas Aces,Nyadiew Puoch,16.73,2
 Chennedy Carter,Las Vegas Aces,Teja Oblak,16.03,2
 Chennedy Carter,Las Vegas Aces,Karlie Samuelson,14.95,2
 Chennedy Carter,Las Vegas Aces,Kaitlyn Chen,14.88,2
 Chennedy Carter,Las Vegas Aces,Sug Sutton,14.08,2
-Chennedy Carter,Las Vegas Aces,Brianna Turner,12.70,13
+Chennedy Carter,Las Vegas Aces,Han Xu,13.77,2
+Chennedy Carter,Las Vegas Aces,Brianna Turner,13.31,14
+Chennedy Carter,Las Vegas Aces,Marine Johannes,13.28,2
 Chennedy Carter,Las Vegas Aces,Aziaha James,12.38,2
 Chennedy Carter,Las Vegas Aces,Kierstan Bell,12.36,10
 Chennedy Carter,Las Vegas Aces,Justine Pissott,11.36,4
@@ -695,24 +718,106 @@ Chennedy Carter,Las Vegas Aces,Alysha Clark,6.09,2
 Chennedy Carter,Las Vegas Aces,Li Yueru,5.66,2
 Chennedy Carter,Las Vegas Aces,Ta'Niya Latson,4.98,2
 Chennedy Carter,Las Vegas Aces,Luisa Geiselsoder,4.81,2
-Cheyenne Parker-Tyus,Las Vegas Aces,Chelsea Gray,35.60,4
-Cheyenne Parker-Tyus,Las Vegas Aces,A'ja Wilson,34.16,4
+Cheyenne Parker-Tyus,Las Vegas Aces,Chelsea Gray,35.23,5
+Cheyenne Parker-Tyus,Las Vegas Aces,A'ja Wilson,34.47,5
+Cheyenne Parker-Tyus,Las Vegas Aces,Jackie Young,31.25,5
 Cheyenne Parker-Tyus,Las Vegas Aces,Kayla Thornton,30.77,2
 Cheyenne Parker-Tyus,Las Vegas Aces,Veronica Burton,30.76,2
-Cheyenne Parker-Tyus,Las Vegas Aces,Jackie Young,30.15,4
-Cheyenne Parker-Tyus,Las Vegas Aces,NaLyssa Smith,27.56,3
-Cheyenne Parker-Tyus,Las Vegas Aces,Jewell Loyd,27.49,3
+Cheyenne Parker-Tyus,Las Vegas Aces,Jewell Loyd,27.33,4
 Cheyenne Parker-Tyus,Las Vegas Aces,Gabby Williams,26.98,2
+Cheyenne Parker-Tyus,Las Vegas Aces,NaLyssa Smith,25.44,4
 Cheyenne Parker-Tyus,Las Vegas Aces,Janelle Salaun,24.50,2
-Cheyenne Parker-Tyus,Las Vegas Aces,Stephanie Talbot,20.78,4
 Cheyenne Parker-Tyus,Las Vegas Aces,Kiah Stokes,20.58,2
+Cheyenne Parker-Tyus,Las Vegas Aces,Stephanie Talbot,18.81,5
 Cheyenne Parker-Tyus,Las Vegas Aces,Cecilia Zandalasini,18.53,2
 Cheyenne Parker-Tyus,Las Vegas Aces,Chennedy Carter,17.83,2
+Cheyenne Parker-Tyus,Las Vegas Aces,Dana Evans,17.48,2
+Cheyenne Parker-Tyus,Las Vegas Aces,Brianna Turner,15.91,5
 Cheyenne Parker-Tyus,Las Vegas Aces,Kaila Charles,15.81,2
 Cheyenne Parker-Tyus,Las Vegas Aces,Tiffany Hayes,15.02,2
-Cheyenne Parker-Tyus,Las Vegas Aces,Brianna Turner,14.60,4
 Cheyenne Parker-Tyus,Las Vegas Aces,Kierstan Bell,10.47,2
 Cheyenne Parker-Tyus,Las Vegas Aces,Kaitlyn Chen,9.25,2
+Dana Evans,Las Vegas Aces,Kelsey Plum,35.90,2
+Dana Evans,Las Vegas Aces,Jessica Shepard,34.52,3
+Dana Evans,Las Vegas Aces,Chelsea Gray,33.08,23
+Dana Evans,Las Vegas Aces,Paige Bueckers,32.87,3
+Dana Evans,Las Vegas Aces,Azzi Fudd,32.68,3
+Dana Evans,Las Vegas Aces,Jackie Young,32.31,23
+Dana Evans,Las Vegas Aces,Nneka Ogwumike,31.90,2
+Dana Evans,Las Vegas Aces,A'ja Wilson,31.70,21
+Dana Evans,Las Vegas Aces,Skylar Diggins,31.18,2
+Dana Evans,Las Vegas Aces,Ariel Atkins,30.49,3
+Dana Evans,Las Vegas Aces,Bridget Carleton,30.31,2
+Dana Evans,Las Vegas Aces,Alyssa Thomas,30.07,3
+Dana Evans,Las Vegas Aces,Kahleah Copper,29.10,3
+Dana Evans,Las Vegas Aces,Saniya Rivers,29.04,2
+Dana Evans,Las Vegas Aces,Dearica Hamby,29.04,3
+Dana Evans,Las Vegas Aces,Sydney Taylor,28.89,2
+Dana Evans,Las Vegas Aces,Rae Burrell,28.80,3
+Dana Evans,Las Vegas Aces,Natasha Cloud,28.48,2
+Dana Evans,Las Vegas Aces,Kamilla Cardoso,28.45,2
+Dana Evans,Las Vegas Aces,Jewell Loyd,27.98,21
+Dana Evans,Las Vegas Aces,Azura Stevens,27.80,2
+Dana Evans,Las Vegas Aces,Kennedy Burke,27.44,2
+Dana Evans,Las Vegas Aces,Sarah Ashlee Barker,27.34,2
+Dana Evans,Las Vegas Aces,Kayla Thornton,26.91,3
+Dana Evans,Las Vegas Aces,Megan Gustafson,26.68,2
+Dana Evans,Las Vegas Aces,Emily Engstler,26.47,2
+Dana Evans,Las Vegas Aces,Erica Wheeler,26.01,3
+Dana Evans,Las Vegas Aces,Veronica Burton,25.94,3
+Dana Evans,Las Vegas Aces,Aneesah Morrow,25.64,2
+Dana Evans,Las Vegas Aces,Arike Ogunbowale,25.47,3
+Dana Evans,Las Vegas Aces,Gabby Williams,25.10,3
+Dana Evans,Las Vegas Aces,Carla Leite,24.51,2
+Dana Evans,Las Vegas Aces,NaLyssa Smith,24.05,23
+Dana Evans,Las Vegas Aces,Natasha Mack,23.90,2
+Dana Evans,Las Vegas Aces,Monique Akoa Makani,23.01,2
+Dana Evans,Las Vegas Aces,Awak Kuier,22.98,3
+Dana Evans,Las Vegas Aces,Janelle Salaun,22.38,3
+Dana Evans,Las Vegas Aces,Hailey Van Lith,21.96,2
+Dana Evans,Las Vegas Aces,Jovana Nogic,21.24,2
+Dana Evans,Las Vegas Aces,DeWanna Bonner,21.17,3
+Dana Evans,Las Vegas Aces,Valeriane Ayayi,20.98,2
+Dana Evans,Las Vegas Aces,Kiah Stokes,20.64,3
+Dana Evans,Las Vegas Aces,Diamond Miller,19.48,2
+Dana Evans,Las Vegas Aces,Stephanie Talbot,19.32,23
+Dana Evans,Las Vegas Aces,Cecilia Zandalasini,19.26,3
+Dana Evans,Las Vegas Aces,Cameron Brink,19.04,3
+Dana Evans,Las Vegas Aces,Noemie Brochant,18.98,3
+Dana Evans,Las Vegas Aces,Lexi Held,18.78,2
+Dana Evans,Las Vegas Aces,Charlisse Leger-Walker,17.38,2
+Dana Evans,Las Vegas Aces,Courtney Vandersloot,17.05,2
+Dana Evans,Las Vegas Aces,Chennedy Carter,16.92,13
+Dana Evans,Las Vegas Aces,Gianna Kneepkens,16.78,2
+Dana Evans,Las Vegas Aces,Kaila Charles,16.76,3
+Dana Evans,Las Vegas Aces,Tiffany Hayes,16.18,3
+Dana Evans,Las Vegas Aces,Raegan Beers,15.73,2
+Dana Evans,Las Vegas Aces,Jacy Sheldon,15.03,2
+Dana Evans,Las Vegas Aces,Chance Gray,14.43,2
+Dana Evans,Las Vegas Aces,Teja Oblak,14.19,2
+Dana Evans,Las Vegas Aces,Sug Sutton,14.08,2
+Dana Evans,Las Vegas Aces,Kaitlyn Chen,14.06,3
+Dana Evans,Las Vegas Aces,Elizabeth Williams,14.05,2
+Dana Evans,Las Vegas Aces,Frieda Buhner,12.86,2
+Dana Evans,Las Vegas Aces,Maddy Siegrist,12.70,3
+Dana Evans,Las Vegas Aces,Gabriela Jaquez,12.28,2
+Dana Evans,Las Vegas Aces,Karlie Samuelson,11.42,2
+Dana Evans,Las Vegas Aces,Kierstan Bell,11.21,19
+Dana Evans,Las Vegas Aces,Cheyenne Parker-Tyus,10.92,20
+Dana Evans,Las Vegas Aces,Brianna Turner,10.43,20
+Dana Evans,Las Vegas Aces,Aziaha James,10.41,3
+Dana Evans,Las Vegas Aces,Nyadiew Puoch,10.33,2
+Dana Evans,Las Vegas Aces,Alysha Clark,10.04,3
+Dana Evans,Las Vegas Aces,Kyara Linskens,9.71,2
+Dana Evans,Las Vegas Aces,Laeticia Amihere,9.49,2
+Dana Evans,Las Vegas Aces,Aicha Coulibaly,9.28,2
+Dana Evans,Las Vegas Aces,Luisa Geiselsoder,9.13,2
+Dana Evans,Las Vegas Aces,Juste Jocyte,5.74,2
+Dana Evans,Las Vegas Aces,Li Yueru,5.66,2
+Dana Evans,Las Vegas Aces,Ta'Niya Latson,5.53,2
+Dana Evans,Las Vegas Aces,Serah Williams,5.47,2
+Dana Evans,Las Vegas Aces,Jihyun Park,4.34,3
+Dana Evans,Las Vegas Aces,Emma Cannon,1.28,2
 Jewell Loyd,Las Vegas Aces,Jackie Young,36.75,2
 Jewell Loyd,Las Vegas Aces,Chelsea Gray,34.98,2
 Jewell Loyd,Las Vegas Aces,A'ja Wilson,34.75,2
@@ -720,23 +825,23 @@ Jewell Loyd,Las Vegas Aces,Stephanie Talbot,28.44,2
 Jewell Loyd,Las Vegas Aces,NaLyssa Smith,23.43,2
 Jewell Loyd,Las Vegas Aces,Kierstan Bell,17.76,2
 Jewell Loyd,Las Vegas Aces,Brianna Turner,15.11,2
-Kierstan Bell,Las Vegas Aces,Chelsea Gray,33.62,8
-Kierstan Bell,Las Vegas Aces,A'ja Wilson,32.26,8
-Kierstan Bell,Las Vegas Aces,Jackie Young,30.44,8
+Kierstan Bell,Las Vegas Aces,Chelsea Gray,33.64,9
+Kierstan Bell,Las Vegas Aces,A'ja Wilson,32.65,9
+Kierstan Bell,Las Vegas Aces,Jackie Young,31.02,9
 Kierstan Bell,Las Vegas Aces,Bridget Carleton,30.17,2
-Kierstan Bell,Las Vegas Aces,Jewell Loyd,26.86,8
+Kierstan Bell,Las Vegas Aces,Jewell Loyd,26.86,9
 Kierstan Bell,Las Vegas Aces,Carla Leite,25.04,2
-Kierstan Bell,Las Vegas Aces,NaLyssa Smith,21.82,7
+Kierstan Bell,Las Vegas Aces,NaLyssa Smith,21.48,8
 Kierstan Bell,Las Vegas Aces,Emily Engstler,21.23,2
 Kierstan Bell,Las Vegas Aces,Chennedy Carter,19.30,4
-Kierstan Bell,Las Vegas Aces,Dana Evans,17.04,4
-Kierstan Bell,Las Vegas Aces,Stephanie Talbot,16.26,8
+Kierstan Bell,Las Vegas Aces,Dana Evans,17.00,5
+Kierstan Bell,Las Vegas Aces,Stephanie Talbot,15.68,9
 Kierstan Bell,Las Vegas Aces,Frieda Buhner,15.63,2
 Kierstan Bell,Las Vegas Aces,Karlie Samuelson,15.30,2
 Kierstan Bell,Las Vegas Aces,Nyadiew Puoch,13.68,2
 Kierstan Bell,Las Vegas Aces,Teja Oblak,13.38,2
+Kierstan Bell,Las Vegas Aces,Brianna Turner,12.06,9
 Kierstan Bell,Las Vegas Aces,Justine Pissott,11.81,3
-Kierstan Bell,Las Vegas Aces,Brianna Turner,10.92,8
 Kierstan Bell,Las Vegas Aces,Cheyenne Parker-Tyus,9.44,6
 Kierstan Bell,Las Vegas Aces,Serah Williams,9.28,2
 Kierstan Bell,Las Vegas Aces,Luisa Geiselsoder,7.49,2
@@ -983,14 +1088,14 @@ Olivia Miles,Minnesota Lynx,Gianna Kneepkens,6.65,2
 Betnijah Laney-Hamilton,New York Liberty,Arike Ogunbowale,38.02,2
 Betnijah Laney-Hamilton,New York Liberty,Azzi Fudd,37.37,2
 Betnijah Laney-Hamilton,New York Liberty,Jessica Shepard,35.49,2
-Betnijah Laney-Hamilton,New York Liberty,Breanna Stewart,34.67,11
+Betnijah Laney-Hamilton,New York Liberty,Breanna Stewart,34.89,12
 Betnijah Laney-Hamilton,New York Liberty,Dearica Hamby,31.82,2
-Betnijah Laney-Hamilton,New York Liberty,Sabrina Ionescu,31.74,9
+Betnijah Laney-Hamilton,New York Liberty,Sabrina Ionescu,31.48,10
 Betnijah Laney-Hamilton,New York Liberty,Nneka Ogwumike,31.46,2
-Betnijah Laney-Hamilton,New York Liberty,Jonquel Jones,29.96,11
 Betnijah Laney-Hamilton,New York Liberty,Ariel Atkins,29.94,2
 Betnijah Laney-Hamilton,New York Liberty,Rae Burrell,29.90,2
 Betnijah Laney-Hamilton,New York Liberty,Natasha Cloud,29.78,2
+Betnijah Laney-Hamilton,New York Liberty,Jonquel Jones,29.78,12
 Betnijah Laney-Hamilton,New York Liberty,Leonie Fiebich,29.40,4
 Betnijah Laney-Hamilton,New York Liberty,Sydney Taylor,27.32,2
 Betnijah Laney-Hamilton,New York Liberty,Erica Wheeler,26.83,2
@@ -998,17 +1103,17 @@ Betnijah Laney-Hamilton,New York Liberty,Azura Stevens,24.96,2
 Betnijah Laney-Hamilton,New York Liberty,Awak Kuier,24.65,2
 Betnijah Laney-Hamilton,New York Liberty,Gabriela Jaquez,24.63,2
 Betnijah Laney-Hamilton,New York Liberty,Kamilla Cardoso,24.29,2
-Betnijah Laney-Hamilton,New York Liberty,Pauline Astier,22.27,11
-Betnijah Laney-Hamilton,New York Liberty,Marine Johannes,21.55,8
-Betnijah Laney-Hamilton,New York Liberty,Marine Fauthoux,20.66,4
-Betnijah Laney-Hamilton,New York Liberty,Rebecca Allen,20.48,7
+Betnijah Laney-Hamilton,New York Liberty,Pauline Astier,22.20,12
+Betnijah Laney-Hamilton,New York Liberty,Rebecca Allen,21.32,8
+Betnijah Laney-Hamilton,New York Liberty,Marine Fauthoux,20.20,5
+Betnijah Laney-Hamilton,New York Liberty,Marine Johannes,20.09,9
 Betnijah Laney-Hamilton,New York Liberty,Satou Sabally,18.02,6
 Betnijah Laney-Hamilton,New York Liberty,Elizabeth Williams,15.63,2
 Betnijah Laney-Hamilton,New York Liberty,Odyssey Sims,14.56,2
-Betnijah Laney-Hamilton,New York Liberty,Rebekah Gardner,14.17,10
+Betnijah Laney-Hamilton,New York Liberty,Rebekah Gardner,14.29,11
 Betnijah Laney-Hamilton,New York Liberty,Jacy Sheldon,13.56,2
+Betnijah Laney-Hamilton,New York Liberty,Han Xu,12.00,12
 Betnijah Laney-Hamilton,New York Liberty,Anneli Maley,11.93,3
-Betnijah Laney-Hamilton,New York Liberty,Han Xu,11.73,11
 Betnijah Laney-Hamilton,New York Liberty,Aicha Coulibaly,10.03,2
 Betnijah Laney-Hamilton,New York Liberty,Li Yueru,9.64,2
 Betnijah Laney-Hamilton,New York Liberty,Maddy Siegrist,8.64,2
@@ -1017,31 +1122,35 @@ Betnijah Laney-Hamilton,New York Liberty,Aziaha James,5.86,2
 Betnijah Laney-Hamilton,New York Liberty,Jihyun Park,4.68,2
 Betnijah Laney-Hamilton,New York Liberty,Rachel Banham,3.42,2
 Betnijah Laney-Hamilton,New York Liberty,Raquel Carrera,3.20,7
+Julie Vanloo,New York Liberty,Jackie Young,36.70,2
 Julie Vanloo,New York Liberty,Azzi Fudd,36.35,3
 Julie Vanloo,New York Liberty,Kahleah Copper,36.18,2
 Julie Vanloo,New York Liberty,Jessica Shepard,35.93,3
 Julie Vanloo,New York Liberty,Arike Ogunbowale,35.91,3
+Julie Vanloo,New York Liberty,A'ja Wilson,35.67,2
 Julie Vanloo,New York Liberty,Paige Bueckers,34.85,2
+Julie Vanloo,New York Liberty,Chelsea Gray,34.60,2
 Julie Vanloo,New York Liberty,Alyssa Thomas,34.02,2
-Julie Vanloo,New York Liberty,Breanna Stewart,33.75,22
+Julie Vanloo,New York Liberty,Breanna Stewart,33.91,23
 Julie Vanloo,New York Liberty,Natasha Howard,33.37,2
 Julie Vanloo,New York Liberty,Kayla McBride,32.83,2
 Julie Vanloo,New York Liberty,Sonia Citron,32.55,2
 Julie Vanloo,New York Liberty,Dearica Hamby,31.82,2
 Julie Vanloo,New York Liberty,Nneka Ogwumike,31.46,2
-Julie Vanloo,New York Liberty,Sabrina Ionescu,31.06,16
+Julie Vanloo,New York Liberty,Sabrina Ionescu,30.94,17
 Julie Vanloo,New York Liberty,Kelsey Mitchell,30.86,2
 Julie Vanloo,New York Liberty,Marina Mabrey,30.73,2
 Julie Vanloo,New York Liberty,Courtney Williams,30.35,2
 Julie Vanloo,New York Liberty,Caitlin Clark,30.08,2
 Julie Vanloo,New York Liberty,Ariel Atkins,29.94,2
 Julie Vanloo,New York Liberty,Rae Burrell,29.90,2
-Julie Vanloo,New York Liberty,Jonquel Jones,29.89,22
+Julie Vanloo,New York Liberty,Jonquel Jones,29.80,23
 Julie Vanloo,New York Liberty,Natasha Cloud,29.78,2
 Julie Vanloo,New York Liberty,Leonie Fiebich,29.13,14
 Julie Vanloo,New York Liberty,Olivia Miles,29.04,2
 Julie Vanloo,New York Liberty,Shakira Austin,28.88,2
 Julie Vanloo,New York Liberty,Julie Allemand,28.41,2
+Julie Vanloo,New York Liberty,Jewell Loyd,28.20,2
 Julie Vanloo,New York Liberty,Nia Coffey,28.08,2
 Julie Vanloo,New York Liberty,Nyara Sabally,27.70,2
 Julie Vanloo,New York Liberty,Natasha Mack,27.63,2
@@ -1057,11 +1166,12 @@ Julie Vanloo,New York Liberty,Gabriela Jaquez,24.63,2
 Julie Vanloo,New York Liberty,Michaela Onyenwere,24.59,2
 Julie Vanloo,New York Liberty,Kamilla Cardoso,24.29,2
 Julie Vanloo,New York Liberty,Monique Akoa Makani,23.98,2
-Julie Vanloo,New York Liberty,Pauline Astier,23.36,23
+Julie Vanloo,New York Liberty,Pauline Astier,23.28,24
 Julie Vanloo,New York Liberty,DeWanna Bonner,22.93,2
 Julie Vanloo,New York Liberty,Georgia Amoore,21.63,2
-Julie Vanloo,New York Liberty,Marine Johannes,21.27,20
+Julie Vanloo,New York Liberty,NaLyssa Smith,21.01,2
 Julie Vanloo,New York Liberty,Lauren Betts,20.93,2
+Julie Vanloo,New York Liberty,Marine Johannes,20.66,21
 Julie Vanloo,New York Liberty,Noemie Brochant,20.28,2
 Julie Vanloo,New York Liberty,Sophie Cunningham,19.46,2
 Julie Vanloo,New York Liberty,Lexie Hull,18.98,2
@@ -1069,19 +1179,20 @@ Julie Vanloo,New York Liberty,Cotie McMahon,17.03,2
 Julie Vanloo,New York Liberty,Satou Sabally,16.79,12
 Julie Vanloo,New York Liberty,Angela Dugalic,16.43,2
 Julie Vanloo,New York Liberty,Elizabeth Williams,15.63,2
+Julie Vanloo,New York Liberty,Rebecca Allen,15.25,12
 Julie Vanloo,New York Liberty,Maya Caldwell,15.13,2
 Julie Vanloo,New York Liberty,Alanna Smith,15.08,2
+Julie Vanloo,New York Liberty,Marine Fauthoux,14.68,8
 Julie Vanloo,New York Liberty,Betnijah Laney-Hamilton,14.62,13
-Julie Vanloo,New York Liberty,Rebecca Allen,14.17,11
-Julie Vanloo,New York Liberty,Marine Fauthoux,14.15,7
 Julie Vanloo,New York Liberty,Myisha Hines-Allen,13.89,2
-Julie Vanloo,New York Liberty,Rebekah Gardner,13.63,21
+Julie Vanloo,New York Liberty,Rebekah Gardner,13.72,22
 Julie Vanloo,New York Liberty,Jacy Sheldon,13.56,2
 Julie Vanloo,New York Liberty,Odyssey Sims,13.54,3
 Julie Vanloo,New York Liberty,Makayla Timpson,13.47,2
 Julie Vanloo,New York Liberty,Jovana Nogic,13.13,2
-Julie Vanloo,New York Liberty,Han Xu,12.73,23
+Julie Vanloo,New York Liberty,Han Xu,12.82,24
 Julie Vanloo,New York Liberty,Kyara Linskens,12.37,2
+Julie Vanloo,New York Liberty,Stephanie Talbot,12.01,2
 Julie Vanloo,New York Liberty,Anneli Maley,11.73,4
 Julie Vanloo,New York Liberty,Raven Johnson,10.43,2
 Julie Vanloo,New York Liberty,Antonia Delaere,10.21,2
@@ -1103,30 +1214,30 @@ Leonie Fiebich,New York Liberty,Azzi Fudd,36.35,3
 Leonie Fiebich,New York Liberty,Jessica Shepard,35.93,3
 Leonie Fiebich,New York Liberty,Arike Ogunbowale,35.91,3
 Leonie Fiebich,New York Liberty,Paige Bueckers,34.85,2
-Leonie Fiebich,New York Liberty,Breanna Stewart,34.40,14
-Leonie Fiebich,New York Liberty,Sabrina Ionescu,33.91,8
+Leonie Fiebich,New York Liberty,Breanna Stewart,34.60,15
+Leonie Fiebich,New York Liberty,Sabrina Ionescu,33.38,9
 Leonie Fiebich,New York Liberty,Bridget Carleton,29.30,3
-Leonie Fiebich,New York Liberty,Jonquel Jones,29.13,14
-Leonie Fiebich,New York Liberty,Marine Johannes,26.34,11
+Leonie Fiebich,New York Liberty,Jonquel Jones,29.03,15
 Leonie Fiebich,New York Liberty,Awak Kuier,25.66,3
+Leonie Fiebich,New York Liberty,Marine Johannes,24.85,12
 Leonie Fiebich,New York Liberty,Nyadiew Puoch,24.34,3
-Leonie Fiebich,New York Liberty,Pauline Astier,24.19,14
+Leonie Fiebich,New York Liberty,Pauline Astier,24.00,15
 Leonie Fiebich,New York Liberty,Carla Leite,23.94,2
 Leonie Fiebich,New York Liberty,Emily Engstler,23.53,3
 Leonie Fiebich,New York Liberty,Luisa Geiselsoder,23.11,3
 Leonie Fiebich,New York Liberty,Sug Sutton,20.71,2
-Leonie Fiebich,New York Liberty,Marine Fauthoux,20.66,4
 Leonie Fiebich,New York Liberty,Sarah Ashlee Barker,20.51,3
+Leonie Fiebich,New York Liberty,Marine Fauthoux,20.20,5
 Leonie Fiebich,New York Liberty,Betnijah Laney-Hamilton,19.12,7
-Leonie Fiebich,New York Liberty,Rebekah Gardner,18.34,13
-Leonie Fiebich,New York Liberty,Rebecca Allen,18.01,9
+Leonie Fiebich,New York Liberty,Rebecca Allen,18.92,10
+Leonie Fiebich,New York Liberty,Rebekah Gardner,18.14,14
 Leonie Fiebich,New York Liberty,Julie Vanloo,16.23,5
 Leonie Fiebich,New York Liberty,Alex Fowler,15.65,2
 Leonie Fiebich,New York Liberty,Megan Gustafson,15.55,3
 Leonie Fiebich,New York Liberty,Satou Sabally,15.22,3
 Leonie Fiebich,New York Liberty,Kamiah Smalls,15.09,2
 Leonie Fiebich,New York Liberty,Alanna Smith,15.08,2
-Leonie Fiebich,New York Liberty,Han Xu,14.19,14
+Leonie Fiebich,New York Liberty,Han Xu,14.24,15
 Leonie Fiebich,New York Liberty,Odyssey Sims,13.54,3
 Leonie Fiebich,New York Liberty,Haley Jones,12.72,2
 Leonie Fiebich,New York Liberty,Anneli Maley,11.73,4
@@ -1317,34 +1428,34 @@ Sabrina Ionescu,New York Liberty,Aubrey Griffin,1.93,4
 Satou Sabally,New York Liberty,Azzi Fudd,38.52,2
 Satou Sabally,New York Liberty,Jessica Shepard,37.44,2
 Satou Sabally,New York Liberty,Arike Ogunbowale,34.73,2
-Satou Sabally,New York Liberty,Breanna Stewart,34.33,14
+Satou Sabally,New York Liberty,Breanna Stewart,34.53,15
 Satou Sabally,New York Liberty,Natasha Howard,33.37,2
-Satou Sabally,New York Liberty,Sabrina Ionescu,33.09,10
 Satou Sabally,New York Liberty,Kayla McBride,32.83,2
 Satou Sabally,New York Liberty,Leonie Fiebich,32.80,4
+Satou Sabally,New York Liberty,Sabrina Ionescu,32.73,11
 Satou Sabally,New York Liberty,Courtney Williams,30.35,2
-Satou Sabally,New York Liberty,Jonquel Jones,29.29,15
+Satou Sabally,New York Liberty,Jonquel Jones,29.19,16
 Satou Sabally,New York Liberty,Olivia Miles,29.04,2
 Satou Sabally,New York Liberty,Bridget Carleton,29.00,2
 Satou Sabally,New York Liberty,Nia Coffey,28.08,2
 Satou Sabally,New York Liberty,Nyadiew Puoch,26.52,2
 Satou Sabally,New York Liberty,Awak Kuier,26.32,2
-Satou Sabally,New York Liberty,Pauline Astier,24.30,15
-Satou Sabally,New York Liberty,Marine Johannes,23.79,12
+Satou Sabally,New York Liberty,Pauline Astier,24.12,16
 Satou Sabally,New York Liberty,Luisa Geiselsoder,23.50,2
+Satou Sabally,New York Liberty,Marine Johannes,22.61,13
 Satou Sabally,New York Liberty,Sarah Ashlee Barker,21.58,2
 Satou Sabally,New York Liberty,Emily Engstler,21.44,2
 Satou Sabally,New York Liberty,Sug Sutton,20.71,2
-Satou Sabally,New York Liberty,Marine Fauthoux,20.66,4
+Satou Sabally,New York Liberty,Marine Fauthoux,20.20,5
 Satou Sabally,New York Liberty,Betnijah Laney-Hamilton,18.06,10
-Satou Sabally,New York Liberty,Rebekah Gardner,16.86,14
+Satou Sabally,New York Liberty,Rebekah Gardner,16.77,15
+Satou Sabally,New York Liberty,Rebecca Allen,16.46,10
 Satou Sabally,New York Liberty,Julie Vanloo,16.31,4
 Satou Sabally,New York Liberty,Odyssey Sims,16.27,2
-Satou Sabally,New York Liberty,Rebecca Allen,15.27,9
 Satou Sabally,New York Liberty,Maya Caldwell,15.13,2
 Satou Sabally,New York Liberty,Kamiah Smalls,15.09,2
 Satou Sabally,New York Liberty,Megan Gustafson,14.48,2
-Satou Sabally,New York Liberty,Han Xu,13.78,15
+Satou Sabally,New York Liberty,Han Xu,13.86,16
 Satou Sabally,New York Liberty,Haley Jones,12.72,2
 Satou Sabally,New York Liberty,Anneli Maley,12.39,2
 Satou Sabally,New York Liberty,Frieda Buhner,10.85,2
@@ -1390,8 +1501,8 @@ Jovana Nogic,Phoenix Mercury,Jade Melbourne,18.42,2
 Jovana Nogic,Phoenix Mercury,Katie Lou Samuelson,17.50,2
 Jovana Nogic,Phoenix Mercury,Stefanie Dolson,16.64,2
 Jovana Nogic,Phoenix Mercury,Aaliyah Edwards,14.21,2
-Jovana Nogic,Phoenix Mercury,Sami Whitcomb,14.05,6
 Jovana Nogic,Phoenix Mercury,Myisha Hines-Allen,14.05,3
+Jovana Nogic,Phoenix Mercury,Sami Whitcomb,14.05,6
 Jovana Nogic,Phoenix Mercury,Tyasha Harris,12.65,2
 Jovana Nogic,Phoenix Mercury,Kyara Linskens,11.22,5
 Jovana Nogic,Phoenix Mercury,Zia Cooke,11.10,2
@@ -2060,8 +2171,8 @@ Lexie Brown,Seattle Storm,Lexie Hull,15.26,2
 Lexie Brown,Seattle Storm,Te-Hina Paopao,13.94,2
 Lexie Brown,Seattle Storm,Zia Cooke,13.59,20
 Lexie Brown,Seattle Storm,Ezi Magbegor,13.40,4
-Lexie Brown,Seattle Storm,Stefanie Dolson,13.33,20
 Lexie Brown,Seattle Storm,Teja Oblak,13.33,2
+Lexie Brown,Seattle Storm,Stefanie Dolson,13.33,20
 Lexie Brown,Seattle Storm,Nyadiew Puoch,12.88,2
 Lexie Brown,Seattle Storm,Tyasha Harris,12.77,2
 Lexie Brown,Seattle Storm,Anastasiia Olairi Kosu,12.66,2
@@ -2101,30 +2212,41 @@ Mackenzie Holmes,Seattle Storm,Eliska Hamzova,1.27,2
 Brittney Sykes,Toronto Tempo,Jessica Shepard,36.07,2
 Brittney Sykes,Toronto Tempo,Paige Bueckers,34.17,2
 Brittney Sykes,Toronto Tempo,Azzi Fudd,33.19,2
-Brittney Sykes,Toronto Tempo,Julie Allemand,32.86,11
-Brittney Sykes,Toronto Tempo,Marina Mabrey,31.61,11
+Brittney Sykes,Toronto Tempo,Julie Allemand,32.00,12
 Brittney Sykes,Toronto Tempo,Rhyne Howard,31.60,2
-Brittney Sykes,Toronto Tempo,Allisha Gray,31.13,2
+Brittney Sykes,Toronto Tempo,Marina Mabrey,31.30,12
 Brittney Sykes,Toronto Tempo,Angel Reese,31.13,2
-Brittney Sykes,Toronto Tempo,Maria Conde,31.08,12
+Brittney Sykes,Toronto Tempo,Allisha Gray,31.13,2
+Brittney Sykes,Toronto Tempo,Maria Conde,30.81,13
 Brittney Sykes,Toronto Tempo,Jordin Canada,30.78,2
+Brittney Sykes,Toronto Tempo,Kayla McBride,29.55,2
 Brittney Sykes,Toronto Tempo,Arike Ogunbowale,28.39,2
+Brittney Sykes,Toronto Tempo,Olivia Miles,27.21,2
+Brittney Sykes,Toronto Tempo,Natasha Howard,26.12,2
+Brittney Sykes,Toronto Tempo,Laura Juskaite,25.85,13
 Brittney Sykes,Toronto Tempo,Isabelle Harrison,25.55,11
-Brittney Sykes,Toronto Tempo,Laura Juskaite,25.54,12
+Brittney Sykes,Toronto Tempo,Courtney Williams,25.41,2
 Brittney Sykes,Toronto Tempo,Naz Hillmon,24.20,2
-Brittney Sykes,Toronto Tempo,Nyara Sabally,21.65,8
-Brittney Sykes,Toronto Tempo,Temi Fagbenle,20.01,7
+Brittney Sykes,Toronto Tempo,Napheesa Collier,23.38,2
+Brittney Sykes,Toronto Tempo,Nyara Sabally,20.77,9
+Brittney Sykes,Toronto Tempo,Kiki Rice,20.07,2
+Brittney Sykes,Toronto Tempo,Temi Fagbenle,19.94,8
 Brittney Sykes,Toronto Tempo,Isobel Borlase,19.73,2
+Brittney Sykes,Toronto Tempo,Dorka Juhasz,18.05,2
 Brittney Sykes,Toronto Tempo,Awak Kuier,16.34,2
-Brittney Sykes,Toronto Tempo,Kia Nurse,14.19,12
+Brittney Sykes,Toronto Tempo,Maya Caldwell,15.88,2
+Brittney Sykes,Toronto Tempo,Kia Nurse,14.56,13
+Brittney Sykes,Toronto Tempo,Antonia Delaere,12.41,2
 Brittney Sykes,Toronto Tempo,Alysha Clark,11.53,2
-Brittney Sykes,Toronto Tempo,Tima Pouye,11.11,11
 Brittney Sykes,Toronto Tempo,Alanna Smith,11.07,2
 Brittney Sykes,Toronto Tempo,Madina Okot,10.85,2
+Brittney Sykes,Toronto Tempo,Tima Pouye,10.58,12
 Brittney Sykes,Toronto Tempo,Odyssey Sims,10.17,2
+Brittney Sykes,Toronto Tempo,Nia Coffey,10.09,2
 Brittney Sykes,Toronto Tempo,Kayla Alexander,10.08,4
+Brittney Sykes,Toronto Tempo,Eliska Hamzova,8.56,2
 Brittney Sykes,Toronto Tempo,Aziaha James,6.97,2
-Brittney Sykes,Toronto Tempo,Teonni Key,5.66,10
+Brittney Sykes,Toronto Tempo,Teonni Key,6.28,11
 Brittney Sykes,Toronto Tempo,Maddy Siegrist,5.58,2
 Brittney Sykes,Toronto Tempo,Ornella Bankole,5.22,2
 Brittney Sykes,Toronto Tempo,Sika Kone,0.99,2
@@ -2133,39 +2255,42 @@ Isabelle Harrison,Toronto Tempo,Brittney Sykes,32.05,10
 Isabelle Harrison,Toronto Tempo,Dearica Hamby,31.40,2
 Isabelle Harrison,Toronto Tempo,Erica Wheeler,31.38,2
 Isabelle Harrison,Toronto Tempo,Nneka Ogwumike,31.18,2
-Isabelle Harrison,Toronto Tempo,Kayla McBride,28.79,2
 Isabelle Harrison,Toronto Tempo,Jade Melbourne,27.62,2
-Isabelle Harrison,Toronto Tempo,Olivia Miles,27.41,2
-Isabelle Harrison,Toronto Tempo,Courtney Williams,27.38,2
-Isabelle Harrison,Toronto Tempo,Marina Mabrey,27.32,11
+Isabelle Harrison,Toronto Tempo,Marina Mabrey,27.37,12
+Isabelle Harrison,Toronto Tempo,Kayla McBride,27.35,3
 Isabelle Harrison,Toronto Tempo,Rae Burrell,26.63,2
+Isabelle Harrison,Toronto Tempo,Courtney Williams,26.59,3
 Isabelle Harrison,Toronto Tempo,Flau'jae Johnson,26.35,2
-Isabelle Harrison,Toronto Tempo,Kiki Rice,25.80,11
-Isabelle Harrison,Toronto Tempo,Nyara Sabally,25.65,8
-Isabelle Harrison,Toronto Tempo,Julie Allemand,25.29,6
-Isabelle Harrison,Toronto Tempo,Natasha Howard,25.22,2
-Isabelle Harrison,Toronto Tempo,Maria Conde,23.68,11
+Isabelle Harrison,Toronto Tempo,Olivia Miles,25.87,3
+Isabelle Harrison,Toronto Tempo,Kiki Rice,25.57,12
+Isabelle Harrison,Toronto Tempo,Julie Allemand,24.89,7
+Isabelle Harrison,Toronto Tempo,Natasha Howard,24.66,3
+Isabelle Harrison,Toronto Tempo,Nyara Sabally,24.33,9
+Isabelle Harrison,Toronto Tempo,Maria Conde,24.01,12
+Isabelle Harrison,Toronto Tempo,Napheesa Collier,23.38,2
 Isabelle Harrison,Toronto Tempo,Natisha Hiedeman,22.78,2
 Isabelle Harrison,Toronto Tempo,Stefanie Dolson,22.45,2
-Isabelle Harrison,Toronto Tempo,Laura Juskaite,21.70,11
-Isabelle Harrison,Toronto Tempo,Temi Fagbenle,20.99,2
+Isabelle Harrison,Toronto Tempo,Laura Juskaite,22.36,12
+Isabelle Harrison,Toronto Tempo,Temi Fagbenle,20.46,3
 Isabelle Harrison,Toronto Tempo,Jordan Horston,20.08,2
-Isabelle Harrison,Toronto Tempo,Nia Coffey,19.21,2
-Isabelle Harrison,Toronto Tempo,Maya Caldwell,17.44,2
+Isabelle Harrison,Toronto Tempo,Dorka Juhasz,18.05,2
+Isabelle Harrison,Toronto Tempo,Maya Caldwell,17.78,3
 Isabelle Harrison,Toronto Tempo,Cameron Brink,17.43,2
+Isabelle Harrison,Toronto Tempo,Nia Coffey,14.96,3
 Isabelle Harrison,Toronto Tempo,Lexie Brown,14.69,2
-Isabelle Harrison,Toronto Tempo,Antonia Delaere,13.63,2
+Isabelle Harrison,Toronto Tempo,Antonia Delaere,14.26,3
 Isabelle Harrison,Toronto Tempo,Zia Cooke,13.60,2
 Isabelle Harrison,Toronto Tempo,Kate Martin,12.22,2
-Isabelle Harrison,Toronto Tempo,Teonni Key,11.62,11
-Isabelle Harrison,Toronto Tempo,Kia Nurse,11.35,11
+Isabelle Harrison,Toronto Tempo,Kia Nurse,11.99,12
+Isabelle Harrison,Toronto Tempo,Teonni Key,11.69,12
+Isabelle Harrison,Toronto Tempo,Anastasiia Olairi Kosu,10.49,2
 Isabelle Harrison,Toronto Tempo,Chance Gray,10.37,2
 Isabelle Harrison,Toronto Tempo,Mackenzie Holmes,10.21,2
 Isabelle Harrison,Toronto Tempo,Nikolina Milic,9.01,7
 Isabelle Harrison,Toronto Tempo,Lexi Held,7.49,8
+Isabelle Harrison,Toronto Tempo,Eliska Hamzova,7.48,3
 Isabelle Harrison,Toronto Tempo,Mariella Fasoula,5.11,3
-Isabelle Harrison,Toronto Tempo,Eliska Hamzova,4.36,2
-Isabelle Harrison,Toronto Tempo,Tima Pouye,3.04,2
+Isabelle Harrison,Toronto Tempo,Tima Pouye,3.62,3
 Julie Allemand,Toronto Tempo,Brittney Sykes,32.42,5
 Julie Allemand,Toronto Tempo,Kiki Rice,31.25,5
 Julie Allemand,Toronto Tempo,Marina Mabrey,27.47,6
@@ -2333,8 +2458,8 @@ Alicia Florez,Washington Mystics,Han Xu,18.54,2
 Alicia Florez,Washington Mystics,Diamond Miller,18.32,2
 Alicia Florez,Washington Mystics,Aaliyah Edwards,17.62,2
 Alicia Florez,Washington Mystics,Zia Cooke,17.50,2
-Alicia Florez,Washington Mystics,Mackenzie Holmes,17.08,2
 Alicia Florez,Washington Mystics,Cassandre Prosper,17.08,10
+Alicia Florez,Washington Mystics,Mackenzie Holmes,17.08,2
 Alicia Florez,Washington Mystics,Rebekah Gardner,17.04,2
 Alicia Florez,Washington Mystics,Katie Lou Samuelson,16.66,2
 Alicia Florez,Washington Mystics,Lauren Betts,16.11,12

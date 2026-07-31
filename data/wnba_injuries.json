@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-30T12:33:45.905615",
+  "timestamp": "2026-07-31T06:10:03.363508",
   "payload": {
     "Te-Hina Paopao": {
       "status": "Out",
@@ -7,13 +7,7 @@
       "team": "",
       "dnp_type": "injury"
     },
-    "Indya Nivar": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "DiJonai Carrington": {
+    "Maddy Westbeld": {
       "status": "Out",
       "injury": "out",
       "team": "",
@@ -32,6 +26,12 @@
       "dnp_type": "injury"
     },
     "Rickea Jackson": {
+      "status": "Out",
+      "injury": "out",
+      "team": "",
+      "dnp_type": "injury"
+    },
+    "Ashlon Jackson": {
       "status": "Out",
       "injury": "out",
       "team": "",
@@ -62,18 +62,30 @@
       "dnp_type": "injury"
     },
     "Aliyah Boston": {
-      "status": "Out",
-      "injury": "out",
+      "status": "Day-To-Day",
+      "injury": "day-to-day",
       "team": "",
       "dnp_type": "injury"
     },
-    "Bree Hall": {
-      "status": "Out",
-      "injury": "out",
+    "Caitlin Clark": {
+      "status": "Day-To-Day",
+      "injury": "day-to-day",
       "team": "",
       "dnp_type": "injury"
     },
     "Damiris Dantas": {
+      "status": "Out",
+      "injury": "out",
+      "team": "",
+      "dnp_type": "injury"
+    },
+    "Monique Billings": {
+      "status": "Day-To-Day",
+      "injury": "day-to-day",
+      "team": "",
+      "dnp_type": "injury"
+    },
+    "Ta'Niya Latson": {
       "status": "Out",
       "injury": "out",
       "team": "",
@@ -91,21 +103,15 @@
       "team": "",
       "dnp_type": "injury"
     },
-    "NaLyssa Smith": {
-      "status": "Day-To-Day",
-      "injury": "day-to-day",
-      "team": "",
-      "dnp_type": "injury"
-    },
     "Janiah Barker": {
       "status": "Out",
       "injury": "out",
       "team": "",
       "dnp_type": "injury"
     },
-    "Dorka Juhasz": {
-      "status": "Day-To-Day",
-      "injury": "day-to-day",
+    "Liatu King": {
+      "status": "Out",
+      "injury": "out",
       "team": "",
       "dnp_type": "injury"
     },
@@ -116,6 +122,12 @@
       "dnp_type": "injury"
     },
     "Satou Sabally": {
+      "status": "Out",
+      "injury": "out",
+      "team": "",
+      "dnp_type": "injury"
+    },
+    "Anneli Maley": {
       "status": "Out",
       "injury": "out",
       "team": "",
@@ -157,43 +169,31 @@
       "team": "",
       "dnp_type": "injury"
     },
-    "Dominique Malonga": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
     "Taina Mair": {
       "status": "Out",
       "injury": "out",
       "team": "",
       "dnp_type": "injury"
     },
-    "Ezi Magbegor": {
-      "status": "Out",
-      "injury": "out",
+    "Dominique Malonga": {
+      "status": "Day-To-Day",
+      "injury": "day-to-day",
       "team": "",
       "dnp_type": "injury"
     },
-    "Nyara Sabally": {
+    "Ornella Bankole": {
       "status": "Out",
       "injury": "out",
       "team": "",
       "dnp_type": "injury"
     },
     "Isabelle Harrison": {
-      "status": "Day-To-Day",
-      "injury": "day-to-day",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "Brittney Sykes": {
       "status": "Out",
       "injury": "out",
       "team": "",
       "dnp_type": "injury"
     },
-    "Darianna Littlepage-Buggs": {
+    "Brittney Sykes": {
       "status": "Out",
       "injury": "out",
       "team": "",

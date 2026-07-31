@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-30T12:34:23.927194",
+  "timestamp": "2026-07-31T06:10:12.022842",
   "payload": {
     "starters": [
       "Diamond Miller",
@@ -8,11 +8,15 @@
       "Charlisse Leger-Walker",
       "Leila Lacan"
     ],
-    "source": "ESPN (projected \u2014 based on most recent game lineup (adjusted: Aaliyah Edwards, Brittney Griner out))",
-    "confirmed": false,
-    "game_time": "7/30 - 8:00 PM EDT",
+    "source": "ESPN (confirmed)",
+    "confirmed": true,
+    "game_time": "Final",
     "opponent": "Chicago Sky",
     "game_injuries": {
+      "Ashlon Jackson": {
+        "status": "Out",
+        "injury": "out"
+      },
       "Aaliyah Edwards": {
         "status": "Out",
         "injury": "out"
@@ -23,5 +27,5 @@
       }
     }
   },
-  "ttl_hours": 6
+  "ttl_hours": 0.25
 }
