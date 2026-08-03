@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-03T14:30:43.372729",
+  "timestamp": "2026-08-03T15:53:08.563046",
   "payload": {
     "Te-Hina Paopao": {
       "status": "Out",
@@ -127,21 +127,15 @@
       "team": "",
       "dnp_type": "injury"
     },
+    "Anneli Maley": {
+      "status": "Out",
+      "injury": "out",
+      "team": "",
+      "dnp_type": "injury"
+    },
     "Leonie Fiebich": {
       "status": "Out",
       "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "Kelsey Plum": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "Sami Whitcomb": {
-      "status": "Day-To-Day",
-      "injury": "day-to-day",
       "team": "",
       "dnp_type": "injury"
     },
