@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-31T06:10:50.851402",
+  "timestamp": "2026-08-03T14:30:56.123420",
   "payload": {
     "starters": [
       "Naz Hillmon",
@@ -8,11 +8,16 @@
       "Jordin Canada",
       "Rhyne Howard"
     ],
-    "source": "ESPN (projected \u2014 based on most recent game lineup)",
+    "source": "ESPN (projected \u2014 based on most recent game lineup (adjusted: Te-Hina Paopao out))",
     "confirmed": false,
-    "game_time": "",
-    "opponent": "",
-    "game_injuries": {}
+    "game_time": "8/3 - 7:00 PM EDT",
+    "opponent": "Las Vegas Aces",
+    "game_injuries": {
+      "Te-Hina Paopao": {
+        "status": "Out",
+        "injury": "out"
+      }
+    }
   },
   "ttl_hours": 6
 }

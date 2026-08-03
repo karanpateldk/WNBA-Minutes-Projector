@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-31T06:11:29.164058",
+  "timestamp": "2026-08-03T14:31:27.794547",
   "payload": {
     "starters": [
       "Stephanie Talbot",
@@ -8,19 +8,11 @@
       "Chelsea Gray",
       "Jackie Young"
     ],
-    "source": "ESPN (confirmed)",
-    "confirmed": true,
-    "game_time": "Final",
-    "opponent": "New York Liberty",
+    "source": "ESPN (projected \u2014 based on most recent game lineup (adjusted: Cheyenne Parker-Tyus, Janiah Barker out))",
+    "confirmed": false,
+    "game_time": "8/3 - 7:00 PM EDT",
+    "opponent": "Atlanta Dream",
     "game_injuries": {
-      "Ta'Niya Latson": {
-        "status": "Out",
-        "injury": "out"
-      },
-      "Kierstan Bell": {
-        "status": "Out",
-        "injury": "out"
-      },
       "Cheyenne Parker-Tyus": {
         "status": "Out",
         "injury": "out"
@@ -31,5 +23,5 @@
       }
     }
   },
-  "ttl_hours": 0.25
+  "ttl_hours": 6
 }

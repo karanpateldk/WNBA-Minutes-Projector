@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-31T06:10:38.573333",
+  "timestamp": "2026-08-03T14:31:10.638985",
   "payload": {
     "starters": [
       "Kamilla Cardoso",
@@ -8,11 +8,24 @@
       "Aicha Coulibaly",
       "Sydney Taylor"
     ],
-    "source": "ESPN (projected \u2014 based on most recent game lineup)",
+    "source": "ESPN (projected \u2014 based on most recent game lineup (adjusted: Azura Stevens, Skylar Diggins, Rickea Jackson out))",
     "confirmed": false,
-    "game_time": "Final",
-    "opponent": "Connecticut Sun",
-    "game_injuries": {}
+    "game_time": "8/3 - 9:00 PM EDT",
+    "opponent": "Phoenix Mercury",
+    "game_injuries": {
+      "Azura Stevens": {
+        "status": "Out",
+        "injury": "out"
+      },
+      "Skylar Diggins": {
+        "status": "Out",
+        "injury": "out"
+      },
+      "Rickea Jackson": {
+        "status": "Out",
+        "injury": "out"
+      }
+    }
   },
   "ttl_hours": 6
 }

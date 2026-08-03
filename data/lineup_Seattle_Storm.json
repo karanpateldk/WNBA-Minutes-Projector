@@ -1,18 +1,23 @@
 {
-  "timestamp": "2026-07-31T06:11:02.433462",
+  "timestamp": "2026-08-03T14:31:00.208137",
   "payload": {
     "starters": [
-      "Jordan Horston",
+      "Dominique Malonga",
       "Awa Fam",
       "Natisha Hiedeman",
       "Flau'jae Johnson",
       "Jade Melbourne"
     ],
-    "source": "ESPN (projected \u2014 based on most recent game lineup)",
+    "source": "ESPN (projected \u2014 based on most recent game lineup (adjusted: Taina Mair out))",
     "confirmed": false,
-    "game_time": "",
-    "opponent": "",
-    "game_injuries": {}
+    "game_time": "8/3 - 7:00 PM EDT",
+    "opponent": "New York Liberty",
+    "game_injuries": {
+      "Taina Mair": {
+        "status": "Out",
+        "injury": "out"
+      }
+    }
   },
   "ttl_hours": 6
 }
