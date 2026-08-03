@@ -394,6 +394,25 @@ def run():
             ])
     print(f"    -> {len(injuries)} injuries written to snowflake_injuries.csv")
 
+    # ── 4b. Current rosters — player to current team mapping for trade detection ──
+    print("  Exporting current rosters...")
+    cur.execute("""
+        SELECT
+            roster_market || ' ' || roster_name AS team_name,
+            PLAYER:full_name::varchar            AS player_name,
+            PLAYER:position::varchar             AS position
+        FROM SPORTRADAR.DBO.WNBA_ROSTER_CURRENT
+        WHERE PLAYER:status::varchar = 'ACT'
+        ORDER BY team_name, player_name
+    """)
+    roster_rows = cur.fetchall()
+    with open(DATA_DIR / "snowflake_current_rosters.csv", "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["team_name", "player_name", "position"])
+        for row in roster_rows:
+            w.writerow(list(row))
+    print(f"    -> {len(roster_rows)} players written to snowflake_current_rosters.csv")
+
     # ── 5. Without-player teammate averages ──────────────────────────────────
     print("  Exporting without-player data...")
     cur.execute("""

@@ -846,6 +846,32 @@ def get_team_data(team_name: str) -> dict:
                     all_players.add(name)
     else:
         all_players = set(season_players.keys())
+
+    # Remove players confirmed on a different team via snowflake_current_rosters.csv.
+    # This catches trades — WNBA_ROSTER_CURRENT is updated in real time by Sportradar.
+    try:
+        import csv as _csv_mod
+        from pathlib import Path as _Path
+        _roster_path = _Path(__file__).parent / "data" / "snowflake_current_rosters.csv"
+        if _roster_path.exists():
+            _current_team: dict[str, str] = {}
+            with open(_roster_path, encoding="utf-8") as _f:
+                for _row in _csv_mod.DictReader(_f):
+                    _pname = (_row.get("player_name") or "").strip()
+                    _tname = (_row.get("team_name") or "").strip()
+                    if _pname and _tname:
+                        _current_team[_pname] = _tname
+            if _current_team:
+                traded_away = {
+                    p for p in list(all_players)
+                    if p in _current_team and _current_team[p] != team_name
+                }
+                all_players -= traded_away
+                if traded_away:
+                    print(f"[scraper] Removed {len(traded_away)} traded players from {team_name}: {sorted(traded_away)}")
+    except Exception:
+        pass
+
     total_games = season.get("games_processed", 1) or 1
 
     merged = {}

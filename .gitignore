@@ -6,6 +6,7 @@ data/
 !data/snowflake_boxscores.csv
 !data/snowflake_without_player.csv
 !data/accuracy_log.csv
+!data/snowflake_current_rosters.csv
 !data/all_players_combined.json
 !data/wnba_injuries.json
 !data/lineup_*.json
