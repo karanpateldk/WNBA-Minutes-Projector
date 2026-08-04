@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-03T15:17:54.701704",
+  "timestamp": "2026-08-03T21:29:59.559283",
   "payload": {
     "starters": [
       "Kamilla Cardoso",
@@ -8,11 +8,19 @@
       "Aicha Coulibaly",
       "Sydney Taylor"
     ],
-    "source": "ESPN (projected \u2014 based on most recent game lineup (adjusted: Skylar Diggins, Azura Stevens, Rickea Jackson out))",
-    "confirmed": false,
-    "game_time": "8/3 - 9:00 PM EDT",
+    "source": "ESPN (confirmed)",
+    "confirmed": true,
+    "game_time": "Final",
     "opponent": "Phoenix Mercury",
     "game_injuries": {
+      "Sydney Taylor": {
+        "status": "Out",
+        "injury": "out"
+      },
+      "Maddy Westbeld": {
+        "status": "Out",
+        "injury": "out"
+      },
       "Azura Stevens": {
         "status": "Out",
         "injury": "out"
@@ -27,5 +35,5 @@
       }
     }
   },
-  "ttl_hours": 6
+  "ttl_hours": 0.25
 }

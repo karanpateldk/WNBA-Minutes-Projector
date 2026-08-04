@@ -1,23 +1,31 @@
 {
-  "timestamp": "2026-08-03T15:20:01.985241",
+  "timestamp": "2026-08-03T21:30:16.352765",
   "payload": {
     "starters": [
       "DeWanna Bonner",
       "Alyssa Thomas",
+      "Natasha Mack",
       "Noemie Brochant",
-      "Kahleah Copper",
-      "Monique Akoa Makani"
+      "Kahleah Copper"
     ],
-    "source": "ESPN (projected \u2014 based on most recent game lineup (adjusted: Jovana Nogic out))",
-    "confirmed": false,
-    "game_time": "8/3 - 9:00 PM EDT",
+    "source": "ESPN (confirmed)",
+    "confirmed": true,
+    "game_time": "Final",
     "opponent": "Chicago Sky",
     "game_injuries": {
+      "Kara Dunn": {
+        "status": "Out",
+        "injury": "out"
+      },
+      "Shay Ciezki": {
+        "status": "Out",
+        "injury": "out"
+      },
       "Jovana Nogic": {
         "status": "Out",
         "injury": "out"
       }
     }
   },
-  "ttl_hours": 6
+  "ttl_hours": 0.25
 }

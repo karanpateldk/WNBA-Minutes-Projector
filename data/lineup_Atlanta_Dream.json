@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-03T14:30:56.123420",
+  "timestamp": "2026-08-03T21:30:10.683136",
   "payload": {
     "starters": [
       "Naz Hillmon",
@@ -8,9 +8,9 @@
       "Jordin Canada",
       "Rhyne Howard"
     ],
-    "source": "ESPN (projected \u2014 based on most recent game lineup (adjusted: Te-Hina Paopao out))",
-    "confirmed": false,
-    "game_time": "8/3 - 7:00 PM EDT",
+    "source": "ESPN (confirmed)",
+    "confirmed": true,
+    "game_time": "Final",
     "opponent": "Las Vegas Aces",
     "game_injuries": {
       "Te-Hina Paopao": {
@@ -19,5 +19,5 @@
       }
     }
   },
-  "ttl_hours": 6
+  "ttl_hours": 0.25
 }

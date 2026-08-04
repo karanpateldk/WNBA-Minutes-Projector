@@ -1,7 +1,19 @@
 {
-  "timestamp": "2026-08-03T15:45:59.456913",
+  "timestamp": "2026-08-03T21:29:51.202243",
   "payload": {
     "Te-Hina Paopao": {
+      "status": "Out",
+      "injury": "out",
+      "team": "",
+      "dnp_type": "injury"
+    },
+    "Sydney Taylor": {
+      "status": "Out",
+      "injury": "out",
+      "team": "",
+      "dnp_type": "injury"
+    },
+    "Maddy Westbeld": {
       "status": "Out",
       "injury": "out",
       "team": "",
@@ -44,12 +56,6 @@
       "dnp_type": "injury"
     },
     "Maria Kliundikova": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "Miela Sowah": {
       "status": "Out",
       "injury": "out",
       "team": "",
@@ -139,6 +145,18 @@
       "team": "",
       "dnp_type": "injury"
     },
+    "Kara Dunn": {
+      "status": "Out",
+      "injury": "out",
+      "team": "",
+      "dnp_type": "injury"
+    },
+    "Shay Ciezki": {
+      "status": "Out",
+      "injury": "out",
+      "team": "",
+      "dnp_type": "injury"
+    },
     "Jovana Nogic": {
       "status": "Out",
       "injury": "out",
@@ -169,15 +187,9 @@
       "team": "",
       "dnp_type": "injury"
     },
-    "Ornella Bankole": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
     "Marina Mabrey": {
-      "status": "Out",
-      "injury": "out",
+      "status": "Day-To-Day",
+      "injury": "day-to-day",
       "team": "",
       "dnp_type": "injury"
     },

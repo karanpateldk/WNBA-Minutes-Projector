@@ -1,16 +1,16 @@
 {
-  "timestamp": "2026-08-03T14:31:00.208137",
+  "timestamp": "2026-08-03T21:30:05.044440",
   "payload": {
     "starters": [
+      "Ezi Magbegor",
       "Dominique Malonga",
-      "Awa Fam",
       "Natisha Hiedeman",
       "Flau'jae Johnson",
       "Jade Melbourne"
     ],
-    "source": "ESPN (projected \u2014 based on most recent game lineup (adjusted: Taina Mair out))",
-    "confirmed": false,
-    "game_time": "8/3 - 7:00 PM EDT",
+    "source": "ESPN (confirmed)",
+    "confirmed": true,
+    "game_time": "Final",
     "opponent": "New York Liberty",
     "game_injuries": {
       "Taina Mair": {
@@ -19,5 +19,5 @@
       }
     }
   },
-  "ttl_hours": 6
+  "ttl_hours": 0.25
 }
