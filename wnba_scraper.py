@@ -448,27 +448,54 @@ def scrape_espn_roster(team_name: str) -> dict:
 
     roster = {}
 
-    # Primary: Snowflake WNBA_ROSTER_CURRENT
+    # Primary: snowflake_current_rosters.csv (exported by action, always fresh)
     try:
-        import snowflake_connector as _sf
-        if _sf.is_available():
-            raw_roster = _sf.get_roster(team_name)
-            if raw_roster:
-                import unicodedata as _ud
-                roster = {}
-                for pname, pdata in raw_roster.items():
+        from pathlib import Path as _P
+        import csv as _csv, unicodedata as _ud
+        csv_path = _P(__file__).parent / "data" / "snowflake_current_rosters.csv"
+        if csv_path.exists():
+            with open(csv_path, encoding="utf-8") as f:
+                for row in _csv.DictReader(f):
+                    if row.get("team_name", "").strip() != team_name:
+                        continue
+                    pname = row.get("player_name", "").strip()
+                    pos_raw = row.get("position", "").strip()
+                    if not pname:
+                        continue
                     norm = _ud.normalize("NFD", pname)
                     norm = "".join(c for c in norm if _ud.category(c) != "Mn")
-                    roster[norm] = pdata
+                    pos = ESPN_POS_MAP.get(pos_raw, pos_raw or "?")
+                    roster[norm] = {"pos": pos}
+            if roster:
                 _cache_path(cache_key).write_text(
                     json.dumps({"timestamp": datetime.now().isoformat(),
                                 "payload": roster, "ttl_hours": 6}, indent=2)
                 )
                 return roster
     except Exception as e:
-        print(f"[scraper] Snowflake roster failed for {team_name}: {e}")
+        print(f"[scraper] CSV roster failed for {team_name}: {e}")
 
-    # Fallback: ESPN roster API
+    # Secondary: Snowflake live connection
+    try:
+        import snowflake_connector as _sf
+        if _sf.is_available():
+            raw_roster = _sf.get_roster(team_name)
+            if raw_roster:
+                import unicodedata as _ud
+                for pname, pdata in raw_roster.items():
+                    norm = _ud.normalize("NFD", pname)
+                    norm = "".join(c for c in norm if _ud.category(c) != "Mn")
+                    roster[norm] = pdata
+                if roster:
+                    _cache_path(cache_key).write_text(
+                        json.dumps({"timestamp": datetime.now().isoformat(),
+                                    "payload": roster, "ttl_hours": 6}, indent=2)
+                    )
+                    return roster
+    except Exception:
+        pass
+
+    # Last resort: ESPN roster API (may 403)
     team_id = ESPN_TEAM_IDS.get(team_name)
     if team_id:
         url = f"https://site.api.espn.com/apis/site/v2/sports/basketball/wnba/teams/{team_id}/roster"
@@ -480,8 +507,6 @@ def scrape_espn_roster(team_name: str) -> dict:
                 name = player.get("displayName", "")
                 if not name or len(name) < 3:
                     continue
-                # Normalize accented characters to ASCII so name matches
-                # season stats which use plain ASCII (e.g. Saläun → Salaun)
                 import unicodedata
                 name = unicodedata.normalize("NFD", name)
                 name = "".join(c for c in name if unicodedata.category(c) != "Mn")
@@ -546,19 +571,37 @@ def get_live_roster(team_name: str) -> dict:
 def _get_todays_game_id(team_name: str) -> tuple[str, str, str]:
     """
     Returns (game_id, opponent_name, game_time_str) for today's game.
-    Primary: Snowflake WNBA_SCHEDULE (CURRENT_DATE filter).
-    Fallback: ESPN scoreboard API.
+    Primary: Snowflake WNBA_SCHEDULE (works on Cloud and locally).
+    Fallback: ESPN scoreboard API (only if Snowflake live connection available).
     """
-    # Primary: Snowflake
+    # Primary: Snowflake connector (live or CSV-based)
     try:
         import snowflake_connector as _sf
-        if _sf.is_available():
-            gid, opp, tip = _sf.get_todays_game(team_name)
-            if gid:
-                return gid, opp, tip
+        gid, opp, tip = _sf.get_todays_game(team_name)
+        if gid:
+            return gid, opp, tip
     except Exception as e:
         print(f"[scraper] Snowflake today's game failed: {e}")
 
+    # Fallback: check snowflake_boxscores.csv for today's game
+    try:
+        from pathlib import Path as _P
+        import csv as _csv
+        from datetime import date as _d
+        today_et = _d.today().isoformat()
+        box_path = _P(__file__).parent / "data" / "snowflake_boxscores.csv"
+        if box_path.exists():
+            with open(box_path, encoding="utf-8") as f:
+                for row in _csv.DictReader(f):
+                    if row.get("game_date", "") == today_et and row.get("team_name", "") == team_name:
+                        # Found today's game — get opponent from home_team_name
+                        home = row.get("home_team_name", "")
+                        opp = home if home != team_name else ""
+                        return row.get("game_id", ""), opp, ""
+    except Exception:
+        pass
+
+    # Last resort: ESPN scoreboard (may 403)
     team_id = ESPN_TEAM_IDS.get(team_name)
     if not team_id:
         return "", "", ""
@@ -570,28 +613,23 @@ def _get_todays_game_id(team_name: str) -> tuple[str, str, str]:
         )
         r.raise_for_status()
         data = r.json()
+        tid_str = str(team_id)
+        for event in data.get("events", []):
+            comp = event.get("competitions", [{}])[0]
+            competitors = comp.get("competitors", [])
+            team_ids = [str(c.get("team", {}).get("id", "")) for c in competitors]
+            if tid_str not in team_ids:
+                continue
+            game_id = event.get("id", "")
+            game_time = event.get("status", {}).get("type", {}).get("shortDetail", "")
+            opponent = ""
+            for c in competitors:
+                if str(c.get("team", {}).get("id", "")) != tid_str:
+                    opponent = c.get("team", {}).get("displayName", "")
+                    break
+            return game_id, opponent, game_time
     except Exception:
-        return "", "", ""
-
-    tid_str = str(team_id)
-    for event in data.get("events", []):
-        comp = event.get("competitions", [{}])[0]
-        competitors = comp.get("competitors", [])
-        team_ids = [str(c.get("team", {}).get("id", "")) for c in competitors]
-        if tid_str not in team_ids:
-            continue
-
-        game_id = event.get("id", "")
-        game_time = event.get("status", {}).get("type", {}).get("shortDetail", "")
-
-        # Opponent name
-        opponent = ""
-        for c in competitors:
-            if str(c.get("team", {}).get("id", "")) != tid_str:
-                opponent = c.get("team", {}).get("displayName", "")
-                break
-
-        return game_id, opponent, game_time
+        pass
 
     return "", "", ""
 
@@ -659,23 +697,58 @@ def _get_game_injuries(game_id: str, team_id: int) -> dict:
 
 def _infer_starters_from_history(team_name: str, injured_out: set) -> list[str]:
     """
-    When no confirmed lineup exists, infer starters from the most recent
-    game's opening lineup via play-by-play (starter=True in boxscore).
-    Excludes players who are confirmed out today.
+    Infer starters from the most recent game's boxscore (starter=True).
+    Primary: snowflake_boxscores.csv — no ESPN calls needed.
+    Fallback: ESPN game summary API.
     """
-    from quarter_minutes import get_recent_game_ids, ESPN_TEAM_IDS as QTR_IDS
-    team_id = QTR_IDS.get(team_name)
-    if not team_id:
-        return []
+    # Primary: read starters from boxscores CSV (most recent game for this team)
+    try:
+        from pathlib import Path as _P
+        import csv as _csv
+        box_path = _P(__file__).parent / "data" / "snowflake_boxscores.csv"
+        if box_path.exists():
+            # Get most recent game_id for this team
+            games_seen: dict[str, str] = {}  # game_id -> game_date
+            starters_by_game: dict[str, list[str]] = {}
+            with open(box_path, encoding="utf-8") as f:
+                for row in _csv.DictReader(f):
+                    if row.get("team_name", "") != team_name:
+                        continue
+                    gid = row.get("game_id", "")
+                    gdate = row.get("game_date", "")
+                    if not gid:
+                        continue
+                    if gid not in games_seen:
+                        games_seen[gid] = gdate
+                    is_starter = str(row.get("starter", "")).lower() in ("true", "1")
+                    played = str(row.get("player_played", "")).lower() in ("true", "1")
+                    if is_starter and played:
+                        starters_by_game.setdefault(gid, []).append(
+                            row.get("player_full_name", "").strip()
+                        )
+            # Sort by date descending and return first game with 5 starters
+            for gid, _ in sorted(games_seen.items(), key=lambda x: x[1], reverse=True):
+                starters = starters_by_game.get(gid, [])
+                filtered = [s for s in starters if s not in injured_out]
+                if len(filtered) >= 4:
+                    return filtered[:5]
+    except Exception as e:
+        print(f"[scraper] CSV starter inference failed: {e}")
 
-    game_ids = get_recent_game_ids(team_id, n=3)
-    for gid in game_ids:
-        starters = _get_confirmed_starters(gid, team_id)
-        if starters:
-            # Filter out players confirmed out today
-            filtered = [s for s in starters if s not in injured_out]
-            if len(filtered) >= 4:
-                return filtered[:5]
+    # Fallback: ESPN (may 403)
+    try:
+        from quarter_minutes import get_recent_game_ids, ESPN_TEAM_IDS as QTR_IDS
+        team_id = QTR_IDS.get(team_name)
+        if team_id:
+            game_ids = get_recent_game_ids(team_id, n=3)
+            for gid in game_ids:
+                starters = _get_confirmed_starters(gid, team_id)
+                if starters:
+                    filtered = [s for s in starters if s not in injured_out]
+                    if len(filtered) >= 4:
+                        return filtered[:5]
+    except Exception:
+        pass
     return []
 
 
