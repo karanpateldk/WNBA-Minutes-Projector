@@ -497,22 +497,21 @@ def run():
         print("  Running accuracy tracker...")
         _at.snapshot_today()   # only today's RotoWire CSV — historical files managed manually
         _at.fill_actuals()
-        _at.backfill_from_boxscores()
+        try:
+            _at.backfill_from_boxscores()
+        except Exception as _be:
+            print(f"  [accuracy] Backfill skipped: {_be}")
     except Exception as _e:
         print(f"  [accuracy] Skipped: {_e}")
 
-    # ── 7. Pre-warm app caches so Streamlit loads fast after reboot ──────────
-    print("  Warming app caches (injuries, lineups, players)...")
+    # ── 7. Pre-warm injuries + players cache (skip lineup — ESPN often 403s) ──
+    print("  Warming app caches (injuries, players)...")
     try:
         import sys as _sys
         _sys.path.insert(0, str(DATA_DIR.parent))
-        from wnba_scraper import get_all_injuries as _gi, get_lineup_info as _gl, get_all_players as _gp
-        from roster_data import TEAMS as _teams
+        from wnba_scraper import get_all_injuries as _gi, get_all_players as _gp
         _gi()   # injuries
         _gp()   # all players list
-        for _t in _teams:
-            try: _gl(_t)
-            except Exception: pass
         print("    -> caches warmed")
     except Exception as _e:
         print(f"    -> cache warm skipped: {_e}")

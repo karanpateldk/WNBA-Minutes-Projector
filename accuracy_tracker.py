@@ -685,15 +685,8 @@ def backfill_from_boxscores(since_date: str = "2026-07-16") -> int:
         print(f"[accuracy] Backfill failed reading boxscores: {e}")
         return 0
 
-    # Run model for each team/date combo not already in log
-    try:
-        import sys
-        sys.path.insert(0, str(Path(__file__).parent))
-        from wnba_scraper import get_team_data
-        from model import build_projection
-    except Exception as e:
-        print(f"[accuracy] Backfill failed loading model: {e}")
-        return 0
+    # Load model projections from CSV once — no ESPN/network calls
+    team_proj: dict[str, float] = _load_our_projections()
 
     new_rows = []
     dates_to_fill = sorted(d for d in actuals_by_date if d >= since_date)
@@ -711,19 +704,6 @@ def backfill_from_boxscores(since_date: str = "2026-07-16") -> int:
             lmap[sorted_teams[i+1]] = label
         if len(sorted_teams) % 2 == 1:
             lmap[sorted_teams[-1]] = sorted_teams[-1]
-
-        # Get model projections for each team
-        team_proj: dict[str, float] = {}
-        for team in teams_that_day:
-            try:
-                td = dict(get_team_data(team))
-                td.pop("__meta__", None)
-                lineup = build_projection(td)
-                for p in lineup.players:
-                    if p.projected_min > 0:
-                        team_proj[p.name] = round(p.projected_min, 1)
-            except Exception:
-                continue
 
         for p in day_players:
             key = (gdate, p["player"])
