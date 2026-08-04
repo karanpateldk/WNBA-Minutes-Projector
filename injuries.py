@@ -49,7 +49,6 @@ def scrape_injuries() -> pd.DataFrame:
     try:
         import pypdf
     except ImportError:
-        logger.error("pypdf not installed — run: pip install pypdf")
         return pd.DataFrame()
 
     try:
