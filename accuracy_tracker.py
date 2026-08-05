@@ -563,6 +563,7 @@ def compute_stats() -> dict:
     """
     rows = _load_existing_log()
     our_errors, rw_errors = [], []
+    our_pct_errors, rw_pct_errors = [], []  # MAPE for rotation players (≥10 min projected)
     filled_rows = []       # all rows with actuals (for full log display)
     rw_filled_rows = []    # only rows with both RotoWire projection AND actuals
 
@@ -577,12 +578,15 @@ def compute_stats() -> dict:
 
         filled_rows.append(row)
 
-        has_rw = bool(row.get("rw_projected", "").strip())
+        has_rw = bool(str(row.get("rw_projected") or "").strip())
 
         try:
             our_f = float(row.get("our_projected", ""))
-            if has_rw:  # only compare our model on rows where RW also projected
+            if has_rw:
                 our_errors.append(abs(our_f - actual_f))
+                # MAPE only for rotation players with meaningful actuals
+                if our_f >= 10 and actual_f >= 5:
+                    our_pct_errors.append(abs(our_f - actual_f) / actual_f * 100)
         except (ValueError, TypeError):
             pass
 
@@ -590,6 +594,8 @@ def compute_stats() -> dict:
             rw_f = float(row.get("rw_projected", ""))
             rw_errors.append(abs(rw_f - actual_f))
             rw_filled_rows.append(row)
+            if rw_f >= 10 and actual_f >= 5:
+                rw_pct_errors.append(abs(rw_f - actual_f) / actual_f * 100)
         except (ValueError, TypeError):
             pass
 
@@ -627,21 +633,23 @@ def compute_stats() -> dict:
         reverse=True
     )
 
-    def _stats(errors: list[float]) -> dict:
+    def _stats(errors: list[float], pct_errors: list[float] | None = None) -> dict:
         if not errors:
-            return {"mae": None, "within2": None, "within4": None, "n": 0}
+            return {"mae": None, "within2": None, "within4": None, "mape": None, "n": 0}
         n = len(errors)
+        mape = round(sum(pct_errors) / len(pct_errors), 1) if pct_errors else None
         return {
             "mae":     round(sum(errors) / n, 2),
             "within2": round(100 * sum(1 for e in errors if e <= 2) / n, 1),
             "within4": round(100 * sum(1 for e in errors if e <= 4) / n, 1),
+            "mape":    mape,   # % error on rotation players (≥10 min projected, ≥5 actual)
             "n":       n,
         }
 
     return {
-        "our":        _stats(our_errors),
-        "rw":         _stats(rw_errors),
-        "rows":       rw_filled_rows,  # only rows with RW projections shown in log
+        "our":        _stats(our_errors, our_pct_errors),
+        "rw":         _stats(rw_errors, rw_pct_errors),
+        "rows":       rw_filled_rows,
         "game_count": len(seen_game_keys),
         "game_list":  game_list,
     }
