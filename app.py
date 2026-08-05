@@ -1693,13 +1693,6 @@ with _tab_rw:
                     "Winner":        "Our Model ✓" if (_our['within4'] or 0) > (_rw['within4'] or 0)
                                      else ("RotoWire ✓" if (_rw['within4'] or 0) > (_our['within4'] or 0) else "Tied"),
                 },
-                {
-                    "Metric":        "MAPE — rotation players only (lower = better)",
-                    "Our Model":     f"{_our['mape']:.1f}%" if _our.get('mape') is not None else "—",
-                    "RotoWire":      f"{_rw['mape']:.1f}%"  if _rw.get('mape')  is not None else "—",
-                    "Winner":        "Our Model ✓" if (_our.get('mape') or 999) < (_rw.get('mape') or 999)
-                                     else ("RotoWire ✓" if (_rw.get('mape') or 999) < (_our.get('mape') or 999) else "Tied"),
-                },
             ]
             st.dataframe(pd.DataFrame(_summary_rows), use_container_width=True, hide_index=True)
 
