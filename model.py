@@ -222,11 +222,10 @@ def _weighted_minutes(
             w_season = 1.0 - w_last3
 
     # Additional trend boost from Snowflake's true per-player trend signal.
-    # trend_3v6 > 5: role clearly expanding — trust last3 more
-    # trend_3v6 < -5: role clearly shrinking — trust last3 more (it captures the drop)
-    # Both cases: push last3 weight up, season avg down
-    if abs(trend_3v6) >= 5.0 and games_played >= 8:
-        trend_boost = min((abs(trend_3v6) - 5.0) / 20.0, 0.15)
+    # Only apply upward trends (expanding role) — downward trends from injury
+    # are already captured by last3. Don't double-penalise injured starters.
+    if trend_3v6 >= 5.0 and games_played >= 8:
+        trend_boost = min((trend_3v6 - 5.0) / 20.0, 0.15)
         w_last3  = min(w_last3 + trend_boost, 0.92)
         w_season = 1.0 - w_last3
 
@@ -456,6 +455,17 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
         last1 = info.get("last_game_min") or None
         if last1 is not None and last1 < 0.5:
             last1 = None  # DNP last game — don't use as signal
+
+        # Suppress last1 for established rotation players who played unusually few
+        # minutes in their last game — likely an injury exit, not a role change.
+        # Only applies when: avg >= 15 min AND last1 < 40% of avg (significant drop)
+        # AND player has missed games since (confirming it was an injury, not coaching).
+        _games_missed = info.get("games_missed_streak", 0) or 0
+        if (last1 is not None and avg_min >= 15.0
+                and last1 < avg_min * 0.40
+                and _games_missed >= 1
+                and player not in injury_overrides):
+            last1 = None  # injury exit — don't penalise projection
 
         # Suppress last1 if the player fouled out last game (foul rate signals curtailed mins).
         # The clean_avg and last3_clean already exclude foul-trouble games — last1 should too.
