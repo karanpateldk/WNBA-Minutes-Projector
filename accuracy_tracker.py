@@ -186,6 +186,29 @@ def _load_our_projections() -> dict[str, float]:
                 continue
         if result:
             print(f"[accuracy] Loaded real model projections for {len(result)} players")
+            # Supplement with season avg for active players not in model output
+            # (traded players with few games on new team fall below projection threshold)
+            _roster_path = DATA_DIR / "snowflake_current_rosters.csv"
+            _stats_path  = DATA_DIR / "snowflake_player_stats.csv"
+            if _roster_path.exists() and _stats_path.exists():
+                # Build season avg lookup
+                _season_avg: dict[str, float] = {}
+                with open(_stats_path, encoding="utf-8") as f:
+                    for row in csv.DictReader(f):
+                        n = row.get("player_full_name", "").strip()
+                        try:
+                            _season_avg[n] = float(row.get("avg_minutes") or 0)
+                        except (ValueError, TypeError):
+                            pass
+                # Add any active roster player not already projected
+                with open(_roster_path, encoding="utf-8") as f:
+                    for row in csv.DictReader(f):
+                        n = row.get("player_name", "").strip()
+                        if n and n not in result:
+                            avg = _season_avg.get(n, 0.0)
+                            if avg >= 5.0:  # only include if they've averaged meaningful mins
+                                result[n] = round(avg, 1)
+            print(f"[accuracy] Total players after roster supplement: {len(result)}")
             return result
     except Exception as e:
         print(f"[accuracy] Could not run model, falling back to season avg: {e}")
