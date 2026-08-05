@@ -682,8 +682,13 @@ def build_projection(team_data: dict, injury_overrides: dict[str, str] | None = 
         # 3. True DNP candidate: DNP rate > 70% AND missed 2+ straight games
         #    (catches habitual non-dressers who are on the roster but rarely play,
         #    while preserving returning players like Vandersloot who have a real role)
-        avg    = pinfo.get("avg_min", last3)
-        dnp    = pinfo.get("dnp_rate", 0.0) or 0.0
+        avg       = pinfo.get("avg_min", last3)
+        dnp       = pinfo.get("dnp_rate", 0.0) or 0.0
+        start_pct = pinfo.get("starter_pct", 0.0) or 0.0
+        # Never zero out a player who is a legitimate rotation player:
+        # - avg >= 15 min OR starter 40%+ of games → keep regardless of missed streak
+        if avg >= 15.0 or start_pct >= 0.40:
+            continue
         if avg < 6.0 or i >= bench_slots or (dnp > 0.70 and missed >= 2):
             p.projected_min = 0.0
 
