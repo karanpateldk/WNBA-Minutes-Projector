@@ -496,6 +496,11 @@ with st.sidebar:
     export_excel = st.button("Export to Excel", use_container_width=True)
     export_csv   = st.button("Export to CSV",   use_container_width=True)
 
+    st.markdown("---")
+    if st.button("⏹ Stop Server", use_container_width=True, help="Frees port 8501 so other apps can run"):
+        import os, signal
+        os.kill(os.getpid(), signal.SIGTERM)
+
 
 # ---------------------------------------------------------------------------
 # Main content
