@@ -503,7 +503,7 @@ with st.sidebar:
         unsafe_allow_html=True,
     )
     if st.button("⏹  STOP SERVER", use_container_width=True, type="primary",
-                 help="Kills the local server and frees port 8501 so other apps can run"):
+                 help="Shut down this app so you can open another tool on the same port"):
         import os, signal
         os.kill(os.getpid(), signal.SIGTERM)
 
