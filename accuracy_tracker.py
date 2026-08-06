@@ -100,6 +100,17 @@ def _find_all_rw_csvs() -> list[tuple[str, Path]]:
 
 LOG_COLS = ["date", "game_label", "player", "rw_team", "rw_projected", "our_projected", "actual_minutes"]
 
+# RotoWire name → Sportradar name when they differ
+# Add entries here whenever a player can't be matched automatically
+RW_TO_SR_NAMES: dict[str, str] = {
+    # Same name in both systems — listed here to force inclusion despite team mismatch
+    "Monique Akoa Makani": "Monique Akoa Makani",
+    "Kayla Alexander":     "Kayla Alexander",
+    "Anneli Maley":        "Anneli Maley",
+    "Angela Dugalic":      "Angela Dugalic",
+    "Tima Pouye":          "Tima Pouye",
+}
+
 # RotoWire team abbreviation → full name used in season_stats
 _RW_TEAM_MAP = {
     "ATL": "Atlanta Dream",
@@ -220,6 +231,12 @@ def _load_our_projections() -> dict[str, float]:
                         if stats_team == curr_team and avg >= 5.0 and gp >= 5:
                             result[n] = round(avg, 1)
                             added += 1
+            # Force-include players in alias map that still aren't matched
+            for rw_name, sr_name in RW_TO_SR_NAMES.items():
+                if sr_name not in result:
+                    avg = _current_stats.get(sr_name, ('', 0.0, 0))[1]
+                    if avg >= 5.0:
+                        result[sr_name] = round(avg, 1)
             print(f"[accuracy] Total players after roster supplement: {len(result)}")
             return result
     except Exception as e:
@@ -533,7 +550,9 @@ def snapshot_today(rw_path: Path | None = None, force_date: str | None = None) -
     new_rows = []
     unmatched = []
     for rw in rw_rows:
-        matched = _fuzzy_match(rw["player"], our_names)
+        # Check alias map first, then fuzzy match
+        sr_name = RW_TO_SR_NAMES.get(rw["player"], rw["player"])
+        matched = sr_name if sr_name in our_proj else _fuzzy_match(rw["player"], our_names)
         our_min = our_proj.get(matched, "") if matched else ""
         new_rows.append({
             "date":           today,
