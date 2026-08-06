@@ -497,7 +497,13 @@ with st.sidebar:
     export_csv   = st.button("Export to CSV",   use_container_width=True)
 
     st.markdown("---")
-    if st.button("⏹ Stop Server", use_container_width=True, help="Frees port 8501 so other apps can run"):
+    st.markdown(
+        '<div style="font-size:0.72rem;opacity:0.5;text-align:center;margin-bottom:4px">'
+        'Running locally on port 8501</div>',
+        unsafe_allow_html=True,
+    )
+    if st.button("⏹  STOP SERVER", use_container_width=True, type="primary",
+                 help="Kills the local server and frees port 8501 so other apps can run"):
         import os, signal
         os.kill(os.getpid(), signal.SIGTERM)
 
