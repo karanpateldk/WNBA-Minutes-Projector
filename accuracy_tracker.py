@@ -186,28 +186,40 @@ def _load_our_projections() -> dict[str, float]:
                 continue
         if result:
             print(f"[accuracy] Loaded real model projections for {len(result)} players")
-            # Supplement with season avg for active players not in model output
-            # (traded players with few games on new team fall below projection threshold)
+            # Supplement with season avg only for active players who have
+            # meaningful games on their CURRENT team (not traded-away season avg).
+            # Uses season_gp from snowflake_player_stats which reflects current team games.
             _roster_path = DATA_DIR / "snowflake_current_rosters.csv"
             _stats_path  = DATA_DIR / "snowflake_player_stats.csv"
             if _roster_path.exists() and _stats_path.exists():
-                # Build season avg lookup
-                _season_avg: dict[str, float] = {}
+                # Build current-team stats lookup (team_name matches current roster)
+                _current_stats: dict[str, tuple[str, float, int]] = {}  # name -> (team, avg, gp)
                 with open(_stats_path, encoding="utf-8") as f:
                     for row in csv.DictReader(f):
                         n = row.get("player_full_name", "").strip()
+                        t = row.get("team_name", "").strip()
                         try:
-                            _season_avg[n] = float(row.get("avg_minutes") or 0)
+                            avg = float(row.get("avg_minutes") or 0)
+                            gp  = int(row.get("season_gp") or 0)
+                            _current_stats[n] = (t, avg, gp)
                         except (ValueError, TypeError):
                             pass
-                # Add any active roster player not already projected
+                # Build current roster team lookup
+                _current_team: dict[str, str] = {}
                 with open(_roster_path, encoding="utf-8") as f:
                     for row in csv.DictReader(f):
                         n = row.get("player_name", "").strip()
-                        if n and n not in result:
-                            avg = _season_avg.get(n, 0.0)
-                            if avg >= 5.0:  # only include if they've averaged meaningful mins
-                                result[n] = round(avg, 1)
+                        t = row.get("team_name", "").strip()
+                        if n and t:
+                            _current_team[n] = t
+                # Only supplement if stats team matches current roster team AND 5+ games
+                added = 0
+                for n, curr_team in _current_team.items():
+                    if n not in result and n in _current_stats:
+                        stats_team, avg, gp = _current_stats[n]
+                        if stats_team == curr_team and avg >= 5.0 and gp >= 5:
+                            result[n] = round(avg, 1)
+                            added += 1
             print(f"[accuracy] Total players after roster supplement: {len(result)}")
             return result
     except Exception as e:
