@@ -342,8 +342,8 @@ Ashlon Jackson,Connecticut Sun,Marine Johannes,25.98,2
 Ashlon Jackson,Connecticut Sun,Brittney Griner,25.91,14
 Ashlon Jackson,Connecticut Sun,Monique Akoa Makani,25.83,2
 Ashlon Jackson,Connecticut Sun,Monique Billings,23.83,2
-Ashlon Jackson,Connecticut Sun,Lexie Hull,23.79,2
 Ashlon Jackson,Connecticut Sun,Antonia Delaere,23.79,2
+Ashlon Jackson,Connecticut Sun,Lexie Hull,23.79,2
 Ashlon Jackson,Connecticut Sun,Aneesah Morrow,23.70,15
 Ashlon Jackson,Connecticut Sun,Chennedy Carter,23.68,2
 Ashlon Jackson,Connecticut Sun,Kennedy Burke,23.62,23
@@ -426,8 +426,8 @@ Brittney Griner,Connecticut Sun,Stephanie Talbot,17.09,2
 Brittney Griner,Connecticut Sun,Kiah Stokes,16.88,2
 Brittney Griner,Connecticut Sun,Tiffany Hayes,16.81,2
 Brittney Griner,Connecticut Sun,Cheyenne Parker-Tyus,15.63,2
-Brittney Griner,Connecticut Sun,Cecilia Zandalasini,15.49,2
 Brittney Griner,Connecticut Sun,Hailey Van Lith,15.49,7
+Brittney Griner,Connecticut Sun,Cecilia Zandalasini,15.49,2
 Brittney Griner,Connecticut Sun,Kayla Thornton,14.70,2
 Brittney Griner,Connecticut Sun,Raegan Beers,14.27,14
 Brittney Griner,Connecticut Sun,Ashlon Jackson,13.56,5
@@ -460,9 +460,9 @@ Hailey Van Lith,Connecticut Sun,Brittney Griner,24.65,11
 Hailey Van Lith,Connecticut Sun,Arike Ogunbowale,24.55,2
 Hailey Van Lith,Connecticut Sun,Charlisse Leger-Walker,23.90,18
 Hailey Van Lith,Connecticut Sun,Monique Billings,23.83,2
+Hailey Van Lith,Connecticut Sun,Lexie Hull,23.79,2
 Hailey Van Lith,Connecticut Sun,Kennedy Burke,23.79,18
 Hailey Van Lith,Connecticut Sun,Antonia Delaere,23.79,2
-Hailey Van Lith,Connecticut Sun,Lexie Hull,23.79,2
 Hailey Van Lith,Connecticut Sun,Diamond Miller,23.18,18
 Hailey Van Lith,Connecticut Sun,Olivia Nelson-Ododa,23.15,18
 Hailey Van Lith,Connecticut Sun,Cotie McMahon,22.42,3
@@ -737,24 +737,32 @@ Caitlin Clark,Indiana Fever,Monique Billings,19.64,4
 Caitlin Clark,Indiana Fever,Makayla Timpson,13.18,4
 Caitlin Clark,Indiana Fever,Myisha Hines-Allen,12.03,4
 Caitlin Clark,Indiana Fever,Grace VanSlooten,3.66,2
-Myisha Hines-Allen,Indiana Fever,Kelsey Mitchell,33.83,3
-Myisha Hines-Allen,Indiana Fever,Aliyah Boston,28.17,3
-Myisha Hines-Allen,Indiana Fever,Caitlin Clark,27.92,3
-Myisha Hines-Allen,Indiana Fever,Monique Billings,26.51,3
-Myisha Hines-Allen,Indiana Fever,Sophie Cunningham,25.72,3
-Myisha Hines-Allen,Indiana Fever,Makayla Timpson,19.16,3
-Myisha Hines-Allen,Indiana Fever,Lexie Hull,18.57,3
-Myisha Hines-Allen,Indiana Fever,Tyasha Harris,16.92,3
+Myisha Hines-Allen,Indiana Fever,Kelsey Mitchell,35.15,4
+Myisha Hines-Allen,Indiana Fever,Chelsea Gray,35.07,2
+Myisha Hines-Allen,Indiana Fever,A'ja Wilson,34.13,2
+Myisha Hines-Allen,Indiana Fever,Jackie Young,33.43,2
+Myisha Hines-Allen,Indiana Fever,Caitlin Clark,30.55,4
+Myisha Hines-Allen,Indiana Fever,Aliyah Boston,30.52,4
+Myisha Hines-Allen,Indiana Fever,Jewell Loyd,29.45,2
+Myisha Hines-Allen,Indiana Fever,NaLyssa Smith,29.08,2
+Myisha Hines-Allen,Indiana Fever,Sophie Cunningham,26.31,4
+Myisha Hines-Allen,Indiana Fever,Monique Billings,25.04,4
+Myisha Hines-Allen,Indiana Fever,Makayla Timpson,22.31,4
+Myisha Hines-Allen,Indiana Fever,Lexie Hull,18.26,4
+Myisha Hines-Allen,Indiana Fever,Dana Evans,16.78,2
+Myisha Hines-Allen,Indiana Fever,Tyasha Harris,15.70,4
+Myisha Hines-Allen,Indiana Fever,Brianna Turner,12.76,2
+Myisha Hines-Allen,Indiana Fever,Stephanie Talbot,11.56,2
 Myisha Hines-Allen,Indiana Fever,Raven Johnson,1.44,3
 Myisha Hines-Allen,Indiana Fever,Grace VanSlooten,1.19,3
-Raven Johnson,Indiana Fever,Kelsey Mitchell,30.54,2
-Raven Johnson,Indiana Fever,Caitlin Clark,30.15,2
-Raven Johnson,Indiana Fever,Monique Billings,25.17,2
-Raven Johnson,Indiana Fever,Makayla Timpson,22.88,2
-Raven Johnson,Indiana Fever,Sophie Cunningham,22.44,2
-Raven Johnson,Indiana Fever,Lexie Hull,21.08,2
-Raven Johnson,Indiana Fever,Aliyah Boston,15.51,2
-Raven Johnson,Indiana Fever,Tyasha Harris,15.46,2
+Raven Johnson,Indiana Fever,Kelsey Mitchell,33.40,3
+Raven Johnson,Indiana Fever,Caitlin Clark,32.91,3
+Raven Johnson,Indiana Fever,Makayla Timpson,25.84,3
+Raven Johnson,Indiana Fever,Sophie Cunningham,24.32,3
+Raven Johnson,Indiana Fever,Monique Billings,23.66,3
+Raven Johnson,Indiana Fever,Aliyah Boston,22.87,3
+Raven Johnson,Indiana Fever,Lexie Hull,19.83,3
+Raven Johnson,Indiana Fever,Tyasha Harris,14.32,3
 Raven Johnson,Indiana Fever,Myisha Hines-Allen,12.93,2
 Tyasha Harris,Indiana Fever,Kelsey Mitchell,31.77,5
 Tyasha Harris,Indiana Fever,Caitlin Clark,30.89,5
@@ -784,11 +792,14 @@ Brianna Turner,Las Vegas Aces,Chennedy Carter,15.26,2
 Brianna Turner,Las Vegas Aces,Cheyenne Parker-Tyus,15.11,3
 Brianna Turner,Las Vegas Aces,Kierstan Bell,10.24,3
 Chennedy Carter,Las Vegas Aces,Breanna Stewart,36.52,2
-Chennedy Carter,Las Vegas Aces,Chelsea Gray,32.89,17
+Chennedy Carter,Las Vegas Aces,Kelsey Mitchell,34.80,2
+Chennedy Carter,Las Vegas Aces,Aliyah Boston,33.33,2
+Chennedy Carter,Las Vegas Aces,Chelsea Gray,33.31,18
 Chennedy Carter,Las Vegas Aces,Jessica Shepard,32.87,2
-Chennedy Carter,Las Vegas Aces,Jackie Young,32.52,17
-Chennedy Carter,Las Vegas Aces,A'ja Wilson,31.99,17
+Chennedy Carter,Las Vegas Aces,Jackie Young,32.66,18
+Chennedy Carter,Las Vegas Aces,A'ja Wilson,32.30,18
 Chennedy Carter,Las Vegas Aces,Alyssa Thomas,31.93,2
+Chennedy Carter,Las Vegas Aces,Caitlin Clark,31.43,2
 Chennedy Carter,Las Vegas Aces,Paige Bueckers,30.44,2
 Chennedy Carter,Las Vegas Aces,Azzi Fudd,30.15,2
 Chennedy Carter,Las Vegas Aces,Kahleah Copper,29.58,2
@@ -797,14 +808,17 @@ Chennedy Carter,Las Vegas Aces,Arike Ogunbowale,29.34,2
 Chennedy Carter,Las Vegas Aces,Jonquel Jones,27.86,2
 Chennedy Carter,Las Vegas Aces,Bridget Carleton,27.63,2
 Chennedy Carter,Las Vegas Aces,Kayla Thornton,26.96,2
-Chennedy Carter,Las Vegas Aces,Jewell Loyd,26.38,16
+Chennedy Carter,Las Vegas Aces,Jewell Loyd,26.66,17
+Chennedy Carter,Las Vegas Aces,NaLyssa Smith,25.69,17
+Chennedy Carter,Las Vegas Aces,Sophie Cunningham,25.68,2
+Chennedy Carter,Las Vegas Aces,Makayla Timpson,25.27,2
 Chennedy Carter,Las Vegas Aces,Veronica Burton,25.12,2
-Chennedy Carter,Las Vegas Aces,NaLyssa Smith,24.97,16
 Chennedy Carter,Las Vegas Aces,Gabby Williams,24.51,2
 Chennedy Carter,Las Vegas Aces,Emily Engstler,24.08,2
 Chennedy Carter,Las Vegas Aces,Awak Kuier,23.74,2
 Chennedy Carter,Las Vegas Aces,Monique Akoa Makani,23.01,2
 Chennedy Carter,Las Vegas Aces,Janelle Salaun,22.99,2
+Chennedy Carter,Las Vegas Aces,Monique Billings,22.65,2
 Chennedy Carter,Las Vegas Aces,Carla Leite,21.08,2
 Chennedy Carter,Las Vegas Aces,Valeriane Ayayi,20.98,2
 Chennedy Carter,Las Vegas Aces,DeWanna Bonner,20.88,2
@@ -813,21 +827,23 @@ Chennedy Carter,Las Vegas Aces,Kaila Charles,19.41,2
 Chennedy Carter,Las Vegas Aces,Noemie Brochant,19.23,2
 Chennedy Carter,Las Vegas Aces,Kiah Stokes,19.10,2
 Chennedy Carter,Las Vegas Aces,Lexi Held,18.78,2
+Chennedy Carter,Las Vegas Aces,Lexie Hull,18.63,2
 Chennedy Carter,Las Vegas Aces,Cecilia Zandalasini,18.47,2
 Chennedy Carter,Las Vegas Aces,Frieda Buhner,18.40,2
+Chennedy Carter,Las Vegas Aces,Tyasha Harris,17.28,2
 Chennedy Carter,Las Vegas Aces,Tiffany Hayes,17.23,2
 Chennedy Carter,Las Vegas Aces,Nyadiew Puoch,16.73,2
-Chennedy Carter,Las Vegas Aces,Dana Evans,16.43,7
+Chennedy Carter,Las Vegas Aces,Dana Evans,16.35,8
 Chennedy Carter,Las Vegas Aces,Teja Oblak,16.03,2
-Chennedy Carter,Las Vegas Aces,Stephanie Talbot,15.85,17
+Chennedy Carter,Las Vegas Aces,Stephanie Talbot,15.53,18
 Chennedy Carter,Las Vegas Aces,Karlie Samuelson,14.95,2
 Chennedy Carter,Las Vegas Aces,Kaitlyn Chen,14.88,2
 Chennedy Carter,Las Vegas Aces,Sug Sutton,14.08,2
 Chennedy Carter,Las Vegas Aces,Han Xu,13.77,2
-Chennedy Carter,Las Vegas Aces,Brianna Turner,13.44,16
+Chennedy Carter,Las Vegas Aces,Brianna Turner,13.52,17
 Chennedy Carter,Las Vegas Aces,Marine Johannes,13.28,2
 Chennedy Carter,Las Vegas Aces,Aziaha James,12.38,2
-Chennedy Carter,Las Vegas Aces,Kierstan Bell,11.80,12
+Chennedy Carter,Las Vegas Aces,Kierstan Bell,11.11,13
 Chennedy Carter,Las Vegas Aces,Maddy Siegrist,10.73,2
 Chennedy Carter,Las Vegas Aces,Cheyenne Parker-Tyus,10.17,12
 Chennedy Carter,Las Vegas Aces,Justine Pissott,9.76,5
@@ -838,25 +854,25 @@ Chennedy Carter,Las Vegas Aces,Li Yueru,5.66,2
 Chennedy Carter,Las Vegas Aces,Luisa Geiselsoder,4.81,2
 Chennedy Carter,Las Vegas Aces,Ta'Niya Latson,3.99,3
 Chennedy Carter,Las Vegas Aces,Mai Yamamoto,2.58,2
-Cheyenne Parker-Tyus,Las Vegas Aces,Chelsea Gray,34.36,7
-Cheyenne Parker-Tyus,Las Vegas Aces,A'ja Wilson,33.84,7
-Cheyenne Parker-Tyus,Las Vegas Aces,Jackie Young,31.95,7
+Cheyenne Parker-Tyus,Las Vegas Aces,Chelsea Gray,35.12,8
+Cheyenne Parker-Tyus,Las Vegas Aces,A'ja Wilson,34.29,8
+Cheyenne Parker-Tyus,Las Vegas Aces,Jackie Young,32.33,8
 Cheyenne Parker-Tyus,Las Vegas Aces,Kayla Thornton,30.77,2
 Cheyenne Parker-Tyus,Las Vegas Aces,Veronica Burton,30.76,2
-Cheyenne Parker-Tyus,Las Vegas Aces,NaLyssa Smith,27.23,6
+Cheyenne Parker-Tyus,Las Vegas Aces,NaLyssa Smith,28.67,7
 Cheyenne Parker-Tyus,Las Vegas Aces,Gabby Williams,26.98,2
-Cheyenne Parker-Tyus,Las Vegas Aces,Jewell Loyd,25.42,6
+Cheyenne Parker-Tyus,Las Vegas Aces,Jewell Loyd,26.24,7
 Cheyenne Parker-Tyus,Las Vegas Aces,Janelle Salaun,24.50,2
 Cheyenne Parker-Tyus,Las Vegas Aces,Kiah Stokes,20.58,2
 Cheyenne Parker-Tyus,Las Vegas Aces,Cecilia Zandalasini,18.53,2
 Cheyenne Parker-Tyus,Las Vegas Aces,Chennedy Carter,17.83,2
-Cheyenne Parker-Tyus,Las Vegas Aces,Dana Evans,16.24,4
+Cheyenne Parker-Tyus,Las Vegas Aces,Dana Evans,16.15,5
 Cheyenne Parker-Tyus,Las Vegas Aces,Kaila Charles,15.81,2
-Cheyenne Parker-Tyus,Las Vegas Aces,Stephanie Talbot,15.55,7
-Cheyenne Parker-Tyus,Las Vegas Aces,Brianna Turner,15.47,7
+Cheyenne Parker-Tyus,Las Vegas Aces,Brianna Turner,15.39,8
 Cheyenne Parker-Tyus,Las Vegas Aces,Tiffany Hayes,15.02,2
-Cheyenne Parker-Tyus,Las Vegas Aces,Kierstan Bell,9.73,4
+Cheyenne Parker-Tyus,Las Vegas Aces,Stephanie Talbot,14.89,8
 Cheyenne Parker-Tyus,Las Vegas Aces,Kaitlyn Chen,9.25,2
+Cheyenne Parker-Tyus,Las Vegas Aces,Kierstan Bell,8.35,5
 Cheyenne Parker-Tyus,Las Vegas Aces,Justine Pissott,7.80,2
 Cheyenne Parker-Tyus,Las Vegas Aces,Ta'Niya Latson,2.81,2
 Cheyenne Parker-Tyus,Las Vegas Aces,Mai Yamamoto,2.58,2
@@ -873,8 +889,8 @@ Dana Evans,Las Vegas Aces,Ariel Atkins,30.49,3
 Dana Evans,Las Vegas Aces,Bridget Carleton,30.31,2
 Dana Evans,Las Vegas Aces,Alyssa Thomas,30.07,3
 Dana Evans,Las Vegas Aces,Kahleah Copper,29.10,3
-Dana Evans,Las Vegas Aces,Saniya Rivers,29.04,2
 Dana Evans,Las Vegas Aces,Dearica Hamby,29.04,3
+Dana Evans,Las Vegas Aces,Saniya Rivers,29.04,2
 Dana Evans,Las Vegas Aces,Sydney Taylor,28.89,2
 Dana Evans,Las Vegas Aces,Rae Burrell,28.80,3
 Dana Evans,Las Vegas Aces,Natasha Cloud,28.48,2
@@ -1018,41 +1034,41 @@ Chance Gray,Los Angeles Sparks,Ariel Atkins,28.90,3
 Chance Gray,Los Angeles Sparks,Kiana Williams,10.76,2
 Chance Gray,Los Angeles Sparks,Jihyun Park,6.94,3
 Chance Gray,Los Angeles Sparks,Emma Cannon,1.94,2
-Kelsey Plum,Los Angeles Sparks,Rae Burrell,30.75,17
-Kelsey Plum,Los Angeles Sparks,Nneka Ogwumike,30.53,17
-Kelsey Plum,Los Angeles Sparks,Natasha Howard,30.50,2
-Kelsey Plum,Los Angeles Sparks,Courtney Williams,30.08,2
+Kelsey Plum,Los Angeles Sparks,Courtney Williams,31.54,3
+Kelsey Plum,Los Angeles Sparks,Rae Burrell,30.58,18
+Kelsey Plum,Los Angeles Sparks,Nneka Ogwumike,30.51,18
 Kelsey Plum,Los Angeles Sparks,Natasha Cloud,30.06,3
 Kelsey Plum,Los Angeles Sparks,Kelsey Mitchell,29.78,2
-Kelsey Plum,Los Angeles Sparks,Dearica Hamby,29.55,17
+Kelsey Plum,Los Angeles Sparks,Kayla McBride,29.63,3
+Kelsey Plum,Los Angeles Sparks,Dearica Hamby,29.28,18
 Kelsey Plum,Los Angeles Sparks,Azura Stevens,28.92,2
-Kelsey Plum,Los Angeles Sparks,Ariel Atkins,28.85,17
-Kelsey Plum,Los Angeles Sparks,Nia Coffey,28.58,2
-Kelsey Plum,Los Angeles Sparks,Erica Wheeler,28.05,17
+Kelsey Plum,Los Angeles Sparks,Ariel Atkins,28.85,18
+Kelsey Plum,Los Angeles Sparks,Natasha Howard,28.82,3
+Kelsey Plum,Los Angeles Sparks,Olivia Miles,28.67,3
+Kelsey Plum,Los Angeles Sparks,Erica Wheeler,28.13,18
 Kelsey Plum,Los Angeles Sparks,Tyasha Harris,27.92,2
-Kelsey Plum,Los Angeles Sparks,Kayla McBride,27.65,2
 Kelsey Plum,Los Angeles Sparks,Kamilla Cardoso,27.07,3
-Kelsey Plum,Los Angeles Sparks,Olivia Miles,26.15,2
 Kelsey Plum,Los Angeles Sparks,Jacy Sheldon,25.93,3
 Kelsey Plum,Los Angeles Sparks,Sydney Taylor,23.48,2
+Kelsey Plum,Los Angeles Sparks,Nia Coffey,23.33,3
 Kelsey Plum,Los Angeles Sparks,Lexie Hull,21.28,2
 Kelsey Plum,Los Angeles Sparks,Courtney Vandersloot,20.52,3
-Kelsey Plum,Los Angeles Sparks,Monique Akoa Makani,20.14,2
 Kelsey Plum,Los Angeles Sparks,Monique Billings,20.08,2
-Kelsey Plum,Los Angeles Sparks,Cameron Brink,18.62,10
+Kelsey Plum,Los Angeles Sparks,Monique Akoa Makani,19.65,3
+Kelsey Plum,Los Angeles Sparks,Cameron Brink,19.21,11
 Kelsey Plum,Los Angeles Sparks,Elizabeth Williams,17.17,3
 Kelsey Plum,Los Angeles Sparks,Makayla Timpson,16.77,2
 Kelsey Plum,Los Angeles Sparks,Raven Johnson,16.62,2
-Kelsey Plum,Los Angeles Sparks,Maya Caldwell,16.13,2
 Kelsey Plum,Los Angeles Sparks,Sophie Cunningham,15.31,2
-Kelsey Plum,Los Angeles Sparks,Antonia Delaere,14.62,2
 Kelsey Plum,Los Angeles Sparks,Gabriela Jaquez,13.70,3
+Kelsey Plum,Los Angeles Sparks,Maya Caldwell,13.58,3
 Kelsey Plum,Los Angeles Sparks,Aicha Coulibaly,13.56,3
 Kelsey Plum,Los Angeles Sparks,Anastasiia Olairi Kosu,13.45,2
 Kelsey Plum,Los Angeles Sparks,Damiris Dantas,13.06,2
 Kelsey Plum,Los Angeles Sparks,Kiana Williams,12.40,9
-Kelsey Plum,Los Angeles Sparks,Jihyun Park,11.80,16
-Kelsey Plum,Los Angeles Sparks,Chance Gray,11.58,16
+Kelsey Plum,Los Angeles Sparks,Antonia Delaere,11.88,3
+Kelsey Plum,Los Angeles Sparks,Chance Gray,11.51,17
+Kelsey Plum,Los Angeles Sparks,Jihyun Park,11.40,17
 Kelsey Plum,Los Angeles Sparks,Myisha Hines-Allen,10.81,2
 Kelsey Plum,Los Angeles Sparks,Rachel Banham,10.08,3
 Kelsey Plum,Los Angeles Sparks,Laura Ziegler,9.59,2
@@ -1071,17 +1087,21 @@ Kiana Williams,Los Angeles Sparks,Paige Bueckers,34.04,2
 Kiana Williams,Los Angeles Sparks,Azzi Fudd,33.67,2
 Kiana Williams,Los Angeles Sparks,A'ja Wilson,33.05,3
 Kiana Williams,Los Angeles Sparks,Arike Ogunbowale,32.76,2
-Kiana Williams,Los Angeles Sparks,Nneka Ogwumike,31.92,17
+Kiana Williams,Los Angeles Sparks,Nneka Ogwumike,31.83,18
 Kiana Williams,Los Angeles Sparks,Natasha Cloud,31.75,2
-Kiana Williams,Los Angeles Sparks,Dearica Hamby,29.05,18
+Kiana Williams,Los Angeles Sparks,Courtney Williams,29.98,2
+Kiana Williams,Los Angeles Sparks,Olivia Miles,29.87,2
+Kiana Williams,Los Angeles Sparks,Kayla McBride,29.10,2
+Kiana Williams,Los Angeles Sparks,Dearica Hamby,28.82,19
 Kiana Williams,Los Angeles Sparks,Jackie Young,28.73,3
-Kiana Williams,Los Angeles Sparks,Erica Wheeler,28.49,18
+Kiana Williams,Los Angeles Sparks,Erica Wheeler,28.54,19
 Kiana Williams,Los Angeles Sparks,Bridget Carleton,28.27,2
 Kiana Williams,Los Angeles Sparks,Jacy Sheldon,28.25,2
 Kiana Williams,Los Angeles Sparks,Kiki Rice,28.03,2
 Kiana Williams,Los Angeles Sparks,Jewell Loyd,27.73,2
-Kiana Williams,Los Angeles Sparks,Rae Burrell,27.44,18
-Kiana Williams,Los Angeles Sparks,Ariel Atkins,27.34,16
+Kiana Williams,Los Angeles Sparks,Rae Burrell,27.45,19
+Kiana Williams,Los Angeles Sparks,Ariel Atkins,27.43,17
+Kiana Williams,Los Angeles Sparks,Natasha Howard,27.31,2
 Kiana Williams,Los Angeles Sparks,Kamilla Cardoso,26.83,2
 Kiana Williams,Los Angeles Sparks,Carla Leite,25.55,2
 Kiana Williams,Los Angeles Sparks,Nyara Sabally,23.81,2
@@ -1093,11 +1113,13 @@ Kiana Williams,Los Angeles Sparks,Maria Conde,21.71,2
 Kiana Williams,Los Angeles Sparks,NaLyssa Smith,21.71,3
 Kiana Williams,Los Angeles Sparks,Courtney Vandersloot,21.43,2
 Kiana Williams,Los Angeles Sparks,Elizabeth Williams,21.11,2
-Kiana Williams,Los Angeles Sparks,Monique Akoa Makani,19.98,2
+Kiana Williams,Los Angeles Sparks,Nia Coffey,20.68,2
 Kiana Williams,Los Angeles Sparks,Stephanie Talbot,19.84,3
+Kiana Williams,Los Angeles Sparks,Monique Akoa Makani,19.54,3
 Kiana Williams,Los Angeles Sparks,Maddy Siegrist,18.13,2
-Kiana Williams,Los Angeles Sparks,Cameron Brink,17.63,17
+Kiana Williams,Los Angeles Sparks,Cameron Brink,18.05,18
 Kiana Williams,Los Angeles Sparks,Nyadiew Puoch,17.20,2
+Kiana Williams,Los Angeles Sparks,Maya Caldwell,16.93,2
 Kiana Williams,Los Angeles Sparks,Frieda Buhner,16.78,2
 Kiana Williams,Los Angeles Sparks,Karlie Samuelson,15.09,2
 Kiana Williams,Los Angeles Sparks,Brianna Turner,15.06,3
@@ -1106,28 +1128,29 @@ Kiana Williams,Los Angeles Sparks,Kierstan Bell,14.75,2
 Kiana Williams,Los Angeles Sparks,Teonni Key,14.38,2
 Kiana Williams,Los Angeles Sparks,Aicha Coulibaly,13.74,2
 Kiana Williams,Los Angeles Sparks,Lexi Held,13.03,3
-Kiana Williams,Los Angeles Sparks,Chance Gray,11.73,17
+Kiana Williams,Los Angeles Sparks,Chance Gray,11.65,18
 Kiana Williams,Los Angeles Sparks,Kia Nurse,10.78,2
+Kiana Williams,Los Angeles Sparks,Antonia Delaere,10.78,2
 Kiana Williams,Los Angeles Sparks,Odyssey Sims,10.77,2
 Kiana Williams,Los Angeles Sparks,Gabriela Jaquez,10.33,2
 Kiana Williams,Los Angeles Sparks,Rachel Banham,9.05,2
-Kiana Williams,Los Angeles Sparks,Jihyun Park,8.85,13
 Kiana Williams,Los Angeles Sparks,Aziaha James,8.77,2
+Kiana Williams,Los Angeles Sparks,Jihyun Park,8.58,14
 Kiana Williams,Los Angeles Sparks,Kate Martin,7.70,10
 Kiana Williams,Los Angeles Sparks,Cheyenne Parker-Tyus,5.55,2
 Kiana Williams,Los Angeles Sparks,Ta'Niya Latson,5.07,8
 Kiana Williams,Los Angeles Sparks,Alysha Clark,4.87,2
 Kiana Williams,Los Angeles Sparks,Sania Feagin,3.40,3
 Kiana Williams,Los Angeles Sparks,Emma Cannon,2.11,6
-Anastasiia Olairi Kosu,Minnesota Lynx,Kayla McBride,33.84,4
-Anastasiia Olairi Kosu,Minnesota Lynx,Olivia Miles,31.83,4
-Anastasiia Olairi Kosu,Minnesota Lynx,Courtney Williams,28.23,4
-Anastasiia Olairi Kosu,Minnesota Lynx,Natasha Howard,27.60,4
-Anastasiia Olairi Kosu,Minnesota Lynx,Napheesa Collier,26.22,3
-Anastasiia Olairi Kosu,Minnesota Lynx,Maya Caldwell,17.78,4
-Anastasiia Olairi Kosu,Minnesota Lynx,Nia Coffey,17.37,4
-Anastasiia Olairi Kosu,Minnesota Lynx,Dorka Juhasz,13.62,3
-Anastasiia Olairi Kosu,Minnesota Lynx,Antonia Delaere,8.06,4
+Anastasiia Olairi Kosu,Minnesota Lynx,Kayla McBride,33.79,5
+Anastasiia Olairi Kosu,Minnesota Lynx,Olivia Miles,32.20,5
+Anastasiia Olairi Kosu,Minnesota Lynx,Courtney Williams,29.48,5
+Anastasiia Olairi Kosu,Minnesota Lynx,Napheesa Collier,28.04,4
+Anastasiia Olairi Kosu,Minnesota Lynx,Natasha Howard,27.17,5
+Anastasiia Olairi Kosu,Minnesota Lynx,Nia Coffey,16.46,5
+Anastasiia Olairi Kosu,Minnesota Lynx,Maya Caldwell,15.91,5
+Anastasiia Olairi Kosu,Minnesota Lynx,Dorka Juhasz,12.27,4
+Anastasiia Olairi Kosu,Minnesota Lynx,Antonia Delaere,7.73,5
 Anastasiia Olairi Kosu,Minnesota Lynx,Eliska Hamzova,2.78,2
 Dorka Juhasz,Minnesota Lynx,Rhyne Howard,37.02,2
 Dorka Juhasz,Minnesota Lynx,Sonia Citron,33.90,2
@@ -1184,8 +1207,8 @@ Dorka Juhasz,Minnesota Lynx,Lexi Held,16.55,3
 Dorka Juhasz,Minnesota Lynx,Sydney Taylor,16.42,3
 Dorka Juhasz,Minnesota Lynx,Tiffany Hayes,16.38,2
 Dorka Juhasz,Minnesota Lynx,Aicha Coulibaly,16.28,2
-Dorka Juhasz,Minnesota Lynx,Kyara Linskens,15.90,2
 Dorka Juhasz,Minnesota Lynx,Te-Hina Paopao,15.90,2
+Dorka Juhasz,Minnesota Lynx,Kyara Linskens,15.90,2
 Dorka Juhasz,Minnesota Lynx,Valeriane Ayayi,15.47,3
 Dorka Juhasz,Minnesota Lynx,Jihyun Park,15.03,2
 Dorka Juhasz,Minnesota Lynx,Kaitlyn Chen,14.75,2
@@ -1207,6 +1230,120 @@ Dorka Juhasz,Minnesota Lynx,Teaira McCowan,6.84,10
 Dorka Juhasz,Minnesota Lynx,Sika Kone,5.96,2
 Dorka Juhasz,Minnesota Lynx,Li Yueru,5.85,2
 Dorka Juhasz,Minnesota Lynx,Lucy Olsen,5.61,2
+Napheesa Collier,Minnesota Lynx,Rhyne Howard,37.02,2
+Napheesa Collier,Minnesota Lynx,Breanna Stewart,36.30,2
+Napheesa Collier,Minnesota Lynx,Sabrina Ionescu,34.93,2
+Napheesa Collier,Minnesota Lynx,Sonia Citron,33.90,2
+Napheesa Collier,Minnesota Lynx,Jonquel Jones,33.23,2
+Napheesa Collier,Minnesota Lynx,Naz Hillmon,32.60,2
+Napheesa Collier,Minnesota Lynx,Paige Bueckers,32.47,3
+Napheesa Collier,Minnesota Lynx,Kayla McBride,32.27,27
+Napheesa Collier,Minnesota Lynx,Alyssa Thomas,32.15,3
+Napheesa Collier,Minnesota Lynx,Ariel Atkins,32.08,2
+Napheesa Collier,Minnesota Lynx,Natasha Cloud,31.67,3
+Napheesa Collier,Minnesota Lynx,Allisha Gray,31.63,2
+Napheesa Collier,Minnesota Lynx,Jessica Shepard,31.54,3
+Napheesa Collier,Minnesota Lynx,Leila Lacan,31.49,2
+Napheesa Collier,Minnesota Lynx,Nneka Ogwumike,31.38,2
+Napheesa Collier,Minnesota Lynx,Kahleah Copper,31.26,3
+Napheesa Collier,Minnesota Lynx,Courtney Williams,31.12,27
+Napheesa Collier,Minnesota Lynx,Olivia Miles,30.78,25
+Napheesa Collier,Minnesota Lynx,Awa Fam,30.49,2
+Napheesa Collier,Minnesota Lynx,Skylar Diggins,30.41,2
+Napheesa Collier,Minnesota Lynx,Angel Reese,29.83,2
+Napheesa Collier,Minnesota Lynx,Natasha Howard,29.80,27
+Napheesa Collier,Minnesota Lynx,Rae Burrell,29.74,2
+Napheesa Collier,Minnesota Lynx,Charlisse Leger-Walker,29.54,2
+Napheesa Collier,Minnesota Lynx,Bridget Carleton,29.39,2
+Napheesa Collier,Minnesota Lynx,Georgia Amoore,29.23,2
+Napheesa Collier,Minnesota Lynx,Azzi Fudd,29.18,3
+Napheesa Collier,Minnesota Lynx,Dearica Hamby,28.82,2
+Napheesa Collier,Minnesota Lynx,Arike Ogunbowale,28.01,3
+Napheesa Collier,Minnesota Lynx,Jordin Canada,27.88,2
+Napheesa Collier,Minnesota Lynx,Olivia Nelson-Ododa,27.83,2
+Napheesa Collier,Minnesota Lynx,Sarah Ashlee Barker,27.62,2
+Napheesa Collier,Minnesota Lynx,Erica Wheeler,27.48,2
+Napheesa Collier,Minnesota Lynx,Gabriela Jaquez,27.46,2
+Napheesa Collier,Minnesota Lynx,Kiki Iriafen,27.36,2
+Napheesa Collier,Minnesota Lynx,Cotie McMahon,27.35,2
+Napheesa Collier,Minnesota Lynx,Flau'jae Johnson,27.29,2
+Napheesa Collier,Minnesota Lynx,Natisha Hiedeman,27.14,2
+Napheesa Collier,Minnesota Lynx,Cecilia Zandalasini,27.00,2
+Napheesa Collier,Minnesota Lynx,Pauline Astier,26.76,2
+Napheesa Collier,Minnesota Lynx,Nia Coffey,26.53,27
+Napheesa Collier,Minnesota Lynx,Gabby Williams,26.33,2
+Napheesa Collier,Minnesota Lynx,Kamilla Cardoso,25.85,3
+Napheesa Collier,Minnesota Lynx,Monique Akoa Makani,25.33,2
+Napheesa Collier,Minnesota Lynx,Veronica Burton,25.15,2
+Napheesa Collier,Minnesota Lynx,Kennedy Burke,25.05,2
+Napheesa Collier,Minnesota Lynx,Carla Leite,24.81,2
+Napheesa Collier,Minnesota Lynx,Emily Engstler,24.16,2
+Napheesa Collier,Minnesota Lynx,Natasha Mack,24.10,2
+Napheesa Collier,Minnesota Lynx,Shakira Austin,23.94,2
+Napheesa Collier,Minnesota Lynx,Jacy Sheldon,23.54,3
+Napheesa Collier,Minnesota Lynx,DeWanna Bonner,23.46,3
+Napheesa Collier,Minnesota Lynx,Michaela Onyenwere,22.83,2
+Napheesa Collier,Minnesota Lynx,Kayla Thornton,22.26,2
+Napheesa Collier,Minnesota Lynx,Janelle Salaun,21.93,2
+Napheesa Collier,Minnesota Lynx,Diamond Miller,21.12,2
+Napheesa Collier,Minnesota Lynx,Rachel Banham,20.92,3
+Napheesa Collier,Minnesota Lynx,Maddy Siegrist,20.58,3
+Napheesa Collier,Minnesota Lynx,Dominique Malonga,20.49,2
+Napheesa Collier,Minnesota Lynx,Dorka Juhasz,20.18,5
+Napheesa Collier,Minnesota Lynx,Jade Melbourne,19.69,2
+Napheesa Collier,Minnesota Lynx,Kiah Stokes,19.59,2
+Napheesa Collier,Minnesota Lynx,Zia Cooke,18.68,2
+Napheesa Collier,Minnesota Lynx,Marine Johannes,18.67,2
+Napheesa Collier,Minnesota Lynx,Frieda Buhner,18.60,2
+Napheesa Collier,Minnesota Lynx,Kaila Charles,18.03,2
+Napheesa Collier,Minnesota Lynx,Noemie Brochant,17.97,3
+Napheesa Collier,Minnesota Lynx,Serah Williams,17.95,2
+Napheesa Collier,Minnesota Lynx,Alanna Smith,17.81,2
+Napheesa Collier,Minnesota Lynx,Emma Cechova,17.27,3
+Napheesa Collier,Minnesota Lynx,Lauren Betts,17.02,2
+Napheesa Collier,Minnesota Lynx,Elizabeth Williams,16.98,3
+Napheesa Collier,Minnesota Lynx,Azura Stevens,16.65,2
+Napheesa Collier,Minnesota Lynx,Jovana Nogic,16.63,2
+Napheesa Collier,Minnesota Lynx,Lexi Held,16.55,3
+Napheesa Collier,Minnesota Lynx,Katie Lou Samuelson,16.49,2
+Napheesa Collier,Minnesota Lynx,Sydney Taylor,16.42,3
+Napheesa Collier,Minnesota Lynx,Tiffany Hayes,16.38,2
+Napheesa Collier,Minnesota Lynx,Aicha Coulibaly,16.28,2
+Napheesa Collier,Minnesota Lynx,Kyara Linskens,15.90,2
+Napheesa Collier,Minnesota Lynx,Te-Hina Paopao,15.90,2
+Napheesa Collier,Minnesota Lynx,Jordan Horston,15.56,2
+Napheesa Collier,Minnesota Lynx,Valeriane Ayayi,15.47,3
+Napheesa Collier,Minnesota Lynx,Stefanie Dolson,15.21,2
+Napheesa Collier,Minnesota Lynx,Jihyun Park,15.03,2
+Napheesa Collier,Minnesota Lynx,Kaitlyn Chen,14.75,2
+Napheesa Collier,Minnesota Lynx,Aaliyah Edwards,14.53,2
+Napheesa Collier,Minnesota Lynx,Nyadiew Puoch,14.22,2
+Napheesa Collier,Minnesota Lynx,Maya Caldwell,13.57,27
+Napheesa Collier,Minnesota Lynx,Teja Oblak,13.23,2
+Napheesa Collier,Minnesota Lynx,Luisa Geiselsoder,13.15,2
+Napheesa Collier,Minnesota Lynx,Han Xu,13.11,2
+Napheesa Collier,Minnesota Lynx,Antonia Delaere,13.00,27
+Napheesa Collier,Minnesota Lynx,Aziaha James,12.89,3
+Napheesa Collier,Minnesota Lynx,Kiana Williams,12.47,2
+Napheesa Collier,Minnesota Lynx,Saniya Rivers,12.37,2
+Napheesa Collier,Minnesota Lynx,Angela Dugalic,11.68,2
+Napheesa Collier,Minnesota Lynx,Awak Kuier,11.28,2
+Napheesa Collier,Minnesota Lynx,Anastasiia Olairi Kosu,11.15,26
+Napheesa Collier,Minnesota Lynx,Liatu King,9.18,8
+Napheesa Collier,Minnesota Lynx,Rebekah Gardner,8.77,2
+Napheesa Collier,Minnesota Lynx,Alysha Clark,8.48,2
+Napheesa Collier,Minnesota Lynx,Isobel Borlase,8.16,2
+Napheesa Collier,Minnesota Lynx,Chance Gray,8.08,2
+Napheesa Collier,Minnesota Lynx,Nell Angloma,7.86,2
+Napheesa Collier,Minnesota Lynx,Madina Okot,7.31,2
+Napheesa Collier,Minnesota Lynx,Emese Hof,6.87,3
+Napheesa Collier,Minnesota Lynx,Teaira McCowan,6.84,10
+Napheesa Collier,Minnesota Lynx,Gianna Kneepkens,6.65,2
+Napheesa Collier,Minnesota Lynx,Eliska Hamzova,6.35,12
+Napheesa Collier,Minnesota Lynx,Sika Kone,5.96,2
+Napheesa Collier,Minnesota Lynx,Li Yueru,5.85,2
+Napheesa Collier,Minnesota Lynx,Lucy Olsen,5.61,2
+Napheesa Collier,Minnesota Lynx,Raquel Carrera,2.97,2
 Olivia Miles,Minnesota Lynx,Kayla McBride,38.09,2
 Olivia Miles,Minnesota Lynx,Courtney Williams,33.26,2
 Olivia Miles,Minnesota Lynx,Leila Lacan,31.49,2
@@ -1777,8 +1914,8 @@ Kiana Williams,Phoenix Mercury,Aaliyah Edwards,14.21,2
 Kiana Williams,Phoenix Mercury,Myisha Hines-Allen,14.05,3
 Kiana Williams,Phoenix Mercury,Sami Whitcomb,13.82,8
 Kiana Williams,Phoenix Mercury,Elizabeth Williams,13.81,2
-Kiana Williams,Phoenix Mercury,Anastasiia Olairi Kosu,13.03,2
 Kiana Williams,Phoenix Mercury,Rebekah Gardner,13.03,2
+Kiana Williams,Phoenix Mercury,Anastasiia Olairi Kosu,13.03,2
 Kiana Williams,Phoenix Mercury,Tyasha Harris,12.65,2
 Kiana Williams,Phoenix Mercury,Maya Caldwell,12.38,2
 Kiana Williams,Phoenix Mercury,Zia Cooke,12.20,3
@@ -1896,8 +2033,8 @@ Monique Akoa Makani,Phoenix Mercury,Lexie Hull,20.75,2
 Monique Akoa Makani,Phoenix Mercury,Raven Johnson,18.39,2
 Monique Akoa Makani,Phoenix Mercury,Valeriane Ayayi,18.01,10
 Monique Akoa Makani,Phoenix Mercury,Myisha Hines-Allen,17.76,2
-Monique Akoa Makani,Phoenix Mercury,Kia Nurse,17.12,2
 Monique Akoa Makani,Phoenix Mercury,Lexi Held,17.12,7
+Monique Akoa Makani,Phoenix Mercury,Kia Nurse,17.12,2
 Monique Akoa Makani,Phoenix Mercury,Laura Juskaite,16.94,2
 Monique Akoa Makani,Phoenix Mercury,Elizabeth Williams,16.28,2
 Monique Akoa Makani,Phoenix Mercury,Isobel Borlase,16.14,2
@@ -2077,7 +2214,7 @@ Haley Jones,Portland Fire,Awa Fam,31.78,2
 Haley Jones,Portland Fire,Jackie Young,31.46,3
 Haley Jones,Portland Fire,Nneka Ogwumike,31.18,2
 Haley Jones,Portland Fire,Jordin Canada,31.07,2
-Haley Jones,Portland Fire,Bridget Carleton,30.63,24
+Haley Jones,Portland Fire,Bridget Carleton,30.59,25
 Haley Jones,Portland Fire,Allisha Gray,30.47,2
 Haley Jones,Portland Fire,Charlisse Leger-Walker,30.38,2
 Haley Jones,Portland Fire,Dearica Hamby,29.78,2
@@ -2090,24 +2227,30 @@ Haley Jones,Portland Fire,Azura Stevens,27.63,2
 Haley Jones,Portland Fire,Rae Burrell,27.60,2
 Haley Jones,Portland Fire,Erica Wheeler,27.18,2
 Haley Jones,Portland Fire,NaLyssa Smith,26.88,2
+Haley Jones,Portland Fire,Megan DiLeo,26.72,5
 Haley Jones,Portland Fire,Sophie Cunningham,26.67,2
 Haley Jones,Portland Fire,Dominique Malonga,26.57,2
-Haley Jones,Portland Fire,Megan DiLeo,26.47,4
+Haley Jones,Portland Fire,Carla Leite,26.47,26
 Haley Jones,Portland Fire,Flau'jae Johnson,26.45,2
-Haley Jones,Portland Fire,Carla Leite,26.33,25
+Haley Jones,Portland Fire,Aneesah Morrow,26.44,2
 Haley Jones,Portland Fire,Jewell Loyd,26.31,3
 Haley Jones,Portland Fire,Diamond Miller,26.08,2
+Haley Jones,Portland Fire,Maria Conde,25.88,2
 Haley Jones,Portland Fire,Alicia Florez,25.72,2
 Haley Jones,Portland Fire,Natasha Howard,25.70,2
 Haley Jones,Portland Fire,Sarah Ashlee Barker,25.50,21
 Haley Jones,Portland Fire,Kamilla Cardoso,25.38,2
 Haley Jones,Portland Fire,Megan Gustafson,25.29,19
+Haley Jones,Portland Fire,Marina Mabrey,25.15,2
 Haley Jones,Portland Fire,Ariel Atkins,24.21,2
 Haley Jones,Portland Fire,Jade Melbourne,24.19,2
-Haley Jones,Portland Fire,Emily Engstler,24.04,25
+Haley Jones,Portland Fire,Emily Engstler,24.05,26
+Haley Jones,Portland Fire,Kiki Rice,23.89,2
 Haley Jones,Portland Fire,Skylar Diggins,23.81,2
 Haley Jones,Portland Fire,Gabriela Jaquez,23.64,2
+Haley Jones,Portland Fire,Nyara Sabally,23.55,2
 Haley Jones,Portland Fire,Olivia Nelson-Ododa,23.40,2
+Haley Jones,Portland Fire,Laura Juskaite,23.09,2
 Haley Jones,Portland Fire,Sydney Taylor,22.20,2
 Haley Jones,Portland Fire,Makayla Timpson,22.10,2
 Haley Jones,Portland Fire,Aziaha James,20.62,2
@@ -2125,10 +2268,10 @@ Haley Jones,Portland Fire,Cotie McMahon,16.35,2
 Haley Jones,Portland Fire,Kennedy Burke,15.95,2
 Haley Jones,Portland Fire,Brianna Turner,15.94,3
 Haley Jones,Portland Fire,Elizabeth Williams,15.92,2
-Haley Jones,Portland Fire,Nyadiew Puoch,15.75,24
-Haley Jones,Portland Fire,Frieda Buhner,15.48,24
+Haley Jones,Portland Fire,Nyadiew Puoch,15.80,25
+Haley Jones,Portland Fire,Frieda Buhner,15.49,25
+Haley Jones,Portland Fire,Karlie Samuelson,15.11,19
 Haley Jones,Portland Fire,Cameron Brink,15.03,2
-Haley Jones,Portland Fire,Karlie Samuelson,14.90,18
 Haley Jones,Portland Fire,Chance Gray,14.61,2
 Haley Jones,Portland Fire,Madina Okot,14.60,2
 Haley Jones,Portland Fire,Lexie Hull,14.57,2
@@ -2140,25 +2283,116 @@ Haley Jones,Portland Fire,Isobel Borlase,13.95,2
 Haley Jones,Portland Fire,Georgia Amoore,13.59,2
 Haley Jones,Portland Fire,Teja Oblak,13.06,24
 Haley Jones,Portland Fire,Lauren Betts,12.60,2
-Haley Jones,Portland Fire,Serah Williams,12.50,22
+Haley Jones,Portland Fire,Serah Williams,12.49,23
 Haley Jones,Portland Fire,Maya Caldwell,11.65,2
 Haley Jones,Portland Fire,Sika Kone,11.29,2
 Haley Jones,Portland Fire,Tyasha Harris,10.94,2
 Haley Jones,Portland Fire,Te-Hina Paopao,10.21,2
+Haley Jones,Portland Fire,Jordan Harrison,10.18,4
 Haley Jones,Portland Fire,Raegan Beers,10.03,2
-Haley Jones,Portland Fire,Jordan Harrison,9.93,3
 Haley Jones,Portland Fire,Stefanie Dolson,9.29,2
+Haley Jones,Portland Fire,Kia Nurse,9.24,2
 Haley Jones,Portland Fire,Angela Dugalic,9.18,2
 Haley Jones,Portland Fire,Rachel Banham,8.74,2
+Haley Jones,Portland Fire,Holly Winterburn,8.28,16
 Haley Jones,Portland Fire,Lucy Olsen,8.16,2
-Haley Jones,Portland Fire,Holly Winterburn,7.91,15
 Haley Jones,Portland Fire,Nell Angloma,7.27,2
 Haley Jones,Portland Fire,Cheyenne Parker-Tyus,6.58,2
 Haley Jones,Portland Fire,Eliska Hamzova,6.44,2
+Haley Jones,Portland Fire,Teonni Key,6.08,2
 Haley Jones,Portland Fire,Raven Johnson,5.24,2
 Haley Jones,Portland Fire,Grace VanSlooten,2.94,2
 Haley Jones,Portland Fire,Indya Nivar,2.36,2
 Haley Jones,Portland Fire,Aaliyah Nye,1.60,2
+Jordan Harrison,Portland Fire,Naz Hillmon,36.19,2
+Jordan Harrison,Portland Fire,Jessica Shepard,34.91,2
+Jordan Harrison,Portland Fire,Arike Ogunbowale,34.88,2
+Jordan Harrison,Portland Fire,Chelsea Gray,34.42,3
+Jordan Harrison,Portland Fire,Natisha Hiedeman,33.53,2
+Jordan Harrison,Portland Fire,Breanna Stewart,33.10,3
+Jordan Harrison,Portland Fire,Rhyne Howard,32.39,2
+Jordan Harrison,Portland Fire,Kelsey Mitchell,32.35,3
+Jordan Harrison,Portland Fire,Azzi Fudd,32.17,2
+Jordan Harrison,Portland Fire,A'ja Wilson,32.03,3
+Jordan Harrison,Portland Fire,Awa Fam,31.78,2
+Jordan Harrison,Portland Fire,Aneesah Morrow,31.52,2
+Jordan Harrison,Portland Fire,Jackie Young,31.46,3
+Jordan Harrison,Portland Fire,Nneka Ogwumike,31.18,2
+Jordan Harrison,Portland Fire,Jordin Canada,31.07,2
+Jordan Harrison,Portland Fire,Jonquel Jones,31.02,3
+Jordan Harrison,Portland Fire,Marine Johannes,30.94,3
+Jordan Harrison,Portland Fire,Allisha Gray,30.47,2
+Jordan Harrison,Portland Fire,Dearica Hamby,29.78,2
+Jordan Harrison,Portland Fire,Bridget Carleton,29.59,25
+Jordan Harrison,Portland Fire,Charlisse Leger-Walker,27.98,3
+Jordan Harrison,Portland Fire,Pauline Astier,27.95,3
+Jordan Harrison,Portland Fire,Caitlin Clark,27.78,2
+Jordan Harrison,Portland Fire,Rae Burrell,27.60,2
+Jordan Harrison,Portland Fire,Erica Wheeler,27.18,2
+Jordan Harrison,Portland Fire,NaLyssa Smith,26.88,2
+Jordan Harrison,Portland Fire,Dominique Malonga,26.57,2
+Jordan Harrison,Portland Fire,Megan DiLeo,26.47,4
+Jordan Harrison,Portland Fire,Flau'jae Johnson,26.45,2
+Jordan Harrison,Portland Fire,Jewell Loyd,26.31,3
+Jordan Harrison,Portland Fire,Aliyah Boston,25.68,3
+Jordan Harrison,Portland Fire,Brittney Griner,25.59,2
+Jordan Harrison,Portland Fire,Saniya Rivers,25.50,2
+Jordan Harrison,Portland Fire,Carla Leite,24.87,24
+Jordan Harrison,Portland Fire,Ariel Atkins,24.21,2
+Jordan Harrison,Portland Fire,Jade Melbourne,24.19,2
+Jordan Harrison,Portland Fire,Olivia Nelson-Ododa,23.40,2
+Jordan Harrison,Portland Fire,Emily Engstler,23.39,26
+Jordan Harrison,Portland Fire,Sarah Ashlee Barker,23.34,22
+Jordan Harrison,Portland Fire,Sophie Cunningham,22.84,3
+Jordan Harrison,Portland Fire,Megan Gustafson,21.94,21
+Jordan Harrison,Portland Fire,Diamond Miller,21.76,3
+Jordan Harrison,Portland Fire,Makayla Timpson,21.27,3
+Jordan Harrison,Portland Fire,Betnijah Laney-Hamilton,20.80,2
+Jordan Harrison,Portland Fire,Aziaha James,20.62,2
+Jordan Harrison,Portland Fire,Maddy Siegrist,19.87,2
+Jordan Harrison,Portland Fire,Rebekah Gardner,19.66,3
+Jordan Harrison,Portland Fire,Zia Cooke,19.61,2
+Jordan Harrison,Portland Fire,Monique Billings,19.27,3
+Jordan Harrison,Portland Fire,Rebecca Allen,18.93,2
+Jordan Harrison,Portland Fire,Hailey Van Lith,18.73,2
+Jordan Harrison,Portland Fire,Awak Kuier,18.70,2
+Jordan Harrison,Portland Fire,Stephanie Talbot,18.63,3
+Jordan Harrison,Portland Fire,Sug Sutton,18.12,4
+Jordan Harrison,Portland Fire,Myisha Hines-Allen,18.03,2
+Jordan Harrison,Portland Fire,Kennedy Burke,17.63,3
+Jordan Harrison,Portland Fire,Nyadiew Puoch,17.27,25
+Jordan Harrison,Portland Fire,Tyasha Harris,17.05,3
+Jordan Harrison,Portland Fire,Lexie Hull,17.01,3
+Jordan Harrison,Portland Fire,Luisa Geiselsoder,16.37,19
+Jordan Harrison,Portland Fire,Brianna Turner,15.94,3
+Jordan Harrison,Portland Fire,Aaliyah Edwards,15.17,3
+Jordan Harrison,Portland Fire,Kamiah Smalls,15.09,2
+Jordan Harrison,Portland Fire,Cameron Brink,15.03,2
+Jordan Harrison,Portland Fire,Julie Vanloo,14.94,2
+Jordan Harrison,Portland Fire,Karlie Samuelson,14.90,18
+Jordan Harrison,Portland Fire,Chance Gray,14.61,2
+Jordan Harrison,Portland Fire,Madina Okot,14.60,2
+Jordan Harrison,Portland Fire,Frieda Buhner,14.50,23
+Jordan Harrison,Portland Fire,Katie Lou Samuelson,14.48,2
+Jordan Harrison,Portland Fire,Lexi Held,14.00,2
+Jordan Harrison,Portland Fire,Isobel Borlase,13.95,2
+Jordan Harrison,Portland Fire,Teja Oblak,13.52,21
+Jordan Harrison,Portland Fire,Haley Jones,12.53,4
+Jordan Harrison,Portland Fire,Serah Williams,11.81,22
+Jordan Harrison,Portland Fire,Sika Kone,11.29,2
+Jordan Harrison,Portland Fire,Raven Johnson,10.93,3
+Jordan Harrison,Portland Fire,Te-Hina Paopao,10.21,2
+Jordan Harrison,Portland Fire,Han Xu,9.64,3
+Jordan Harrison,Portland Fire,Stefanie Dolson,9.29,2
+Jordan Harrison,Portland Fire,Holly Winterburn,8.62,16
+Jordan Harrison,Portland Fire,Raegan Beers,8.27,3
+Jordan Harrison,Portland Fire,Cheyenne Parker-Tyus,6.58,2
+Jordan Harrison,Portland Fire,Gianna Kneepkens,6.54,2
+Jordan Harrison,Portland Fire,Nell Angloma,5.88,3
+Jordan Harrison,Portland Fire,Grace VanSlooten,2.94,2
+Jordan Harrison,Portland Fire,Indya Nivar,2.36,2
+Jordan Harrison,Portland Fire,Aaliyah Nye,1.60,2
+Jordan Harrison,Portland Fire,Aubrey Griffin,1.15,2
 Karlie Samuelson,Portland Fire,Breanna Stewart,33.13,2
 Karlie Samuelson,Portland Fire,Bridget Carleton,31.35,12
 Karlie Samuelson,Portland Fire,Kelsey Mitchell,30.67,2
@@ -2209,48 +2443,152 @@ Karlie Samuelson,Portland Fire,Eliska Hamzova,6.44,2
 Karlie Samuelson,Portland Fire,Han Xu,6.42,2
 Karlie Samuelson,Portland Fire,Aubrey Griffin,1.15,2
 Luisa Geiselsoder,Portland Fire,Natisha Hiedeman,33.53,2
-Luisa Geiselsoder,Portland Fire,Bridget Carleton,33.32,9
+Luisa Geiselsoder,Portland Fire,Bridget Carleton,32.96,10
 Luisa Geiselsoder,Portland Fire,Awa Fam,31.78,2
 Luisa Geiselsoder,Portland Fire,Megan Gustafson,31.33,6
-Luisa Geiselsoder,Portland Fire,Carla Leite,29.84,9
+Luisa Geiselsoder,Portland Fire,Carla Leite,29.84,10
+Luisa Geiselsoder,Portland Fire,Megan DiLeo,26.71,4
 Luisa Geiselsoder,Portland Fire,Dominique Malonga,26.57,2
 Luisa Geiselsoder,Portland Fire,Flau'jae Johnson,26.45,2
-Luisa Geiselsoder,Portland Fire,Megan DiLeo,26.37,3
 Luisa Geiselsoder,Portland Fire,Sarah Ashlee Barker,25.85,6
-Luisa Geiselsoder,Portland Fire,Emily Engstler,25.68,9
+Luisa Geiselsoder,Portland Fire,Emily Engstler,25.55,10
 Luisa Geiselsoder,Portland Fire,Jade Melbourne,24.19,2
 Luisa Geiselsoder,Portland Fire,Zia Cooke,19.61,2
-Luisa Geiselsoder,Portland Fire,Karlie Samuelson,16.41,6
-Luisa Geiselsoder,Portland Fire,Frieda Buhner,16.35,9
-Luisa Geiselsoder,Portland Fire,Nyadiew Puoch,16.30,9
+Luisa Geiselsoder,Portland Fire,Karlie Samuelson,16.77,7
+Luisa Geiselsoder,Portland Fire,Nyadiew Puoch,16.36,10
+Luisa Geiselsoder,Portland Fire,Frieda Buhner,16.28,10
 Luisa Geiselsoder,Portland Fire,Katie Lou Samuelson,14.48,2
-Luisa Geiselsoder,Portland Fire,Serah Williams,12.55,9
+Luisa Geiselsoder,Portland Fire,Serah Williams,12.52,10
 Luisa Geiselsoder,Portland Fire,Teja Oblak,11.04,9
-Luisa Geiselsoder,Portland Fire,Jordan Harrison,10.28,2
+Luisa Geiselsoder,Portland Fire,Jordan Harrison,10.50,3
+Luisa Geiselsoder,Portland Fire,Holly Winterburn,9.56,7
 Luisa Geiselsoder,Portland Fire,Stefanie Dolson,9.29,2
-Luisa Geiselsoder,Portland Fire,Holly Winterburn,8.85,6
-Megan Gustafson,Portland Fire,Bridget Carleton,30.15,6
-Megan Gustafson,Portland Fire,Carla Leite,27.31,6
-Megan Gustafson,Portland Fire,Megan DiLeo,26.47,4
-Megan Gustafson,Portland Fire,Emily Engstler,23.67,6
+Megan DiLeo,Portland Fire,Sonia Citron,40.91,2
+Megan DiLeo,Portland Fire,Shakira Austin,40.31,2
+Megan DiLeo,Portland Fire,Michaela Onyenwere,37.68,2
+Megan DiLeo,Portland Fire,Naz Hillmon,36.19,2
+Megan DiLeo,Portland Fire,Kiki Iriafen,35.91,2
+Megan DiLeo,Portland Fire,Chelsea Gray,35.44,2
+Megan DiLeo,Portland Fire,Natisha Hiedeman,33.53,2
+Megan DiLeo,Portland Fire,Breanna Stewart,33.10,3
+Megan DiLeo,Portland Fire,Jackie Young,33.03,2
+Megan DiLeo,Portland Fire,A'ja Wilson,32.96,2
+Megan DiLeo,Portland Fire,Rhyne Howard,32.39,2
+Megan DiLeo,Portland Fire,Awa Fam,31.78,2
+Megan DiLeo,Portland Fire,Aneesah Morrow,31.52,2
+Megan DiLeo,Portland Fire,Jordin Canada,31.07,2
+Megan DiLeo,Portland Fire,Jonquel Jones,31.02,3
+Megan DiLeo,Portland Fire,Marine Johannes,30.94,3
+Megan DiLeo,Portland Fire,Kelsey Mitchell,30.67,2
+Megan DiLeo,Portland Fire,Allisha Gray,30.47,2
+Megan DiLeo,Portland Fire,Bridget Carleton,30.37,25
+Megan DiLeo,Portland Fire,Kayla McBride,28.70,2
+Megan DiLeo,Portland Fire,Olivia Miles,28.35,2
+Megan DiLeo,Portland Fire,Courtney Williams,28.10,2
+Megan DiLeo,Portland Fire,Charlisse Leger-Walker,27.98,3
+Megan DiLeo,Portland Fire,Pauline Astier,27.95,3
+Megan DiLeo,Portland Fire,Azura Stevens,27.63,2
+Megan DiLeo,Portland Fire,Jewell Loyd,26.93,2
+Megan DiLeo,Portland Fire,NaLyssa Smith,26.88,2
+Megan DiLeo,Portland Fire,Skylar Diggins,26.80,3
+Megan DiLeo,Portland Fire,Dominique Malonga,26.57,2
+Megan DiLeo,Portland Fire,Flau'jae Johnson,26.45,2
+Megan DiLeo,Portland Fire,Gabriela Jaquez,26.43,3
+Megan DiLeo,Portland Fire,Alicia Florez,25.72,2
+Megan DiLeo,Portland Fire,Natasha Howard,25.70,2
+Megan DiLeo,Portland Fire,Carla Leite,25.69,24
+Megan DiLeo,Portland Fire,Brittney Griner,25.59,2
+Megan DiLeo,Portland Fire,Sarah Ashlee Barker,25.52,25
+Megan DiLeo,Portland Fire,Saniya Rivers,25.50,2
+Megan DiLeo,Portland Fire,Kamilla Cardoso,25.14,3
+Megan DiLeo,Portland Fire,Jade Melbourne,24.19,2
+Megan DiLeo,Portland Fire,Emily Engstler,24.02,26
+Megan DiLeo,Portland Fire,Jacy Sheldon,23.92,3
+Megan DiLeo,Portland Fire,Aliyah Boston,23.46,2
+Megan DiLeo,Portland Fire,Olivia Nelson-Ododa,23.40,2
+Megan DiLeo,Portland Fire,Megan Gustafson,22.88,24
+Megan DiLeo,Portland Fire,Sug Sutton,22.82,3
+Megan DiLeo,Portland Fire,Makayla Timpson,22.13,2
+Megan DiLeo,Portland Fire,Diamond Miller,21.76,3
+Megan DiLeo,Portland Fire,Sophie Cunningham,20.83,2
+Megan DiLeo,Portland Fire,Betnijah Laney-Hamilton,20.80,2
+Megan DiLeo,Portland Fire,Tyasha Harris,20.72,2
+Megan DiLeo,Portland Fire,Nia Coffey,20.40,2
+Megan DiLeo,Portland Fire,Stephanie Talbot,20.24,2
+Megan DiLeo,Portland Fire,Rebekah Gardner,19.66,3
+Megan DiLeo,Portland Fire,Zia Cooke,19.61,2
+Megan DiLeo,Portland Fire,Antonia Delaere,19.42,2
+Megan DiLeo,Portland Fire,Natasha Cloud,19.41,2
+Megan DiLeo,Portland Fire,Rebecca Allen,18.93,2
+Megan DiLeo,Portland Fire,Hailey Van Lith,18.73,2
+Megan DiLeo,Portland Fire,Lexie Hull,18.69,2
+Megan DiLeo,Portland Fire,Myisha Hines-Allen,18.03,2
+Megan DiLeo,Portland Fire,Kennedy Burke,17.63,3
+Megan DiLeo,Portland Fire,Luisa Geiselsoder,17.22,20
+Megan DiLeo,Portland Fire,Nyadiew Puoch,16.59,25
+Megan DiLeo,Portland Fire,Anastasiia Olairi Kosu,16.37,2
+Megan DiLeo,Portland Fire,Cotie McMahon,16.35,2
+Megan DiLeo,Portland Fire,Sydney Taylor,16.14,3
+Megan DiLeo,Portland Fire,Raven Johnson,15.96,2
+Megan DiLeo,Portland Fire,Elizabeth Williams,15.72,3
+Megan DiLeo,Portland Fire,Aaliyah Edwards,15.17,3
+Megan DiLeo,Portland Fire,Kamiah Smalls,15.09,2
+Megan DiLeo,Portland Fire,Julie Vanloo,14.94,2
+Megan DiLeo,Portland Fire,Frieda Buhner,14.68,23
+Megan DiLeo,Portland Fire,Madina Okot,14.60,2
+Megan DiLeo,Portland Fire,Katie Lou Samuelson,14.48,2
+Megan DiLeo,Portland Fire,Monique Billings,14.26,2
+Megan DiLeo,Portland Fire,Lexi Held,14.00,2
+Megan DiLeo,Portland Fire,Isobel Borlase,13.95,2
+Megan DiLeo,Portland Fire,Karlie Samuelson,13.70,14
+Megan DiLeo,Portland Fire,Georgia Amoore,13.59,2
+Megan DiLeo,Portland Fire,Teja Oblak,13.33,20
+Megan DiLeo,Portland Fire,Lauren Betts,12.60,2
+Megan DiLeo,Portland Fire,Serah Williams,11.90,22
+Megan DiLeo,Portland Fire,Maya Caldwell,11.65,2
+Megan DiLeo,Portland Fire,Haley Jones,11.32,5
+Megan DiLeo,Portland Fire,Sika Kone,11.29,2
+Megan DiLeo,Portland Fire,Rachel Banham,10.80,3
+Megan DiLeo,Portland Fire,Aicha Coulibaly,10.77,2
+Megan DiLeo,Portland Fire,Jordan Harrison,10.32,4
+Megan DiLeo,Portland Fire,Te-Hina Paopao,10.21,2
+Megan DiLeo,Portland Fire,Han Xu,9.64,3
+Megan DiLeo,Portland Fire,Stefanie Dolson,9.29,2
+Megan DiLeo,Portland Fire,Angela Dugalic,9.18,2
+Megan DiLeo,Portland Fire,Raegan Beers,8.27,3
+Megan DiLeo,Portland Fire,Lucy Olsen,8.16,2
+Megan DiLeo,Portland Fire,Brianna Turner,8.13,2
+Megan DiLeo,Portland Fire,Holly Winterburn,7.62,13
+Megan DiLeo,Portland Fire,Cheyenne Parker-Tyus,6.58,2
+Megan DiLeo,Portland Fire,Gianna Kneepkens,6.54,2
+Megan DiLeo,Portland Fire,Eliska Hamzova,6.44,2
+Megan DiLeo,Portland Fire,Nell Angloma,5.88,3
+Megan DiLeo,Portland Fire,Indya Nivar,2.36,2
+Megan DiLeo,Portland Fire,Aaliyah Nye,1.60,2
+Megan DiLeo,Portland Fire,Aubrey Griffin,1.15,2
+Megan Gustafson,Portland Fire,Bridget Carleton,30.08,7
+Megan Gustafson,Portland Fire,Carla Leite,27.67,7
+Megan Gustafson,Portland Fire,Megan DiLeo,26.72,5
+Megan Gustafson,Portland Fire,Emily Engstler,23.76,7
 Megan Gustafson,Portland Fire,Sarah Ashlee Barker,19.44,3
-Megan Gustafson,Portland Fire,Karlie Samuelson,17.96,5
-Megan Gustafson,Portland Fire,Frieda Buhner,17.25,6
-Megan Gustafson,Portland Fire,Serah Williams,17.00,6
-Megan Gustafson,Portland Fire,Nyadiew Puoch,16.05,6
+Megan Gustafson,Portland Fire,Karlie Samuelson,18.12,6
+Megan Gustafson,Portland Fire,Frieda Buhner,17.02,7
+Megan Gustafson,Portland Fire,Serah Williams,16.32,7
+Megan Gustafson,Portland Fire,Nyadiew Puoch,16.17,7
 Megan Gustafson,Portland Fire,Teja Oblak,12.27,6
+Megan Gustafson,Portland Fire,Jordan Harrison,10.08,2
 Megan Gustafson,Portland Fire,Luisa Geiselsoder,9.94,3
-Megan Gustafson,Portland Fire,Holly Winterburn,8.96,5
-Sarah Ashlee Barker,Portland Fire,Bridget Carleton,31.40,4
-Sarah Ashlee Barker,Portland Fire,Megan DiLeo,27.08,3
-Sarah Ashlee Barker,Portland Fire,Carla Leite,26.14,4
-Sarah Ashlee Barker,Portland Fire,Emily Engstler,23.43,4
-Sarah Ashlee Barker,Portland Fire,Nyadiew Puoch,20.95,4
-Sarah Ashlee Barker,Portland Fire,Frieda Buhner,16.57,4
-Sarah Ashlee Barker,Portland Fire,Karlie Samuelson,16.13,4
+Megan Gustafson,Portland Fire,Holly Winterburn,9.77,6
+Sarah Ashlee Barker,Portland Fire,Bridget Carleton,31.05,5
+Sarah Ashlee Barker,Portland Fire,Megan DiLeo,27.24,4
+Sarah Ashlee Barker,Portland Fire,Carla Leite,26.87,5
+Sarah Ashlee Barker,Portland Fire,Emily Engstler,23.62,5
+Sarah Ashlee Barker,Portland Fire,Nyadiew Puoch,20.14,5
+Sarah Ashlee Barker,Portland Fire,Karlie Samuelson,16.69,5
+Sarah Ashlee Barker,Portland Fire,Frieda Buhner,16.38,5
 Sarah Ashlee Barker,Portland Fire,Teja Oblak,13.07,4
-Sarah Ashlee Barker,Portland Fire,Serah Williams,13.03,4
-Sarah Ashlee Barker,Portland Fire,Holly Winterburn,11.53,4
+Sarah Ashlee Barker,Portland Fire,Serah Williams,12.88,5
+Sarah Ashlee Barker,Portland Fire,Holly Winterburn,11.98,5
 Serah Williams,Portland Fire,Bridget Carleton,29.54,4
 Serah Williams,Portland Fire,Sarah Ashlee Barker,26.73,4
 Serah Williams,Portland Fire,Carla Leite,25.45,4
@@ -2264,23 +2602,26 @@ Serah Williams,Portland Fire,Frieda Buhner,12.94,4
 Teja Oblak,Portland Fire,Breanna Stewart,33.13,2
 Teja Oblak,Portland Fire,Marine Johannes,30.65,2
 Teja Oblak,Portland Fire,Jonquel Jones,30.42,2
-Teja Oblak,Portland Fire,Bridget Carleton,29.37,5
+Teja Oblak,Portland Fire,Bridget Carleton,29.41,6
+Teja Oblak,Portland Fire,Aneesah Morrow,28.68,2
 Teja Oblak,Portland Fire,Pauline Astier,26.04,2
+Teja Oblak,Portland Fire,Carla Leite,24.38,5
 Teja Oblak,Portland Fire,Luisa Geiselsoder,23.46,6
-Teja Oblak,Portland Fire,Carla Leite,23.03,4
 Teja Oblak,Portland Fire,Sug Sutton,22.82,3
-Teja Oblak,Portland Fire,Emily Engstler,22.21,6
-Teja Oblak,Portland Fire,Nyadiew Puoch,21.36,6
+Teja Oblak,Portland Fire,Emily Engstler,22.51,7
 Teja Oblak,Portland Fire,Sarah Ashlee Barker,21.26,6
 Teja Oblak,Portland Fire,Rebekah Gardner,21.11,2
 Teja Oblak,Portland Fire,Betnijah Laney-Hamilton,20.80,2
-Teja Oblak,Portland Fire,Holly Winterburn,16.77,3
+Teja Oblak,Portland Fire,Nyadiew Puoch,20.73,7
+Teja Oblak,Portland Fire,Karlie Samuelson,18.98,2
+Teja Oblak,Portland Fire,Holly Winterburn,16.03,4
 Teja Oblak,Portland Fire,Kamiah Smalls,15.09,2
 Teja Oblak,Portland Fire,Julie Vanloo,14.94,2
 Teja Oblak,Portland Fire,Megan Gustafson,14.37,6
-Teja Oblak,Portland Fire,Serah Williams,12.19,5
-Teja Oblak,Portland Fire,Frieda Buhner,12.03,4
+Teja Oblak,Portland Fire,Frieda Buhner,12.75,5
+Teja Oblak,Portland Fire,Serah Williams,12.20,6
 Teja Oblak,Portland Fire,Haley Jones,11.32,5
+Teja Oblak,Portland Fire,Jordan Harrison,11.21,2
 Teja Oblak,Portland Fire,Han Xu,6.42,2
 Teja Oblak,Portland Fire,Aubrey Griffin,1.15,2
 Awa Fam,Seattle Storm,Kennedy Burke,27.03,3
@@ -2575,40 +2916,40 @@ Mackenzie Holmes,Seattle Storm,Eliska Hamzova,1.27,2
 Brittney Sykes,Toronto Tempo,Jessica Shepard,36.07,2
 Brittney Sykes,Toronto Tempo,Paige Bueckers,34.17,2
 Brittney Sykes,Toronto Tempo,Azzi Fudd,33.19,2
-Brittney Sykes,Toronto Tempo,Julie Allemand,32.03,14
-Brittney Sykes,Toronto Tempo,Marina Mabrey,31.61,13
+Brittney Sykes,Toronto Tempo,Julie Allemand,32.01,15
 Brittney Sykes,Toronto Tempo,Rhyne Howard,31.60,2
 Brittney Sykes,Toronto Tempo,Allisha Gray,31.13,2
 Brittney Sykes,Toronto Tempo,Angel Reese,31.13,2
-Brittney Sykes,Toronto Tempo,Maria Conde,30.96,15
+Brittney Sykes,Toronto Tempo,Marina Mabrey,30.92,14
+Brittney Sykes,Toronto Tempo,Maria Conde,30.81,16
 Brittney Sykes,Toronto Tempo,Jordin Canada,30.78,2
 Brittney Sykes,Toronto Tempo,Kayla McBride,29.55,2
 Brittney Sykes,Toronto Tempo,Arike Ogunbowale,28.39,2
 Brittney Sykes,Toronto Tempo,Veronica Burton,27.49,3
 Brittney Sykes,Toronto Tempo,Olivia Miles,27.21,2
-Brittney Sykes,Toronto Tempo,Laura Juskaite,26.39,15
+Brittney Sykes,Toronto Tempo,Laura Juskaite,26.39,16
 Brittney Sykes,Toronto Tempo,Natasha Howard,26.12,2
 Brittney Sykes,Toronto Tempo,Courtney Williams,25.41,2
 Brittney Sykes,Toronto Tempo,Kiah Stokes,24.64,3
 Brittney Sykes,Toronto Tempo,Janelle Salaun,24.42,3
 Brittney Sykes,Toronto Tempo,Naz Hillmon,24.20,2
-Brittney Sykes,Toronto Tempo,Isabelle Harrison,23.54,13
 Brittney Sykes,Toronto Tempo,Napheesa Collier,23.38,2
-Brittney Sykes,Toronto Tempo,Kiki Rice,22.46,4
-Brittney Sykes,Toronto Tempo,Nyara Sabally,22.13,11
+Brittney Sykes,Toronto Tempo,Isabelle Harrison,22.94,14
+Brittney Sykes,Toronto Tempo,Nyara Sabally,22.28,12
 Brittney Sykes,Toronto Tempo,Kayla Thornton,21.56,3
+Brittney Sykes,Toronto Tempo,Kiki Rice,21.49,5
 Brittney Sykes,Toronto Tempo,Tiffany Hayes,21.16,3
+Brittney Sykes,Toronto Tempo,Aneesah Morrow,19.81,3
 Brittney Sykes,Toronto Tempo,Kaila Charles,19.76,3
 Brittney Sykes,Toronto Tempo,Isobel Borlase,19.73,2
 Brittney Sykes,Toronto Tempo,Gabby Williams,19.01,3
-Brittney Sykes,Toronto Tempo,Temi Fagbenle,18.91,9
 Brittney Sykes,Toronto Tempo,Dorka Juhasz,18.05,2
-Brittney Sykes,Toronto Tempo,Aneesah Morrow,17.92,2
+Brittney Sykes,Toronto Tempo,Temi Fagbenle,17.33,10
 Brittney Sykes,Toronto Tempo,Kaitlyn Chen,16.64,3
 Brittney Sykes,Toronto Tempo,Cecilia Zandalasini,16.58,3
 Brittney Sykes,Toronto Tempo,Awak Kuier,16.34,2
 Brittney Sykes,Toronto Tempo,Maya Caldwell,15.88,2
-Brittney Sykes,Toronto Tempo,Kia Nurse,14.76,14
+Brittney Sykes,Toronto Tempo,Kia Nurse,14.24,15
 Brittney Sykes,Toronto Tempo,Antonia Delaere,12.41,2
 Brittney Sykes,Toronto Tempo,Alysha Clark,11.53,2
 Brittney Sykes,Toronto Tempo,Alanna Smith,11.07,2
@@ -2621,8 +2962,8 @@ Brittney Sykes,Toronto Tempo,Eliska Hamzova,8.56,2
 Brittney Sykes,Toronto Tempo,Laeticia Amihere,8.23,3
 Brittney Sykes,Toronto Tempo,Aziaha James,6.97,2
 Brittney Sykes,Toronto Tempo,Maddy Siegrist,5.58,2
-Brittney Sykes,Toronto Tempo,Teonni Key,5.42,13
 Brittney Sykes,Toronto Tempo,Ornella Bankole,5.22,2
+Brittney Sykes,Toronto Tempo,Teonni Key,5.10,14
 Brittney Sykes,Toronto Tempo,Sika Kone,0.99,2
 Isabelle Harrison,Toronto Tempo,Kelsey Plum,34.52,2
 Isabelle Harrison,Toronto Tempo,Brittney Sykes,32.05,10
@@ -2808,8 +3149,8 @@ Temi Fagbenle,Toronto Tempo,Zia Cooke,13.60,2
 Temi Fagbenle,Toronto Tempo,Kate Martin,12.22,2
 Temi Fagbenle,Toronto Tempo,Alysha Clark,11.53,2
 Temi Fagbenle,Toronto Tempo,Kayla Alexander,11.49,2
-Temi Fagbenle,Toronto Tempo,Kia Nurse,11.07,16
 Temi Fagbenle,Toronto Tempo,Alanna Smith,11.07,2
+Temi Fagbenle,Toronto Tempo,Kia Nurse,11.07,16
 Temi Fagbenle,Toronto Tempo,Chance Gray,10.37,2
 Temi Fagbenle,Toronto Tempo,Mackenzie Holmes,10.21,2
 Temi Fagbenle,Toronto Tempo,Odyssey Sims,10.17,2
@@ -2849,8 +3190,8 @@ Alicia Florez,Washington Mystics,Han Xu,18.54,2
 Alicia Florez,Washington Mystics,Diamond Miller,18.32,2
 Alicia Florez,Washington Mystics,Aaliyah Edwards,17.62,2
 Alicia Florez,Washington Mystics,Zia Cooke,17.50,2
-Alicia Florez,Washington Mystics,Mackenzie Holmes,17.08,2
 Alicia Florez,Washington Mystics,Cassandre Prosper,17.08,10
+Alicia Florez,Washington Mystics,Mackenzie Holmes,17.08,2
 Alicia Florez,Washington Mystics,Rebekah Gardner,17.04,2
 Alicia Florez,Washington Mystics,Katie Lou Samuelson,16.66,2
 Alicia Florez,Washington Mystics,Lauren Betts,16.11,12
