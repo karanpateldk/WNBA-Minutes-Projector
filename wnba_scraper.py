@@ -238,7 +238,18 @@ def scrape_wnba_injuries() -> dict:
         except Exception as e:
             print(f"[scraper] WNBA PDF injuries failed: {e}")
 
-    # Fallback 2: ESPN injuries API
+    # Fallback 2: exported Snowflake injuries CSV (written by GitHub Action)
+    if not injuries:
+        try:
+            import snowflake_connector as _sf
+            csv_inj = _sf._load_csv_injuries()
+            if csv_inj:
+                injuries = csv_inj
+                print(f"[scraper] Loaded {len(injuries)} injuries from CSV fallback")
+        except Exception as e:
+            print(f"[scraper] CSV injuries failed: {e}")
+
+    # Fallback 3: ESPN injuries API
     if not injuries:
         try:
             resp = requests.get(
@@ -264,8 +275,9 @@ def scrape_wnba_injuries() -> dict:
         except Exception as e:
             print(f"[scraper] ESPN injuries API failed: {e}")
 
-    if injuries:
-        _save_cache(cache_key, injuries, ttl_hours=0.25)  # 15-min TTL — injury reports update frequently
+    # Always cache the result (even if empty) so subsequent teams in the same
+    # load cycle don't each fire a separate ESPN request that returns 403.
+    _save_cache(cache_key, injuries, ttl_hours=0.25)
     return injuries
 
 
