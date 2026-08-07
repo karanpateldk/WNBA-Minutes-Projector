@@ -1,214 +1,172 @@
 {
-  "timestamp": "2026-08-03T21:50:32.546369",
+  "timestamp": "2026-08-07T15:25:49.625790",
   "payload": {
-    "Te-Hina Paopao": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
+    "Aaliyah Edwards": {
+      "status": "Day-To-Day",
+      "injury": "Knee",
+      "comment": "Edwards did not play in Sunday's (Aug. 2) game against the Wings.",
+      "team": "Connecticut Sun",
       "dnp_type": "injury"
     },
-    "Sydney Taylor": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
+    "Alysha Clark": {
+      "status": "Day-To-Day",
+      "injury": "Back",
+      "comment": "Clark did not play in Wednesday's (Aug. 5) game versus the Mystics.",
+      "team": "Dallas Wings",
       "dnp_type": "injury"
     },
-    "Maddy Westbeld": {
+    "Ariel Atkins": {
       "status": "Out",
-      "injury": "out",
-      "team": "",
+      "injury": "Ribs",
+      "comment": "Atkins did not return to Wednesday's (Aug. 5) 95-88 loss to the Sky.",
+      "team": "Los Angeles Sparks",
       "dnp_type": "injury"
     },
-    "Azura Stevens": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
+    "Azur\u00e1 Stevens": {
+      "status": "Day-To-Day",
+      "injury": "Personal",
+      "comment": "Stevens did not play in Wednesday's (Aug. 5) game against the Sparks.",
+      "team": "Chicago Sky",
       "dnp_type": "injury"
     },
-    "Skylar Diggins": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "Rickea Jackson": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
+    "Bridget Carleton": {
+      "status": "Day-To-Day",
+      "injury": "Foot",
+      "comment": "The Fire listed Carleton as Probable for Thursday's (Aug. 6) game against the Tempo.",
+      "team": "Portland Fire",
       "dnp_type": "injury"
     },
     "Brittney Griner": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "Hailey Van Lith": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "Aaliyah Edwards": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "Maria Kliundikova": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "Iliana Rupert": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "Bree Hall": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "Ugonne Onyiah": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "Damiris Dantas": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "Cheyenne Parker-Tyus": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "Janiah Barker": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "Alissa Pili": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "Tonie Morgan": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "Monique Akoa Makani": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "Liatu King": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "Emma Cechova": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "Satou Sabally": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "Anneli Maley": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "Leonie Fiebich": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "Kara Dunn": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "Shay Ciezki": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "Jovana Nogic": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "Jordan Harrison": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "Sarah Ashlee Barker": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "Sania Feagin": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "Taina Mair": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "Marina Mabrey": {
       "status": "Day-To-Day",
-      "injury": "day-to-day",
-      "team": "",
-      "dnp_type": "injury"
-    },
-    "Aneesah Morrow": {
-      "status": "Out",
-      "injury": "out",
-      "team": "",
+      "injury": "Knee",
+      "comment": "The Sun listed Griner as Questionable for Friday's (Aug. 7) game against the Phoenix.",
+      "team": "Connecticut Sun",
       "dnp_type": "injury"
     },
     "Brittney Sykes": {
       "status": "Out",
-      "injury": "out",
-      "team": "",
+      "injury": "Foot",
+      "comment": "The Tempo said on Sunday (Jul. 26) that Sykes isn't close to returning to game action, per Ian Finlayson of Sportsnet.",
+      "team": "Toronto Tempo",
       "dnp_type": "injury"
     },
-    "Darianna Littlepage-Buggs": {
+    "Cheyenne Parker-Tyus": {
       "status": "Out",
-      "injury": "out",
-      "team": "",
+      "injury": "Concussion",
+      "comment": "The Aces listed Parker-Tyus as Out for Thursday's (Aug. 6) game against the Fever.",
+      "team": "Las Vegas Aces",
+      "dnp_type": "injury"
+    },
+    "Chloe Bibby": {
+      "status": "Out",
+      "injury": "Personal",
+      "comment": "The Lynx listed Bibby as Out for Thursday's (Aug. 6) game against the Sparks.",
+      "team": "Minnesota Lynx",
+      "dnp_type": "injury"
+    },
+    "Damiris Dantas": {
+      "status": "Out For Season",
+      "injury": "Knee",
+      "comment": "The Fever said on Tuesday (Aug. 4) that Dantas will miss rest of season after undergoing surgery to repair a torn meniscus.",
+      "team": "Indiana Fever",
+      "dnp_type": "injury"
+    },
+    "Emma Cechova": {
+      "status": "Out For Season",
+      "injury": "Knee",
+      "comment": "The Lynx said on Friday (May 15) that Cechova was diagnosed with a torn ACL in her right knee and will undergo season-ending surgery, per Meghan L. Hall of USA Today.",
+      "team": "Minnesota Lynx",
+      "dnp_type": "injury"
+    },
+    "Iliana Rupert": {
+      "status": "Out For Season",
+      "injury": "Pregnancy",
+      "comment": "The Valkyries said on Thursday (May 7) that Rupert is pregnant, and the team has filed for a replacement contract ahead of the 2026 season, per Alexa Philippou of ESPN.com.",
+      "team": "Golden State Valkyries",
+      "dnp_type": "injury"
+    },
+    "Janiah Barker": {
+      "status": "Out For Season",
+      "injury": "Leg",
+      "comment": "The Aces said on Wednesday's (Jul. 15) that Barker will be sidelined for the rest of the 2026 season, per Callie Fin of USA Today.",
+      "team": "Las Vegas Aces",
+      "dnp_type": "injury"
+    },
+    "Leonie Fiebich": {
+      "status": "Day-To-Day",
+      "injury": "Foot",
+      "comment": "Fiebich did not play in Wednesday's (Aug. 5) game against the Storm.",
+      "team": "New York Liberty",
+      "dnp_type": "injury"
+    },
+    "Marine Fauthoux": {
+      "status": "Day-To-Day",
+      "injury": "Neck",
+      "comment": "The Tempo listed Mabrey as Questionable for Thursday's (Aug. 6) game against the Fire.",
+      "team": "New York Liberty",
+      "dnp_type": "injury"
+    },
+    "Raegan Beers": {
+      "status": "Out",
+      "injury": "Concussion",
+      "comment": "The Sun listed Beers as Out for Friday's (Aug. 7) game against Phoenix.",
+      "team": "Connecticut Sun",
+      "dnp_type": "injury"
+    },
+    "Rickea Jackson": {
+      "status": "Out For Season",
+      "injury": "Knee",
+      "comment": "The Sky announced on Tuesday (May 19) that Jackson will miss the remainder of the season after suffering a torn ACL in her left knee.",
+      "team": "Chicago Sky",
+      "dnp_type": "injury"
+    },
+    "Sania Feagin": {
+      "status": "Out For Season",
+      "injury": "Knee",
+      "comment": "The Fire announced that Feagin tore her left ACL and will miss the rest of the season.",
+      "team": "Portland Fire",
+      "dnp_type": "injury"
+    },
+    "Sarah Ashlee Barker": {
+      "status": "Out For Season",
+      "injury": "Knee",
+      "comment": "The Fire announced that Barker suffered a torn ACL and will miss the rest of the season.",
+      "team": "Portland Fire",
+      "dnp_type": "injury"
+    },
+    "Satou Sabally": {
+      "status": "Day-To-Day",
+      "injury": "Concussion Protocol",
+      "comment": "Sabally did not play in Wednesday's (Aug. 5) game against the Storm.",
+      "team": "New York Liberty",
+      "dnp_type": "injury"
+    },
+    "Skylar Diggins": {
+      "status": "Out",
+      "injury": "Knee",
+      "comment": "The Sky said on Sunday (Aug. 2) that Diggins remains without a clear timetable for a return.",
+      "team": "Chicago Sky",
+      "dnp_type": "injury"
+    },
+    "Sydney Taylor": {
+      "status": "Day-To-Day",
+      "injury": "Groin",
+      "comment": "Taylor did not play in Wednesday's (Aug. 5) game against the Sparks.",
+      "team": "Chicago Sky",
+      "dnp_type": "injury"
+    },
+    "Te-Hina Paopao": {
+      "status": "Out",
+      "injury": "Leg",
+      "comment": "The Dream said on Tuesday (Jul. 28) that Paopao will be re-evaluated in the coming weeks, per WNBA reporter Kareem Copeland.",
+      "team": "Atlanta Dream",
+      "dnp_type": "injury"
+    },
+    "Teja Oblak": {
+      "status": "Day-To-Day",
+      "injury": "Knee",
+      "comment": "The Fire listed Oblak as Doubtful for Thursday's (Aug. 6) game against th Tempo.",
+      "team": "Portland Fire",
       "dnp_type": "injury"
     }
   },
