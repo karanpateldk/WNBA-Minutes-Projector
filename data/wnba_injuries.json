@@ -1,46 +1,18 @@
 {
-  "timestamp": "2026-08-07T15:25:49.625790",
+  "timestamp": "2026-08-08T14:04:32.386758",
   "payload": {
-    "Aaliyah Edwards": {
-      "status": "Day-To-Day",
-      "injury": "Knee",
-      "comment": "Edwards did not play in Sunday's (Aug. 2) game against the Wings.",
-      "team": "Connecticut Sun",
-      "dnp_type": "injury"
-    },
     "Alysha Clark": {
       "status": "Day-To-Day",
       "injury": "Back",
-      "comment": "Clark did not play in Wednesday's (Aug. 5) game versus the Mystics.",
+      "comment": "The Wings listed Clark as Questionable for Friday's (Aug. 7) game against the Valkyries.",
       "team": "Dallas Wings",
-      "dnp_type": "injury"
-    },
-    "Ariel Atkins": {
-      "status": "Out",
-      "injury": "Ribs",
-      "comment": "Atkins did not return to Wednesday's (Aug. 5) 95-88 loss to the Sky.",
-      "team": "Los Angeles Sparks",
       "dnp_type": "injury"
     },
     "Azur\u00e1 Stevens": {
       "status": "Day-To-Day",
       "injury": "Personal",
-      "comment": "Stevens did not play in Wednesday's (Aug. 5) game against the Sparks.",
+      "comment": "The Sky listed Stevens as Probable for Saturday's (Aug. 8) game against the Fever, per Chicago State of Mind Sports.",
       "team": "Chicago Sky",
-      "dnp_type": "injury"
-    },
-    "Bridget Carleton": {
-      "status": "Day-To-Day",
-      "injury": "Foot",
-      "comment": "The Fire listed Carleton as Probable for Thursday's (Aug. 6) game against the Tempo.",
-      "team": "Portland Fire",
-      "dnp_type": "injury"
-    },
-    "Brittney Griner": {
-      "status": "Day-To-Day",
-      "injury": "Knee",
-      "comment": "The Sun listed Griner as Questionable for Friday's (Aug. 7) game against the Phoenix.",
-      "team": "Connecticut Sun",
       "dnp_type": "injury"
     },
     "Brittney Sykes": {
@@ -51,16 +23,16 @@
       "dnp_type": "injury"
     },
     "Cheyenne Parker-Tyus": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Concussion",
-      "comment": "The Aces listed Parker-Tyus as Out for Thursday's (Aug. 6) game against the Fever.",
+      "comment": "Parker-Tyus did not play in Thursday's (Aug. 6) game against the Fever.",
       "team": "Las Vegas Aces",
       "dnp_type": "injury"
     },
     "Chloe Bibby": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Personal",
-      "comment": "The Lynx listed Bibby as Out for Thursday's (Aug. 6) game against the Sparks.",
+      "comment": "Bibby did not play in Thursday's (Aug. 6) game against the Sparks.",
       "team": "Minnesota Lynx",
       "dnp_type": "injury"
     },
@@ -107,9 +79,9 @@
       "dnp_type": "injury"
     },
     "Raegan Beers": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Concussion",
-      "comment": "The Sun listed Beers as Out for Friday's (Aug. 7) game against Phoenix.",
+      "comment": "Beers did not play in Friday's (Aug. 7) game against Mercury.",
       "team": "Connecticut Sun",
       "dnp_type": "injury"
     },
@@ -165,7 +137,7 @@
     "Teja Oblak": {
       "status": "Day-To-Day",
       "injury": "Knee",
-      "comment": "The Fire listed Oblak as Doubtful for Thursday's (Aug. 6) game against th Tempo.",
+      "comment": "Oblak did not play in Thursday's (Aug. 6) game against th Tempo.",
       "team": "Portland Fire",
       "dnp_type": "injury"
     }
