@@ -1,18 +1,25 @@
 {
-  "timestamp": "2026-08-08T21:57:05.214259",
+  "timestamp": "2026-08-09T13:05:59.298992",
   "payload": {
     "Alysha Clark": {
       "status": "Day-To-Day",
       "injury": "Back",
-      "comment": "The Wings listed Clark as Questionable for Friday's (Aug. 7) game against the Valkyries.",
+      "comment": "Clark did not play in Friday's (Aug. 7) game against the Valkyries.",
       "team": "Dallas Wings",
       "dnp_type": "injury"
     },
-    "Azur\u00e1 Stevens": {
+    "Azzi Fudd": {
       "status": "Day-To-Day",
-      "injury": "Personal",
-      "comment": "The Sky listed Stevens as Probable for Saturday's (Aug. 8) game against the Fever, per Chicago State of Mind Sports.",
-      "team": "Chicago Sky",
+      "injury": "Knee",
+      "comment": "Fudd did not play in Friday's (Aug. 7) game against Golden State due to right knee soreness.",
+      "team": "Dallas Wings",
+      "dnp_type": "injury"
+    },
+    "Bridget Carleton": {
+      "status": "Day-To-Day",
+      "injury": "Foot",
+      "comment": "The Fire listed Carleton as Probable for Saturday's (Aug. 8) game against the Storm.",
+      "team": "Portland Fire",
       "dnp_type": "injury"
     },
     "Brittney Sykes": {
@@ -23,16 +30,16 @@
       "dnp_type": "injury"
     },
     "Cheyenne Parker-Tyus": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Concussion",
-      "comment": "Parker-Tyus did not play in Thursday's (Aug. 6) game against the Fever.",
+      "comment": "The Aces listed Parker-Tyus as Out for Saturday's (Aug. 8) game against the Lynx.",
       "team": "Las Vegas Aces",
       "dnp_type": "injury"
     },
     "Chloe Bibby": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Personal",
-      "comment": "Bibby did not play in Thursday's (Aug. 6) game against the Sparks.",
+      "comment": "The Lynx listed Bibby as Out for Saturday's (Aug. 8) game against the Aces.",
       "team": "Minnesota Lynx",
       "dnp_type": "injury"
     },
@@ -62,6 +69,20 @@
       "injury": "Leg",
       "comment": "The Aces said on Wednesday's (Jul. 15) that Barker will be sidelined for the rest of the 2026 season, per Callie Fin of USA Today.",
       "team": "Las Vegas Aces",
+      "dnp_type": "injury"
+    },
+    "Justine Pissott": {
+      "status": "Out",
+      "injury": "Leg",
+      "comment": "The Aces listed Pissott as Out for Saturday's (Aug. 8) game against the Lynx.",
+      "team": "Las Vegas Aces",
+      "dnp_type": "injury"
+    },
+    "Katie Lou Samuelson": {
+      "status": "Out",
+      "injury": "Knee",
+      "comment": "The Storm listed Samuelson as Out for Saturday's (Aug. 8) game against the Fire.",
+      "team": "Seattle Storm",
       "dnp_type": "injury"
     },
     "Leonie Fiebich": {
@@ -121,9 +142,9 @@
       "dnp_type": "injury"
     },
     "Sydney Taylor": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Groin",
-      "comment": "Taylor did not play in Wednesday's (Aug. 5) game against the Sparks.",
+      "comment": "The Sky listed Taylor as Out for Saturday's (Aug.8) game against the Fever.",
       "team": "Chicago Sky",
       "dnp_type": "injury"
     },
@@ -137,7 +158,7 @@
     "Teja Oblak": {
       "status": "Day-To-Day",
       "injury": "Knee",
-      "comment": "Oblak did not play in Thursday's (Aug. 6) game against th Tempo.",
+      "comment": "The Fire listed Oblak as Probable for Saturday's (Aug. 8) game against the Storm.",
       "team": "Portland Fire",
       "dnp_type": "injury"
     }
