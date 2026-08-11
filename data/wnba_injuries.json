@@ -1,25 +1,25 @@
 {
-  "timestamp": "2026-08-09T20:54:03.459529",
+  "timestamp": "2026-08-11T11:09:48.376276",
   "payload": {
     "Alysha Clark": {
       "status": "Day-To-Day",
       "injury": "Back",
-      "comment": "Clark did not play in Friday's (Aug. 7) game against the Valkyries.",
+      "comment": "Clark did not play in Sunday's (Aug. 9) game against the Lynx.",
       "team": "Dallas Wings",
       "dnp_type": "injury"
     },
     "Azzi Fudd": {
       "status": "Day-To-Day",
       "injury": "Knee",
-      "comment": "Fudd did not play in Friday's (Aug. 7) game against Golden State due to right knee soreness.",
+      "comment": "Fudd did not play in Sunday's (Aug. 9) game against the Lynx.",
       "team": "Dallas Wings",
       "dnp_type": "injury"
     },
-    "Bridget Carleton": {
+    "Betnijah Laney-Hamilton": {
       "status": "Day-To-Day",
-      "injury": "Foot",
-      "comment": "The Fire listed Carleton as Probable for Saturday's (Aug. 8) game against the Storm.",
-      "team": "Portland Fire",
+      "injury": "Personal",
+      "comment": "Laney-Hamilton did not play in Sunday's (Aug. 9) game against the Mercury.",
+      "team": "Washington Mystics",
       "dnp_type": "injury"
     },
     "Brittney Sykes": {
@@ -32,14 +32,14 @@
     "Cheyenne Parker-Tyus": {
       "status": "Out",
       "injury": "Concussion",
-      "comment": "The Aces listed Parker-Tyus as Out for Saturday's (Aug. 8) game against the Lynx.",
+      "comment": "The Aces listed Parker-Tyus as OUT for Tuesday's (Aug. 11) game against the Mystics.",
       "team": "Las Vegas Aces",
       "dnp_type": "injury"
     },
     "Chloe Bibby": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Personal",
-      "comment": "The Lynx listed Bibby as Out for Saturday's (Aug. 8) game against the Aces.",
+      "comment": "Bibby did not play in Sunday's (Aug. 9) game against the Wings.",
       "team": "Minnesota Lynx",
       "dnp_type": "injury"
     },
@@ -50,11 +50,25 @@
       "team": "Indiana Fever",
       "dnp_type": "injury"
     },
+    "Dana Evans": {
+      "status": "Out",
+      "injury": "Leg",
+      "comment": "The Aces listed Evans as OUT for Tuesday's (Aug. 11) game against the Mystics.",
+      "team": "Las Vegas Aces",
+      "dnp_type": "injury"
+    },
     "Emma Cechova": {
       "status": "Out For Season",
       "injury": "Knee",
       "comment": "The Lynx said on Friday (May 15) that Cechova was diagnosed with a torn ACL in her right knee and will undergo season-ending surgery, per Meghan L. Hall of USA Today.",
       "team": "Minnesota Lynx",
+      "dnp_type": "injury"
+    },
+    "Flau'jae Johnson": {
+      "status": "Out",
+      "injury": "Ankle",
+      "comment": "The Storm listed Johnson as OUT for Monday's (Aug.10) game against the Sky.",
+      "team": "Seattle Storm",
       "dnp_type": "injury"
     },
     "Iliana Rupert": {
@@ -71,32 +85,46 @@
       "team": "Las Vegas Aces",
       "dnp_type": "injury"
     },
-    "Justine Pissott": {
-      "status": "Out",
-      "injury": "Leg",
-      "comment": "The Aces listed Pissott as Out for Saturday's (Aug. 8) game against the Lynx.",
-      "team": "Las Vegas Aces",
+    "Jessica Shepard": {
+      "status": "Day-To-Day",
+      "injury": "Ankle",
+      "comment": "Shepard will not return to Sunday's (Aug. 9) game against the Lynx after sustaining a right ankle injury.",
+      "team": "Dallas Wings",
       "dnp_type": "injury"
     },
     "Katie Lou Samuelson": {
       "status": "Out",
       "injury": "Knee",
-      "comment": "The Storm listed Samuelson as Out for Saturday's (Aug. 8) game against the Fire.",
+      "comment": "The Storm listed Samuelson as OUT for Monday's (Aug. 10) game against the Sky.",
       "team": "Seattle Storm",
+      "dnp_type": "injury"
+    },
+    "Kelsey Plum": {
+      "status": "Day-To-Day",
+      "injury": "Calf",
+      "comment": "Plum will not return to Sunday's (Aug. 9) game against the Mystics due to left calf tightness.",
+      "team": "Phoenix Mercury",
+      "dnp_type": "injury"
+    },
+    "Kiah Stokes": {
+      "status": "Day-To-Day",
+      "injury": "Neck",
+      "comment": "Stokes will not return to Sunday's (Aug. 9) game against the Sparks due to a neck contusion, according to WNBA reporter Kareem Copeland.",
+      "team": "Golden State Valkyries",
       "dnp_type": "injury"
     },
     "Leonie Fiebich": {
       "status": "Day-To-Day",
       "injury": "Foot",
-      "comment": "Fiebich did not play in Wednesday's (Aug. 5) game against the Storm.",
+      "comment": "Fiebich did not play in Sunday's (Aug. 9) game against the Aces.",
       "team": "New York Liberty",
       "dnp_type": "injury"
     },
-    "Marine Fauthoux": {
+    "Monique Akoa Makani": {
       "status": "Day-To-Day",
-      "injury": "Neck",
-      "comment": "The Tempo listed Mabrey as Questionable for Thursday's (Aug. 6) game against the Fire.",
-      "team": "New York Liberty",
+      "injury": "Ankle",
+      "comment": "Akoa Makani did not play in Sunday's (Aug.10) game against the Valkyries.",
+      "team": "Los Angeles Sparks",
       "dnp_type": "injury"
     },
     "Raegan Beers": {
@@ -130,7 +158,7 @@
     "Satou Sabally": {
       "status": "Day-To-Day",
       "injury": "Concussion Protocol",
-      "comment": "Sabally did not play in Wednesday's (Aug. 5) game against the Storm.",
+      "comment": "Sabally did not play in Sunday's (Aug. 9) game against the Aces.",
       "team": "New York Liberty",
       "dnp_type": "injury"
     },
@@ -144,7 +172,7 @@
     "Sydney Taylor": {
       "status": "Out",
       "injury": "Groin",
-      "comment": "The Sky listed Taylor as Out for Saturday's (Aug.8) game against the Fever.",
+      "comment": "The Sky listed Taylor as Out for Monday's (Aug.10) game against the Storm.",
       "team": "Chicago Sky",
       "dnp_type": "injury"
     },
@@ -158,7 +186,7 @@
     "Teja Oblak": {
       "status": "Day-To-Day",
       "injury": "Knee",
-      "comment": "The Fire listed Oblak as Probable for Saturday's (Aug. 8) game against the Storm.",
+      "comment": "Oblak did not play in Saturday's (Aug. 8) game against the Storm.",
       "team": "Portland Fire",
       "dnp_type": "injury"
     }
