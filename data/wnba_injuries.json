@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-11T15:32:37.382997",
+  "timestamp": "2026-08-12T13:11:12.220405",
   "payload": {
     "Alysha Clark": {
       "status": "Day-To-Day",
@@ -39,7 +39,7 @@
     "Chloe Bibby": {
       "status": "Day-To-Day",
       "injury": "Personal",
-      "comment": "Bibby did not play in Sunday's (Aug. 9) game against the Wings.",
+      "comment": "The Lynx listed Bibby as Doubtful for Wednesday's (Aug. 12) game against the Fire.",
       "team": "Minnesota Lynx",
       "dnp_type": "injury"
     },
@@ -65,9 +65,9 @@
       "dnp_type": "injury"
     },
     "Flau'jae Johnson": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Ankle",
-      "comment": "The Storm listed Johnson as OUT for Monday's (Aug.10) game against the Sky.",
+      "comment": "Johnson did not play in Monday's (Aug. 10) game against the Sky.",
       "team": "Seattle Storm",
       "dnp_type": "injury"
     },
@@ -93,16 +93,16 @@
       "dnp_type": "injury"
     },
     "Katie Lou Samuelson": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Knee",
-      "comment": "The Storm listed Samuelson as OUT for Monday's (Aug. 10) game against the Sky.",
+      "comment": "Samuelson did not play in Monday's (Aug. 10) game against the Sky.",
       "team": "Seattle Storm",
       "dnp_type": "injury"
     },
     "Kelsey Plum": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Calf",
-      "comment": "Plum will not return to Sunday's (Aug. 9) game against the Mystics due to left calf tightness.",
+      "comment": "The Phoenix Mercury listed Plum as OUT for Tuesday's (Aug. 11) game against the Sparks.",
       "team": "Phoenix Mercury",
       "dnp_type": "injury"
     },
@@ -113,17 +113,24 @@
       "team": "Golden State Valkyries",
       "dnp_type": "injury"
     },
+    "Kierstan Bell": {
+      "status": "Out",
+      "injury": "Personal",
+      "comment": "The Aces listed Bell as OUT for Tuesday's (Aug. 11) game against the Mystics.",
+      "team": "Las Vegas Aces",
+      "dnp_type": "injury"
+    },
     "Leonie Fiebich": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Foot",
-      "comment": "Fiebich did not play in Sunday's (Aug. 9) game against the Aces.",
+      "comment": "The New York Liberty listed Fiebich as OUT for Tuesday's (Aug. 11) game against Indiana.",
       "team": "New York Liberty",
       "dnp_type": "injury"
     },
     "Monique Akoa Makani": {
       "status": "Day-To-Day",
       "injury": "Ankle",
-      "comment": "Akoa Makani did not play in Sunday's (Aug.10) game against the Valkyries.",
+      "comment": "The Sparks listed Akoa Makani as Questionable for Tuesday's (Aug. 11) game against the Mercury.",
       "team": "Los Angeles Sparks",
       "dnp_type": "injury"
     },
@@ -156,9 +163,9 @@
       "dnp_type": "injury"
     },
     "Satou Sabally": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Concussion Protocol",
-      "comment": "Sabally did not play in Sunday's (Aug. 9) game against the Aces.",
+      "comment": "The New York Liberty listed Sabally as OUT for Tuesday's (Aug. 11) game against Indiana.",
       "team": "New York Liberty",
       "dnp_type": "injury"
     },
@@ -170,9 +177,9 @@
       "dnp_type": "injury"
     },
     "Sydney Taylor": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Groin",
-      "comment": "The Sky listed Taylor as Out for Monday's (Aug.10) game against the Storm.",
+      "comment": "Taylor did not play in Monday's (Aug. 10) game against the Storm.",
       "team": "Chicago Sky",
       "dnp_type": "injury"
     },
