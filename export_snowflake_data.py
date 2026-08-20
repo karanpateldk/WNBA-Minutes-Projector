@@ -495,12 +495,37 @@ def run():
     try:
         import accuracy_tracker as _at
         print("  Running accuracy tracker...")
-        _at.snapshot_today()   # only today's RotoWire CSV — historical files managed manually
+        # Ingest every RotoWire CSV present, not just today's. Eight files sat
+        # unread in Downloads for over a week because only today's was picked up,
+        # which held the scored sample at 662 player-games when 1093 were
+        # available — the accuracy numbers were being computed on 60% of the
+        # evidence. Safe to run over history now that a historical date routes
+        # through _merge_rw_projections (RotoWire's number only, never
+        # our_projected) and never claims a LIVE projection it did not make.
+        _at.snapshot_all_available()
         _at.fill_actuals()
         try:
             _at.backfill_from_boxscores()
         except Exception as _be:
             print(f"  [accuracy] Backfill skipped: {_be}")
+        # Convert any row whose projection is not point-in-time into a replayed
+        # forecast built from games before that date. Live snapshots are kept.
+        #
+        # Gated on parity first. The rebuild rewrites ~1700 rows using replay.py;
+        # if replay has drifted from season_stats (it silently had, twice) the
+        # whole accuracy log becomes a measurement of a model that is not
+        # shipped. Better to leave yesterday's numbers standing and shout than to
+        # overwrite them with something unverified.
+        try:
+            import parity as _parity
+            if _parity.main() != 0:
+                print("  [accuracy] PARITY FAILED — replay.py has diverged from "
+                      "season_stats.py. Skipping the rebuild; accuracy numbers "
+                      "are stale until this is fixed.")
+            else:
+                _at.rebuild_replay_projections()
+        except Exception as _re:
+            print(f"  [accuracy] Replay rebuild skipped: {_re}")
     except Exception as _e:
         print(f"  [accuracy] Skipped: {_e}")
 
