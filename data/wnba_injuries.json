@@ -1,18 +1,11 @@
 {
-  "timestamp": "2026-08-19T19:56:07.261909",
+  "timestamp": "2026-08-20T15:17:15.162241",
   "payload": {
     "Aaliyah Edwards": {
-      "status": "Out",
-      "injury": "Ankle",
-      "comment": "The Sun listed Edwards as OUT for Tuesday's (Aug. 18) game against the Sparks.",
-      "team": "Connecticut Sun",
-      "dnp_type": "injury"
-    },
-    "Aliyah Boston": {
       "status": "Day-To-Day",
-      "injury": "Leg",
-      "comment": "The Fever listed Boston as Probable for Tuesday's (Aug. 18) game against Toronto.",
-      "team": "Indiana Fever",
+      "injury": "Ankle",
+      "comment": "Edwards did not play in Tuesday's (Aug. 18) game against the Sparks.",
+      "team": "Connecticut Sun",
       "dnp_type": "injury"
     },
     "Aziaha James": {
@@ -23,9 +16,9 @@
       "dnp_type": "injury"
     },
     "Azzi Fudd": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Knee",
-      "comment": "Fudd did not play in Monday's (Aug. 17) game against the Valkyries.",
+      "comment": "The WIngs said on Wednesday (Aug. 19) that Fudd will miss rest of the regular season after undergoing knee procedure.",
       "team": "Dallas Wings",
       "dnp_type": "injury"
     },
@@ -37,23 +30,23 @@
       "dnp_type": "injury"
     },
     "Brittney Griner": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Knee",
-      "comment": "The Sun listed Griner as OUT for Tuesday's (Aug. 18) game against the Sparks.",
+      "comment": "Griner did not play in Tuesday's (Aug. 18) game against the Sparks.",
       "team": "Connecticut Sun",
       "dnp_type": "injury"
     },
-    "Caitlin Clark": {
-      "status": "Day-To-Day",
-      "injury": "Back",
-      "comment": "The Fever listed Clark as Probable for Tuesday's (Aug. 18) game against Toronto.",
-      "team": "Indiana Fever",
+    "Brittney Sykes": {
+      "status": "Out",
+      "injury": "Foot",
+      "comment": "The Tempo listed Sykes as OUT for Wednesday's (Aug. 19) game against the Mystics.",
+      "team": "Toronto Tempo",
       "dnp_type": "injury"
     },
     "Cameron Brink": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Ribs",
-      "comment": "The Sparks listed Brink as OUT for Tuesday's (Aug. 18) game against the Sun.",
+      "comment": "Brink did not play in Tuesday's (Aug. 18) game against the Sun.",
       "team": "Los Angeles Sparks",
       "dnp_type": "injury"
     },
@@ -65,9 +58,9 @@
       "dnp_type": "injury"
     },
     "Dana Evans": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Leg",
-      "comment": "The Aces listed Evans as OUT for Tuesday's (Aug. 18) game against the Dream.",
+      "comment": "Evans did not play in Tuesday's (Aug. 18) game against the Dream.",
       "team": "Las Vegas Aces",
       "dnp_type": "injury"
     },
@@ -79,9 +72,9 @@
       "dnp_type": "injury"
     },
     "Erica Wheeler": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Ankle",
-      "comment": "The Sparks listed Wheeler as OUT for Tuesday's (Aug. 18) game against the Sun.",
+      "comment": "Wheeler did not play in Tuesday's (Aug. 18) game against the Sun.",
       "team": "Los Angeles Sparks",
       "dnp_type": "injury"
     },
@@ -99,6 +92,13 @@
       "team": "Las Vegas Aces",
       "dnp_type": "injury"
     },
+    "Jonquel Jones": {
+      "status": "Day-To-Day",
+      "injury": "Ankle",
+      "comment": "Jones did not return to Tuesday's (Aug. 18) game against the Sky, per Madeline Kenney of the New York Post.",
+      "team": "New York Liberty",
+      "dnp_type": "injury"
+    },
     "Jordan Horston": {
       "status": "Day-To-Day",
       "injury": "Shoulder",
@@ -106,11 +106,11 @@
       "team": "Seattle Storm",
       "dnp_type": "injury"
     },
-    "Julie Allemand": {
-      "status": "Out",
-      "injury": "Thigh",
-      "comment": "The Tempo listed Allemand as OUT for Tuesday's (Aug. 18) game against Indiana.",
-      "team": "Toronto Tempo",
+    "Kelsey Mitchell": {
+      "status": "Day-To-Day",
+      "injury": "Undisclosed",
+      "comment": "Mitchell did not return to Tuesday's (Aug. 18) game versus the Tempo.",
+      "team": "Indiana Fever",
       "dnp_type": "injury"
     },
     "Kelsey Plum": {
@@ -130,14 +130,21 @@
     "Maria Conde": {
       "status": "Out",
       "injury": "Calf",
-      "comment": "The Tempo listed Conde as OUT for Tuesday's (Aug. 18) game against Indiana.",
+      "comment": "The Tempo listed Conde as OUT for Wednesday's (Aug. 19) game against the Mystics.",
+      "team": "Toronto Tempo",
+      "dnp_type": "injury"
+    },
+    "Marina Mabrey": {
+      "status": "Out",
+      "injury": "Hamstring",
+      "comment": "The Tempo listed Mabrey as Out for Wednesday's (Aug. 19) game against the Mystics.",
       "team": "Toronto Tempo",
       "dnp_type": "injury"
     },
     "Monique Akoa Makani": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Ankle",
-      "comment": "The Sparks listed Akoa Makani as OUT for Tuesday's (Aug. 18) game against the Sun.",
+      "comment": "Akoa Makani did not play in Tuesday's (Aug. 18) game against the Sun.",
       "team": "Los Angeles Sparks",
       "dnp_type": "injury"
     },
@@ -151,7 +158,7 @@
     "Nyara Sabally": {
       "status": "Out",
       "injury": "Calf",
-      "comment": "The Tempo listed Sabally as OUT for Tuesday's (Aug. 18) game against Indiana.",
+      "comment": "The Tempo listed Sabally as OUT for Wednesday's (Aug. 19) game against the Mystics.",
       "team": "Toronto Tempo",
       "dnp_type": "injury"
     },
@@ -160,13 +167,6 @@
       "injury": "Knee",
       "comment": "The Sky announced on Tuesday (May 19) that Jackson will miss the remainder of the season after suffering a torn ACL in her left knee.",
       "team": "Chicago Sky",
-      "dnp_type": "injury"
-    },
-    "Sabrina Ionescu": {
-      "status": "Day-To-Day",
-      "injury": "Foot",
-      "comment": "The Liberty listed Ionescu as Questionable for Tuesday's (Aug. 18) game against Chicago.",
-      "team": "New York Liberty",
       "dnp_type": "injury"
     },
     "Sania Feagin": {
@@ -184,9 +184,9 @@
       "dnp_type": "injury"
     },
     "Satou Sabally": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Head",
-      "comment": "The Liberty listed Sabally as OUT for Tuesday's (Aug. 18) game against Chicago.",
+      "comment": "Sabally did not play in Tuesday's (Aug. 18) game against Chicago.",
       "team": "New York Liberty",
       "dnp_type": "injury"
     },
@@ -194,13 +194,6 @@
       "status": "Out",
       "injury": "Knee",
       "comment": "The Sky said on Sunday (Aug. 9) that Diggins has not played since early July due to a right knee injury, and her timetable for a return remains unclear.",
-      "team": "Chicago Sky",
-      "dnp_type": "injury"
-    },
-    "Sydney Taylor": {
-      "status": "Day-To-Day",
-      "injury": "Groin",
-      "comment": "The Sky listed Taylor as Questionable for Tuesday's (Aug. 18) game against the Liberty.",
       "team": "Chicago Sky",
       "dnp_type": "injury"
     }
