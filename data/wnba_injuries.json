@@ -1,22 +1,22 @@
 {
-  "timestamp": "2026-08-20T20:01:59.580067",
+  "timestamp": "2026-08-21T15:14:44.304312",
   "payload": {
     "Aaliyah Edwards": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Ankle",
-      "comment": "Edwards did not play in Tuesday's (Aug. 18) game against the Sparks.",
+      "comment": "The Sun listed Edwards as Out for Thursday's (Aug. 20) game against the Aces.",
       "team": "Connecticut Sun",
       "dnp_type": "injury"
     },
     "Aziaha James": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Leg",
-      "comment": "James did not play in Monday's (Aug. 17) game against the Valkyries.",
+      "comment": "The Wings said on Friday (Aug. 14) that James is not with the team and is without a timetable for a return to game action, per Christan Braswell of Off The Record WBB.",
       "team": "Dallas Wings",
       "dnp_type": "injury"
     },
     "Azzi Fudd": {
-      "status": "Out",
+      "status": "Out For Season",
       "injury": "Knee",
       "comment": "The WIngs said on Wednesday (Aug. 19) that Fudd will miss rest of the regular season after undergoing knee procedure.",
       "team": "Dallas Wings",
@@ -30,24 +30,24 @@
       "dnp_type": "injury"
     },
     "Brittney Griner": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Knee",
-      "comment": "Griner did not play in Tuesday's (Aug. 18) game against the Sparks.",
+      "comment": "The Sun listed Griner as Out for Thursday's (Aug. 20) game against the Aces.",
       "team": "Connecticut Sun",
       "dnp_type": "injury"
     },
     "Brittney Sykes": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Foot",
-      "comment": "The Tempo listed Sykes as OUT for Wednesday's (Aug. 19) game against the Mystics.",
+      "comment": "Sykes did not play in Wednesday's (Aug. 19) game against the Mystics.",
       "team": "Toronto Tempo",
       "dnp_type": "injury"
     },
-    "Cameron Brink": {
+    "Caitlin Clark": {
       "status": "Day-To-Day",
-      "injury": "Ribs",
-      "comment": "Brink did not play in Tuesday's (Aug. 18) game against the Sun.",
-      "team": "Los Angeles Sparks",
+      "injury": "Back",
+      "comment": "The Fever listed Clark as Probable for Thursday's (Aug. 20) game against the Wings.",
+      "team": "Indiana Fever",
       "dnp_type": "injury"
     },
     "Damiris Dantas": {
@@ -58,9 +58,9 @@
       "dnp_type": "injury"
     },
     "Dana Evans": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Leg",
-      "comment": "Evans did not play in Tuesday's (Aug. 18) game against the Dream.",
+      "comment": "The Aces listed Evans as Out for Thursday's (Aug. 20) game against the Sun.",
       "team": "Las Vegas Aces",
       "dnp_type": "injury"
     },
@@ -69,13 +69,6 @@
       "injury": "Knee",
       "comment": "The Lynx said on Friday (May 15) that Cechova was diagnosed with a torn ACL in her right knee and will undergo season-ending surgery, per Meghan L. Hall of USA Today.",
       "team": "Minnesota Lynx",
-      "dnp_type": "injury"
-    },
-    "Erica Wheeler": {
-      "status": "Day-To-Day",
-      "injury": "Ankle",
-      "comment": "Wheeler did not play in Tuesday's (Aug. 18) game against the Sun.",
-      "team": "Los Angeles Sparks",
       "dnp_type": "injury"
     },
     "Iliana Rupert": {
@@ -108,8 +101,8 @@
     },
     "Kelsey Mitchell": {
       "status": "Day-To-Day",
-      "injury": "Undisclosed",
-      "comment": "Mitchell did not return to Tuesday's (Aug. 18) game versus the Tempo.",
+      "injury": "Illness",
+      "comment": "The Fever listed Mitchell as Probable for Thursday's (Aug. 20) game against the Wings.",
       "team": "Indiana Fever",
       "dnp_type": "injury"
     },
@@ -128,24 +121,17 @@
       "dnp_type": "injury"
     },
     "Maria Conde": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Calf",
-      "comment": "The Tempo listed Conde as OUT for Wednesday's (Aug. 19) game against the Mystics.",
+      "comment": "Conde did not play in Wednesday's (Aug. 19) game against the Mystics.",
       "team": "Toronto Tempo",
       "dnp_type": "injury"
     },
     "Marina Mabrey": {
-      "status": "Out",
-      "injury": "Hamstring",
-      "comment": "The Tempo listed Mabrey as Out for Wednesday's (Aug. 19) game against the Mystics.",
-      "team": "Toronto Tempo",
-      "dnp_type": "injury"
-    },
-    "Monique Akoa Makani": {
       "status": "Day-To-Day",
-      "injury": "Ankle",
-      "comment": "Akoa Makani did not play in Tuesday's (Aug. 18) game against the Sun.",
-      "team": "Los Angeles Sparks",
+      "injury": "Hamstring",
+      "comment": "Mabrey did not play in Wednesday's (Aug. 19) game against the Mystics.",
+      "team": "Toronto Tempo",
       "dnp_type": "injury"
     },
     "Natisha Hiedeman": {
@@ -156,10 +142,17 @@
       "dnp_type": "injury"
     },
     "Nyara Sabally": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Calf",
-      "comment": "The Tempo listed Sabally as OUT for Wednesday's (Aug. 19) game against the Mystics.",
+      "comment": "Sabally did not play in Wednesday's (Aug. 19) game against the Mystics.",
       "team": "Toronto Tempo",
+      "dnp_type": "injury"
+    },
+    "Olivia Miles": {
+      "status": "Day-To-Day",
+      "injury": "Ankle",
+      "comment": "Miles did not return to Wednesday's (Aug. 19) game versus the Valkyries.",
+      "team": "Minnesota Lynx",
       "dnp_type": "injury"
     },
     "Rickea Jackson": {
