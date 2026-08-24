@@ -1,24 +1,24 @@
 {
-  "timestamp": "2026-08-23T15:14:11.078564",
+  "timestamp": "2026-08-24T13:26:08.706594",
   "payload": {
+    "A'ja Wilson": {
+      "status": "Day-To-Day",
+      "injury": "Back",
+      "comment": "The Aces listed Wilson as Questionable for Sunday's (Aug. 23) game against the Tempo.",
+      "team": "Las Vegas Aces",
+      "dnp_type": "injury"
+    },
     "Aaliyah Edwards": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Ankle",
-      "comment": "The Sun listed Edwards as Out for Saturday's (Aug. 22) game against the Sparks.",
+      "comment": "Edwards did not play in Saturday's (Aug. 22) game against the Sparks.",
       "team": "Connecticut Sun",
       "dnp_type": "injury"
     },
-    "Aliyah Boston": {
-      "status": "Day-To-Day",
-      "injury": "Leg",
-      "comment": "The Fever listed Boston as Questionable for Saturday's (Aug. 22) game against the Liberty.",
-      "team": "Indiana Fever",
-      "dnp_type": "injury"
-    },
     "Aneesah Morrow": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Knee",
-      "comment": "Morrow did not return to Friday's (Aug. 21) game versus the Fire.",
+      "comment": "The Tempo reported Morrow is Out for for the remainder of the season.",
       "team": "Toronto Tempo",
       "dnp_type": "injury"
     },
@@ -44,24 +44,17 @@
       "dnp_type": "injury"
     },
     "Brittney Griner": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Knee",
-      "comment": "The Sun listed Griner as Out for Saturday's (Aug. 22) game against the Sparks.",
+      "comment": "Griner did not play in Saturday's (Aug. 22) game against the Sparks.",
       "team": "Connecticut Sun",
       "dnp_type": "injury"
     },
     "Brittney Sykes": {
-      "status": "Day-To-Day",
+      "status": "Out For Season",
       "injury": "Foot",
-      "comment": "Sykes did not return to Friday's (Aug. 21) game versus the Fire.",
+      "comment": "The Tempo reported Sykes is Out for for the remainder of the season.",
       "team": "Toronto Tempo",
-      "dnp_type": "injury"
-    },
-    "Caitlin Clark": {
-      "status": "Day-To-Day",
-      "injury": "Back",
-      "comment": "The Fever listed Clark as Probable for Saturday's (Aug. 22) game against the Liberty.",
-      "team": "Indiana Fever",
       "dnp_type": "injury"
     },
     "Courtney Williams": {
@@ -81,14 +74,14 @@
     "Dana Evans": {
       "status": "Day-To-Day",
       "injury": "Leg",
-      "comment": "Evans did not play in Thursday's (Aug. 20) game against the Sun.",
+      "comment": "The Aces listed Evans as Questionable for Sunday's (Aug. 23) game against the Tempo.",
       "team": "Las Vegas Aces",
       "dnp_type": "injury"
     },
     "DiJonai Carrington": {
       "status": "Day-To-Day",
       "injury": "Foot",
-      "comment": "Carrington did not play in Friday's (Aug. 21) game against the Valkyries.",
+      "comment": "The Sky listed Carrington as Questionable for Sunday's (Aug. 23) game against Indiana.",
       "team": "Chicago Sky",
       "dnp_type": "injury"
     },
@@ -113,52 +106,38 @@
       "team": "Las Vegas Aces",
       "dnp_type": "injury"
     },
-    "Jonquel Jones": {
-      "status": "Day-To-Day",
-      "injury": "Ankle",
-      "comment": "The Liberty listed Jones as Questionable for Saturday's (Aug. 22) game against the Fever.",
-      "team": "New York Liberty",
-      "dnp_type": "injury"
-    },
-    "Jordan Horston": {
-      "status": "Day-To-Day",
-      "injury": "Shoulder",
-      "comment": "Horston did not return in Sunday's (Aug. 16) game versus the Sky due to a shoulder injury.",
-      "team": "Seattle Storm",
-      "dnp_type": "injury"
-    },
     "Kelsey Plum": {
       "status": "Day-To-Day",
       "injury": "Calf",
-      "comment": "The Mercury listed Plum as Questionable for Saturday's (Aug. 22) game against the Dream.",
+      "comment": "Plum did not play in Saturday's (Aug. 22) game against the Dream.",
       "team": "Phoenix Mercury",
       "dnp_type": "injury"
     },
-    "Leonie Fiebich": {
-      "status": "Day-To-Day",
-      "injury": "Foot",
-      "comment": "The Liberty listed Fiebich as Questionable for Saturday's (Aug. 22) game against the Fever.",
-      "team": "New York Liberty",
-      "dnp_type": "injury"
-    },
     "Maria Conde": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Calf",
-      "comment": "Conde did not play in Friday's (Aug. 21) game against the Fire.",
+      "comment": "The Tempo listed Conde as Out for Sunday's (Aug. 23) game against the Aces.",
       "team": "Toronto Tempo",
       "dnp_type": "injury"
     },
     "Marina Mabrey": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Hamstring",
-      "comment": "Mabrey did not play in Friday's (Aug. 21) game against the Fire.",
+      "comment": "The Tempo listed Mabrey as Out for Sunday's (Aug. 23) game against the Aces.",
       "team": "Toronto Tempo",
       "dnp_type": "injury"
     },
-    "Natisha Hiedeman": {
+    "Marta Suarez": {
       "status": "Day-To-Day",
+      "injury": "Head",
+      "comment": "Suarez did not play in Saturday's (Aug. 22) game against the Dream.",
+      "team": "Phoenix Mercury",
+      "dnp_type": "injury"
+    },
+    "Natisha Hiedeman": {
+      "status": "Out",
       "injury": "Shoulder",
-      "comment": "Hiedeman did not play in Sunday's (Aug. 16) game against the Sky.",
+      "comment": "The Storm listed Hiedeman as OUT for Sunday's (Aug. 23) game against Dallas.",
       "team": "Seattle Storm",
       "dnp_type": "injury"
     },
@@ -167,6 +146,13 @@
       "injury": "Calf",
       "comment": "The Tempo said on Sunday (Aug. 16) that Sabally is in a walking boot and will be re-evaluated in a few weeks, per Chelsea Leite of TSN.",
       "team": "Toronto Tempo",
+      "dnp_type": "injury"
+    },
+    "Raegan Beers": {
+      "status": "Day-To-Day",
+      "injury": "Jaw",
+      "comment": "Beers did not return to Saturday's game versus the Sparks.",
+      "team": "Connecticut Sun",
       "dnp_type": "injury"
     },
     "Rickea Jackson": {
@@ -191,10 +177,17 @@
       "dnp_type": "injury"
     },
     "Satou Sabally": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Head",
-      "comment": "The Liberty listed Sabally as Out for Saturday's (Aug. 22) game against the Fever.",
+      "comment": "Sabally did not play in Saturday's (Aug. 22) game against the Fever.",
       "team": "New York Liberty",
+      "dnp_type": "injury"
+    },
+    "Shakira Austin": {
+      "status": "Day-To-Day",
+      "injury": "Knee",
+      "comment": "The Mystics have listed Austin as Questionable for Sunday's (Aug. 23) game against the Fire.",
+      "team": "Washington Mystics",
       "dnp_type": "injury"
     },
     "Skylar Diggins": {
