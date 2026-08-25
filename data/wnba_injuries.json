@@ -1,24 +1,17 @@
 {
-  "timestamp": "2026-08-24T18:00:22.886871",
+  "timestamp": "2026-08-25T10:58:38.781072",
   "payload": {
-    "A'ja Wilson": {
+    "Aliyah Boston": {
       "status": "Day-To-Day",
-      "injury": "Back",
-      "comment": "The Aces listed Wilson as Questionable for Sunday's (Aug. 23) game against the Tempo.",
-      "team": "Las Vegas Aces",
-      "dnp_type": "injury"
-    },
-    "Aaliyah Edwards": {
-      "status": "Day-To-Day",
-      "injury": "Ankle",
-      "comment": "Edwards did not play in Saturday's (Aug. 22) game against the Sparks.",
-      "team": "Connecticut Sun",
+      "injury": "Leg",
+      "comment": "Boston did not play in Sunday's (Aug. 23) game against the Sky.",
+      "team": "Indiana Fever",
       "dnp_type": "injury"
     },
     "Aneesah Morrow": {
-      "status": "Out",
+      "status": "Out For Season",
       "injury": "Knee",
-      "comment": "The Tempo reported Morrow is Out for for the remainder of the season.",
+      "comment": "Morrow will miss the rest of the 2026 season, according to Chelsea Leite of TSN reports Sunday (Aug. 23).",
       "team": "Toronto Tempo",
       "dnp_type": "injury"
     },
@@ -46,21 +39,21 @@
     "Brittney Griner": {
       "status": "Day-To-Day",
       "injury": "Knee",
-      "comment": "Griner did not play in Saturday's (Aug. 22) game against the Sparks.",
+      "comment": "The Sun listed Griner as Questionable for Tuesday's (Aug. 25) game against Chicago.",
       "team": "Connecticut Sun",
       "dnp_type": "injury"
     },
     "Brittney Sykes": {
       "status": "Out For Season",
       "injury": "Foot",
-      "comment": "The Tempo reported Sykes is Out for for the remainder of the season.",
+      "comment": "Sykes will miss the remainder of the 2026 season, according to Chelsea Leite of TSN reports Sunday (Aug. 23).",
       "team": "Toronto Tempo",
       "dnp_type": "injury"
     },
     "Courtney Williams": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Leg",
-      "comment": "Williams suffered a lower leg injury in Friday's (Aug. 21) game versus the Mystics.",
+      "comment": "The Lynx have listed Williams as OUT for Monday's (Aug. 24) game against the Valkyries.",
       "team": "Minnesota Lynx",
       "dnp_type": "injury"
     },
@@ -74,7 +67,7 @@
     "Dana Evans": {
       "status": "Day-To-Day",
       "injury": "Leg",
-      "comment": "The Aces listed Evans as Questionable for Sunday's (Aug. 23) game against the Tempo.",
+      "comment": "Evans did not play in Sunday's (Aug. 23) game against the Tempo.",
       "team": "Las Vegas Aces",
       "dnp_type": "injury"
     },
@@ -106,6 +99,13 @@
       "team": "Las Vegas Aces",
       "dnp_type": "injury"
     },
+    "Julie Allemand": {
+      "status": "Day-To-Day",
+      "injury": "Head",
+      "comment": "Allemand won't return to Sunday's (Aug. 23) game against Las Vegas, as per Zulfi Sheikh of Sportsnet.",
+      "team": "Toronto Tempo",
+      "dnp_type": "injury"
+    },
     "Kelsey Plum": {
       "status": "Day-To-Day",
       "injury": "Calf",
@@ -114,16 +114,16 @@
       "dnp_type": "injury"
     },
     "Maria Conde": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Calf",
-      "comment": "The Tempo listed Conde as Out for Sunday's (Aug. 23) game against the Aces.",
+      "comment": "Conde did not play in Sunday's (Aug. 23) game against the Aces.",
       "team": "Toronto Tempo",
       "dnp_type": "injury"
     },
     "Marina Mabrey": {
       "status": "Out",
-      "injury": "Hamstring",
-      "comment": "The Tempo listed Mabrey as Out for Sunday's (Aug. 23) game against the Aces.",
+      "injury": "Adductor",
+      "comment": "The Tempo announced Mabrey is to be re-evaluated in a few weeks du to an adductor injury.",
       "team": "Toronto Tempo",
       "dnp_type": "injury"
     },
@@ -134,10 +134,17 @@
       "team": "Phoenix Mercury",
       "dnp_type": "injury"
     },
+    "NaLyssa Smith": {
+      "status": "Day-To-Day",
+      "injury": "Lower-Body",
+      "comment": "Smith won't return to Sunday's (Aug. 23) game against Toronto, according to Chelsea Leite of TSN.",
+      "team": "Las Vegas Aces",
+      "dnp_type": "injury"
+    },
     "Natisha Hiedeman": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Shoulder",
-      "comment": "The Storm listed Hiedeman as OUT for Sunday's (Aug. 23) game against Dallas.",
+      "comment": "Hiedeman did not play in Sunday's (Aug. 23) game against the Wings.",
       "team": "Seattle Storm",
       "dnp_type": "injury"
     },
@@ -148,11 +155,18 @@
       "team": "Toronto Tempo",
       "dnp_type": "injury"
     },
-    "Raegan Beers": {
+    "Olivia Nelson-Ododa": {
       "status": "Day-To-Day",
-      "injury": "Jaw",
-      "comment": "Beers did not return to Saturday's game versus the Sparks.",
+      "injury": "Knee",
+      "comment": "The Sun listed Nelson-Ododa as Questionable for Tuesday's (Aug. 25) game against Chicago.",
       "team": "Connecticut Sun",
+      "dnp_type": "injury"
+    },
+    "Rae Burrell": {
+      "status": "Out",
+      "injury": "Illness",
+      "comment": "The Sparks listed Burrell as OUT for Monday's (Aug. 24) game against the Dream.",
+      "team": "Los Angeles Sparks",
       "dnp_type": "injury"
     },
     "Rickea Jackson": {
@@ -181,13 +195,6 @@
       "injury": "Head",
       "comment": "Sabally did not play in Saturday's (Aug. 22) game against the Fever.",
       "team": "New York Liberty",
-      "dnp_type": "injury"
-    },
-    "Shakira Austin": {
-      "status": "Day-To-Day",
-      "injury": "Knee",
-      "comment": "The Mystics have listed Austin as Questionable for Sunday's (Aug. 23) game against the Fire.",
-      "team": "Washington Mystics",
       "dnp_type": "injury"
     },
     "Skylar Diggins": {
