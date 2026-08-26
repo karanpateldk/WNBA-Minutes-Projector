@@ -1,0 +1,205 @@
+{
+  "0efbeb9b7f8bbc7f": {
+    "archived_as": "rw-2026-07-22-0efbeb9b7f8bbc7f.csv",
+    "date_source": "inferred",
+    "game_date": "2026-07-22",
+    "ingested_at": "2026-08-19 18:57:25",
+    "source_file": "wnba-daily-projections (10).csv"
+  },
+  "21d1610cf4e871d1": {
+    "archived_as": "rw-2026-07-22-21d1610cf4e871d1.csv",
+    "date_source": "inferred",
+    "game_date": "2026-07-22",
+    "ingested_at": "2026-08-26 16:52:22",
+    "source_file": "wnba-daily-projections (27).csv"
+  },
+  "2418614048c2a80f": {
+    "archived_as": "rw-2026-07-20-2418614048c2a80f.csv",
+    "date_source": "inferred",
+    "game_date": "2026-07-20",
+    "ingested_at": "2026-08-19 18:57:25",
+    "source_file": "wnba-daily-projections (8).csv"
+  },
+  "290a4f2d21414cd0": {
+    "archived_as": "rw-2026-07-30-290a4f2d21414cd0.csv",
+    "date_source": "inferred",
+    "game_date": "2026-07-30",
+    "ingested_at": "2026-08-19 18:57:25",
+    "source_file": "wnba-daily-projections (12).csv"
+  },
+  "330c43652942838a": {
+    "archived_as": "rw-2026-08-17-330c43652942838a.csv",
+    "date_source": "inferred",
+    "game_date": "2026-08-17",
+    "ingested_at": "2026-08-19 18:57:25",
+    "source_file": "wnba-daily-projections (22).csv"
+  },
+  "36feb7519314fdd1": {
+    "archived_as": "rw-2026-08-07-36feb7519314fdd1.csv",
+    "date_source": "inferred",
+    "game_date": "2026-08-07",
+    "ingested_at": "2026-08-19 18:57:25",
+    "source_file": "wnba-daily-projections (11).csv"
+  },
+  "3ef8620a3de0ff3e": {
+    "archived_as": "rw-2026-07-18-3ef8620a3de0ff3e.csv",
+    "date_source": "inferred",
+    "game_date": "2026-07-18",
+    "ingested_at": "2026-08-19 18:57:25",
+    "source_file": "wnba-daily-projections (5).csv"
+  },
+  "4d4a4dec3d43194f": {
+    "archived_as": "rw-2026-08-09-4d4a4dec3d43194f.csv",
+    "date_source": "inferred",
+    "game_date": "2026-08-09",
+    "ingested_at": "2026-08-19 18:57:25",
+    "source_file": "wnba-daily-projections (19).csv"
+  },
+  "5359e6e1c7f03d05": {
+    "archived_as": "rw-2026-08-12-5359e6e1c7f03d05.csv",
+    "date_source": "inferred",
+    "game_date": "2026-08-12",
+    "ingested_at": "2026-08-26 16:52:22",
+    "source_file": "wnba-daily-projections (26).csv"
+  },
+  "597544df599d2298": {
+    "archived_as": "rw-2026-07-31-597544df599d2298.csv",
+    "date_source": "inferred",
+    "game_date": "2026-07-31",
+    "ingested_at": "2026-08-19 18:57:26",
+    "source_file": "wnba-daily-projections.csv"
+  },
+  "632028338bd6ce24": {
+    "archived_as": "rw-2026-08-05-632028338bd6ce24.csv",
+    "date_source": "inferred",
+    "game_date": "2026-08-05",
+    "ingested_at": "2026-08-19 18:57:25",
+    "source_file": "wnba-daily-projections (15).csv"
+  },
+  "7833cf733e9a202c": {
+    "archived_as": "rw-2026-07-17-7833cf733e9a202c.csv",
+    "date_source": "inferred",
+    "game_date": "2026-07-17",
+    "ingested_at": "2026-08-19 18:57:25",
+    "source_file": "wnba-daily-projections (1).csv"
+  },
+  "83489d332803a960": {
+    "archived_as": "rw-2026-08-08-83489d332803a960.csv",
+    "date_source": "inferred",
+    "game_date": "2026-08-08",
+    "ingested_at": "2026-08-19 18:57:25",
+    "source_file": "wnba-daily-projections (18).csv"
+  },
+  "87e7aeed59c913ed": {
+    "archived_as": "rw-2026-08-12-87e7aeed59c913ed.csv",
+    "date_source": "inferred",
+    "game_date": "2026-08-12",
+    "ingested_at": "2026-08-19 18:57:25",
+    "source_file": "wnba-daily-projections (14).csv"
+  },
+  "884e219812c7e243": {
+    "archived_as": "rw-2026-08-06-884e219812c7e243.csv",
+    "date_source": "inferred",
+    "game_date": "2026-08-06",
+    "ingested_at": "2026-08-19 18:57:25",
+    "source_file": "wnba-daily-projections (16).csv"
+  },
+  "917d554e67c4f598": {
+    "archived_as": "rw-2026-07-18-917d554e67c4f598.csv",
+    "date_source": "inferred",
+    "game_date": "2026-07-18",
+    "ingested_at": "2026-08-19 18:57:25",
+    "source_file": "wnba-daily-projections (4).csv"
+  },
+  "9ba8672794610b68": {
+    "archived_as": "rw-2026-07-18-9ba8672794610b68.csv",
+    "date_source": "inferred",
+    "game_date": "2026-07-18",
+    "ingested_at": "2026-08-19 18:57:25",
+    "source_file": "wnba-daily-projections (2).csv"
+  },
+  "9ef6bf8b85a60809": {
+    "archived_as": "rw-2026-07-22-9ef6bf8b85a60809.csv",
+    "date_source": "inferred",
+    "game_date": "2026-07-22",
+    "ingested_at": "2026-08-19 18:57:26",
+    "source_file": "wnba-daily-projections (9).csv"
+  },
+  "a6698e9603c18c28": {
+    "archived_as": "rw-2026-05-13-a6698e9603c18c28.csv",
+    "date_source": "inferred",
+    "game_date": "2026-05-13",
+    "ingested_at": "2026-08-26 16:52:22",
+    "source_file": "wnba-daily-projections (28).csv"
+  },
+  "a9c5cd2fc4b5b9f8": {
+    "archived_as": "rw-2026-07-20-a9c5cd2fc4b5b9f8.csv",
+    "date_source": "inferred",
+    "game_date": "2026-07-20",
+    "ingested_at": "2026-08-19 18:57:25",
+    "source_file": "wnba-daily-projections (7).csv"
+  },
+  "b3980d4c472d5d6d": {
+    "archived_as": "rw-2026-07-20-b3980d4c472d5d6d.csv",
+    "date_source": "inferred",
+    "game_date": "2026-07-20",
+    "ingested_at": "2026-08-19 18:57:25",
+    "source_file": "wnba-daily-projections (24).csv"
+  },
+  "c0355073fb3a144b": {
+    "archived_as": "rw-2026-08-18-c0355073fb3a144b.csv",
+    "date_source": "inferred",
+    "game_date": "2026-08-18",
+    "ingested_at": "2026-08-19 18:57:25",
+    "source_file": "wnba-daily-projections (23).csv"
+  },
+  "cfbf82dd145c49f3": {
+    "archived_as": "rw-2026-08-13-cfbf82dd145c49f3.csv",
+    "date_source": "inferred",
+    "game_date": "2026-08-13",
+    "ingested_at": "2026-08-19 18:57:25",
+    "source_file": "wnba-daily-projections (21).csv"
+  },
+  "d0feeeff6dd398f1": {
+    "archived_as": "rw-2026-07-19-d0feeeff6dd398f1.csv",
+    "date_source": "inferred",
+    "game_date": "2026-07-19",
+    "ingested_at": "2026-08-19 18:57:25",
+    "source_file": "wnba-daily-projections (6).csv"
+  },
+  "dcf79c11d7df111b": {
+    "archived_as": "rw-2026-08-03-dcf79c11d7df111b.csv",
+    "date_source": "inferred",
+    "game_date": "2026-08-03",
+    "ingested_at": "2026-08-19 18:57:25",
+    "source_file": "wnba-daily-projections (13).csv"
+  },
+  "e127adb3fc9c0f6e": {
+    "archived_as": "rw-2026-08-18-e127adb3fc9c0f6e.csv",
+    "date_source": "inferred",
+    "game_date": "2026-08-18",
+    "ingested_at": "2026-08-26 16:52:22",
+    "source_file": "wnba-daily-projections (25).csv"
+  },
+  "f2c48e229eb45b40": {
+    "archived_as": "rw-2026-08-11-f2c48e229eb45b40.csv",
+    "date_source": "inferred",
+    "game_date": "2026-08-11",
+    "ingested_at": "2026-08-19 18:57:25",
+    "source_file": "wnba-daily-projections (20).csv"
+  },
+  "f672f308e5982108": {
+    "archived_as": "rw-2026-08-07-f672f308e5982108.csv",
+    "date_source": "inferred",
+    "game_date": "2026-08-07",
+    "ingested_at": "2026-08-19 18:57:25",
+    "source_file": "wnba-daily-projections (17).csv"
+  },
+  "fdcfa78645fb5be3": {
+    "archived_as": "rw-2026-07-17-fdcfa78645fb5be3.csv",
+    "date_source": "inferred",
+    "game_date": "2026-07-17",
+    "ingested_at": "2026-08-19 18:57:25",
+    "source_file": "wnba-daily-projections (3).csv"
+  }
+}
