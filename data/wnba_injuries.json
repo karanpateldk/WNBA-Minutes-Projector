@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-27T11:40:09.744691",
+  "timestamp": "2026-08-27T16:31:28.595560",
   "payload": {
     "Aliyah Boston": {
       "status": "Day-To-Day",
@@ -106,6 +106,13 @@
       "team": "Las Vegas Aces",
       "dnp_type": "injury"
     },
+    "Kelsey Plum": {
+      "status": "Day-To-Day",
+      "injury": "Leg",
+      "comment": "The Mercury listed Plum as Questionable for Thursday's (Aug. 27) game against the Mystics.",
+      "team": "Phoenix Mercury",
+      "dnp_type": "injury"
+    },
     "Marina Mabrey": {
       "status": "Out",
       "injury": "Adductor",
@@ -114,9 +121,9 @@
       "dnp_type": "injury"
     },
     "Marta Suarez": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Concussion Protocol",
-      "comment": "Suarez did not play in Tuesday's (Aug. 25) game against Washington.",
+      "comment": "The Mercury listed Suarez as Out for Thursday's (Aug. 27) game against the Mystics.",
       "team": "Phoenix Mercury",
       "dnp_type": "injury"
     },
@@ -135,9 +142,9 @@
       "dnp_type": "injury"
     },
     "Natisha Hiedeman": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Shoulder",
-      "comment": "The Storm listed Hiedeman as Out for Wednesday's (Aug. 26) game against the Tempo.",
+      "comment": "Hiedeman did not play in Wednesday's (Aug. 26) game against the Tempo.",
       "team": "Seattle Storm",
       "dnp_type": "injury"
     },
@@ -149,9 +156,9 @@
       "dnp_type": "injury"
     },
     "Olivia Nelson-Ododa": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Knee",
-      "comment": "The Sun listed Nelson-Ododa as Out for Wednesday's (Aug. 26) game against the Valkyries.",
+      "comment": "Nelson-Ododa did not play in Wednesday's (Aug. 26) game against the Valkyries.",
       "team": "Connecticut Sun",
       "dnp_type": "injury"
     },
@@ -184,9 +191,9 @@
       "dnp_type": "injury"
     },
     "Satou Sabally": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Head",
-      "comment": "Sabally did not play in Saturday's (Aug. 22) game against the Fever.",
+      "comment": "The Liberty listed Sabally as Out for Thursday's (Aug. 27) game against the Valkyries.",
       "team": "New York Liberty",
       "dnp_type": "injury"
     },

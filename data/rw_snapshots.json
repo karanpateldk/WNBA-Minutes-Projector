@@ -1,4 +1,11 @@
 {
+  "0b32c2bab1d70007": {
+    "archived_as": "rw-2026-08-09-0b32c2bab1d70007.csv",
+    "date_source": "inferred",
+    "game_date": "2026-08-09",
+    "ingested_at": "2026-08-27 16:31:00",
+    "source_file": "wnba-daily-projections (29).csv"
+  },
   "0efbeb9b7f8bbc7f": {
     "archived_as": "rw-2026-07-22-0efbeb9b7f8bbc7f.csv",
     "date_source": "inferred",
