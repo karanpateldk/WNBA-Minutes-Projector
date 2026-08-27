@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-27T00:21:16.853452",
+  "timestamp": "2026-08-27T11:40:09.744691",
   "payload": {
     "Aliyah Boston": {
       "status": "Day-To-Day",
@@ -39,7 +39,7 @@
     "Brittney Griner": {
       "status": "Out",
       "injury": "Knee",
-      "comment": "The Sun listed Griner as Out for Tuesday's (Aug. 25) game against Chicago.",
+      "comment": "The Sun listed Griner as Out for Wednesday's (Aug. 26) game against the Valkyries.",
       "team": "Connecticut Sun",
       "dnp_type": "injury"
     },
@@ -74,7 +74,7 @@
     "DiJonai Carrington": {
       "status": "Day-To-Day",
       "injury": "Foot",
-      "comment": "The Sky listed Carrington as Questionable for Tuesday's (Aug. 25) game versus the Sun.",
+      "comment": "Carrington did not return to Tuesday's (Aug. 25) game versus the Sun.",
       "team": "Chicago Sky",
       "dnp_type": "injury"
     },
@@ -83,6 +83,13 @@
       "injury": "Knee",
       "comment": "The Lynx said on Friday (May 15) that Cechova was diagnosed with a torn ACL in her right knee and will undergo season-ending surgery, per Meghan L. Hall of USA Today.",
       "team": "Minnesota Lynx",
+      "dnp_type": "injury"
+    },
+    "Flau'jae Johnson": {
+      "status": "Day-To-Day",
+      "injury": "Ankle",
+      "comment": "The Storm listed Johnson as Probable for Wednesday's (Aug. 26) game against the Tempo.",
+      "team": "Seattle Storm",
       "dnp_type": "injury"
     },
     "Iliana Rupert": {
@@ -99,31 +106,17 @@
       "team": "Las Vegas Aces",
       "dnp_type": "injury"
     },
-    "Julie Allemand": {
-      "status": "Day-To-Day",
-      "injury": "Head",
-      "comment": "Allemand won't return to Sunday's (Aug. 23) game against Las Vegas, as per Zulfi Sheikh of Sportsnet.",
-      "team": "Toronto Tempo",
-      "dnp_type": "injury"
-    },
-    "Maria Conde": {
-      "status": "Day-To-Day",
-      "injury": "Calf",
-      "comment": "Conde did not play in Sunday's (Aug. 23) game against the Aces.",
-      "team": "Toronto Tempo",
-      "dnp_type": "injury"
-    },
     "Marina Mabrey": {
       "status": "Out",
       "injury": "Adductor",
-      "comment": "The Tempo announced Mabrey is to be re-evaluated in a few weeks du to an adductor injury.",
+      "comment": "The Tempo announced Mabrey is to be re-evaluated in a few weeks due to an adductor injury.",
       "team": "Toronto Tempo",
       "dnp_type": "injury"
     },
     "Marta Suarez": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Concussion Protocol",
-      "comment": "The Mercury listed Suarez as OUT for Tuesday's (Aug. 25) game against Washington.",
+      "comment": "Suarez did not play in Tuesday's (Aug. 25) game against Washington.",
       "team": "Phoenix Mercury",
       "dnp_type": "injury"
     },
@@ -134,10 +127,17 @@
       "team": "Las Vegas Aces",
       "dnp_type": "injury"
     },
-    "Natisha Hiedeman": {
+    "Natasha Cloud": {
       "status": "Day-To-Day",
+      "injury": "Knee",
+      "comment": "Cloud did not return to Tuesday's (Aug. 25) game against the Sun due to a right knee injury.",
+      "team": "Chicago Sky",
+      "dnp_type": "injury"
+    },
+    "Natisha Hiedeman": {
+      "status": "Out",
       "injury": "Shoulder",
-      "comment": "Hiedeman did not play in Sunday's (Aug. 23) game against the Wings.",
+      "comment": "The Storm listed Hiedeman as Out for Wednesday's (Aug. 26) game against the Tempo.",
       "team": "Seattle Storm",
       "dnp_type": "injury"
     },
@@ -151,7 +151,7 @@
     "Olivia Nelson-Ododa": {
       "status": "Out",
       "injury": "Knee",
-      "comment": "The Sun listed Nelson-Ododa as OUT for Tuesday's (Aug. 25) game against Chicago.",
+      "comment": "The Sun listed Nelson-Ododa as Out for Wednesday's (Aug. 26) game against the Valkyries.",
       "team": "Connecticut Sun",
       "dnp_type": "injury"
     },
@@ -167,13 +167,6 @@
       "injury": "Knee",
       "comment": "The Sky announced on Tuesday (May 19) that Jackson will miss the remainder of the season after suffering a torn ACL in her left knee.",
       "team": "Chicago Sky",
-      "dnp_type": "injury"
-    },
-    "Sami Whitcomb": {
-      "status": "Day-To-Day",
-      "injury": "Knee",
-      "comment": "The Mercury listed Whitcomb as Probable for Tuesday's (Aug. 25) game against Washington.",
-      "team": "Phoenix Mercury",
       "dnp_type": "injury"
     },
     "Sania Feagin": {
@@ -198,9 +191,9 @@
       "dnp_type": "injury"
     },
     "Serah Williams": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Illness",
-      "comment": "The Fire listed Williams as OUT for Tuesday's (Aug. 25) game versus the Wings.",
+      "comment": "Williams did not play in Tuesday's (Aug. 25) game versus the Wings.",
       "team": "Portland Fire",
       "dnp_type": "injury"
     },
