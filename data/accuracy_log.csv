@@ -108,14 +108,14 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-07-17,Connecticut Sun vs Phoenix Mercury,Shay Ciezki,Phoenix Mercury,1.0,0.0,,replay,inferred
 2026-07-17,Indiana Fever vs Seattle Storm,Bree Hall,Indiana Fever,1.0,0.0,,replay,inferred
 2026-07-17,Indiana Fever vs Seattle Storm,Grace VanSlooten,Indiana Fever,1.0,0.0,,replay,inferred
-2026-07-18,Indiana Fever vs New York Liberty,Breanna Stewart,New York Liberty,32.0,37.8,31.7,replay,inferred
+2026-07-18,Indiana Fever vs New York Liberty,Breanna Stewart,New York Liberty,32.0,37.9,31.7,replay,inferred
 2026-07-18,Indiana Fever vs New York Liberty,Kelsey Mitchell,Indiana Fever,31.0,32.0,29.6,replay,inferred
 2026-07-18,Indiana Fever vs New York Liberty,Caitlin Clark,Indiana Fever,31.0,27.5,26.2,replay,inferred
 2026-07-18,Minnesota Lynx vs Portland Fire,Kayla McBride,Minnesota Lynx,32.0,33.2,32.5,replay,inferred
 2026-07-18,Minnesota Lynx vs Portland Fire,Natasha Howard,Minnesota Lynx,31.0,33.0,25.3,replay,inferred
 2026-07-18,Indiana Fever vs New York Liberty,Aliyah Boston,Indiana Fever,29.0,27.2,23.6,replay,inferred
 2026-07-18,Minnesota Lynx vs Portland Fire,Olivia Miles,Minnesota Lynx,26.0,29.0,33.8,replay,inferred
-2026-07-18,Indiana Fever vs New York Liberty,Jonquel Jones,New York Liberty,29.0,33.2,27.4,replay,inferred
+2026-07-18,Indiana Fever vs New York Liberty,Jonquel Jones,New York Liberty,29.0,33.3,27.4,replay,inferred
 2026-07-18,Golden State Valkyries vs Washington Mystics,Sonia Citron,Washington Mystics,33.0,30.9,29.7,replay,inferred
 2026-07-18,Indiana Fever vs New York Liberty,Sabrina Ionescu,New York Liberty,33.0,35.7,33.5,replay,inferred
 2026-07-18,Minnesota Lynx vs Portland Fire,Courtney Williams,Minnesota Lynx,29.0,34.2,32.3,replay,inferred
@@ -128,10 +128,10 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-07-18,Golden State Valkyries vs Washington Mystics,Veronica Burton,Golden State Valkyries,29.0,27.9,32.5,replay,inferred
 2026-07-18,Minnesota Lynx vs Portland Fire,Sarah Ashlee Barker,Portland Fire,28.0,24.9,30.1,replay,inferred
 2026-07-18,Golden State Valkyries vs Washington Mystics,Janelle Salaun,Golden State Valkyries,18.0,21.2,17.9,replay,inferred
-2026-07-18,Indiana Fever vs New York Liberty,Pauline Astier,New York Liberty,23.0,27.0,22.6,replay,inferred
+2026-07-18,Indiana Fever vs New York Liberty,Pauline Astier,New York Liberty,23.0,27.2,22.6,replay,inferred
 2026-07-18,Minnesota Lynx vs Portland Fire,Dorka Juhasz,Minnesota Lynx,25.0,12.4,21.3,replay,inferred
 2026-07-18,Golden State Valkyries vs Washington Mystics,Michaela Onyenwere,Washington Mystics,25.0,25.2,33.6,replay,inferred
-2026-07-18,Indiana Fever vs New York Liberty,Marine Johannes,New York Liberty,22.0,25.6,17.7,replay,inferred
+2026-07-18,Indiana Fever vs New York Liberty,Marine Johannes,New York Liberty,22.0,25.4,17.7,replay,inferred
 2026-07-18,Golden State Valkyries vs Washington Mystics,Cecilia Zandalasini,Golden State Valkyries,19.0,18.0,25.8,replay,inferred
 2026-07-18,Minnesota Lynx vs Portland Fire,Nia Coffey,Minnesota Lynx,27.0,29.3,19.9,replay,inferred
 2026-07-18,Indiana Fever vs New York Liberty,Sophie Cunningham,Indiana Fever,21.0,23.5,21.6,replay,inferred
@@ -153,7 +153,7 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-07-18,Minnesota Lynx vs Portland Fire,Anastasiia Kosu,Minnesota Lynx,11.0,11.7,13.5,replay,inferred
 2026-07-18,Indiana Fever vs New York Liberty,Myisha Hines-Allen,Indiana Fever,15.0,11.1,14.3,replay,inferred
 2026-07-18,Minnesota Lynx vs Portland Fire,Luisa Geiselsoder,Portland Fire,14.0,14.3,11.4,replay,inferred
-2026-07-18,Indiana Fever vs New York Liberty,Han Xu,New York Liberty,9.0,17.9,12.8,replay,inferred
+2026-07-18,Indiana Fever vs New York Liberty,Han Xu,New York Liberty,9.0,17.8,12.8,replay,inferred
 2026-07-18,Indiana Fever vs New York Liberty,Anneli Maley,New York Liberty,11.0,7.1,13.6,replay,inferred
 2026-07-18,Minnesota Lynx vs Portland Fire,Serah Williams,Portland Fire,11.0,16.6,23.1,replay,inferred
 2026-07-18,Minnesota Lynx vs Portland Fire,Maya Caldwell,Minnesota Lynx,12.0,0.0,8.2,replay,inferred
@@ -169,7 +169,7 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-07-18,Golden State Valkyries vs Washington Mystics,Juste Jocyte,Golden State Valkyries,4.0,0.0,,replay,inferred
 2026-07-18,Indiana Fever vs New York Liberty,Makayla Timpson,Indiana Fever,6.0,17.6,24.0,replay,inferred
 2026-07-18,Indiana Fever vs New York Liberty,Marine Fauthoux,New York Liberty,2.0,0.0,15.1,replay,inferred
-2026-07-18,Indiana Fever vs New York Liberty,Rebecca Allen,New York Liberty,3.0,15.7,17.8,replay,inferred
+2026-07-18,Indiana Fever vs New York Liberty,Rebecca Allen,New York Liberty,3.0,15.6,17.8,replay,inferred
 2026-07-18,Minnesota Lynx vs Portland Fire,Holly Winterburn,Portland Fire,2.0,0.0,,replay,inferred
 2026-07-18,Indiana Fever vs New York Liberty,Damiris Dantas,Indiana Fever,1.0,0.0,,replay,inferred
 2026-07-18,Indiana Fever vs New York Liberty,Raquel Carrera,New York Liberty,1.0,0.0,7.9,replay,inferred
@@ -245,14 +245,14 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-07-19,Connecticut Sun vs Phoenix Mercury,Kyara Linskens,Phoenix Mercury,1.0,0.0,,replay,inferred
 2026-07-20,Las Vegas Aces vs Toronto Tempo,A'ja Wilson,Las Vegas Aces,32.0,31.3,27.8,replay,inferred
 2026-07-20,Las Vegas Aces vs Toronto Tempo,Marina Mabrey,Toronto Tempo,31.0,33.4,30.6,replay,inferred
-2026-07-20,Dallas Wings vs New York Liberty,Breanna Stewart,New York Liberty,33.0,38.7,42.3,replay,inferred
+2026-07-20,Dallas Wings vs New York Liberty,Breanna Stewart,New York Liberty,33.0,38.8,42.3,replay,inferred
 2026-07-20,Minnesota Lynx vs Seattle Storm,Olivia Miles,Minnesota Lynx,31.0,31.6,35.9,replay,inferred
 2026-07-20,Minnesota Lynx vs Seattle Storm,Kayla McBride,Minnesota Lynx,33.0,32.6,32.0,replay,inferred
 2026-07-20,Minnesota Lynx vs Seattle Storm,Natasha Howard,Minnesota Lynx,32.0,29.9,24.0,replay,inferred
 2026-07-20,Las Vegas Aces vs Toronto Tempo,Jackie Young,Las Vegas Aces,32.0,31.3,32.8,replay,inferred
-2026-07-20,Dallas Wings vs New York Liberty,Jonquel Jones,New York Liberty,31.0,33.7,33.1,replay,inferred
+2026-07-20,Dallas Wings vs New York Liberty,Jonquel Jones,New York Liberty,31.0,33.9,33.1,replay,inferred
 2026-07-20,Minnesota Lynx vs Seattle Storm,Dominique Malonga,Seattle Storm,29.0,26.8,27.0,replay,inferred
-2026-07-20,Dallas Wings vs New York Liberty,Sabrina Ionescu,New York Liberty,34.0,37.0,35.8,replay,inferred
+2026-07-20,Dallas Wings vs New York Liberty,Sabrina Ionescu,New York Liberty,34.0,37.1,35.8,replay,inferred
 2026-07-20,Dallas Wings vs New York Liberty,Azzi Fudd,Dallas Wings,36.0,36.2,42.7,replay,inferred
 2026-07-20,Dallas Wings vs New York Liberty,Arike Ogunbowale,Dallas Wings,33.0,34.7,37.8,replay,inferred
 2026-07-20,Dallas Wings vs New York Liberty,Jessica Shepard,Dallas Wings,34.0,37.0,38.1,replay,inferred
@@ -271,7 +271,7 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-07-20,Las Vegas Aces vs Toronto Tempo,NaLyssa Smith,Las Vegas Aces,22.0,22.8,18.9,replay,inferred
 2026-07-20,Minnesota Lynx vs Seattle Storm,Awa Fam,Seattle Storm,31.0,29.2,30.8,replay,inferred
 2026-07-20,Las Vegas Aces vs Toronto Tempo,Maria Conde,Toronto Tempo,32.0,31.2,27.6,replay,inferred
-2026-07-20,Dallas Wings vs New York Liberty,Pauline Astier,New York Liberty,24.0,27.7,25.0,replay,inferred
+2026-07-20,Dallas Wings vs New York Liberty,Pauline Astier,New York Liberty,24.0,28.0,25.0,replay,inferred
 2026-07-20,Minnesota Lynx vs Seattle Storm,Jade Melbourne,Seattle Storm,27.0,26.5,19.2,replay,inferred
 2026-07-20,Las Vegas Aces vs Toronto Tempo,Jewell Loyd,Las Vegas Aces,28.0,25.9,22.9,replay,inferred
 2026-07-20,Golden State Valkyries vs Washington Mystics,Michaela Onyenwere,Washington Mystics,26.0,28.5,30.6,replay,inferred
@@ -296,16 +296,16 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-07-20,Minnesota Lynx vs Seattle Storm,Katie Lou Samuelson,Seattle Storm,17.0,16.0,14.7,replay,inferred
 2026-07-20,Golden State Valkyries vs Washington Mystics,Kaitlyn Chen,Golden State Valkyries,10.0,10.9,23.6,replay,inferred
 2026-07-20,Golden State Valkyries vs Washington Mystics,Kiah Stokes,Golden State Valkyries,22.0,22.4,22.2,replay,inferred
-2026-07-20,Dallas Wings vs New York Liberty,Rebecca Allen,New York Liberty,22.0,16.4,31.7,replay,inferred
+2026-07-20,Dallas Wings vs New York Liberty,Rebecca Allen,New York Liberty,22.0,16.2,31.7,replay,inferred
 2026-07-20,Las Vegas Aces vs Toronto Tempo,Stephanie Talbot,Las Vegas Aces,17.0,15.9,14.7,replay,inferred
 2026-07-20,Minnesota Lynx vs Seattle Storm,Zia Cooke,Seattle Storm,9.0,12.4,28.0,replay,inferred
 2026-07-20,Las Vegas Aces vs Toronto Tempo,Dana Evans,Las Vegas Aces,10.0,17.4,17.9,replay,inferred
 2026-07-20,Minnesota Lynx vs Seattle Storm,Jordan Horston,Seattle Storm,16.0,17.2,13.2,replay,inferred
-2026-07-20,Dallas Wings vs New York Liberty,Marine Fauthoux,New York Liberty,10.0,12.4,27.1,replay,inferred
+2026-07-20,Dallas Wings vs New York Liberty,Marine Fauthoux,New York Liberty,10.0,11.8,27.1,replay,inferred
 2026-07-20,Las Vegas Aces vs Toronto Tempo,Justine Pissott,Las Vegas Aces,10.0,11.6,9.7,replay,inferred
 2026-07-20,Dallas Wings vs New York Liberty,Sug Sutton,Dallas Wings,9.0,7.8,21.7,replay,inferred
 2026-07-20,Minnesota Lynx vs Seattle Storm,Anastasiia Kosu,Minnesota Lynx,10.0,12.5,8.8,replay,inferred
-2026-07-20,Dallas Wings vs New York Liberty,Rebekah Gardner,New York Liberty,10.0,16.3,15.4,replay,inferred
+2026-07-20,Dallas Wings vs New York Liberty,Rebekah Gardner,New York Liberty,10.0,16.4,15.4,replay,inferred
 2026-07-20,Dallas Wings vs New York Liberty,Alysha Clark,Dallas Wings,13.0,8.7,3.9,replay,inferred
 2026-07-20,Las Vegas Aces vs Toronto Tempo,Tima Pouye,Toronto Tempo,10.0,10.0,7.4,replay,inferred
 2026-07-20,Dallas Wings vs New York Liberty,Betnijah Laney-Hamilton,New York Liberty,10.0,0.0,,replay,inferred
@@ -326,18 +326,18 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-07-20,Golden State Valkyries vs Washington Mystics,Lucy Olsen,Washington Mystics,1.0,0.0,,replay,inferred
 2026-07-20,Golden State Valkyries vs Washington Mystics,Rori Harmon,Washington Mystics,1.0,0.0,,replay,inferred
 2026-07-22,Las Vegas Aces vs Washington Mystics,A'ja Wilson,Las Vegas Aces,31.0,31.4,34.8,replay,inferred
-2026-07-22,Chicago Sky vs New York Liberty,Breanna Stewart,New York Liberty,34.0,38.4,36.7,replay,inferred
+2026-07-22,Chicago Sky vs New York Liberty,Breanna Stewart,New York Liberty,34.0,38.6,36.7,replay,inferred
 2026-07-22,Connecticut Sun vs Indiana Fever,Kelsey Mitchell,Indiana Fever,32.0,31.6,26.4,replay,inferred
-2026-07-22,Los Angeles Sparks vs Phoenix Mercury,Kahleah Copper,Phoenix Mercury,33.0,31.0,29.8,replay,inferred
+2026-07-22,Los Angeles Sparks vs Phoenix Mercury,Kahleah Copper,Phoenix Mercury,33.0,30.9,29.8,replay,inferred
 2026-07-22,Minnesota Lynx vs Seattle Storm,Olivia Miles,Minnesota Lynx,32.0,33.0,30.9,replay,inferred
 2026-07-22,Los Angeles Sparks vs Phoenix Mercury,Nneka Ogwumike,Los Angeles Sparks,33.0,33.2,30.3,replay,inferred
 2026-07-22,Dallas Wings vs Portland Fire,Paige Bueckers,Dallas Wings,30.0,35.4,37.3,replay,inferred
 2026-07-22,Connecticut Sun vs Indiana Fever,Caitlin Clark,Indiana Fever,27.0,29.9,27.0,replay,inferred
 2026-07-22,Minnesota Lynx vs Seattle Storm,Kayla McBride,Minnesota Lynx,33.0,33.2,36.0,replay,inferred
-2026-07-22,Chicago Sky vs New York Liberty,Jonquel Jones,New York Liberty,32.0,33.5,27.8,replay,inferred
+2026-07-22,Chicago Sky vs New York Liberty,Jonquel Jones,New York Liberty,32.0,33.7,27.8,replay,inferred
 2026-07-22,Chicago Sky vs New York Liberty,Sydney Taylor,Chicago Sky,26.0,23.4,26.3,replay,inferred
 2026-07-22,Dallas Wings vs Portland Fire,Jessica Shepard,Dallas Wings,35.0,33.8,34.6,replay,inferred
-2026-07-22,Chicago Sky vs New York Liberty,Sabrina Ionescu,New York Liberty,34.0,36.3,35.1,replay,inferred
+2026-07-22,Chicago Sky vs New York Liberty,Sabrina Ionescu,New York Liberty,34.0,36.4,35.1,replay,inferred
 2026-07-22,Connecticut Sun vs Indiana Fever,Aliyah Boston,Indiana Fever,27.0,25.1,20.4,replay,inferred
 2026-07-22,Minnesota Lynx vs Seattle Storm,Dominique Malonga,Seattle Storm,28.0,26.8,26.4,replay,inferred
 2026-07-22,Minnesota Lynx vs Seattle Storm,Courtney Williams,Minnesota Lynx,33.0,30.9,19.7,replay,inferred
@@ -369,10 +369,10 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-07-22,Minnesota Lynx vs Seattle Storm,Awa Fam,Seattle Storm,31.0,29.2,30.9,replay,inferred
 2026-07-22,Los Angeles Sparks vs Phoenix Mercury,Monique Akoa Makani,Phoenix Mercury,26.0,24.0,23.9,replay,inferred
 2026-07-22,Los Angeles Sparks vs Phoenix Mercury,Cameron Brink,Los Angeles Sparks,21.0,17.5,18.6,replay,inferred
-2026-07-22,Los Angeles Sparks vs Phoenix Mercury,DeWanna Bonner,Phoenix Mercury,29.0,26.7,27.3,replay,inferred
+2026-07-22,Los Angeles Sparks vs Phoenix Mercury,DeWanna Bonner,Phoenix Mercury,29.0,26.6,27.3,replay,inferred
 2026-07-22,Chicago Sky vs New York Liberty,Natasha Cloud,Chicago Sky,30.0,29.7,32.0,replay,inferred
 2026-07-22,Dallas Wings vs Portland Fire,Emily Engstler,Portland Fire,27.0,25.9,23.1,replay,inferred
-2026-07-22,Chicago Sky vs New York Liberty,Pauline Astier,New York Liberty,24.0,27.4,21.8,replay,inferred
+2026-07-22,Chicago Sky vs New York Liberty,Pauline Astier,New York Liberty,24.0,27.6,21.8,replay,inferred
 2026-07-22,Las Vegas Aces vs Washington Mystics,NaLyssa Smith,Las Vegas Aces,21.0,22.8,22.4,replay,inferred
 2026-07-22,Connecticut Sun vs Indiana Fever,Diamond Miller,Connecticut Sun,25.0,26.3,22.8,replay,inferred
 2026-07-22,Connecticut Sun vs Indiana Fever,Sophie Cunningham,Indiana Fever,24.0,22.4,21.0,replay,inferred
@@ -381,16 +381,16 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-07-22,Chicago Sky vs New York Liberty,Courtney Vandersloot,Chicago Sky,20.0,21.5,21.6,replay,inferred
 2026-07-22,Minnesota Lynx vs Seattle Storm,Napheesa Collier,Minnesota Lynx,15.0,19.7,22.2,replay,inferred
 2026-07-22,Las Vegas Aces vs Washington Mystics,Jewell Loyd,Las Vegas Aces,28.0,25.8,29.0,replay,inferred
-2026-07-22,Los Angeles Sparks vs Phoenix Mercury,Valeriane Ayayi,Phoenix Mercury,18.0,15.5,12.8,replay,inferred
+2026-07-22,Los Angeles Sparks vs Phoenix Mercury,Valeriane Ayayi,Phoenix Mercury,18.0,15.3,12.8,replay,inferred
 2026-07-22,Minnesota Lynx vs Seattle Storm,Nia Coffey,Minnesota Lynx,27.0,20.5,15.7,replay,inferred
-2026-07-22,Los Angeles Sparks vs Phoenix Mercury,Natasha Mack,Phoenix Mercury,20.0,20.5,15.3,replay,inferred
+2026-07-22,Los Angeles Sparks vs Phoenix Mercury,Natasha Mack,Phoenix Mercury,20.0,20.6,15.3,replay,inferred
 2026-07-22,Chicago Sky vs New York Liberty,Marine Johannes,New York Liberty,18.0,0.0,,replay,inferred
 2026-07-22,Minnesota Lynx vs Seattle Storm,Zia Cooke,Seattle Storm,16.0,14.7,16.6,replay,inferred
 2026-07-22,Las Vegas Aces vs Washington Mystics,Georgia Amoore,Washington Mystics,25.0,25.9,22.7,replay,inferred
 2026-07-22,Connecticut Sun vs Indiana Fever,Kennedy Burke,Connecticut Sun,20.0,25.0,23.2,replay,inferred
 2026-07-22,Connecticut Sun vs Indiana Fever,Aneesah Morrow,Connecticut Sun,15.0,20.4,20.9,replay,inferred
 2026-07-22,Dallas Wings vs Portland Fire,Frieda Buhner,Portland Fire,17.0,16.0,16.9,replay,inferred
-2026-07-22,Los Angeles Sparks vs Phoenix Mercury,Noemie Brochant,Phoenix Mercury,22.0,21.9,22.9,replay,inferred
+2026-07-22,Los Angeles Sparks vs Phoenix Mercury,Noemie Brochant,Phoenix Mercury,22.0,22.0,22.9,replay,inferred
 2026-07-22,Chicago Sky vs New York Liberty,Jacy Sheldon,Chicago Sky,20.0,19.9,16.8,replay,inferred
 2026-07-22,Chicago Sky vs New York Liberty,Gabriela Jaquez,Chicago Sky,17.0,15.9,20.4,replay,inferred
 2026-07-22,Connecticut Sun vs Indiana Fever,Monique Billings,Indiana Fever,19.0,20.9,20.5,replay,inferred
@@ -398,7 +398,7 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-07-22,Connecticut Sun vs Indiana Fever,Tyasha Harris,Indiana Fever,19.0,14.8,19.1,replay,inferred
 2026-07-22,Connecticut Sun vs Indiana Fever,Lexie Hull,Indiana Fever,19.0,19.6,25.2,replay,inferred
 2026-07-22,Los Angeles Sparks vs Phoenix Mercury,Alexa Held,Phoenix Mercury,15.0,,,,inferred
-2026-07-22,Chicago Sky vs New York Liberty,Han Xu,New York Liberty,12.0,16.2,12.2,replay,inferred
+2026-07-22,Chicago Sky vs New York Liberty,Han Xu,New York Liberty,12.0,16.1,12.2,replay,inferred
 2026-07-22,Chicago Sky vs New York Liberty,Elizabeth Williams,Chicago Sky,16.0,15.3,15.3,replay,inferred
 2026-07-22,Connecticut Sun vs Indiana Fever,Makayla Timpson,Indiana Fever,19.0,23.1,17.7,replay,inferred
 2026-07-22,Dallas Wings vs Portland Fire,Li Yueru,Dallas Wings,12.0,11.7,5.4,replay,inferred
@@ -411,17 +411,17 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-07-22,Dallas Wings vs Portland Fire,Serah Williams,Portland Fire,12.0,18.0,15.4,replay,inferred
 2026-07-22,Minnesota Lynx vs Seattle Storm,Dorka Juhasz,Minnesota Lynx,15.0,11.9,15.8,replay,inferred
 2026-07-22,Connecticut Sun vs Indiana Fever,Nell Angloma,Connecticut Sun,10.0,11.0,10.3,replay,inferred
-2026-07-22,Chicago Sky vs New York Liberty,Marine Fauthoux,New York Liberty,14.0,13.6,18.2,replay,inferred
+2026-07-22,Chicago Sky vs New York Liberty,Marine Fauthoux,New York Liberty,14.0,13.0,18.2,replay,inferred
 2026-07-22,Minnesota Lynx vs Seattle Storm,Jordan Horston,Seattle Storm,15.0,16.5,13.5,replay,inferred
 2026-07-22,Las Vegas Aces vs Washington Mystics,Cheyenne Parker-Tyus,Las Vegas Aces,8.0,9.8,10.1,replay,inferred
 2026-07-22,Dallas Wings vs Portland Fire,Awak Kuier,Dallas Wings,10.0,17.8,13.8,replay,inferred
-2026-07-22,Chicago Sky vs New York Liberty,Rebekah Gardner,New York Liberty,10.0,17.3,15.5,replay,inferred
+2026-07-22,Chicago Sky vs New York Liberty,Rebekah Gardner,New York Liberty,10.0,17.4,15.5,replay,inferred
 2026-07-22,Dallas Wings vs Portland Fire,Teja Oblak,Portland Fire,8.0,12.3,8.8,replay,inferred
 2026-07-22,Las Vegas Aces vs Washington Mystics,Justine Pissott,Las Vegas Aces,10.0,0.0,,replay,inferred
 2026-07-22,Las Vegas Aces vs Washington Mystics,Stephanie Talbot,Las Vegas Aces,15.0,15.7,8.8,replay,inferred
 2026-07-22,Connecticut Sun vs Indiana Fever,Myisha Hines-Allen,Indiana Fever,11.0,12.6,15.0,replay,inferred
 2026-07-22,Dallas Wings vs Portland Fire,Aziaha James,Dallas Wings,6.0,0.0,7.4,replay,inferred
-2026-07-22,Chicago Sky vs New York Liberty,Rebecca Allen,New York Liberty,15.0,17.3,29.4,replay,inferred
+2026-07-22,Chicago Sky vs New York Liberty,Rebecca Allen,New York Liberty,15.0,17.2,29.4,replay,inferred
 2026-07-22,Dallas Wings vs Portland Fire,Luisa Geiselsoder,Portland Fire,10.0,0.0,,replay,inferred
 2026-07-22,Las Vegas Aces vs Washington Mystics,Alicia Florez,Washington Mystics,10.0,12.5,6.2,replay,inferred
 2026-07-22,Los Angeles Sparks vs Phoenix Mercury,Chance Gray,Los Angeles Sparks,9.0,12.1,11.8,replay,inferred
@@ -439,7 +439,7 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-07-22,Chicago Sky vs New York Liberty,Aicha Coulibaly,Chicago Sky,4.0,10.7,9.3,replay,inferred
 2026-07-22,Dallas Wings vs Portland Fire,Alysha Clark,Dallas Wings,5.0,0.0,,replay,inferred
 2026-07-22,Minnesota Lynx vs Seattle Storm,Antonia Delaere,Minnesota Lynx,5.0,8.6,3.4,replay,inferred
-2026-07-22,Los Angeles Sparks vs Phoenix Mercury,Sami Whitcomb,Phoenix Mercury,3.0,13.7,17.6,replay,inferred
+2026-07-22,Los Angeles Sparks vs Phoenix Mercury,Sami Whitcomb,Phoenix Mercury,3.0,13.8,17.6,replay,inferred
 2026-07-22,Connecticut Sun vs Indiana Fever,Raegan Beers,Connecticut Sun,3.0,10.0,18.4,replay,inferred
 2026-07-22,Chicago Sky vs New York Liberty,Raquel Carrera,New York Liberty,3.0,0.0,3.3,replay,inferred
 2026-07-22,Connecticut Sun vs Indiana Fever,Raven Johnson,Indiana Fever,3.0,0.0,,replay,inferred
@@ -460,30 +460,30 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-07-29,Golden State Valkyries vs Phoenix Mercury,Gabby Williams,Golden State Valkyries,27.0,0.0,,replay,
 2026-07-29,Atlanta Dream vs Dallas Wings,Angel Reese,Atlanta Dream,30.0,30.8,33.6,replay,
 2026-07-29,Atlanta Dream vs Dallas Wings,Azzi Fudd,Dallas Wings,34.0,35.3,37.1,replay,
-2026-07-29,Golden State Valkyries vs Phoenix Mercury,Alyssa Thomas,Phoenix Mercury,34.0,32.5,38.0,replay,
+2026-07-29,Golden State Valkyries vs Phoenix Mercury,Alyssa Thomas,Phoenix Mercury,34.0,32.3,38.0,replay,
 2026-07-29,Atlanta Dream vs Dallas Wings,Jordin Canada,Atlanta Dream,33.0,33.6,32.3,replay,
 2026-07-29,Golden State Valkyries vs Phoenix Mercury,Veronica Burton,Golden State Valkyries,28.0,33.3,33.8,replay,
 2026-07-29,Golden State Valkyries vs Phoenix Mercury,Janelle Salaun,Golden State Valkyries,20.0,24.3,23.8,replay,
 2026-07-29,Golden State Valkyries vs Phoenix Mercury,DeWanna Bonner,Phoenix Mercury,29.0,26.6,33.9,replay,
 2026-07-29,Atlanta Dream vs Dallas Wings,Naz Hillmon,Atlanta Dream,30.0,29.1,21.7,replay,
-2026-07-29,Golden State Valkyries vs Phoenix Mercury,Monique Akoa Makani,Phoenix Mercury,24.0,23.3,14.6,replay,
+2026-07-29,Golden State Valkyries vs Phoenix Mercury,Monique Akoa Makani,Phoenix Mercury,24.0,23.2,14.6,replay,
 2026-07-29,Golden State Valkyries vs Phoenix Mercury,Kayla Thornton,Golden State Valkyries,28.0,23.6,24.8,replay,
 2026-07-29,Golden State Valkyries vs Phoenix Mercury,Cecilia Zandalasini,Golden State Valkyries,20.0,20.8,22.9,replay,
 2026-07-29,Golden State Valkyries vs Phoenix Mercury,Kaitlyn Chen,Golden State Valkyries,14.0,16.8,12.1,replay,
 2026-07-29,Atlanta Dream vs Dallas Wings,Brionna Jones,Atlanta Dream,15.0,17.0,21.1,replay,
 2026-07-29,Atlanta Dream vs Dallas Wings,Maddy Siegrist,Dallas Wings,15.0,0.0,,replay,
-2026-07-29,Golden State Valkyries vs Phoenix Mercury,Natasha Mack,Phoenix Mercury,18.0,19.2,18.0,replay,
+2026-07-29,Golden State Valkyries vs Phoenix Mercury,Natasha Mack,Phoenix Mercury,18.0,19.3,18.0,replay,
 2026-07-29,Golden State Valkyries vs Phoenix Mercury,Tiffany Hayes,Golden State Valkyries,14.0,18.4,23.4,replay,
-2026-07-29,Golden State Valkyries vs Phoenix Mercury,Valeriane Ayayi,Phoenix Mercury,15.0,15.0,22.8,replay,
+2026-07-29,Golden State Valkyries vs Phoenix Mercury,Valeriane Ayayi,Phoenix Mercury,15.0,14.9,22.8,replay,
 2026-07-29,Atlanta Dream vs Dallas Wings,Isobel Borlase,Atlanta Dream,15.0,13.3,17.3,replay,
-2026-07-29,Golden State Valkyries vs Phoenix Mercury,Noemie Brochant,Phoenix Mercury,22.0,22.2,18.9,replay,
+2026-07-29,Golden State Valkyries vs Phoenix Mercury,Noemie Brochant,Phoenix Mercury,22.0,22.3,18.9,replay,
 2026-07-29,Atlanta Dream vs Dallas Wings,Madina Okot,Atlanta Dream,9.0,7.8,2.9,replay,
 2026-07-29,Golden State Valkyries vs Phoenix Mercury,Kaila Charles,Golden State Valkyries,17.0,26.0,28.5,replay,
 2026-07-29,Golden State Valkyries vs Phoenix Mercury,Alexa Held,Phoenix Mercury,15.0,,,,
 2026-07-29,Golden State Valkyries vs Phoenix Mercury,Kiah Stokes,Golden State Valkyries,22.0,21.9,18.2,replay,
 2026-07-29,Atlanta Dream vs Dallas Wings,Awak Kuier,Dallas Wings,12.0,18.3,16.3,replay,
 2026-07-29,Atlanta Dream vs Dallas Wings,Aziaha James,Dallas Wings,7.0,7.4,2.9,replay,
-2026-07-29,Golden State Valkyries vs Phoenix Mercury,Sami Whitcomb,Phoenix Mercury,10.0,14.9,12.9,replay,
+2026-07-29,Golden State Valkyries vs Phoenix Mercury,Sami Whitcomb,Phoenix Mercury,10.0,15.0,12.9,replay,
 2026-07-29,Atlanta Dream vs Dallas Wings,Li Yueru,Dallas Wings,8.0,12.6,23.7,replay,
 2026-07-29,Atlanta Dream vs Dallas Wings,Odyssey Sims,Dallas Wings,8.0,8.8,2.9,replay,
 2026-07-29,Golden State Valkyries vs Phoenix Mercury,Laeticia Amihere,Golden State Valkyries,10.0,14.9,12.7,replay,
@@ -499,9 +499,9 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-07-30,Las Vegas Aces vs New York Liberty,Jackie Young,Las Vegas Aces,33.0,33.0,35.6,replay,inferred
 2026-07-30,Minnesota Lynx vs Toronto Tempo,Napheesa Collier,Minnesota Lynx,28.0,22.5,21.8,replay,inferred
 2026-07-30,Minnesota Lynx vs Toronto Tempo,Olivia Miles,Minnesota Lynx,28.0,29.6,22.8,replay,inferred
-2026-07-30,Las Vegas Aces vs New York Liberty,Jonquel Jones,New York Liberty,31.0,28.2,27.7,replay,inferred
+2026-07-30,Las Vegas Aces vs New York Liberty,Jonquel Jones,New York Liberty,31.0,28.4,27.7,replay,inferred
 2026-07-30,Chicago Sky vs Connecticut Sun,Kamilla Cardoso,Chicago Sky,27.0,30.2,20.9,replay,inferred
-2026-07-30,Las Vegas Aces vs New York Liberty,Sabrina Ionescu,New York Liberty,30.0,32.3,29.1,replay,inferred
+2026-07-30,Las Vegas Aces vs New York Liberty,Sabrina Ionescu,New York Liberty,30.0,32.4,29.1,replay,inferred
 2026-07-30,Chicago Sky vs Connecticut Sun,Leila Lacan,Connecticut Sun,29.0,33.1,28.8,replay,inferred
 2026-07-30,Minnesota Lynx vs Toronto Tempo,Natasha Howard,Minnesota Lynx,25.0,27.0,23.6,replay,inferred
 2026-07-30,Las Vegas Aces vs New York Liberty,Chelsea Gray,Las Vegas Aces,32.0,34.1,33.8,replay,inferred
@@ -520,9 +520,9 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-07-30,Las Vegas Aces vs New York Liberty,Jewell Loyd,Las Vegas Aces,28.0,27.5,26.9,replay,inferred
 2026-07-30,Chicago Sky vs Connecticut Sun,Charlisse Leger-Walker,Connecticut Sun,27.0,28.1,30.0,replay,inferred
 2026-07-30,Chicago Sky vs Connecticut Sun,Kennedy Burke,Connecticut Sun,24.0,26.6,20.9,replay,inferred
-2026-07-30,Las Vegas Aces vs New York Liberty,Pauline Astier,New York Liberty,23.0,23.2,21.4,replay,inferred
+2026-07-30,Las Vegas Aces vs New York Liberty,Pauline Astier,New York Liberty,23.0,23.4,21.4,replay,inferred
 2026-07-30,Chicago Sky vs Connecticut Sun,Saniya Rivers,Connecticut Sun,21.0,24.5,20.7,replay,inferred
-2026-07-30,Las Vegas Aces vs New York Liberty,Marine Johannes,New York Liberty,20.0,21.3,8.4,replay,inferred
+2026-07-30,Las Vegas Aces vs New York Liberty,Marine Johannes,New York Liberty,20.0,21.1,8.4,replay,inferred
 2026-07-30,Chicago Sky vs Connecticut Sun,DiJonai Carrington,Chicago Sky,15.0,12.5,16.7,replay,inferred
 2026-07-30,Minnesota Lynx vs Toronto Tempo,Julie Allemand,Toronto Tempo,28.0,31.5,22.5,replay,inferred
 2026-07-30,Minnesota Lynx vs Toronto Tempo,Kiki Rice,Toronto Tempo,15.0,27.5,23.0,replay,inferred
@@ -547,12 +547,12 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-07-30,Chicago Sky vs Connecticut Sun,Gianna Kneepkens,Connecticut Sun,7.0,0.0,,replay,inferred
 2026-07-30,Las Vegas Aces vs New York Liberty,Kierstan Bell,Las Vegas Aces,10.0,0.0,,replay,inferred
 2026-07-30,Minnesota Lynx vs Toronto Tempo,Antonia Delaere,Minnesota Lynx,7.0,0.0,15.5,replay,inferred
-2026-07-30,Las Vegas Aces vs New York Liberty,Rebekah Gardner,New York Liberty,6.0,16.1,15.5,replay,inferred
+2026-07-30,Las Vegas Aces vs New York Liberty,Rebekah Gardner,New York Liberty,6.0,16.3,15.5,replay,inferred
 2026-07-30,Las Vegas Aces vs New York Liberty,Brianna Turner,Las Vegas Aces,7.0,12.5,21.2,replay,inferred
 2026-07-30,Las Vegas Aces vs New York Liberty,Raquel Carrera,New York Liberty,4.0,0.0,,replay,inferred
-2026-07-30,Las Vegas Aces vs New York Liberty,Rebecca Allen,New York Liberty,3.0,16.7,27.1,replay,inferred
+2026-07-30,Las Vegas Aces vs New York Liberty,Rebecca Allen,New York Liberty,3.0,16.6,27.1,replay,inferred
 2026-07-30,Minnesota Lynx vs Toronto Tempo,Tima Pouye,Toronto Tempo,1.0,0.0,4.8,replay,inferred
-2026-07-30,Las Vegas Aces vs New York Liberty,Marine Fauthoux,New York Liberty,1.0,12.9,18.4,replay,inferred
+2026-07-30,Las Vegas Aces vs New York Liberty,Marine Fauthoux,New York Liberty,1.0,12.5,18.4,replay,inferred
 2026-07-30,Minnesota Lynx vs Toronto Tempo,Teonni Key,Toronto Tempo,1.0,0.0,12.5,replay,inferred
 2026-07-30,Las Vegas Aces vs New York Liberty,Anneli Maley,New York Liberty,1.0,0.0,,replay,inferred
 2026-07-16,Portland Fire vs Washington Mystics,Rori Harmon,Washington Mystics,,0.0,2.6,replay,
@@ -574,51 +574,51 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-07-22,Los Angeles Sparks vs Phoenix Mercury,Kate Martin,Los Angeles Sparks,,0.0,2.1,replay,
 2026-07-22,Los Angeles Sparks vs Phoenix Mercury,Kiana Williams,Los Angeles Sparks,,0.0,6.8,replay,
 2026-07-22,Minnesota Lynx vs Seattle Storm,Eliska Hamzova,Minnesota Lynx,,0.0,2.2,replay,
-2026-07-22,Los Angeles Sparks vs Phoenix Mercury,Lexi Held,Phoenix Mercury,,15.2,14.8,replay,
-2026-07-28,Las Vegas Aces vs Portland Fire,A'ja Wilson,Las Vegas Aces,,34.7,30.2,replay,
-2026-07-28,Las Vegas Aces vs Portland Fire,Brianna Turner,Las Vegas Aces,,13.2,31.6,replay,
-2026-07-28,Las Vegas Aces vs Portland Fire,Chelsea Gray,Las Vegas Aces,,35.4,32.4,replay,
-2026-07-28,Las Vegas Aces vs Portland Fire,Dana Evans,Las Vegas Aces,,18.4,18.1,replay,
-2026-07-28,Las Vegas Aces vs Portland Fire,Jackie Young,Las Vegas Aces,,34.0,28.3,replay,
-2026-07-28,Las Vegas Aces vs Portland Fire,Jewell Loyd,Las Vegas Aces,,28.2,25.1,replay,
-2026-07-28,Las Vegas Aces vs Portland Fire,Justine Pissott,Las Vegas Aces,,11.1,12.2,replay,
-2026-07-28,Las Vegas Aces vs Portland Fire,Mai Yamamoto,Las Vegas Aces,,9.1,3.2,replay,
-2026-07-28,Las Vegas Aces vs Portland Fire,Stephanie Talbot,Las Vegas Aces,,15.9,15.4,replay,
-2026-07-28,Las Vegas Aces vs Portland Fire,Ta'Niya Latson,Las Vegas Aces,,0.0,3.6,replay,
-2026-07-28,Los Angeles Sparks vs New York Liberty,Ariel Atkins,Los Angeles Sparks,,31.5,34.2,replay,
-2026-07-28,Los Angeles Sparks vs New York Liberty,Cameron Brink,Los Angeles Sparks,,17.9,19.0,replay,
-2026-07-28,Los Angeles Sparks vs New York Liberty,Chance Gray,Los Angeles Sparks,,12.6,13.9,replay,
-2026-07-28,Los Angeles Sparks vs New York Liberty,Dearica Hamby,Los Angeles Sparks,,31.6,32.8,replay,
-2026-07-28,Los Angeles Sparks vs New York Liberty,Erica Wheeler,Los Angeles Sparks,,30.1,27.2,replay,
-2026-07-28,Los Angeles Sparks vs New York Liberty,Jihyun Park,Los Angeles Sparks,,10.3,5.9,replay,
-2026-07-28,Los Angeles Sparks vs New York Liberty,Kiana Williams,Los Angeles Sparks,,0.0,4.8,replay,
-2026-07-28,Los Angeles Sparks vs New York Liberty,Nneka Ogwumike,Los Angeles Sparks,,33.2,28.3,replay,
-2026-07-28,Los Angeles Sparks vs New York Liberty,Rae Burrell,Los Angeles Sparks,,32.8,33.9,replay,
-2026-07-28,Las Vegas Aces vs Portland Fire,Bridget Carleton,Portland Fire,,31.6,27.5,replay,
-2026-07-28,Las Vegas Aces vs Portland Fire,Carla Leite,Portland Fire,,27.5,21.6,replay,
-2026-07-28,Las Vegas Aces vs Portland Fire,Emily Engstler,Portland Fire,,25.8,18.8,replay,
+2026-07-22,Los Angeles Sparks vs Phoenix Mercury,Lexi Held,Phoenix Mercury,,15.3,14.8,replay,
+2026-07-28,Las Vegas Aces vs Portland Fire,A'ja Wilson,Las Vegas Aces,32.0,34.7,30.2,replay,inferred
+2026-07-28,Las Vegas Aces vs Portland Fire,Brianna Turner,Las Vegas Aces,15.0,13.2,31.6,replay,inferred
+2026-07-28,Las Vegas Aces vs Portland Fire,Chelsea Gray,Las Vegas Aces,32.0,35.4,32.4,replay,inferred
+2026-07-28,Las Vegas Aces vs Portland Fire,Dana Evans,Las Vegas Aces,10.0,18.4,18.1,replay,inferred
+2026-07-28,Las Vegas Aces vs Portland Fire,Jackie Young,Las Vegas Aces,33.0,34.0,28.3,replay,inferred
+2026-07-28,Las Vegas Aces vs Portland Fire,Jewell Loyd,Las Vegas Aces,24.0,28.2,25.1,replay,inferred
+2026-07-28,Las Vegas Aces vs Portland Fire,Justine Pissott,Las Vegas Aces,3.0,11.1,12.2,replay,inferred
+2026-07-28,Las Vegas Aces vs Portland Fire,Mai Yamamoto,Las Vegas Aces,15.0,9.1,3.2,replay,inferred
+2026-07-28,Las Vegas Aces vs Portland Fire,Stephanie Talbot,Las Vegas Aces,15.0,15.9,15.4,replay,inferred
+2026-07-28,Las Vegas Aces vs Portland Fire,Ta'Niya Latson,Las Vegas Aces,3.0,0.0,3.6,replay,inferred
+2026-07-28,Los Angeles Sparks vs New York Liberty,Ariel Atkins,Los Angeles Sparks,27.0,31.5,34.2,replay,inferred
+2026-07-28,Los Angeles Sparks vs New York Liberty,Cameron Brink,Los Angeles Sparks,20.0,17.9,19.0,replay,inferred
+2026-07-28,Los Angeles Sparks vs New York Liberty,Chance Gray,Los Angeles Sparks,10.0,12.6,13.9,replay,inferred
+2026-07-28,Los Angeles Sparks vs New York Liberty,Dearica Hamby,Los Angeles Sparks,27.0,31.6,32.8,replay,inferred
+2026-07-28,Los Angeles Sparks vs New York Liberty,Erica Wheeler,Los Angeles Sparks,25.0,30.1,27.2,replay,inferred
+2026-07-28,Los Angeles Sparks vs New York Liberty,Jihyun Park,Los Angeles Sparks,5.0,10.3,5.9,replay,inferred
+2026-07-28,Los Angeles Sparks vs New York Liberty,Kiana Williams,Los Angeles Sparks,14.0,0.0,4.8,replay,inferred
+2026-07-28,Los Angeles Sparks vs New York Liberty,Nneka Ogwumike,Los Angeles Sparks,30.0,33.2,28.3,replay,inferred
+2026-07-28,Los Angeles Sparks vs New York Liberty,Rae Burrell,Los Angeles Sparks,30.0,32.8,33.9,replay,inferred
+2026-07-28,Las Vegas Aces vs Portland Fire,Bridget Carleton,Portland Fire,33.0,31.6,27.5,replay,inferred
+2026-07-28,Las Vegas Aces vs Portland Fire,Carla Leite,Portland Fire,29.0,27.5,21.6,replay,inferred
+2026-07-28,Las Vegas Aces vs Portland Fire,Emily Engstler,Portland Fire,29.0,25.8,18.8,replay,inferred
 2026-07-28,Las Vegas Aces vs Portland Fire,Frieda Buhner,Portland Fire,,15.9,21.2,replay,
-2026-07-28,Las Vegas Aces vs Portland Fire,Holly Winterburn,Portland Fire,,0.0,13.6,replay,
-2026-07-28,Las Vegas Aces vs Portland Fire,Karlie Samuelson,Portland Fire,,14.9,18.8,replay,
+2026-07-28,Las Vegas Aces vs Portland Fire,Holly Winterburn,Portland Fire,12.0,0.0,13.6,replay,inferred
+2026-07-28,Las Vegas Aces vs Portland Fire,Karlie Samuelson,Portland Fire,18.0,14.9,18.8,replay,inferred
 2026-07-28,Las Vegas Aces vs Portland Fire,Luisa Geiselsoder,Portland Fire,,10.7,3.2,replay,
-2026-07-28,Las Vegas Aces vs Portland Fire,Megan DiLeo,Portland Fire,,26.3,26.8,replay,
-2026-07-28,Las Vegas Aces vs Portland Fire,Nyadiew Puoch,Portland Fire,,18.6,20.1,replay,
-2026-07-28,Las Vegas Aces vs Portland Fire,Serah Williams,Portland Fire,,16.2,13.2,replay,
-2026-07-28,Las Vegas Aces vs Portland Fire,Teja Oblak,Portland Fire,,12.5,15.2,replay,
-2026-07-28,Indiana Fever vs Seattle Storm,Aliyah Boston,Indiana Fever,,24.5,10.6,replay,
-2026-07-28,Indiana Fever vs Seattle Storm,Caitlin Clark,Indiana Fever,,30.1,33.3,replay,
-2026-07-28,Indiana Fever vs Seattle Storm,Kelsey Mitchell,Indiana Fever,,30.8,34.7,replay,
-2026-07-28,Indiana Fever vs Seattle Storm,Lexie Hull,Indiana Fever,,20.5,16.9,replay,
-2026-07-28,Indiana Fever vs Seattle Storm,Makayla Timpson,Indiana Fever,,22.5,28.1,replay,
-2026-07-28,Indiana Fever vs Seattle Storm,Monique Billings,Indiana Fever,,20.4,29.9,replay,
-2026-07-28,Indiana Fever vs Seattle Storm,Myisha Hines-Allen,Indiana Fever,,13.6,10.8,replay,
-2026-07-28,Indiana Fever vs Seattle Storm,Sophie Cunningham,Indiana Fever,,22.8,23.9,replay,
-2026-07-28,Indiana Fever vs Seattle Storm,Tyasha Harris,Indiana Fever,,14.8,11.8,replay,
+2026-07-28,Las Vegas Aces vs Portland Fire,Megan DiLeo,Portland Fire,28.0,26.3,26.8,replay,inferred
+2026-07-28,Las Vegas Aces vs Portland Fire,Nyadiew Puoch,Portland Fire,19.0,18.6,20.1,replay,inferred
+2026-07-28,Las Vegas Aces vs Portland Fire,Serah Williams,Portland Fire,14.0,16.2,13.2,replay,inferred
+2026-07-28,Las Vegas Aces vs Portland Fire,Teja Oblak,Portland Fire,10.0,12.5,15.2,replay,inferred
+2026-07-28,Indiana Fever vs Seattle Storm,Aliyah Boston,Indiana Fever,29.0,24.5,10.6,replay,inferred
+2026-07-28,Indiana Fever vs Seattle Storm,Caitlin Clark,Indiana Fever,34.0,30.1,33.3,replay,inferred
+2026-07-28,Indiana Fever vs Seattle Storm,Kelsey Mitchell,Indiana Fever,33.0,30.8,34.7,replay,inferred
+2026-07-28,Indiana Fever vs Seattle Storm,Lexie Hull,Indiana Fever,18.0,20.5,16.9,replay,inferred
+2026-07-28,Indiana Fever vs Seattle Storm,Makayla Timpson,Indiana Fever,28.0,22.5,28.1,replay,inferred
+2026-07-28,Indiana Fever vs Seattle Storm,Monique Billings,Indiana Fever,18.0,20.4,29.9,replay,inferred
+2026-07-28,Indiana Fever vs Seattle Storm,Myisha Hines-Allen,Indiana Fever,10.0,13.6,10.8,replay,inferred
+2026-07-28,Indiana Fever vs Seattle Storm,Sophie Cunningham,Indiana Fever,18.0,22.8,23.9,replay,inferred
+2026-07-28,Indiana Fever vs Seattle Storm,Tyasha Harris,Indiana Fever,10.0,14.8,11.8,replay,inferred
 2026-07-28,Indiana Fever vs Seattle Storm,Awa Fam,Seattle Storm,,32.3,34.1,replay,
 2026-07-28,Indiana Fever vs Seattle Storm,Flau'jae Johnson,Seattle Storm,,32.0,24.3,replay,
 2026-07-28,Indiana Fever vs Seattle Storm,Jade Melbourne,Seattle Storm,,28.6,29.5,replay,
 2026-07-28,Indiana Fever vs Seattle Storm,Jordan Horston,Seattle Storm,,20.2,26.9,replay,
-2026-07-28,Indiana Fever vs Seattle Storm,Katie Lou Samuelson,Seattle Storm,,16.7,11.8,replay,
+2026-07-28,Indiana Fever vs Seattle Storm,Katie Lou Samuelson,Seattle Storm,18.0,16.7,11.8,replay,inferred
 2026-07-28,Indiana Fever vs Seattle Storm,Mackenzie Holmes,Seattle Storm,,6.1,5.3,replay,
 2026-07-28,Indiana Fever vs Seattle Storm,Natisha Hiedeman,Seattle Storm,,34.0,34.5,replay,
 2026-07-28,Indiana Fever vs Seattle Storm,Stefanie Dolson,Seattle Storm,,13.8,16.2,replay,
@@ -635,33 +635,33 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-07-28,Minnesota Lynx vs Toronto Tempo,Nia Coffey,Minnesota Lynx,,17.9,13.7,replay,
 2026-07-28,Minnesota Lynx vs Toronto Tempo,Olivia Miles,Minnesota Lynx,,31.6,31.6,replay,
 2026-07-28,Minnesota Lynx vs Toronto Tempo,Julie Allemand,Toronto Tempo,,34.9,31.9,replay,
-2026-07-28,Minnesota Lynx vs Toronto Tempo,Kia Nurse,Toronto Tempo,,15.7,13.6,replay,
-2026-07-28,Minnesota Lynx vs Toronto Tempo,Kiki Rice,Toronto Tempo,,30.5,17.1,replay,
-2026-07-28,Minnesota Lynx vs Toronto Tempo,Laura Juskaite,Toronto Tempo,,29.6,33.7,replay,
+2026-07-28,Minnesota Lynx vs Toronto Tempo,Kia Nurse,Toronto Tempo,26.0,15.7,13.6,replay,inferred
+2026-07-28,Minnesota Lynx vs Toronto Tempo,Kiki Rice,Toronto Tempo,32.0,30.5,17.1,replay,inferred
+2026-07-28,Minnesota Lynx vs Toronto Tempo,Laura Juskaite,Toronto Tempo,30.0,29.6,33.7,replay,inferred
 2026-07-28,Minnesota Lynx vs Toronto Tempo,Maria Conde,Toronto Tempo,,32.2,29.9,replay,
 2026-07-28,Minnesota Lynx vs Toronto Tempo,Marina Mabrey,Toronto Tempo,,34.8,31.7,replay,
-2026-07-28,Minnesota Lynx vs Toronto Tempo,Temi Fagbenle,Toronto Tempo,,14.3,26.4,replay,
-2026-07-28,Minnesota Lynx vs Toronto Tempo,Teonni Key,Toronto Tempo,,8.0,15.7,replay,
+2026-07-28,Minnesota Lynx vs Toronto Tempo,Temi Fagbenle,Toronto Tempo,26.0,14.3,26.4,replay,inferred
+2026-07-28,Minnesota Lynx vs Toronto Tempo,Teonni Key,Toronto Tempo,20.0,8.0,15.7,replay,inferred
 2026-07-28,Connecticut Sun vs Washington Mystics,Aneesah Morrow,Connecticut Sun,,20.5,25.9,replay,
-2026-07-28,Connecticut Sun vs Washington Mystics,Charlisse Leger-Walker,Connecticut Sun,,27.3,22.9,replay,
-2026-07-28,Connecticut Sun vs Washington Mystics,Diamond Miller,Connecticut Sun,,25.2,21.5,replay,
+2026-07-28,Connecticut Sun vs Washington Mystics,Charlisse Leger-Walker,Connecticut Sun,29.0,27.3,22.9,replay,inferred
+2026-07-28,Connecticut Sun vs Washington Mystics,Diamond Miller,Connecticut Sun,27.0,25.2,21.5,replay,inferred
 2026-07-28,Connecticut Sun vs Washington Mystics,Kennedy Burke,Connecticut Sun,,25.1,27.1,replay,
 2026-07-28,Connecticut Sun vs Washington Mystics,Leila Lacan,Connecticut Sun,,30.4,32.4,replay,
-2026-07-28,Connecticut Sun vs Washington Mystics,Nell Angloma,Connecticut Sun,,10.7,4.0,replay,
-2026-07-28,Connecticut Sun vs Washington Mystics,Olivia Nelson-Ododa,Connecticut Sun,,25.4,29.7,replay,
-2026-07-28,Connecticut Sun vs Washington Mystics,Raegan Beers,Connecticut Sun,,11.5,15.2,replay,
-2026-07-28,Connecticut Sun vs Washington Mystics,Saniya Rivers,Connecticut Sun,,23.9,21.2,replay,
-2026-07-28,Connecticut Sun vs Washington Mystics,Alicia Florez,Washington Mystics,,10.4,5.3,replay,
+2026-07-28,Connecticut Sun vs Washington Mystics,Nell Angloma,Connecticut Sun,15.0,10.7,4.0,replay,inferred
+2026-07-28,Connecticut Sun vs Washington Mystics,Olivia Nelson-Ododa,Connecticut Sun,25.0,25.4,29.7,replay,inferred
+2026-07-28,Connecticut Sun vs Washington Mystics,Raegan Beers,Connecticut Sun,15.0,11.5,15.2,replay,inferred
+2026-07-28,Connecticut Sun vs Washington Mystics,Saniya Rivers,Connecticut Sun,28.0,23.9,21.2,replay,inferred
+2026-07-28,Connecticut Sun vs Washington Mystics,Alicia Florez,Washington Mystics,5.0,10.4,5.3,replay,inferred
 2026-07-28,Connecticut Sun vs Washington Mystics,Angela Dugalic,Washington Mystics,,7.4,4.0,replay,
 2026-07-28,Connecticut Sun vs Washington Mystics,Cassandre Prosper,Washington Mystics,,8.9,2.5,replay,
-2026-07-28,Connecticut Sun vs Washington Mystics,Cotie McMahon,Washington Mystics,,18.9,22.1,replay,
-2026-07-28,Connecticut Sun vs Washington Mystics,Georgia Amoore,Washington Mystics,,23.8,25.1,replay,
-2026-07-28,Connecticut Sun vs Washington Mystics,Kiki Iriafen,Washington Mystics,,26.3,29.1,replay,
-2026-07-28,Connecticut Sun vs Washington Mystics,Lauren Betts,Washington Mystics,,17.2,14.5,replay,
-2026-07-28,Connecticut Sun vs Washington Mystics,Michaela Onyenwere,Washington Mystics,,28.0,31.0,replay,
-2026-07-28,Connecticut Sun vs Washington Mystics,Shakira Austin,Washington Mystics,,28.6,32.5,replay,
-2026-07-28,Connecticut Sun vs Washington Mystics,Sonia Citron,Washington Mystics,,30.5,33.9,replay,
-2026-07-29,Golden State Valkyries vs Phoenix Mercury,Lexi Held,Phoenix Mercury,,15.0,7.3,replay,
+2026-07-28,Connecticut Sun vs Washington Mystics,Cotie McMahon,Washington Mystics,17.0,18.9,22.1,replay,inferred
+2026-07-28,Connecticut Sun vs Washington Mystics,Georgia Amoore,Washington Mystics,27.0,23.8,25.1,replay,inferred
+2026-07-28,Connecticut Sun vs Washington Mystics,Kiki Iriafen,Washington Mystics,30.0,26.3,29.1,replay,inferred
+2026-07-28,Connecticut Sun vs Washington Mystics,Lauren Betts,Washington Mystics,20.0,17.2,14.5,replay,inferred
+2026-07-28,Connecticut Sun vs Washington Mystics,Michaela Onyenwere,Washington Mystics,21.0,28.0,31.0,replay,inferred
+2026-07-28,Connecticut Sun vs Washington Mystics,Shakira Austin,Washington Mystics,30.0,28.6,32.5,replay,inferred
+2026-07-28,Connecticut Sun vs Washington Mystics,Sonia Citron,Washington Mystics,31.0,30.5,33.9,replay,inferred
+2026-07-29,Golden State Valkyries vs Phoenix Mercury,Lexi Held,Phoenix Mercury,,15.1,7.3,replay,
 2026-07-29,Atlanta Dream vs Dallas Wings,Shatori Walker-Kimbrough,Atlanta Dream,,0.0,1.5,replay,
 2026-07-30,Chicago Sky vs Connecticut Sun,Chloe Bibby,Chicago Sky,,0.0,18.2,replay,
 2026-07-30,Minnesota Lynx vs Toronto Tempo,Anastasiia Olairi Kosu,Minnesota Lynx,8.0,10.9,6.7,replay,inferred
@@ -725,14 +725,14 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-07-31,Dallas Wings vs Washington Mystics,Shakira Austin,Washington Mystics,29.0,30.5,35.5,replay,inferred
 2026-07-31,Dallas Wings vs Washington Mystics,Sonia Citron,Washington Mystics,32.0,32.7,35.6,replay,inferred
 2026-08-01,New York Liberty vs Phoenix Mercury,Alyssa Thomas,Phoenix Mercury,,32.9,35.8,replay,
-2026-08-01,New York Liberty vs Phoenix Mercury,DeWanna Bonner,Phoenix Mercury,,27.6,32.3,replay,
-2026-08-01,New York Liberty vs Phoenix Mercury,Kahleah Copper,Phoenix Mercury,,31.5,36.6,replay,
-2026-08-01,New York Liberty vs Phoenix Mercury,Lexi Held,Phoenix Mercury,,13.3,5.9,replay,
+2026-08-01,New York Liberty vs Phoenix Mercury,DeWanna Bonner,Phoenix Mercury,,27.5,32.3,replay,
+2026-08-01,New York Liberty vs Phoenix Mercury,Kahleah Copper,Phoenix Mercury,,31.4,36.6,replay,
+2026-08-01,New York Liberty vs Phoenix Mercury,Lexi Held,Phoenix Mercury,,13.4,5.9,replay,
 2026-08-01,New York Liberty vs Phoenix Mercury,Monique Akoa Makani,Phoenix Mercury,,23.1,15.8,replay,
-2026-08-01,New York Liberty vs Phoenix Mercury,Natasha Mack,Phoenix Mercury,,19.1,11.9,replay,
-2026-08-01,New York Liberty vs Phoenix Mercury,Noemie Brochant,Phoenix Mercury,,21.9,25.7,replay,
-2026-08-01,New York Liberty vs Phoenix Mercury,Sami Whitcomb,Phoenix Mercury,,14.3,15.0,replay,
-2026-08-01,New York Liberty vs Phoenix Mercury,Valeriane Ayayi,Phoenix Mercury,,16.3,21.2,replay,
+2026-08-01,New York Liberty vs Phoenix Mercury,Natasha Mack,Phoenix Mercury,,19.2,11.9,replay,
+2026-08-01,New York Liberty vs Phoenix Mercury,Noemie Brochant,Phoenix Mercury,,22.0,25.7,replay,
+2026-08-01,New York Liberty vs Phoenix Mercury,Sami Whitcomb,Phoenix Mercury,,14.4,15.0,replay,
+2026-08-01,New York Liberty vs Phoenix Mercury,Valeriane Ayayi,Phoenix Mercury,,16.1,21.2,replay,
 2026-08-01,Chicago Sky vs Las Vegas Aces,Aicha Coulibaly,Chicago Sky,,12.4,24.0,replay,
 2026-08-01,Chicago Sky vs Las Vegas Aces,Courtney Vandersloot,Chicago Sky,,24.6,20.3,replay,
 2026-08-01,Chicago Sky vs Las Vegas Aces,DiJonai Carrington,Chicago Sky,,18.2,19.1,replay,
@@ -831,15 +831,15 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-08-03,Chicago Sky vs Phoenix Mercury,Natasha Cloud,Chicago Sky,30.0,32.9,31.4,replay,inferred
 2026-08-03,Chicago Sky vs Phoenix Mercury,Rachel Banham,Chicago Sky,10.0,0.0,2.2,replay,inferred
 2026-08-03,Chicago Sky vs Phoenix Mercury,Sydney Taylor,Chicago Sky,28.0,26.5,16.9,replay,inferred
-2026-08-03,Chicago Sky vs Phoenix Mercury,Alyssa Thomas,Phoenix Mercury,36.0,33.2,37.6,replay,inferred
+2026-08-03,Chicago Sky vs Phoenix Mercury,Alyssa Thomas,Phoenix Mercury,36.0,32.9,37.6,replay,inferred
 2026-08-03,Chicago Sky vs Phoenix Mercury,DeWanna Bonner,Phoenix Mercury,30.0,29.1,30.6,replay,inferred
 2026-08-03,Chicago Sky vs Phoenix Mercury,Kahleah Copper,Phoenix Mercury,34.0,32.5,34.4,replay,inferred
 2026-08-03,Chicago Sky vs Phoenix Mercury,Kelsey Plum,Phoenix Mercury,19.0,13.2,20.5,replay,inferred
-2026-08-03,Chicago Sky vs Phoenix Mercury,Lexi Held,Phoenix Mercury,,14.4,2.7,replay,
-2026-08-03,Chicago Sky vs Phoenix Mercury,Natasha Mack,Phoenix Mercury,16.0,21.2,18.2,replay,inferred
+2026-08-03,Chicago Sky vs Phoenix Mercury,Lexi Held,Phoenix Mercury,,14.6,2.7,replay,
+2026-08-03,Chicago Sky vs Phoenix Mercury,Natasha Mack,Phoenix Mercury,16.0,21.3,18.2,replay,inferred
 2026-08-03,Chicago Sky vs Phoenix Mercury,Noemie Brochant,Phoenix Mercury,23.0,23.3,18.7,replay,inferred
-2026-08-03,Chicago Sky vs Phoenix Mercury,Sami Whitcomb,Phoenix Mercury,15.0,15.9,14.9,replay,inferred
-2026-08-03,Chicago Sky vs Phoenix Mercury,Valeriane Ayayi,Phoenix Mercury,20.0,17.2,22.4,replay,inferred
+2026-08-03,Chicago Sky vs Phoenix Mercury,Sami Whitcomb,Phoenix Mercury,15.0,16.0,14.9,replay,inferred
+2026-08-03,Chicago Sky vs Phoenix Mercury,Valeriane Ayayi,Phoenix Mercury,20.0,17.1,22.4,replay,inferred
 2026-08-03,Atlanta Dream vs Las Vegas Aces,Aaliyah Nye,Atlanta Dream,,0.0,2.0,replay,
 2026-08-03,Atlanta Dream vs Las Vegas Aces,Allisha Gray,Atlanta Dream,33.0,33.5,29.7,replay,inferred
 2026-08-03,Atlanta Dream vs Las Vegas Aces,Angel Reese,Atlanta Dream,33.0,32.7,26.5,replay,inferred
@@ -932,15 +932,15 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-08-05,Atlanta Dream vs Phoenix Mercury,Rhyne Howard,Atlanta Dream,34.0,35.0,33.5,replay,inferred
 2026-08-05,Atlanta Dream vs Phoenix Mercury,Shatori Walker-Kimbrough,Atlanta Dream,,0.0,0.6,replay,
 2026-08-05,Atlanta Dream vs Phoenix Mercury,Sika Kone,Atlanta Dream,,0.0,0.6,replay,
-2026-08-05,Atlanta Dream vs Phoenix Mercury,Alyssa Thomas,Phoenix Mercury,36.0,32.6,37.6,replay,inferred
+2026-08-05,Atlanta Dream vs Phoenix Mercury,Alyssa Thomas,Phoenix Mercury,36.0,32.7,37.6,replay,inferred
 2026-08-05,Atlanta Dream vs Phoenix Mercury,DeWanna Bonner,Phoenix Mercury,30.0,28.5,30.5,replay,inferred
 2026-08-05,Atlanta Dream vs Phoenix Mercury,Kahleah Copper,Phoenix Mercury,34.0,31.9,35.5,replay,inferred
 2026-08-05,Atlanta Dream vs Phoenix Mercury,Kelsey Plum,Phoenix Mercury,25.0,0.0,26.4,replay,inferred
-2026-08-05,Atlanta Dream vs Phoenix Mercury,Lexi Held,Phoenix Mercury,,11.4,1.4,replay,
-2026-08-05,Atlanta Dream vs Phoenix Mercury,Natasha Mack,Phoenix Mercury,18.0,19.9,13.6,replay,inferred
+2026-08-05,Atlanta Dream vs Phoenix Mercury,Lexi Held,Phoenix Mercury,,11.5,1.4,replay,
+2026-08-05,Atlanta Dream vs Phoenix Mercury,Natasha Mack,Phoenix Mercury,18.0,20.0,13.6,replay,inferred
 2026-08-05,Atlanta Dream vs Phoenix Mercury,Noemie Brochant,Phoenix Mercury,20.0,21.3,28.1,replay,inferred
 2026-08-05,Atlanta Dream vs Phoenix Mercury,Sami Whitcomb,Phoenix Mercury,14.0,15.6,14.0,replay,inferred
-2026-08-05,Atlanta Dream vs Phoenix Mercury,Valeriane Ayayi,Phoenix Mercury,20.0,17.9,12.8,replay,inferred
+2026-08-05,Atlanta Dream vs Phoenix Mercury,Valeriane Ayayi,Phoenix Mercury,20.0,17.7,12.8,replay,inferred
 2026-08-05,New York Liberty vs Seattle Storm,Awa Fam,Seattle Storm,28.0,27.1,22.7,replay,inferred
 2026-08-05,New York Liberty vs Seattle Storm,Dominique Malonga,Seattle Storm,26.0,25.4,30.0,replay,inferred
 2026-08-05,New York Liberty vs Seattle Storm,Ezi Magbegor,Seattle Storm,18.0,12.8,17.3,replay,inferred
@@ -1038,15 +1038,15 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-08-07,Connecticut Sun vs Phoenix Mercury,Nell Angloma,Connecticut Sun,,0.0,11.1,replay,
 2026-08-07,Connecticut Sun vs Phoenix Mercury,Olivia Nelson-Ododa,Connecticut Sun,,21.8,16.1,replay,
 2026-08-07,Connecticut Sun vs Phoenix Mercury,Saniya Rivers,Connecticut Sun,,20.7,17.0,replay,
-2026-08-07,Connecticut Sun vs Phoenix Mercury,Alyssa Thomas,Phoenix Mercury,34.0,33.6,35.2,replay,inferred
+2026-08-07,Connecticut Sun vs Phoenix Mercury,Alyssa Thomas,Phoenix Mercury,34.0,33.4,35.2,replay,inferred
 2026-08-07,Connecticut Sun vs Phoenix Mercury,DeWanna Bonner,Phoenix Mercury,29.0,28.3,34.5,replay,inferred
 2026-08-07,Connecticut Sun vs Phoenix Mercury,Kahleah Copper,Phoenix Mercury,33.0,32.3,34.0,replay,inferred
 2026-08-07,Connecticut Sun vs Phoenix Mercury,Kelsey Plum,Phoenix Mercury,,22.5,27.8,replay,
 2026-08-07,Connecticut Sun vs Phoenix Mercury,Kyara Linskens,Phoenix Mercury,,8.1,3.7,replay,
-2026-08-07,Connecticut Sun vs Phoenix Mercury,Natasha Mack,Phoenix Mercury,18.0,19.4,17.9,replay,inferred
-2026-08-07,Connecticut Sun vs Phoenix Mercury,Noemie Brochant,Phoenix Mercury,22.0,24.0,22.1,replay,inferred
+2026-08-07,Connecticut Sun vs Phoenix Mercury,Natasha Mack,Phoenix Mercury,18.0,19.6,17.9,replay,inferred
+2026-08-07,Connecticut Sun vs Phoenix Mercury,Noemie Brochant,Phoenix Mercury,22.0,24.1,22.1,replay,inferred
 2026-08-07,Connecticut Sun vs Phoenix Mercury,Sami Whitcomb,Phoenix Mercury,10.0,15.6,12.9,replay,inferred
-2026-08-07,Connecticut Sun vs Phoenix Mercury,Valeriane Ayayi,Phoenix Mercury,15.0,16.2,11.9,replay,inferred
+2026-08-07,Connecticut Sun vs Phoenix Mercury,Valeriane Ayayi,Phoenix Mercury,15.0,16.1,11.9,replay,inferred
 2026-08-07,Atlanta Dream vs Washington Mystics,Alicia Florez,Washington Mystics,,0.0,5.8,replay,
 2026-08-07,Atlanta Dream vs Washington Mystics,Cassandre Prosper,Washington Mystics,,8.6,18.6,replay,
 2026-08-07,Atlanta Dream vs Washington Mystics,Cotie McMahon,Washington Mystics,,24.1,27.9,replay,
@@ -1143,17 +1143,17 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-08-09,Dallas Wings vs Minnesota Lynx,Natasha Howard,Minnesota Lynx,26.0,27.8,24.1,replay,inferred
 2026-08-09,Dallas Wings vs Minnesota Lynx,Nia Coffey,Minnesota Lynx,12.0,14.5,13.5,replay,inferred
 2026-08-09,Dallas Wings vs Minnesota Lynx,Olivia Miles,Minnesota Lynx,32.0,32.6,33.8,replay,inferred
-2026-08-09,Phoenix Mercury vs Washington Mystics,Alyssa Thomas,Phoenix Mercury,35.0,32.8,30.9,replay,inferred
+2026-08-09,Phoenix Mercury vs Washington Mystics,Alyssa Thomas,Phoenix Mercury,35.0,32.5,30.9,replay,inferred
 2026-08-09,Phoenix Mercury vs Washington Mystics,DeWanna Bonner,Phoenix Mercury,32.0,28.7,19.1,replay,inferred
 2026-08-09,Phoenix Mercury vs Washington Mystics,Kahleah Copper,Phoenix Mercury,35.0,31.7,29.8,replay,inferred
 2026-08-09,Phoenix Mercury vs Washington Mystics,Kelsey Plum,Phoenix Mercury,29.0,0.0,14.2,replay,inferred
 2026-08-09,Phoenix Mercury vs Washington Mystics,Kyara Linskens,Phoenix Mercury,,0.0,17.4,replay,
-2026-08-09,Phoenix Mercury vs Washington Mystics,Lexi Held,Phoenix Mercury,,10.6,15.9,replay,
+2026-08-09,Phoenix Mercury vs Washington Mystics,Lexi Held,Phoenix Mercury,,10.7,15.9,replay,
 2026-08-09,Phoenix Mercury vs Washington Mystics,Marta Suarez,Phoenix Mercury,,0.0,5.9,replay,
-2026-08-09,Phoenix Mercury vs Washington Mystics,Natasha Mack,Phoenix Mercury,18.0,21.6,22.6,replay,inferred
-2026-08-09,Phoenix Mercury vs Washington Mystics,Noemie Brochant,Phoenix Mercury,23.0,21.8,20.9,replay,inferred
+2026-08-09,Phoenix Mercury vs Washington Mystics,Natasha Mack,Phoenix Mercury,18.0,21.8,22.6,replay,inferred
+2026-08-09,Phoenix Mercury vs Washington Mystics,Noemie Brochant,Phoenix Mercury,23.0,21.9,20.9,replay,inferred
 2026-08-09,Phoenix Mercury vs Washington Mystics,Sami Whitcomb,Phoenix Mercury,14.0,15.2,14.3,replay,inferred
-2026-08-09,Phoenix Mercury vs Washington Mystics,Valeriane Ayayi,Phoenix Mercury,14.0,14.5,8.9,replay,inferred
+2026-08-09,Phoenix Mercury vs Washington Mystics,Valeriane Ayayi,Phoenix Mercury,14.0,14.4,8.9,replay,inferred
 2026-08-09,Phoenix Mercury vs Washington Mystics,Alicia Florez,Washington Mystics,6.0,0.0,14.8,replay,inferred
 2026-08-09,Phoenix Mercury vs Washington Mystics,Angela Dugalic,Washington Mystics,,0.0,9.1,replay,
 2026-08-09,Phoenix Mercury vs Washington Mystics,Cassandre Prosper,Washington Mystics,12.0,8.9,12.1,replay,inferred
@@ -1233,15 +1233,15 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-08-11,Los Angeles Sparks vs Phoenix Mercury,Nneka Ogwumike,Los Angeles Sparks,30.0,32.2,32.5,replay,inferred
 2026-08-11,Los Angeles Sparks vs Phoenix Mercury,Rae Burrell,Los Angeles Sparks,30.0,30.7,34.9,replay,inferred
 2026-08-11,Los Angeles Sparks vs Phoenix Mercury,Tonie Morgan,Los Angeles Sparks,,10.2,6.4,replay,
-2026-08-11,Los Angeles Sparks vs Phoenix Mercury,Alyssa Thomas,Phoenix Mercury,35.0,34.9,33.1,replay,inferred
-2026-08-11,Los Angeles Sparks vs Phoenix Mercury,DeWanna Bonner,Phoenix Mercury,30.0,29.4,27.0,replay,inferred
-2026-08-11,Los Angeles Sparks vs Phoenix Mercury,Kahleah Copper,Phoenix Mercury,35.0,34.1,35.1,replay,inferred
-2026-08-11,Los Angeles Sparks vs Phoenix Mercury,Lexi Held,Phoenix Mercury,,14.2,12.8,replay,
+2026-08-11,Los Angeles Sparks vs Phoenix Mercury,Alyssa Thomas,Phoenix Mercury,35.0,35.0,33.1,replay,inferred
+2026-08-11,Los Angeles Sparks vs Phoenix Mercury,DeWanna Bonner,Phoenix Mercury,30.0,29.3,27.0,replay,inferred
+2026-08-11,Los Angeles Sparks vs Phoenix Mercury,Kahleah Copper,Phoenix Mercury,35.0,34.0,35.1,replay,inferred
+2026-08-11,Los Angeles Sparks vs Phoenix Mercury,Lexi Held,Phoenix Mercury,,14.4,12.8,replay,
 2026-08-11,Los Angeles Sparks vs Phoenix Mercury,Marta Suarez,Phoenix Mercury,2.0,7.2,6.9,replay,inferred
-2026-08-11,Los Angeles Sparks vs Phoenix Mercury,Natasha Mack,Phoenix Mercury,20.0,22.6,13.0,replay,inferred
+2026-08-11,Los Angeles Sparks vs Phoenix Mercury,Natasha Mack,Phoenix Mercury,20.0,22.8,13.0,replay,inferred
 2026-08-11,Los Angeles Sparks vs Phoenix Mercury,Noemie Brochant,Phoenix Mercury,23.0,24.3,30.1,replay,inferred
-2026-08-11,Los Angeles Sparks vs Phoenix Mercury,Sami Whitcomb,Phoenix Mercury,17.0,17.5,22.2,replay,inferred
-2026-08-11,Los Angeles Sparks vs Phoenix Mercury,Valeriane Ayayi,Phoenix Mercury,17.0,15.8,19.8,replay,inferred
+2026-08-11,Los Angeles Sparks vs Phoenix Mercury,Sami Whitcomb,Phoenix Mercury,17.0,17.4,22.2,replay,inferred
+2026-08-11,Los Angeles Sparks vs Phoenix Mercury,Valeriane Ayayi,Phoenix Mercury,17.0,15.6,19.8,replay,inferred
 2026-08-11,Las Vegas Aces vs Washington Mystics,Alicia Florez,Washington Mystics,8.0,0.0,5.4,replay,inferred
 2026-08-11,Las Vegas Aces vs Washington Mystics,Angela Dugalic,Washington Mystics,3.0,0.0,1.1,replay,inferred
 2026-08-11,Las Vegas Aces vs Washington Mystics,Betnijah Laney-Hamilton,Washington Mystics,,0.0,14.4,replay,
@@ -1452,15 +1452,15 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-08-15,Connecticut Sun vs New York Liberty,Olivia Nelson-Ododa,Connecticut Sun,,26.5,28.0,replay,
 2026-08-15,Connecticut Sun vs New York Liberty,Raegan Beers,Connecticut Sun,,13.6,12.0,replay,
 2026-08-15,Connecticut Sun vs New York Liberty,Saniya Rivers,Connecticut Sun,,25.0,21.0,replay,
-2026-08-16,Phoenix Mercury vs Portland Fire,Alyssa Thomas,Phoenix Mercury,,35.6,33.9,replay,
+2026-08-16,Phoenix Mercury vs Portland Fire,Alyssa Thomas,Phoenix Mercury,,35.3,33.9,replay,
 2026-08-16,Phoenix Mercury vs Portland Fire,DeWanna Bonner,Phoenix Mercury,,30.1,32.7,replay,
-2026-08-16,Phoenix Mercury vs Portland Fire,Kahleah Copper,Phoenix Mercury,,35.3,36.1,replay,
-2026-08-16,Phoenix Mercury vs Portland Fire,Lexi Held,Phoenix Mercury,,15.8,14.5,replay,
+2026-08-16,Phoenix Mercury vs Portland Fire,Kahleah Copper,Phoenix Mercury,,35.2,36.1,replay,
+2026-08-16,Phoenix Mercury vs Portland Fire,Lexi Held,Phoenix Mercury,,16.0,14.5,replay,
 2026-08-16,Phoenix Mercury vs Portland Fire,Marta Suarez,Phoenix Mercury,,0.0,2.6,replay,
-2026-08-16,Phoenix Mercury vs Portland Fire,Natasha Mack,Phoenix Mercury,,21.9,18.1,replay,
-2026-08-16,Phoenix Mercury vs Portland Fire,Noemie Brochant,Phoenix Mercury,,25.7,27.2,replay,
-2026-08-16,Phoenix Mercury vs Portland Fire,Sami Whitcomb,Phoenix Mercury,,18.5,25.5,replay,
-2026-08-16,Phoenix Mercury vs Portland Fire,Valeriane Ayayi,Phoenix Mercury,,17.1,9.4,replay,
+2026-08-16,Phoenix Mercury vs Portland Fire,Natasha Mack,Phoenix Mercury,,22.1,18.1,replay,
+2026-08-16,Phoenix Mercury vs Portland Fire,Noemie Brochant,Phoenix Mercury,,25.8,27.2,replay,
+2026-08-16,Phoenix Mercury vs Portland Fire,Sami Whitcomb,Phoenix Mercury,,18.6,25.5,replay,
+2026-08-16,Phoenix Mercury vs Portland Fire,Valeriane Ayayi,Phoenix Mercury,,16.9,9.4,replay,
 2026-08-16,Phoenix Mercury vs Portland Fire,Bridget Carleton,Portland Fire,,30.5,31.6,replay,
 2026-08-16,Phoenix Mercury vs Portland Fire,Carla Leite,Portland Fire,,25.4,27.6,replay,
 2026-08-16,Phoenix Mercury vs Portland Fire,Emily Engstler,Portland Fire,,24.8,22.1,replay,
@@ -1741,14 +1741,14 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-08-22,Atlanta Dream vs Phoenix Mercury,Naz Hillmon,Atlanta Dream,,31.2,34.7,replay,
 2026-08-22,Atlanta Dream vs Phoenix Mercury,Rhyne Howard,Atlanta Dream,,35.5,37.7,replay,
 2026-08-22,Atlanta Dream vs Phoenix Mercury,Te-Hina Paopao,Atlanta Dream,,10.6,2.0,replay,
-2026-08-22,Atlanta Dream vs Phoenix Mercury,Alyssa Thomas,Phoenix Mercury,,35.6,33.1,replay,
+2026-08-22,Atlanta Dream vs Phoenix Mercury,Alyssa Thomas,Phoenix Mercury,,35.4,33.1,replay,
 2026-08-22,Atlanta Dream vs Phoenix Mercury,DeWanna Bonner,Phoenix Mercury,,30.8,30.1,replay,
 2026-08-22,Atlanta Dream vs Phoenix Mercury,Kahleah Copper,Phoenix Mercury,,35.6,37.1,replay,
-2026-08-22,Atlanta Dream vs Phoenix Mercury,Lexi Held,Phoenix Mercury,,16.2,12.5,replay,
-2026-08-22,Atlanta Dream vs Phoenix Mercury,Natasha Mack,Phoenix Mercury,,22.4,19.1,replay,
-2026-08-22,Atlanta Dream vs Phoenix Mercury,Noemie Brochant,Phoenix Mercury,,26.2,27.4,replay,
-2026-08-22,Atlanta Dream vs Phoenix Mercury,Sami Whitcomb,Phoenix Mercury,,18.1,27.5,replay,
-2026-08-22,Atlanta Dream vs Phoenix Mercury,Valeriane Ayayi,Phoenix Mercury,,15.1,13.3,replay,
+2026-08-22,Atlanta Dream vs Phoenix Mercury,Lexi Held,Phoenix Mercury,,16.3,12.5,replay,
+2026-08-22,Atlanta Dream vs Phoenix Mercury,Natasha Mack,Phoenix Mercury,,22.6,19.1,replay,
+2026-08-22,Atlanta Dream vs Phoenix Mercury,Noemie Brochant,Phoenix Mercury,,26.3,27.4,replay,
+2026-08-22,Atlanta Dream vs Phoenix Mercury,Sami Whitcomb,Phoenix Mercury,,18.0,27.5,replay,
+2026-08-22,Atlanta Dream vs Phoenix Mercury,Valeriane Ayayi,Phoenix Mercury,,15.0,13.3,replay,
 2026-08-22,Connecticut Sun vs Los Angeles Sparks,Ashlon Jackson,Connecticut Sun,,9.9,13.0,replay,
 2026-08-22,Connecticut Sun vs Los Angeles Sparks,Charlisse Leger-Walker,Connecticut Sun,,26.7,22.2,replay,
 2026-08-22,Connecticut Sun vs Los Angeles Sparks,Diamond Miller,Connecticut Sun,,23.4,13.4,replay,
@@ -1835,17 +1835,17 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-08-23,Las Vegas Aces vs Toronto Tempo,Ornella Bankole,Toronto Tempo,,14.0,19.8,replay,
 2026-08-23,Las Vegas Aces vs Toronto Tempo,Temi Fagbenle,Toronto Tempo,,20.0,25.9,replay,
 2026-08-23,Las Vegas Aces vs Toronto Tempo,Teonni Key,Toronto Tempo,,14.8,23.6,replay,
-2026-08-23,Portland Fire vs Washington Mystics,Alicia Florez,Washington Mystics,,12.4,7.4,replay,
+2026-08-23,Portland Fire vs Washington Mystics,Alicia Florez,Washington Mystics,,11.0,7.4,replay,
 2026-08-23,Portland Fire vs Washington Mystics,Angela Dugalic,Washington Mystics,,0.0,0.1,replay,
-2026-08-23,Portland Fire vs Washington Mystics,Betnijah Laney-Hamilton,Washington Mystics,,12.9,14.6,replay,
+2026-08-23,Portland Fire vs Washington Mystics,Betnijah Laney-Hamilton,Washington Mystics,,13.1,14.6,replay,
 2026-08-23,Portland Fire vs Washington Mystics,Cassandre Prosper,Washington Mystics,,0.0,0.1,replay,
-2026-08-23,Portland Fire vs Washington Mystics,Cotie McMahon,Washington Mystics,,19.1,17.9,replay,
-2026-08-23,Portland Fire vs Washington Mystics,Georgia Amoore,Washington Mystics,,24.7,23.7,replay,
-2026-08-23,Portland Fire vs Washington Mystics,Kiki Iriafen,Washington Mystics,,29.3,30.1,replay,
-2026-08-23,Portland Fire vs Washington Mystics,Lauren Betts,Washington Mystics,,15.6,16.9,replay,
-2026-08-23,Portland Fire vs Washington Mystics,Michaela Onyenwere,Washington Mystics,,26.2,23.7,replay,
-2026-08-23,Portland Fire vs Washington Mystics,Shakira Austin,Washington Mystics,,28.6,32.8,replay,
-2026-08-23,Portland Fire vs Washington Mystics,Sonia Citron,Washington Mystics,,31.2,32.6,replay,
+2026-08-23,Portland Fire vs Washington Mystics,Cotie McMahon,Washington Mystics,,18.8,17.9,replay,
+2026-08-23,Portland Fire vs Washington Mystics,Georgia Amoore,Washington Mystics,,25.3,23.7,replay,
+2026-08-23,Portland Fire vs Washington Mystics,Kiki Iriafen,Washington Mystics,,29.6,30.1,replay,
+2026-08-23,Portland Fire vs Washington Mystics,Lauren Betts,Washington Mystics,,16.1,16.9,replay,
+2026-08-23,Portland Fire vs Washington Mystics,Michaela Onyenwere,Washington Mystics,,25.6,23.7,replay,
+2026-08-23,Portland Fire vs Washington Mystics,Shakira Austin,Washington Mystics,,29.0,32.8,replay,
+2026-08-23,Portland Fire vs Washington Mystics,Sonia Citron,Washington Mystics,,31.5,32.6,replay,
 2026-08-23,Dallas Wings vs Seattle Storm,Alanna Smith,Dallas Wings,,28.2,21.8,replay,
 2026-08-23,Dallas Wings vs Seattle Storm,Alysha Clark,Dallas Wings,,15.6,22.6,replay,
 2026-08-23,Dallas Wings vs Seattle Storm,Arike Ogunbowale,Dallas Wings,,33.0,22.1,replay,
@@ -1896,16 +1896,16 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-08-24,Golden State Valkyries vs Minnesota Lynx,Natasha Howard,Minnesota Lynx,,33.6,27.7,replay,
 2026-08-24,Golden State Valkyries vs Minnesota Lynx,Nia Coffey,Minnesota Lynx,,28.8,15.3,replay,
 2026-08-24,Golden State Valkyries vs Minnesota Lynx,Olivia Miles,Minnesota Lynx,,34.0,27.8,replay,
-2026-08-25,Phoenix Mercury vs Washington Mystics,Alyssa Thomas,Phoenix Mercury,,36.2,31.5,replay,
-2026-08-25,Phoenix Mercury vs Washington Mystics,Kahleah Copper,Phoenix Mercury,,36.6,30.5,replay,
+2026-08-25,Phoenix Mercury vs Washington Mystics,Alyssa Thomas,Phoenix Mercury,,36.1,31.5,replay,
+2026-08-25,Phoenix Mercury vs Washington Mystics,Kahleah Copper,Phoenix Mercury,,36.4,30.5,replay,
 2026-08-25,Phoenix Mercury vs Washington Mystics,Kelsey Plum,Phoenix Mercury,,24.7,16.6,replay,
 2026-08-25,Phoenix Mercury vs Washington Mystics,Kyara Linskens,Phoenix Mercury,,0.0,15.2,replay,
-2026-08-25,Phoenix Mercury vs Washington Mystics,Lexi Held,Phoenix Mercury,,16.0,9.7,replay,
+2026-08-25,Phoenix Mercury vs Washington Mystics,Lexi Held,Phoenix Mercury,,16.2,9.7,replay,
 2026-08-25,Phoenix Mercury vs Washington Mystics,Maddy Westbeld,Phoenix Mercury,,0.0,8.5,replay,
-2026-08-25,Phoenix Mercury vs Washington Mystics,Natasha Mack,Phoenix Mercury,,24.2,24.9,replay,
-2026-08-25,Phoenix Mercury vs Washington Mystics,Noemie Brochant,Phoenix Mercury,,26.9,24.6,replay,
+2026-08-25,Phoenix Mercury vs Washington Mystics,Natasha Mack,Phoenix Mercury,,24.4,24.9,replay,
+2026-08-25,Phoenix Mercury vs Washington Mystics,Noemie Brochant,Phoenix Mercury,,27.0,24.6,replay,
 2026-08-25,Phoenix Mercury vs Washington Mystics,Sami Whitcomb,Phoenix Mercury,,18.5,15.7,replay,
-2026-08-25,Phoenix Mercury vs Washington Mystics,Valeriane Ayayi,Phoenix Mercury,,16.9,23.0,replay,
+2026-08-25,Phoenix Mercury vs Washington Mystics,Valeriane Ayayi,Phoenix Mercury,,16.7,23.0,replay,
 2026-08-25,Phoenix Mercury vs Washington Mystics,Alicia Florez,Washington Mystics,,9.2,7.1,replay,
 2026-08-25,Phoenix Mercury vs Washington Mystics,Angela Dugalic,Washington Mystics,,0.0,1.6,replay,
 2026-08-25,Phoenix Mercury vs Washington Mystics,Betnijah Laney-Hamilton,Washington Mystics,,14.4,19.1,replay,
@@ -2013,27 +2013,27 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-07-31,Indiana Fever vs Portland Fire,Luisa Geiselsoder,Portland Fire,8.0,0.0,,replay,inferred
 2026-07-31,Dallas Wings vs Washington Mystics,Lucy Olsen,Washington Mystics,2.0,0.0,,replay,inferred
 2026-07-31,Dallas Wings vs Washington Mystics,Angela Dugalic,Washington Mystics,2.0,0.0,,replay,inferred
-2026-08-03,New York Liberty vs Seattle Storm,Breanna Stewart,New York Liberty,35.0,33.6,31.2,replay,inferred
-2026-08-03,New York Liberty vs Seattle Storm,Sabrina Ionescu,New York Liberty,34.0,31.9,29.4,replay,inferred
-2026-08-03,New York Liberty vs Seattle Storm,Jonquel Jones,New York Liberty,28.0,28.3,30.5,replay,inferred
-2026-08-03,New York Liberty vs Seattle Storm,Pauline Astier,New York Liberty,22.0,23.1,22.8,replay,inferred
-2026-08-03,New York Liberty vs Seattle Storm,Han Xu,New York Liberty,16.0,17.0,18.4,replay,inferred
-2026-08-03,New York Liberty vs Seattle Storm,Marine Johannes,New York Liberty,15.0,19.5,11.7,replay,inferred
-2026-08-03,New York Liberty vs Seattle Storm,Rebecca Allen,New York Liberty,22.0,18.9,26.0,replay,inferred
-2026-08-03,New York Liberty vs Seattle Storm,Marine Fauthoux,New York Liberty,15.0,12.8,14.4,replay,inferred
-2026-08-03,New York Liberty vs Seattle Storm,Rebekah Gardner,New York Liberty,12.0,14.9,15.8,replay,inferred
+2026-08-03,New York Liberty vs Seattle Storm,Breanna Stewart,New York Liberty,35.0,33.8,31.2,replay,inferred
+2026-08-03,New York Liberty vs Seattle Storm,Sabrina Ionescu,New York Liberty,34.0,32.1,29.4,replay,inferred
+2026-08-03,New York Liberty vs Seattle Storm,Jonquel Jones,New York Liberty,28.0,28.5,30.5,replay,inferred
+2026-08-03,New York Liberty vs Seattle Storm,Pauline Astier,New York Liberty,22.0,23.2,22.8,replay,inferred
+2026-08-03,New York Liberty vs Seattle Storm,Han Xu,New York Liberty,16.0,16.9,18.4,replay,inferred
+2026-08-03,New York Liberty vs Seattle Storm,Marine Johannes,New York Liberty,15.0,19.4,11.7,replay,inferred
+2026-08-03,New York Liberty vs Seattle Storm,Rebecca Allen,New York Liberty,22.0,18.8,26.0,replay,inferred
+2026-08-03,New York Liberty vs Seattle Storm,Marine Fauthoux,New York Liberty,15.0,12.3,14.4,replay,inferred
+2026-08-03,New York Liberty vs Seattle Storm,Rebekah Gardner,New York Liberty,12.0,15.0,15.8,replay,inferred
 2026-08-03,Chicago Sky vs Phoenix Mercury,Alexa Held,Phoenix Mercury,7.0,,,,inferred
 2026-08-03,New York Liberty vs Seattle Storm,Raquel Carrera,New York Liberty,1.0,0.0,,replay,inferred
-2026-08-05,New York Liberty vs Seattle Storm,Breanna Stewart,New York Liberty,34.0,33.3,33.0,replay,inferred
+2026-08-05,New York Liberty vs Seattle Storm,Breanna Stewart,New York Liberty,34.0,33.6,33.0,replay,inferred
 2026-08-05,Chicago Sky vs Los Angeles Sparks,Sydney Taylor,Chicago Sky,25.0,0.0,,replay,inferred
-2026-08-05,New York Liberty vs Seattle Storm,Sabrina Ionescu,New York Liberty,32.0,31.3,31.2,replay,inferred
-2026-08-05,New York Liberty vs Seattle Storm,Jonquel Jones,New York Liberty,29.0,28.8,29.9,replay,inferred
-2026-08-05,New York Liberty vs Seattle Storm,Pauline Astier,New York Liberty,22.0,23.4,28.2,replay,inferred
-2026-08-05,New York Liberty vs Seattle Storm,Han Xu,New York Liberty,18.0,16.2,17.1,replay,inferred
-2026-08-05,New York Liberty vs Seattle Storm,Rebecca Allen,New York Liberty,24.0,19.7,19.4,replay,inferred
-2026-08-05,New York Liberty vs Seattle Storm,Rebekah Gardner,New York Liberty,15.0,15.5,11.9,replay,inferred
-2026-08-05,New York Liberty vs Seattle Storm,Marine Johannes,New York Liberty,12.0,18.9,13.8,replay,inferred
-2026-08-05,New York Liberty vs Seattle Storm,Marine Fauthoux,New York Liberty,14.0,12.9,15.6,replay,inferred
+2026-08-05,New York Liberty vs Seattle Storm,Sabrina Ionescu,New York Liberty,32.0,31.4,31.2,replay,inferred
+2026-08-05,New York Liberty vs Seattle Storm,Jonquel Jones,New York Liberty,29.0,28.9,29.9,replay,inferred
+2026-08-05,New York Liberty vs Seattle Storm,Pauline Astier,New York Liberty,22.0,23.6,28.2,replay,inferred
+2026-08-05,New York Liberty vs Seattle Storm,Han Xu,New York Liberty,18.0,16.0,17.1,replay,inferred
+2026-08-05,New York Liberty vs Seattle Storm,Rebecca Allen,New York Liberty,24.0,19.5,19.4,replay,inferred
+2026-08-05,New York Liberty vs Seattle Storm,Rebekah Gardner,New York Liberty,15.0,15.7,11.9,replay,inferred
+2026-08-05,New York Liberty vs Seattle Storm,Marine Johannes,New York Liberty,12.0,18.8,13.8,replay,inferred
+2026-08-05,New York Liberty vs Seattle Storm,Marine Fauthoux,New York Liberty,14.0,12.5,15.6,replay,inferred
 2026-08-05,Dallas Wings vs Washington Mystics,Maddy Siegrist,Dallas Wings,10.0,0.0,,replay,inferred
 2026-08-05,Dallas Wings vs Washington Mystics,Alysha Clark,Dallas Wings,10.0,0.0,,replay,inferred
 2026-08-05,Dallas Wings vs Washington Mystics,Sug Sutton,Dallas Wings,5.0,0.0,,replay,inferred
@@ -2058,38 +2058,38 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-08-08,Portland Fire vs Seattle Storm,Teja Oblak,Portland Fire,10.0,0.0,,replay,inferred
 2026-08-08,Las Vegas Aces vs Minnesota Lynx,Anastasiia Kosu,Minnesota Lynx,8.0,0.0,,replay,inferred
 2026-08-08,Las Vegas Aces vs Minnesota Lynx,Kierstan Bell,Las Vegas Aces,5.0,0.0,,replay,inferred
-2026-08-09,Las Vegas Aces vs New York Liberty,Breanna Stewart,New York Liberty,32.0,33.3,23.4,replay,inferred
-2026-08-09,Las Vegas Aces vs New York Liberty,Sabrina Ionescu,New York Liberty,30.0,31.6,20.6,replay,inferred
-2026-08-09,Las Vegas Aces vs New York Liberty,Jonquel Jones,New York Liberty,29.0,29.1,19.5,replay,inferred
+2026-08-09,Las Vegas Aces vs New York Liberty,Breanna Stewart,New York Liberty,32.0,33.5,23.4,replay,inferred
+2026-08-09,Las Vegas Aces vs New York Liberty,Sabrina Ionescu,New York Liberty,30.0,31.7,20.6,replay,inferred
+2026-08-09,Las Vegas Aces vs New York Liberty,Jonquel Jones,New York Liberty,29.0,29.2,19.5,replay,inferred
 2026-08-09,Golden State Valkyries vs Los Angeles Sparks,Veronica Burton,Golden State Valkyries,31.0,28.3,28.8,replay,inferred
 2026-08-09,Golden State Valkyries vs Los Angeles Sparks,Gabby Williams,Golden State Valkyries,20.0,22.1,19.4,replay,inferred
 2026-08-09,Golden State Valkyries vs Los Angeles Sparks,Janelle Salaun,Golden State Valkyries,18.0,18.7,20.6,replay,inferred
-2026-08-09,Las Vegas Aces vs New York Liberty,Pauline Astier,New York Liberty,25.0,24.2,16.0,replay,inferred
+2026-08-09,Las Vegas Aces vs New York Liberty,Pauline Astier,New York Liberty,25.0,24.4,16.0,replay,inferred
 2026-08-09,Golden State Valkyries vs Los Angeles Sparks,Tiffany Hayes,Golden State Valkyries,20.0,20.0,18.7,replay,inferred
 2026-08-09,Golden State Valkyries vs Los Angeles Sparks,Kayla Thornton,Golden State Valkyries,25.0,26.0,27.9,replay,inferred
 2026-08-09,Golden State Valkyries vs Los Angeles Sparks,Cecilia Zandalasini,Golden State Valkyries,18.0,18.3,23.4,replay,inferred
-2026-08-09,Las Vegas Aces vs New York Liberty,Han Xu,New York Liberty,18.0,15.9,17.5,replay,inferred
+2026-08-09,Las Vegas Aces vs New York Liberty,Han Xu,New York Liberty,18.0,16.0,17.5,replay,inferred
 2026-08-09,Golden State Valkyries vs Los Angeles Sparks,Kaila Charles,Golden State Valkyries,23.0,19.6,18.5,replay,inferred
 2026-08-09,Golden State Valkyries vs Los Angeles Sparks,Monique Akoa Makani,Los Angeles Sparks,18.0,0.0,,replay,inferred
-2026-08-09,Las Vegas Aces vs New York Liberty,Rebecca Allen,New York Liberty,25.0,19.2,21.6,replay,inferred
+2026-08-09,Las Vegas Aces vs New York Liberty,Rebecca Allen,New York Liberty,25.0,19.1,21.6,replay,inferred
 2026-08-09,Golden State Valkyries vs Los Angeles Sparks,Kaitlyn Chen,Golden State Valkyries,12.0,12.5,11.2,replay,inferred
 2026-08-09,Golden State Valkyries vs Los Angeles Sparks,Kiah Stokes,Golden State Valkyries,25.0,25.4,19.6,replay,inferred
-2026-08-09,Las Vegas Aces vs New York Liberty,Marine Johannes,New York Liberty,13.0,19.1,21.9,replay,inferred
-2026-08-09,Las Vegas Aces vs New York Liberty,Marine Fauthoux,New York Liberty,15.0,13.1,21.5,replay,inferred
-2026-08-09,Las Vegas Aces vs New York Liberty,Rebekah Gardner,New York Liberty,13.0,14.5,21.4,replay,inferred
+2026-08-09,Las Vegas Aces vs New York Liberty,Marine Johannes,New York Liberty,13.0,18.9,21.9,replay,inferred
+2026-08-09,Las Vegas Aces vs New York Liberty,Marine Fauthoux,New York Liberty,15.0,12.6,21.5,replay,inferred
+2026-08-09,Las Vegas Aces vs New York Liberty,Rebekah Gardner,New York Liberty,13.0,14.6,21.4,replay,inferred
 2026-08-09,Golden State Valkyries vs Los Angeles Sparks,Laeticia Amihere,Golden State Valkyries,8.0,9.1,12.0,replay,inferred
 2026-08-09,Dallas Wings vs Minnesota Lynx,Anastasiia Kosu,Minnesota Lynx,1.0,0.0,,replay,inferred
-2026-08-11,Indiana Fever vs New York Liberty,Breanna Stewart,New York Liberty,32.0,32.2,29.5,replay,inferred
+2026-08-11,Indiana Fever vs New York Liberty,Breanna Stewart,New York Liberty,32.0,32.3,29.5,replay,inferred
 2026-08-11,Indiana Fever vs New York Liberty,Sabrina Ionescu,New York Liberty,30.0,30.7,27.6,replay,inferred
-2026-08-11,Indiana Fever vs New York Liberty,Jonquel Jones,New York Liberty,29.0,28.1,29.6,replay,inferred
-2026-08-11,Indiana Fever vs New York Liberty,Pauline Astier,New York Liberty,22.0,23.1,17.8,replay,inferred
+2026-08-11,Indiana Fever vs New York Liberty,Jonquel Jones,New York Liberty,29.0,28.3,29.6,replay,inferred
+2026-08-11,Indiana Fever vs New York Liberty,Pauline Astier,New York Liberty,22.0,23.3,17.8,replay,inferred
 2026-08-11,Indiana Fever vs New York Liberty,Han Xu,New York Liberty,18.0,15.8,17.1,replay,inferred
-2026-08-11,Indiana Fever vs New York Liberty,Rebecca Allen,New York Liberty,23.0,19.5,24.3,replay,inferred
-2026-08-11,Indiana Fever vs New York Liberty,Marine Johannes,New York Liberty,15.0,20.8,17.6,replay,inferred
+2026-08-11,Indiana Fever vs New York Liberty,Rebecca Allen,New York Liberty,23.0,19.4,24.3,replay,inferred
+2026-08-11,Indiana Fever vs New York Liberty,Marine Johannes,New York Liberty,15.0,20.7,17.6,replay,inferred
 2026-08-11,Los Angeles Sparks vs Phoenix Mercury,Monique Akoa Makani,Los Angeles Sparks,14.0,0.0,,replay,inferred
 2026-08-11,Los Angeles Sparks vs Phoenix Mercury,Alexa Held,Phoenix Mercury,16.0,,,,inferred
-2026-08-11,Indiana Fever vs New York Liberty,Rebekah Gardner,New York Liberty,14.0,16.2,16.3,replay,inferred
-2026-08-11,Indiana Fever vs New York Liberty,Marine Fauthoux,New York Liberty,16.0,13.6,16.4,replay,inferred
+2026-08-11,Indiana Fever vs New York Liberty,Rebekah Gardner,New York Liberty,14.0,16.3,16.3,replay,inferred
+2026-08-11,Indiana Fever vs New York Liberty,Marine Fauthoux,New York Liberty,16.0,13.2,16.4,replay,inferred
 2026-08-11,Los Angeles Sparks vs Phoenix Mercury,Kyara Linskens,Phoenix Mercury,5.0,0.0,,replay,inferred
 2026-08-11,Las Vegas Aces vs Washington Mystics,Justine Pissott,Las Vegas Aces,1.0,0.0,,replay,inferred
 2026-08-11,Indiana Fever vs New York Liberty,Raquel Carrera,New York Liberty,1.0,0.0,3.8,replay,inferred
@@ -2106,15 +2106,15 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-08-12,Chicago Sky vs Golden State Valkyries,Kiah Stokes,Golden State Valkyries,20.0,0.0,,replay,inferred
 2026-08-12,Chicago Sky vs Golden State Valkyries,Laeticia Amihere,Golden State Valkyries,8.0,14.0,15.1,replay,inferred
 2026-08-12,Dallas Wings vs Toronto Tempo,Teonni Key,Toronto Tempo,1.0,0.0,,replay,inferred
-2026-08-13,Los Angeles Sparks vs New York Liberty,Breanna Stewart,New York Liberty,31.0,32.7,31.1,replay,inferred
-2026-08-13,Los Angeles Sparks vs New York Liberty,Sabrina Ionescu,New York Liberty,29.0,30.9,32.6,replay,inferred
-2026-08-13,Los Angeles Sparks vs New York Liberty,Jonquel Jones,New York Liberty,29.0,29.1,33.3,replay,inferred
-2026-08-13,Los Angeles Sparks vs New York Liberty,Pauline Astier,New York Liberty,20.0,22.3,17.3,replay,inferred
-2026-08-13,Los Angeles Sparks vs New York Liberty,Han Xu,New York Liberty,17.0,15.7,15.6,replay,inferred
-2026-08-13,Los Angeles Sparks vs New York Liberty,Rebecca Allen,New York Liberty,24.0,19.7,25.7,replay,inferred
-2026-08-13,Los Angeles Sparks vs New York Liberty,Marine Johannes,New York Liberty,16.0,20.2,22.0,replay,inferred
-2026-08-13,Los Angeles Sparks vs New York Liberty,Rebekah Gardner,New York Liberty,16.0,15.8,12.5,replay,inferred
-2026-08-13,Los Angeles Sparks vs New York Liberty,Marine Fauthoux,New York Liberty,16.0,13.6,9.9,replay,inferred
+2026-08-13,Los Angeles Sparks vs New York Liberty,Breanna Stewart,New York Liberty,31.0,32.6,31.1,replay,inferred
+2026-08-13,Los Angeles Sparks vs New York Liberty,Sabrina Ionescu,New York Liberty,29.0,31.1,32.6,replay,inferred
+2026-08-13,Los Angeles Sparks vs New York Liberty,Jonquel Jones,New York Liberty,29.0,29.3,33.3,replay,inferred
+2026-08-13,Los Angeles Sparks vs New York Liberty,Pauline Astier,New York Liberty,20.0,22.5,17.3,replay,inferred
+2026-08-13,Los Angeles Sparks vs New York Liberty,Han Xu,New York Liberty,17.0,15.8,15.6,replay,inferred
+2026-08-13,Los Angeles Sparks vs New York Liberty,Rebecca Allen,New York Liberty,24.0,19.5,25.7,replay,inferred
+2026-08-13,Los Angeles Sparks vs New York Liberty,Marine Johannes,New York Liberty,16.0,20.1,22.0,replay,inferred
+2026-08-13,Los Angeles Sparks vs New York Liberty,Rebekah Gardner,New York Liberty,16.0,16.0,12.5,replay,inferred
+2026-08-13,Los Angeles Sparks vs New York Liberty,Marine Fauthoux,New York Liberty,16.0,13.1,9.9,replay,inferred
 2026-08-13,Los Angeles Sparks vs New York Liberty,Tonie Morgan,Los Angeles Sparks,4.0,0.0,,replay,inferred
 2026-08-13,Los Angeles Sparks vs New York Liberty,Raquel Carrera,New York Liberty,2.0,0.0,,replay,inferred
 2026-08-17,Dallas Wings vs Golden State Valkyries,Gabby Williams,Golden State Valkyries,22.0,21.8,32.1,replay,inferred
@@ -2128,15 +2128,15 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-08-17,Dallas Wings vs Golden State Valkyries,Kiah Stokes,Golden State Valkyries,20.0,24.3,23.8,replay,inferred
 2026-08-17,Dallas Wings vs Golden State Valkyries,Laeticia Amihere,Golden State Valkyries,10.0,12.3,3.1,replay,inferred
 2026-08-17,Dallas Wings vs Golden State Valkyries,Li Yueru,Dallas Wings,3.0,0.0,,replay,inferred
-2026-08-18,Chicago Sky vs New York Liberty,Breanna Stewart,New York Liberty,32.0,31.9,34.7,replay,inferred
+2026-08-18,Chicago Sky vs New York Liberty,Breanna Stewart,New York Liberty,32.0,32.1,34.7,replay,inferred
 2026-08-18,Chicago Sky vs New York Liberty,Jonquel Jones,New York Liberty,31.0,29.6,6.5,replay,inferred
-2026-08-18,Chicago Sky vs New York Liberty,Sabrina Ionescu,New York Liberty,25.0,30.2,33.7,replay,inferred
-2026-08-18,Chicago Sky vs New York Liberty,Marine Johannes,New York Liberty,22.0,22.3,20.9,replay,inferred
-2026-08-18,Chicago Sky vs New York Liberty,Pauline Astier,New York Liberty,20.0,22.4,19.2,replay,inferred
-2026-08-18,Chicago Sky vs New York Liberty,Rebecca Allen,New York Liberty,24.0,21.8,32.0,replay,inferred
+2026-08-18,Chicago Sky vs New York Liberty,Sabrina Ionescu,New York Liberty,25.0,30.3,33.7,replay,inferred
+2026-08-18,Chicago Sky vs New York Liberty,Marine Johannes,New York Liberty,22.0,22.2,20.9,replay,inferred
+2026-08-18,Chicago Sky vs New York Liberty,Pauline Astier,New York Liberty,20.0,22.6,19.2,replay,inferred
+2026-08-18,Chicago Sky vs New York Liberty,Rebecca Allen,New York Liberty,24.0,21.6,32.0,replay,inferred
 2026-08-18,Chicago Sky vs New York Liberty,Han Xu,New York Liberty,16.0,14.4,25.5,replay,inferred
-2026-08-18,Chicago Sky vs New York Liberty,Rebekah Gardner,New York Liberty,15.0,15.0,9.3,replay,inferred
-2026-08-18,Chicago Sky vs New York Liberty,Marine Fauthoux,New York Liberty,15.0,12.4,8.2,replay,inferred
+2026-08-18,Chicago Sky vs New York Liberty,Rebekah Gardner,New York Liberty,15.0,15.1,9.3,replay,inferred
+2026-08-18,Chicago Sky vs New York Liberty,Marine Fauthoux,New York Liberty,15.0,12.1,8.2,replay,inferred
 2026-08-18,Chicago Sky vs New York Liberty,Aicha Coulibaly,Chicago Sky,12.0,0.0,,replay,inferred
 2026-08-18,Connecticut Sun vs Los Angeles Sparks,Rayah Marshall,Connecticut Sun,5.0,0.0,,replay,inferred
 2026-08-18,Atlanta Dream vs Las Vegas Aces,Jaylyn Sherrod,Atlanta Dream,5.0,0.0,,replay,inferred
@@ -2144,26 +2144,26 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-08-18,Indiana Fever vs Toronto Tempo,Teonni Key,Toronto Tempo,5.0,0.0,,replay,inferred
 2026-08-18,Connecticut Sun vs Los Angeles Sparks,Hailey Van Lith,Connecticut Sun,1.0,0.0,,replay,inferred
 2026-08-18,Indiana Fever vs Toronto Tempo,Mercedes Russell,Indiana Fever,1.0,0.0,,replay,inferred
-2026-07-28,Los Angeles Sparks vs New York Liberty,Breanna Stewart,New York Liberty,,37.7,37.1,replay,
-2026-07-28,Los Angeles Sparks vs New York Liberty,Han Xu,New York Liberty,,16.1,21.5,replay,
-2026-07-28,Los Angeles Sparks vs New York Liberty,Jonquel Jones,New York Liberty,,32.3,23.8,replay,
-2026-07-28,Los Angeles Sparks vs New York Liberty,Marine Fauthoux,New York Liberty,,14.0,22.3,replay,
-2026-07-28,Los Angeles Sparks vs New York Liberty,Pauline Astier,New York Liberty,,26.8,15.9,replay,
+2026-07-28,Los Angeles Sparks vs New York Liberty,Breanna Stewart,New York Liberty,,38.0,37.1,replay,
+2026-07-28,Los Angeles Sparks vs New York Liberty,Han Xu,New York Liberty,,15.9,21.5,replay,
+2026-07-28,Los Angeles Sparks vs New York Liberty,Jonquel Jones,New York Liberty,,32.4,23.8,replay,
+2026-07-28,Los Angeles Sparks vs New York Liberty,Marine Fauthoux,New York Liberty,,13.5,22.3,replay,
+2026-07-28,Los Angeles Sparks vs New York Liberty,Pauline Astier,New York Liberty,,26.9,15.9,replay,
 2026-07-28,Los Angeles Sparks vs New York Liberty,Raquel Carrera,New York Liberty,,0.0,2.9,replay,
-2026-07-28,Los Angeles Sparks vs New York Liberty,Rebecca Allen,New York Liberty,,19.5,17.6,replay,
-2026-07-28,Los Angeles Sparks vs New York Liberty,Rebekah Gardner,New York Liberty,,17.4,23.5,replay,
-2026-07-28,Los Angeles Sparks vs New York Liberty,Sabrina Ionescu,New York Liberty,,36.2,35.5,replay,
+2026-07-28,Los Angeles Sparks vs New York Liberty,Rebecca Allen,New York Liberty,,19.3,17.6,replay,
+2026-07-28,Los Angeles Sparks vs New York Liberty,Rebekah Gardner,New York Liberty,,17.7,23.5,replay,
+2026-07-28,Los Angeles Sparks vs New York Liberty,Sabrina Ionescu,New York Liberty,,36.3,35.5,replay,
 2026-07-31,Indiana Fever vs Portland Fire,Grace VanSlooten,Indiana Fever,,0.0,0.4,replay,
-2026-08-01,New York Liberty vs Phoenix Mercury,Breanna Stewart,New York Liberty,,36.7,33.9,replay,
+2026-08-01,New York Liberty vs Phoenix Mercury,Breanna Stewart,New York Liberty,,37.0,33.9,replay,
 2026-08-01,New York Liberty vs Phoenix Mercury,Han Xu,New York Liberty,,0.0,21.8,replay,
-2026-08-01,New York Liberty vs Phoenix Mercury,Jonquel Jones,New York Liberty,,30.7,27.7,replay,
-2026-08-01,New York Liberty vs Phoenix Mercury,Marine Fauthoux,New York Liberty,,13.9,12.5,replay,
-2026-08-01,New York Liberty vs Phoenix Mercury,Marine Johannes,New York Liberty,,21.5,14.2,replay,
-2026-08-01,New York Liberty vs Phoenix Mercury,Pauline Astier,New York Liberty,,25.3,21.3,replay,
+2026-08-01,New York Liberty vs Phoenix Mercury,Jonquel Jones,New York Liberty,,30.9,27.7,replay,
+2026-08-01,New York Liberty vs Phoenix Mercury,Marine Fauthoux,New York Liberty,,13.3,12.5,replay,
+2026-08-01,New York Liberty vs Phoenix Mercury,Marine Johannes,New York Liberty,,21.4,14.2,replay,
+2026-08-01,New York Liberty vs Phoenix Mercury,Pauline Astier,New York Liberty,,25.4,21.3,replay,
 2026-08-01,New York Liberty vs Phoenix Mercury,Raquel Carrera,New York Liberty,,0.0,1.9,replay,
-2026-08-01,New York Liberty vs Phoenix Mercury,Rebecca Allen,New York Liberty,,21.1,20.6,replay,
-2026-08-01,New York Liberty vs Phoenix Mercury,Rebekah Gardner,New York Liberty,,16.6,10.9,replay,
-2026-08-01,New York Liberty vs Phoenix Mercury,Sabrina Ionescu,New York Liberty,,34.2,35.1,replay,
+2026-08-01,New York Liberty vs Phoenix Mercury,Rebecca Allen,New York Liberty,,20.9,20.6,replay,
+2026-08-01,New York Liberty vs Phoenix Mercury,Rebekah Gardner,New York Liberty,,16.8,10.9,replay,
+2026-08-01,New York Liberty vs Phoenix Mercury,Sabrina Ionescu,New York Liberty,,34.3,35.1,replay,
 2026-08-02,Golden State Valkyries vs Toronto Tempo,Cecilia Zandalasini,Golden State Valkyries,,18.9,15.5,replay,
 2026-08-02,Golden State Valkyries vs Toronto Tempo,Gabby Williams,Golden State Valkyries,,25.6,19.3,replay,
 2026-08-02,Golden State Valkyries vs Toronto Tempo,Janelle Salaun,Golden State Valkyries,,20.2,29.5,replay,
@@ -2189,14 +2189,14 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-08-12,Chicago Sky vs Golden State Valkyries,Juste Jocyte,Golden State Valkyries,,4.5,2.4,replay,
 2026-08-12,Chicago Sky vs Golden State Valkyries,Nadia Fingall,Golden State Valkyries,,0.0,2.4,replay,
 2026-08-15,Connecticut Sun vs New York Liberty,Anneli Maley,New York Liberty,,0.0,7.6,replay,
-2026-08-15,Connecticut Sun vs New York Liberty,Breanna Stewart,New York Liberty,,37.6,32.7,replay,
+2026-08-15,Connecticut Sun vs New York Liberty,Breanna Stewart,New York Liberty,,37.8,32.7,replay,
 2026-08-15,Connecticut Sun vs New York Liberty,Han Xu,New York Liberty,,17.9,12.6,replay,
-2026-08-15,Connecticut Sun vs New York Liberty,Jonquel Jones,New York Liberty,,34.0,34.7,replay,
-2026-08-15,Connecticut Sun vs New York Liberty,Marine Fauthoux,New York Liberty,,15.5,11.4,replay,
-2026-08-15,Connecticut Sun vs New York Liberty,Marine Johannes,New York Liberty,,26.0,30.6,replay,
-2026-08-15,Connecticut Sun vs New York Liberty,Pauline Astier,New York Liberty,,25.7,25.8,replay,
-2026-08-15,Connecticut Sun vs New York Liberty,Rebecca Allen,New York Liberty,,25.6,29.4,replay,
-2026-08-15,Connecticut Sun vs New York Liberty,Rebekah Gardner,New York Liberty,,17.7,15.2,replay,
+2026-08-15,Connecticut Sun vs New York Liberty,Jonquel Jones,New York Liberty,,34.1,34.7,replay,
+2026-08-15,Connecticut Sun vs New York Liberty,Marine Fauthoux,New York Liberty,,14.9,11.4,replay,
+2026-08-15,Connecticut Sun vs New York Liberty,Marine Johannes,New York Liberty,,25.9,30.6,replay,
+2026-08-15,Connecticut Sun vs New York Liberty,Pauline Astier,New York Liberty,,25.9,25.8,replay,
+2026-08-15,Connecticut Sun vs New York Liberty,Rebecca Allen,New York Liberty,,25.5,29.4,replay,
+2026-08-15,Connecticut Sun vs New York Liberty,Rebekah Gardner,New York Liberty,,18.0,15.2,replay,
 2026-08-18,Atlanta Dream vs Las Vegas Aces,Aaliyah Nye,Atlanta Dream,,0.0,0.3,replay,
 2026-08-18,Atlanta Dream vs Las Vegas Aces,Sika Kone,Atlanta Dream,,0.0,0.3,replay,
 2026-08-18,Chicago Sky vs New York Liberty,Anneli Maley,New York Liberty,,0.0,4.2,replay,
@@ -2220,14 +2220,14 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-08-21,Chicago Sky vs Golden State Valkyries,Laeticia Amihere,Golden State Valkyries,,10.6,23.9,replay,
 2026-08-21,Chicago Sky vs Golden State Valkyries,Tiffany Hayes,Golden State Valkyries,,20.4,29.6,replay,
 2026-08-21,Chicago Sky vs Golden State Valkyries,Veronica Burton,Golden State Valkyries,,29.9,18.3,replay,
-2026-08-22,Indiana Fever vs New York Liberty,Breanna Stewart,New York Liberty,,30.3,34.9,replay,
+2026-08-22,Indiana Fever vs New York Liberty,Breanna Stewart,New York Liberty,,30.2,34.9,replay,
 2026-08-22,Indiana Fever vs New York Liberty,Han Xu,New York Liberty,,13.7,11.5,replay,
-2026-08-22,Indiana Fever vs New York Liberty,Jonquel Jones,New York Liberty,,23.9,28.5,replay,
+2026-08-22,Indiana Fever vs New York Liberty,Jonquel Jones,New York Liberty,,24.0,28.5,replay,
 2026-08-22,Indiana Fever vs New York Liberty,Leonie Fiebich,New York Liberty,,28.6,33.9,replay,
 2026-08-22,Indiana Fever vs New York Liberty,Marine Johannes,New York Liberty,,19.6,13.2,replay,
-2026-08-22,Indiana Fever vs New York Liberty,Pauline Astier,New York Liberty,,20.0,24.5,replay,
-2026-08-22,Indiana Fever vs New York Liberty,Rebecca Allen,New York Liberty,,22.7,15.6,replay,
-2026-08-22,Indiana Fever vs New York Liberty,Rebekah Gardner,New York Liberty,,12.2,5.9,replay,
+2026-08-22,Indiana Fever vs New York Liberty,Pauline Astier,New York Liberty,,20.1,24.5,replay,
+2026-08-22,Indiana Fever vs New York Liberty,Rebecca Allen,New York Liberty,,22.5,15.6,replay,
+2026-08-22,Indiana Fever vs New York Liberty,Rebekah Gardner,New York Liberty,,12.3,5.9,replay,
 2026-08-22,Indiana Fever vs New York Liberty,Sabrina Ionescu,New York Liberty,,29.0,32.0,replay,
 2026-08-24,Golden State Valkyries vs Minnesota Lynx,Cecilia Zandalasini,Golden State Valkyries,,18.4,29.5,replay,
 2026-08-24,Golden State Valkyries vs Minnesota Lynx,Gabby Williams,Golden State Valkyries,,27.6,30.0,replay,
@@ -2286,3 +2286,71 @@ date,game_label,player,rw_team,rw_projected,our_projected,actual_minutes,proj_so
 2026-08-26,Connecticut Sun vs Golden State Valkyries,Nadia Fingall,Golden State Valkyries,,0.0,10.0,replay,
 2026-08-26,Connecticut Sun vs Golden State Valkyries,Tiffany Hayes,Golden State Valkyries,,22.2,3.0,replay,
 2026-08-26,Connecticut Sun vs Golden State Valkyries,Veronica Burton,Golden State Valkyries,,30.9,19.6,replay,
+2026-07-28,Atlanta Dream,Allisha Gray,Atlanta Dream,34.0,,,,inferred
+2026-07-28,Atlanta Dream,Rhyne Howard,Atlanta Dream,35.0,,,,inferred
+2026-07-28,Atlanta Dream,Angel Reese,Atlanta Dream,35.0,,,,inferred
+2026-07-28,Minnesota Lynx vs Toronto Tempo,Isabelle Harrison,Toronto Tempo,30.0,0.0,,replay,inferred
+2026-07-28,Connecticut Sun vs Washington Mystics,Aaliyah Edwards,Connecticut Sun,27.0,0.0,,replay,inferred
+2026-07-28,Atlanta Dream,Jordin Canada,Atlanta Dream,31.0,,,,inferred
+2026-07-28,Atlanta Dream,Naz Hillmon,Atlanta Dream,32.0,,,,inferred
+2026-07-28,Las Vegas Aces vs Portland Fire,Cheyenne Parker-Tyus,Las Vegas Aces,15.0,0.0,,replay,inferred
+2026-07-28,Atlanta Dream,Madina Okot,Atlanta Dream,12.0,,,,inferred
+2026-07-28,Connecticut Sun vs Washington Mystics,Betnijah Laney-Hamilton,Washington Mystics,19.0,0.0,,replay,inferred
+2026-07-28,Atlanta Dream,Isobel Borlase,Atlanta Dream,15.0,,,,inferred
+2026-07-28,Minnesota Lynx vs Toronto Tempo,Ornella Bankole,Toronto Tempo,18.0,0.0,,replay,inferred
+2026-07-28,Connecticut Sun vs Washington Mystics,Gianna Kneepkens,Connecticut Sun,12.0,0.0,,replay,inferred
+2026-07-28,Connecticut Sun vs Washington Mystics,Hailey Van Lith,Connecticut Sun,10.0,0.0,,replay,inferred
+2026-07-28,Los Angeles Sparks vs New York Liberty,Monique Akoa Makani,Los Angeles Sparks,10.0,,,,inferred
+2026-07-28,Los Angeles Sparks vs New York Liberty,Emma Cannon,Los Angeles Sparks,6.0,0.0,,replay,inferred
+2026-07-28,Los Angeles Sparks vs New York Liberty,Tonie Morgan,Los Angeles Sparks,10.0,,,,inferred
+2026-07-28,Connecticut Sun vs Washington Mystics,Ashlon Jackson,Connecticut Sun,12.0,0.0,,replay,inferred
+2026-07-28,Las Vegas Aces vs Portland Fire,Jordan Harrison,Portland Fire,6.0,0.0,,replay,inferred
+2026-07-28,Atlanta Dream,Te-Hina Paopao,Atlanta Dream,6.0,,,,inferred
+2026-07-28,Minnesota Lynx vs Toronto Tempo,Zaay Green,Toronto Tempo,4.0,,,,inferred
+2026-07-28,Las Vegas Aces vs Portland Fire,Kierstan Bell,Las Vegas Aces,3.0,0.0,,replay,inferred
+2026-07-28,Las Vegas Aces vs Portland Fire,Amy Okonkwo,Portland Fire,2.0,,,,inferred
+2026-07-28,Indiana Fever vs Seattle Storm,Mercedes Russell,Indiana Fever,1.0,,,,inferred
+2026-07-28,Indiana Fever vs Seattle Storm,Raven Johnson,Indiana Fever,1.0,0.0,,replay,inferred
+2026-08-27,Phoenix Mercury vs Washington Mystics,Alyssa Thomas,Phoenix Mercury,,38.1,31.5,replay,
+2026-08-27,Phoenix Mercury vs Washington Mystics,Kahleah Copper,Phoenix Mercury,,37.8,32.3,replay,
+2026-08-27,Phoenix Mercury vs Washington Mystics,Lexi Held,Phoenix Mercury,,16.9,19.1,replay,
+2026-08-27,Phoenix Mercury vs Washington Mystics,Maddy Westbeld,Phoenix Mercury,,12.7,17.3,replay,
+2026-08-27,Phoenix Mercury vs Washington Mystics,Natasha Mack,Phoenix Mercury,,25.4,27.6,replay,
+2026-08-27,Phoenix Mercury vs Washington Mystics,Noemie Brochant,Phoenix Mercury,,28.0,28.4,replay,
+2026-08-27,Phoenix Mercury vs Washington Mystics,Sami Whitcomb,Phoenix Mercury,,22.3,18.8,replay,
+2026-08-27,Phoenix Mercury vs Washington Mystics,Shay Ciezki,Phoenix Mercury,,0.0,13.2,replay,
+2026-08-27,Phoenix Mercury vs Washington Mystics,Valeriane Ayayi,Phoenix Mercury,,18.8,11.8,replay,
+2026-08-27,Phoenix Mercury vs Washington Mystics,Alicia Florez,Washington Mystics,,10.7,4.8,replay,
+2026-08-27,Phoenix Mercury vs Washington Mystics,Betnijah Laney-Hamilton,Washington Mystics,,0.0,22.0,replay,
+2026-08-27,Phoenix Mercury vs Washington Mystics,Cotie McMahon,Washington Mystics,,18.3,13.5,replay,
+2026-08-27,Phoenix Mercury vs Washington Mystics,Georgia Amoore,Washington Mystics,,25.5,30.1,replay,
+2026-08-27,Phoenix Mercury vs Washington Mystics,Kiki Iriafen,Washington Mystics,,29.6,30.3,replay,
+2026-08-27,Phoenix Mercury vs Washington Mystics,Lauren Betts,Washington Mystics,,16.8,19.3,replay,
+2026-08-27,Phoenix Mercury vs Washington Mystics,Michaela Onyenwere,Washington Mystics,,24.6,16.5,replay,
+2026-08-27,Phoenix Mercury vs Washington Mystics,Shakira Austin,Washington Mystics,,28.2,30.4,replay,
+2026-08-27,Phoenix Mercury vs Washington Mystics,Sonia Citron,Washington Mystics,,31.9,33.1,replay,
+2026-08-27,Golden State Valkyries vs New York Liberty,Ashten Prechtel,Golden State Valkyries,,0.0,1.7,replay,
+2026-08-27,Golden State Valkyries vs New York Liberty,Cecilia Zandalasini,Golden State Valkyries,,20.2,30.9,replay,
+2026-08-27,Golden State Valkyries vs New York Liberty,Gabby Williams,Golden State Valkyries,,23.7,23.3,replay,
+2026-08-27,Golden State Valkyries vs New York Liberty,Janelle Salaun,Golden State Valkyries,,21.3,24.3,replay,
+2026-08-27,Golden State Valkyries vs New York Liberty,Juste Jocyte,Golden State Valkyries,,0.0,1.7,replay,
+2026-08-27,Golden State Valkyries vs New York Liberty,Kaila Charles,Golden State Valkyries,,19.6,17.6,replay,
+2026-08-27,Golden State Valkyries vs New York Liberty,Kaitlyn Chen,Golden State Valkyries,,20.5,11.2,replay,
+2026-08-27,Golden State Valkyries vs New York Liberty,Kayla Thornton,Golden State Valkyries,,23.3,17.7,replay,
+2026-08-27,Golden State Valkyries vs New York Liberty,Kiah Stokes,Golden State Valkyries,,21.6,26.0,replay,
+2026-08-27,Golden State Valkyries vs New York Liberty,Laeticia Amihere,Golden State Valkyries,,11.9,1.7,replay,
+2026-08-27,Golden State Valkyries vs New York Liberty,Miela Sowah,Golden State Valkyries,,0.0,1.7,replay,
+2026-08-27,Golden State Valkyries vs New York Liberty,Nadia Fingall,Golden State Valkyries,,0.0,1.7,replay,
+2026-08-27,Golden State Valkyries vs New York Liberty,Tiffany Hayes,Golden State Valkyries,,14.7,13.4,replay,
+2026-08-27,Golden State Valkyries vs New York Liberty,Veronica Burton,Golden State Valkyries,,23.2,27.1,replay,
+2026-08-27,Golden State Valkyries vs New York Liberty,Breanna Stewart,New York Liberty,,31.4,32.6,replay,
+2026-08-27,Golden State Valkyries vs New York Liberty,Han Xu,New York Liberty,,12.7,9.2,replay,
+2026-08-27,Golden State Valkyries vs New York Liberty,Jonquel Jones,New York Liberty,,27.5,25.8,replay,
+2026-08-27,Golden State Valkyries vs New York Liberty,Leonie Fiebich,New York Liberty,,29.7,32.0,replay,
+2026-08-27,Golden State Valkyries vs New York Liberty,Marine Fauthoux,New York Liberty,,0.0,3.2,replay,
+2026-08-27,Golden State Valkyries vs New York Liberty,Marine Johannes,New York Liberty,,18.2,12.6,replay,
+2026-08-27,Golden State Valkyries vs New York Liberty,Pauline Astier,New York Liberty,,20.7,24.1,replay,
+2026-08-27,Golden State Valkyries vs New York Liberty,Raquel Carrera,New York Liberty,,0.0,3.2,replay,
+2026-08-27,Golden State Valkyries vs New York Liberty,Rebecca Allen,New York Liberty,,19.2,11.6,replay,
+2026-08-27,Golden State Valkyries vs New York Liberty,Rebekah Gardner,New York Liberty,,11.0,16.7,replay,
+2026-08-27,Golden State Valkyries vs New York Liberty,Sabrina Ionescu,New York Liberty,,29.6,28.9,replay,

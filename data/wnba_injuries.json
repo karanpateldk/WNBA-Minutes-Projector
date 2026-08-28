@@ -1,11 +1,11 @@
 {
-  "timestamp": "2026-08-27T19:02:51.747224",
+  "timestamp": "2026-08-28T14:38:19.995072",
   "payload": {
-    "Aliyah Boston": {
+    "A'ja Wilson": {
       "status": "Day-To-Day",
-      "injury": "Leg",
-      "comment": "Boston did not play in Sunday's (Aug. 23) game against the Sky.",
-      "team": "Indiana Fever",
+      "injury": "Head",
+      "comment": "The Aces listed Wilson as Questionable for Friday's (Aug. 28) game against the Tempo.",
+      "team": "Las Vegas Aces",
       "dnp_type": "injury"
     },
     "Aneesah Morrow": {
@@ -39,7 +39,7 @@
     "Brittney Griner": {
       "status": "Out",
       "injury": "Knee",
-      "comment": "The Sun listed Griner as Out for Wednesday's (Aug. 26) game against the Valkyries.",
+      "comment": "The Sun listed Griner as Out for Friday's (Aug. 28) game against the Fever.",
       "team": "Connecticut Sun",
       "dnp_type": "injury"
     },
@@ -48,6 +48,13 @@
       "injury": "Foot",
       "comment": "Sykes will miss the remainder of the 2026 season, according to Chelsea Leite of TSN reports Sunday (Aug. 23).",
       "team": "Toronto Tempo",
+      "dnp_type": "injury"
+    },
+    "Caitlin Clark": {
+      "status": "Day-To-Day",
+      "injury": "Back",
+      "comment": "The Fever listed Clark as Probable for Friday's (Aug. 28) game against the Sun.",
+      "team": "Indiana Fever",
       "dnp_type": "injury"
     },
     "Courtney Williams": {
@@ -67,8 +74,15 @@
     "Dana Evans": {
       "status": "Day-To-Day",
       "injury": "Leg",
-      "comment": "Evans did not play in Sunday's (Aug. 23) game against the Tempo.",
+      "comment": "The Aces listed Evans as Questionable for Friday's (Aug. 28) game against the Tempo.",
       "team": "Las Vegas Aces",
+      "dnp_type": "injury"
+    },
+    "DeWanna Bonner": {
+      "status": "Out",
+      "injury": "Rest",
+      "comment": "The Dream listed Bonner as Out for Friday's (Aug. 28) game against the Fire.",
+      "team": "Atlanta Dream",
       "dnp_type": "injury"
     },
     "DiJonai Carrington": {
@@ -78,6 +92,13 @@
       "team": "Chicago Sky",
       "dnp_type": "injury"
     },
+    "Emma Cannon": {
+      "status": "Day-To-Day",
+      "injury": "Knee",
+      "comment": "The Sparks listed Cannon as Probable for Friday's (Aug. 28) game against the Mystics.",
+      "team": "Los Angeles Sparks",
+      "dnp_type": "injury"
+    },
     "Emma Cechova": {
       "status": "Out For Season",
       "injury": "Knee",
@@ -85,18 +106,18 @@
       "team": "Minnesota Lynx",
       "dnp_type": "injury"
     },
-    "Flau'jae Johnson": {
-      "status": "Day-To-Day",
-      "injury": "Ankle",
-      "comment": "The Storm listed Johnson as Probable for Wednesday's (Aug. 26) game against the Tempo.",
-      "team": "Seattle Storm",
-      "dnp_type": "injury"
-    },
     "Iliana Rupert": {
       "status": "Out For Season",
       "injury": "Pregnancy",
       "comment": "The Valkyries said on Thursday (May 7) that Rupert is pregnant, and the team has filed for a replacement contract ahead of the 2026 season, per Alexa Philippou of ESPN.com.",
       "team": "Golden State Valkyries",
+      "dnp_type": "injury"
+    },
+    "Isabelle Harrison": {
+      "status": "Day-To-Day",
+      "injury": "Foot",
+      "comment": "The Tempo listed Harrison as Questionable for Friday's (Aug. 28) game against the Aces.",
+      "team": "Toronto Tempo",
       "dnp_type": "injury"
     },
     "Janiah Barker": {
@@ -109,7 +130,7 @@
     "Kelsey Plum": {
       "status": "Day-To-Day",
       "injury": "Leg",
-      "comment": "The Mercury listed Plum as Questionable for Thursday's (Aug. 27) game against the Mystics.",
+      "comment": "Plum did not play in Thursday's (Aug. 27) game against the Mystics.",
       "team": "Phoenix Mercury",
       "dnp_type": "injury"
     },
@@ -121,16 +142,16 @@
       "dnp_type": "injury"
     },
     "Marta Suarez": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Concussion Protocol",
-      "comment": "The Mercury listed Suarez as Out for Thursday's (Aug. 27) game against the Mystics.",
+      "comment": "Suarez did not play in Thursday's (Aug. 27) game against the Mystics.",
       "team": "Phoenix Mercury",
       "dnp_type": "injury"
     },
     "NaLyssa Smith": {
-      "status": "Day-To-Day",
-      "injury": "Lower-Body",
-      "comment": "Smith won't return to Sunday's (Aug. 23) game against Toronto, according to Chelsea Leite of TSN.",
+      "status": "Out For Season",
+      "injury": "Leg",
+      "comment": "The Aces said on Thursday (Aug. 27) that Smith will miss rest of the season due to a leg injury.",
       "team": "Las Vegas Aces",
       "dnp_type": "injury"
     },
@@ -151,22 +172,15 @@
     "Nyara Sabally": {
       "status": "Out",
       "injury": "Calf",
-      "comment": "The Tempo said on Sunday (Aug. 16) that Sabally is in a walking boot and will be re-evaluated in a few weeks, per Chelsea Leite of TSN.",
+      "comment": "The Tempo said on Thursday (Aug. 27) that Sabally's contract has been suspended due to a calf injury.",
       "team": "Toronto Tempo",
       "dnp_type": "injury"
     },
     "Olivia Nelson-Ododa": {
       "status": "Day-To-Day",
       "injury": "Knee",
-      "comment": "Nelson-Ododa did not play in Wednesday's (Aug. 26) game against the Valkyries.",
+      "comment": "The Sun listed Nelson-Ododa as Questionable for Friday's (Aug. 28) game against the Fever.",
       "team": "Connecticut Sun",
-      "dnp_type": "injury"
-    },
-    "Rae Burrell": {
-      "status": "Day-To-Day",
-      "injury": "Illness",
-      "comment": "Burrell did not play in Monday's (Aug. 24) game against the Dream.",
-      "team": "Los Angeles Sparks",
       "dnp_type": "injury"
     },
     "Rickea Jackson": {
@@ -191,16 +205,16 @@
       "dnp_type": "injury"
     },
     "Satou Sabally": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Head",
-      "comment": "The Liberty listed Sabally as Out for Thursday's (Aug. 27) game against the Valkyries.",
+      "comment": "Sabally did not play in Thursday's (Aug. 27) game against the Valkyries.",
       "team": "New York Liberty",
       "dnp_type": "injury"
     },
     "Serah Williams": {
       "status": "Day-To-Day",
       "injury": "Illness",
-      "comment": "Williams did not play in Tuesday's (Aug. 25) game versus the Wings.",
+      "comment": "The Fire listed Williams as Questionable for Friday's (Aug. 28) game against the Dream.",
       "team": "Portland Fire",
       "dnp_type": "injury"
     },
@@ -209,13 +223,6 @@
       "injury": "Knee",
       "comment": "The Sky said on Sunday (Aug. 9) that Diggins has not played since early July due to a right knee injury, and her timetable for a return remains unclear.",
       "team": "Chicago Sky",
-      "dnp_type": "injury"
-    },
-    "Tonie Morgan": {
-      "status": "Day-To-Day",
-      "injury": "Undisclosed",
-      "comment": "Morgan did not return to Monday's (Aug. 24) game versus the Dream.",
-      "team": "Los Angeles Sparks",
       "dnp_type": "injury"
     }
   },
