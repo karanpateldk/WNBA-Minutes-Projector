@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-28T20:26:40.966516",
+  "timestamp": "2026-08-29T01:42:44.964143",
   "payload": {
     "A'ja Wilson": {
       "status": "Day-To-Day",
@@ -92,13 +92,6 @@
       "team": "Chicago Sky",
       "dnp_type": "injury"
     },
-    "Emma Cannon": {
-      "status": "Day-To-Day",
-      "injury": "Knee",
-      "comment": "The Sparks listed Cannon as Probable for Friday's (Aug. 28) game against the Mystics.",
-      "team": "Los Angeles Sparks",
-      "dnp_type": "injury"
-    },
     "Emma Cechova": {
       "status": "Out For Season",
       "injury": "Knee",
@@ -113,13 +106,6 @@
       "team": "Golden State Valkyries",
       "dnp_type": "injury"
     },
-    "Isabelle Harrison": {
-      "status": "Day-To-Day",
-      "injury": "Foot",
-      "comment": "The Tempo listed Harrison as Questionable for Friday's (Aug. 28) game against the Aces.",
-      "team": "Toronto Tempo",
-      "dnp_type": "injury"
-    },
     "Janiah Barker": {
       "status": "Out For Season",
       "injury": "Leg",
@@ -132,6 +118,13 @@
       "injury": "Leg",
       "comment": "Plum did not play in Thursday's (Aug. 27) game against the Mystics.",
       "team": "Phoenix Mercury",
+      "dnp_type": "injury"
+    },
+    "Kennedy Burke": {
+      "status": "Out",
+      "injury": "Not Injury Related",
+      "comment": "The Sun said on Thursday (Aug. 27) that Burke will miss the team's next two games due to overseas obligations.",
+      "team": "Connecticut Sun",
       "dnp_type": "injury"
     },
     "Marina Mabrey": {
@@ -177,9 +170,9 @@
       "dnp_type": "injury"
     },
     "Olivia Nelson-Ododa": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Knee",
-      "comment": "The Sun listed Nelson-Ododa as Questionable for Friday's (Aug. 28) game against the Fever.",
+      "comment": "The Sun listed Nelson-Ododa as Out for Friday's (Aug. 28) game against the Fever.",
       "team": "Connecticut Sun",
       "dnp_type": "injury"
     },
@@ -209,13 +202,6 @@
       "injury": "Head",
       "comment": "Sabally did not play in Thursday's (Aug. 27) game against the Valkyries.",
       "team": "New York Liberty",
-      "dnp_type": "injury"
-    },
-    "Serah Williams": {
-      "status": "Day-To-Day",
-      "injury": "Illness",
-      "comment": "The Fire listed Williams as Questionable for Friday's (Aug. 28) game against the Dream.",
-      "team": "Portland Fire",
       "dnp_type": "injury"
     },
     "Skylar Diggins": {
