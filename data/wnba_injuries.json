@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-01T16:41:49.161094",
+  "timestamp": "2026-09-02T12:03:21.039979",
   "payload": {
     "Aneesah Morrow": {
       "status": "Out For Season",
@@ -86,9 +86,9 @@
       "dnp_type": "injury"
     },
     "Kelsey Plum": {
-      "status": "Day-To-Day",
+      "status": "Out For Season",
       "injury": "Leg",
-      "comment": "Plum did not play in Saturday's (Aug. 29) game against the Tempo.",
+      "comment": "The Mercury said on Monday (Aug. 31) that Plum will miss the rest of the season.",
       "team": "Phoenix Mercury",
       "dnp_type": "injury"
     },
@@ -100,9 +100,9 @@
       "dnp_type": "injury"
     },
     "Kitija Laksa": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Personal",
-      "comment": "The Wings listed Laksa as Out for Sunday's (Aug. 30) game against the Sun.",
+      "comment": "Laksa did not play in Sunday's (Aug. 30) game against the Sun.",
       "team": "Dallas Wings",
       "dnp_type": "injury"
     },
@@ -170,9 +170,9 @@
       "dnp_type": "injury"
     },
     "Skylar Diggins": {
-      "status": "Out",
+      "status": "Out For Season",
       "injury": "Knee",
-      "comment": "The Sky said on Saturday (Aug. 29) that Diggins has no timetable for a return to the court.",
+      "comment": "The Sky said on Tuesday (Sept. 1) that Diggins will miss the rest of the season.",
       "team": "Chicago Sky",
       "dnp_type": "injury"
     }
