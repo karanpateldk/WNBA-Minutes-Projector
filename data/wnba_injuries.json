@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-02T16:42:59.143505",
+  "timestamp": "2026-09-03T12:07:33.842779",
   "payload": {
     "Aneesah Morrow": {
       "status": "Out For Season",
@@ -30,9 +30,9 @@
       "dnp_type": "injury"
     },
     "Brittney Griner": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Knee",
-      "comment": "The Sun listed Griner as Out for Sunday's (Aug. 30) game against the Wings.",
+      "comment": "Griner did not play in Sunday's (Aug. 30) game against the Wings.",
       "team": "Connecticut Sun",
       "dnp_type": "injury"
     },
@@ -121,9 +121,9 @@
       "dnp_type": "injury"
     },
     "Natisha Hiedeman": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Shoulder",
-      "comment": "The Storm listed Hiedeman as Out for Sunday's (Aug. 30) game against the Sparks.",
+      "comment": "Hiedeman did not play in for Sunday's (Aug. 30) game against the Sparks.",
       "team": "Seattle Storm",
       "dnp_type": "injury"
     },
@@ -135,9 +135,9 @@
       "dnp_type": "injury"
     },
     "Olivia Nelson-Ododa": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Knee",
-      "comment": "The Sun listed Nelson-Ododa as OUT for Sunday's (Aug. 30) game against the Wings.",
+      "comment": "Nelson-Ododa did not play in Sunday's (Aug. 30) game against the Wings.",
       "team": "Connecticut Sun",
       "dnp_type": "injury"
     },
