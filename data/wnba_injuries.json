@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-03T16:43:30.120029",
+  "timestamp": "2026-09-04T10:40:20.356929",
   "payload": {
     "Aneesah Morrow": {
       "status": "Out For Season",
@@ -127,13 +127,6 @@
       "team": "Seattle Storm",
       "dnp_type": "injury"
     },
-    "Nyara Sabally": {
-      "status": "Out",
-      "injury": "Calf",
-      "comment": "The Tempo said on Thursday (Aug. 27) that Sabally's contract has been suspended due to a calf injury.",
-      "team": "Toronto Tempo",
-      "dnp_type": "injury"
-    },
     "Olivia Nelson-Ododa": {
       "status": "Day-To-Day",
       "injury": "Knee",
@@ -163,9 +156,9 @@
       "dnp_type": "injury"
     },
     "Satou Sabally": {
-      "status": "Day-To-Day",
+      "status": "Out For Season",
       "injury": "Head",
-      "comment": "Sabally did not play in Saturday's (Aug. 29) game against the Sky.",
+      "comment": "The Liberty said on Thursday (Sept. 3) that Sabally will miss the rest of the season due to a head injury.",
       "team": "New York Liberty",
       "dnp_type": "injury"
     },
