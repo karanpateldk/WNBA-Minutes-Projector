@@ -1,6 +1,13 @@
 {
-  "timestamp": "2026-09-10T00:19:07.535226",
+  "timestamp": "2026-09-10T12:15:40.367191",
   "payload": {
+    "Alanna Smith": {
+      "status": "Out",
+      "injury": "Leg",
+      "comment": "Dallas Wings' F Smith will miss the remainder of the World Cup with a leg injury, according to ESPN.",
+      "team": "Dallas Wings",
+      "dnp_type": "injury"
+    },
     "Aneesah Morrow": {
       "status": "Out For Season",
       "injury": "Knee",
@@ -90,13 +97,6 @@
       "injury": "Leg",
       "comment": "The Mercury said on Monday (Aug. 31) that Plum will miss the rest of the season.",
       "team": "Phoenix Mercury",
-      "dnp_type": "injury"
-    },
-    "Kennedy Burke": {
-      "status": "Out",
-      "injury": "Not Injury Related",
-      "comment": "The Sun said on Thursday (Aug. 27) that Burke will miss the team's next two games due to overseas obligations.",
-      "team": "Connecticut Sun",
       "dnp_type": "injury"
     },
     "Kitija Laksa": {
