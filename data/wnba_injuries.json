@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-11T16:42:46.465539",
+  "timestamp": "2026-09-12T12:20:54.920557",
   "payload": {
     "Alanna Smith": {
       "status": "Out",
@@ -71,6 +71,13 @@
       "team": "Minnesota Lynx",
       "dnp_type": "injury"
     },
+    "Ezi Magbegor": {
+      "status": "Out For Season",
+      "injury": "ACL",
+      "comment": "The Storm announced on Thursday (Sept. 10) that Magbegor suffered a torn ACL during the FIBA World Cup and will miss the remainder of the season.",
+      "team": "Seattle Storm",
+      "dnp_type": "injury"
+    },
     "Iliana Rupert": {
       "status": "Out For Season",
       "injury": "Pregnancy",
@@ -90,6 +97,13 @@
       "injury": "Ankle",
       "comment": "Copper did not play in Saturday's (Aug. 29) game against the Tempo.",
       "team": "Phoenix Mercury",
+      "dnp_type": "injury"
+    },
+    "Katie Lou Samuelson": {
+      "status": "Out For Season",
+      "injury": "Knee",
+      "comment": "The Storm announced that Samuelson underwent an arthroscopic procedure on her left knee and will miss the rest of the season.",
+      "team": "Seattle Storm",
       "dnp_type": "injury"
     },
     "Kelsey Plum": {
