@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-15T18:49:12.573719",
+  "timestamp": "2026-09-16T00:52:28.823398",
   "payload": {
     "Alanna Smith": {
       "status": "Out",
@@ -111,6 +111,13 @@
       "injury": "Leg",
       "comment": "The Mercury said on Monday (Aug. 31) that Plum will miss the rest of the season.",
       "team": "Phoenix Mercury",
+      "dnp_type": "injury"
+    },
+    "Kennedy Burke": {
+      "status": "Out For Season",
+      "injury": "Shoulder",
+      "comment": "The Sun said on Monday (Sept. 14) that Burke  suffered a sprained AC joint in the FIBA World Cup and will miss the rest of the 2026 season.",
+      "team": "Connecticut Sun",
       "dnp_type": "injury"
     },
     "Kitija Laksa": {
