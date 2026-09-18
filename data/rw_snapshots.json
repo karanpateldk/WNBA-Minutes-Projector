@@ -125,6 +125,13 @@
     "ingested_at": "2026-08-19 18:57:25",
     "source_file": "wnba-daily-projections (4).csv"
   },
+  "98f3e59619aeb2d3": {
+    "archived_as": "rw-2026-09-17-98f3e59619aeb2d3.csv",
+    "date_source": "inferred",
+    "game_date": "2026-09-17",
+    "ingested_at": "2026-09-18 14:40:09",
+    "source_file": "wnba-daily-projections (31).csv"
+  },
   "9ba8672794610b68": {
     "archived_as": "rw-2026-07-18-9ba8672794610b68.csv",
     "date_source": "inferred",
@@ -166,6 +173,13 @@
     "game_date": "2026-08-18",
     "ingested_at": "2026-08-19 18:57:25",
     "source_file": "wnba-daily-projections (23).csv"
+  },
+  "c1c9eacabc9913e4": {
+    "archived_as": "rw-2026-08-02-c1c9eacabc9913e4.csv",
+    "date_source": "inferred",
+    "game_date": "2026-08-02",
+    "ingested_at": "2026-09-18 14:40:09",
+    "source_file": "wnba-daily-projections (32).csv"
   },
   "cfbf82dd145c49f3": {
     "archived_as": "rw-2026-08-13-cfbf82dd145c49f3.csv",
