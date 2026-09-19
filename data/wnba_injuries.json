@@ -1,11 +1,18 @@
 {
-  "timestamp": "2026-09-18T16:46:07.110396",
+  "timestamp": "2026-09-19T11:03:39.236484",
   "payload": {
     "Alanna Smith": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Leg",
-      "comment": "The Wings said that Smith has been ruled out for Thursday's (Sept. 17) game against the Sparks.",
+      "comment": "Smith did not play in Thursday's (Sept. 17) game against the Sparks.",
       "team": "Dallas Wings",
+      "dnp_type": "injury"
+    },
+    "Anastasiia Olairi Kosu": {
+      "status": "Out",
+      "injury": "Foot",
+      "comment": "Kosu is out for Friday's (Sep. 18) game against New York.",
+      "team": "Minnesota Lynx",
       "dnp_type": "injury"
     },
     "Aneesah Morrow": {
@@ -23,9 +30,9 @@
       "dnp_type": "injury"
     },
     "Bridget Carleton": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Ankle",
-      "comment": "The Fire listed Carleton as Out for Thursday's (Sep. 17) game against the Mercury.",
+      "comment": "Carleton did not play in Thursday's (Sep. 17) game against the Mercury.",
       "team": "Portland Fire",
       "dnp_type": "injury"
     },
@@ -57,11 +64,11 @@
       "team": "Indiana Fever",
       "dnp_type": "injury"
     },
-    "Carla Leite": {
-      "status": "Out",
-      "injury": "Rest",
-      "comment": "The Fire listed Leite as Out for Thursday's (Sep. 17) game against the Mercury.",
-      "team": "Portland Fire",
+    "Cecilia Zandalasini": {
+      "status": "Day-To-Day",
+      "injury": "Reconditioning",
+      "comment": "Zandalasini is Questionable for Friday's (Sep. 18) game against Portland.",
+      "team": "Golden State Valkyries",
       "dnp_type": "injury"
     },
     "Damiris Dantas": {
@@ -72,9 +79,9 @@
       "dnp_type": "injury"
     },
     "DiJonai Carrington": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Foot",
-      "comment": "The Sky listed Carrington as Out for Thursday's (Sept. 17) game against the Mystics.",
+      "comment": "Carrington did not play in Thursday's (Sept. 17) game against the Mystics.",
       "team": "Chicago Sky",
       "dnp_type": "injury"
     },
@@ -99,6 +106,13 @@
       "team": "Seattle Storm",
       "dnp_type": "injury"
     },
+    "Gabby Williams": {
+      "status": "Out",
+      "injury": "Reconditioning",
+      "comment": "Williams is out for Friday's (Sep. 18) game against Portland.",
+      "team": "Golden State Valkyries",
+      "dnp_type": "injury"
+    },
     "Iliana Rupert": {
       "status": "Out For Season",
       "injury": "Pregnancy",
@@ -107,10 +121,17 @@
       "dnp_type": "injury"
     },
     "Jade Melbourne": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Illness",
-      "comment": "The Storm listed Melbourne as Out for Thursday's (Sept. 17) game against the Aces.",
+      "comment": "Melbourne did not play in Thursday's (Sept. 17) game against the Aces.",
       "team": "Seattle Storm",
+      "dnp_type": "injury"
+    },
+    "Janelle Sala\u00fcn": {
+      "status": "Out",
+      "injury": "Reconditioning",
+      "comment": "Sala\u00fcn is out for Friday's (Sep. 18) game against Portland.",
+      "team": "Golden State Valkyries",
       "dnp_type": "injury"
     },
     "Janiah Barker": {
@@ -121,16 +142,16 @@
       "dnp_type": "injury"
     },
     "Jordan Horston": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Shoulder",
-      "comment": "The Storm listed Horston as Out for Thursday's (Sept. 17) game against the Aces.",
+      "comment": "Horston did not play in Thursday's (Sept. 17) game against the Aces.",
       "team": "Seattle Storm",
       "dnp_type": "injury"
     },
     "Kahleah Copper": {
       "status": "Day-To-Day",
       "injury": "Ankle",
-      "comment": "The Mercury listed Copper as Questionable for Thursday's (Sep. 17) game against the Fire.",
+      "comment": "Copper did not play in Thursday's (Sep. 17) game against the Fire.",
       "team": "Phoenix Mercury",
       "dnp_type": "injury"
     },
@@ -156,9 +177,9 @@
       "dnp_type": "injury"
     },
     "Maria Conde": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Illness",
-      "comment": "The Tempo listed Conde as Questionable for Friday's (Sept. 18) game versus the Fever.",
+      "comment": "The Tempo listed Conde as Out for Friday's (Sept. 18) game versus the Fever.",
       "team": "Toronto Tempo",
       "dnp_type": "injury"
     },
@@ -170,9 +191,9 @@
       "dnp_type": "injury"
     },
     "Megan DiLeo": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Finger",
-      "comment": "The Fire listed DiLeo as Out for Thursday's (Sep. 17) game against the Mercury.",
+      "comment": "DiLeo did not play in Thursday's (Sep. 17) game against the Mercury.",
       "team": "Portland Fire",
       "dnp_type": "injury"
     },
@@ -186,8 +207,15 @@
     "Natasha Cloud": {
       "status": "Day-To-Day",
       "injury": "Knee",
-      "comment": "The Sky listed Cloud as Questionable for Thursday's (Sept. 17) game against the Mystics.",
+      "comment": "Cloud did not return to Thursday's (Sept. 17) game against the Mystics.",
       "team": "Chicago Sky",
+      "dnp_type": "injury"
+    },
+    "Odyssey Sims": {
+      "status": "Day-To-Day",
+      "injury": "Knee",
+      "comment": "Sims did not return to Thursday's (Sept. 17) game against the Sparks.",
+      "team": "Dallas Wings",
       "dnp_type": "injury"
     },
     "Rickea Jackson": {
@@ -233,10 +261,17 @@
       "dnp_type": "injury"
     },
     "Teja Oblak": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Knee",
-      "comment": "The Fire listed Oblak as Out for Thursday's (Sep. 17) game against the Mercury.",
+      "comment": "Oblak did not play in Thursday's (Sep. 17) game against the Mercury.",
       "team": "Portland Fire",
+      "dnp_type": "injury"
+    },
+    "Zia Cooke": {
+      "status": "Day-To-Day",
+      "injury": "Knee",
+      "comment": "Cooke did not return to Thursday's (Sept. 17) game against the Aces.",
+      "team": "Seattle Storm",
       "dnp_type": "injury"
     }
   },
