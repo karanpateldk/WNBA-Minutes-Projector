@@ -1,17 +1,17 @@
 {
-  "timestamp": "2026-09-19T16:48:15.055234",
+  "timestamp": "2026-09-20T10:15:55.433495",
   "payload": {
     "Alanna Smith": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Leg",
-      "comment": "Smith did not play in Thursday's (Sept. 17) game against the Sparks.",
+      "comment": "The Wings listed Smith as Out for Saturday's (Sep. 19) game against the Mercury.",
       "team": "Dallas Wings",
       "dnp_type": "injury"
     },
     "Anastasiia Olairi Kosu": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Foot",
-      "comment": "Kosu is out for Friday's (Sep. 18) game against New York.",
+      "comment": "Kosu did not play in Friday's (Sep. 18) game against New York.",
       "team": "Minnesota Lynx",
       "dnp_type": "injury"
     },
@@ -20,6 +20,13 @@
       "injury": "Knee",
       "comment": "Morrow will miss the rest of the 2026 season, according to Chelsea Leite of TSN reports Sunday (Aug. 23).",
       "team": "Toronto Tempo",
+      "dnp_type": "injury"
+    },
+    "Azur\u00e1 Stevens": {
+      "status": "Out",
+      "injury": "Knee",
+      "comment": "The Sky listed Stevens as Out for Saturday's (Sep. 19) game against the Dream.",
+      "team": "Chicago Sky",
       "dnp_type": "injury"
     },
     "Azzi Fudd": {
@@ -32,7 +39,7 @@
     "Bridget Carleton": {
       "status": "Day-To-Day",
       "injury": "Ankle",
-      "comment": "Carleton did not play in Thursday's (Sep. 17) game against the Mercury.",
+      "comment": "Carleton did not play in Friday's (Sep. 18) game against the Valkyries.",
       "team": "Portland Fire",
       "dnp_type": "injury"
     },
@@ -57,17 +64,10 @@
       "team": "Toronto Tempo",
       "dnp_type": "injury"
     },
-    "Caitlin Clark": {
-      "status": "Day-To-Day",
-      "injury": "Back",
-      "comment": "The Fever listed Clark as Probable for Friday's (Sept. 18) game versus the Tempo.",
-      "team": "Indiana Fever",
-      "dnp_type": "injury"
-    },
     "Cecilia Zandalasini": {
       "status": "Day-To-Day",
       "injury": "Reconditioning",
-      "comment": "Zandalasini is Questionable for Friday's (Sep. 18) game against Portland.",
+      "comment": "Zandalasini did not play in Friday's (Sep. 18) game against Portland.",
       "team": "Golden State Valkyries",
       "dnp_type": "injury"
     },
@@ -79,9 +79,9 @@
       "dnp_type": "injury"
     },
     "DiJonai Carrington": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Foot",
-      "comment": "Carrington did not play in Thursday's (Sept. 17) game against the Mystics.",
+      "comment": "The Sky listed Carrington as Out for Saturday's (Sep. 19) game against the Dream.",
       "team": "Chicago Sky",
       "dnp_type": "injury"
     },
@@ -107,9 +107,9 @@
       "dnp_type": "injury"
     },
     "Gabby Williams": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Reconditioning",
-      "comment": "Williams is out for Friday's (Sep. 18) game against Portland.",
+      "comment": "Williams did not play in Friday's (Sep. 18) game against Portland.",
       "team": "Golden State Valkyries",
       "dnp_type": "injury"
     },
@@ -120,17 +120,10 @@
       "team": "Golden State Valkyries",
       "dnp_type": "injury"
     },
-    "Jade Melbourne": {
-      "status": "Day-To-Day",
-      "injury": "Illness",
-      "comment": "Melbourne did not play in Thursday's (Sept. 17) game against the Aces.",
-      "team": "Seattle Storm",
-      "dnp_type": "injury"
-    },
     "Janelle Sala\u00fcn": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Reconditioning",
-      "comment": "Sala\u00fcn is out for Friday's (Sep. 18) game against Portland.",
+      "comment": "Sala\u00fcn did not play in Friday's (Sep. 18) game against Portland.",
       "team": "Golden State Valkyries",
       "dnp_type": "injury"
     },
@@ -141,17 +134,24 @@
       "team": "Las Vegas Aces",
       "dnp_type": "injury"
     },
-    "Jordan Horston": {
+    "Jordan Harrison": {
       "status": "Day-To-Day",
+      "injury": "Ankle",
+      "comment": "Harrison did not return to Friday's (Sept. 18) game versus the Valkyries.",
+      "team": "Portland Fire",
+      "dnp_type": "injury"
+    },
+    "Jordan Horston": {
+      "status": "Out",
       "injury": "Shoulder",
-      "comment": "Horston did not play in Thursday's (Sept. 17) game against the Aces.",
+      "comment": "The Storm listed Horston as Out for Saturday's (Sep. 19) game against the Valkyries.",
       "team": "Seattle Storm",
       "dnp_type": "injury"
     },
     "Kahleah Copper": {
-      "status": "Day-To-Day",
-      "injury": "Ankle",
-      "comment": "Copper did not play in Thursday's (Sep. 17) game against the Fire.",
+      "status": "Out",
+      "injury": "Groin",
+      "comment": "The Mercury listed Copper as OUT for Saturday's (Sep. 19) game against the Wings.",
       "team": "Phoenix Mercury",
       "dnp_type": "injury"
     },
@@ -177,9 +177,9 @@
       "dnp_type": "injury"
     },
     "Maria Conde": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Illness",
-      "comment": "The Tempo listed Conde as Out for Friday's (Sept. 18) game versus the Fever.",
+      "comment": "Conde did not play in Friday's (Sept. 18) game versus the Fever.",
       "team": "Toronto Tempo",
       "dnp_type": "injury"
     },
@@ -188,13 +188,6 @@
       "injury": "Adductor",
       "comment": "The Tempo announced on Wednesday (Sept. 17) that Mabrey will miss the final four games of the 2026 season, per Zulfi Sheikh of Sportsnet.",
       "team": "Toronto Tempo",
-      "dnp_type": "injury"
-    },
-    "Megan DiLeo": {
-      "status": "Day-To-Day",
-      "injury": "Finger",
-      "comment": "DiLeo did not play in Thursday's (Sep. 17) game against the Mercury.",
-      "team": "Portland Fire",
       "dnp_type": "injury"
     },
     "NaLyssa Smith": {
@@ -207,15 +200,8 @@
     "Natasha Cloud": {
       "status": "Day-To-Day",
       "injury": "Knee",
-      "comment": "Cloud did not return to Thursday's (Sept. 17) game against the Mystics.",
+      "comment": "The Sky listed Cloud as Questionable for Saturday's (Sep. 19) game against the Dream.",
       "team": "Chicago Sky",
-      "dnp_type": "injury"
-    },
-    "Odyssey Sims": {
-      "status": "Day-To-Day",
-      "injury": "Knee",
-      "comment": "Sims did not return to Thursday's (Sept. 17) game against the Sparks.",
-      "team": "Dallas Wings",
       "dnp_type": "injury"
     },
     "Rickea Jackson": {
@@ -263,14 +249,14 @@
     "Teja Oblak": {
       "status": "Day-To-Day",
       "injury": "Knee",
-      "comment": "Oblak did not play in Thursday's (Sep. 17) game against the Mercury.",
+      "comment": "Oblak did not play in Friday's (Sep. 18) game against the Valkyries.",
       "team": "Portland Fire",
       "dnp_type": "injury"
     },
     "Zia Cooke": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Knee",
-      "comment": "Cooke did not return to Thursday's (Sept. 17) game against the Aces.",
+      "comment": "The Storm listed Cooke as Out for Saturday's (Sep. 19) game against the Valkyries.",
       "team": "Seattle Storm",
       "dnp_type": "injury"
     }
