@@ -1,17 +1,24 @@
 {
-  "timestamp": "2026-09-20T13:21:53.560223",
+  "timestamp": "2026-09-21T09:17:35.216711",
   "payload": {
+    "Aaliyah Nye": {
+      "status": "Day-To-Day",
+      "injury": "Ankle",
+      "comment": "The Sparks listed Nye as Doubtful for Sunday's (Sep. 20) game against the Fire.",
+      "team": "Los Angeles Sparks",
+      "dnp_type": "injury"
+    },
     "Alanna Smith": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Leg",
-      "comment": "The Wings listed Smith as Out for Saturday's (Sep. 19) game against the Mercury.",
+      "comment": "Smith did not play in Saturday's (Sep. 19) game against the Mercury.",
       "team": "Dallas Wings",
       "dnp_type": "injury"
     },
     "Anastasiia Olairi Kosu": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Foot",
-      "comment": "Kosu did not play in Friday's (Sep. 18) game against New York.",
+      "comment": "The Lynx listed Olairi Kosu as Out for Sunday's (Sep. 20) game against the Sun.",
       "team": "Minnesota Lynx",
       "dnp_type": "injury"
     },
@@ -23,9 +30,9 @@
       "dnp_type": "injury"
     },
     "Azur\u00e1 Stevens": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Knee",
-      "comment": "The Sky listed Stevens as Out for Saturday's (Sep. 19) game against the Dream.",
+      "comment": "Stevens did not play in Saturday's (Sep. 19) game against the Dream.",
       "team": "Chicago Sky",
       "dnp_type": "injury"
     },
@@ -39,7 +46,7 @@
     "Bridget Carleton": {
       "status": "Day-To-Day",
       "injury": "Ankle",
-      "comment": "Carleton did not play in Friday's (Sep. 18) game against the Valkyries.",
+      "comment": "The Fire listed Carleton as Questionable for Sunday's (Sep. 20) game against the Sparks.",
       "team": "Portland Fire",
       "dnp_type": "injury"
     },
@@ -51,9 +58,9 @@
       "dnp_type": "injury"
     },
     "Brittney Griner": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Knee",
-      "comment": "Griner did not play in Thursday's (Sept. 17) game against the Dream.",
+      "comment": "The Sun listed Griner as OUT for Sunday's (Sep. 20) game against the Lynx.",
       "team": "Connecticut Sun",
       "dnp_type": "injury"
     },
@@ -62,6 +69,20 @@
       "injury": "Foot",
       "comment": "Sykes will miss the remainder of the 2026 season, according to Chelsea Leite of TSN reports Sunday (Aug. 23).",
       "team": "Toronto Tempo",
+      "dnp_type": "injury"
+    },
+    "Caitlin Clark": {
+      "status": "Day-To-Day",
+      "injury": "Back",
+      "comment": "The Fever listed Clark as Probable for Sunday's (Sep. 20) game against the Mystics.",
+      "team": "Indiana Fever",
+      "dnp_type": "injury"
+    },
+    "Cameron Brink": {
+      "status": "Day-To-Day",
+      "injury": "Ankle",
+      "comment": "The Sparks listed Brink as Doubtful for Sunday's (Sep. 20) game against the Fire.",
+      "team": "Los Angeles Sparks",
       "dnp_type": "injury"
     },
     "Cecilia Zandalasini": {
@@ -78,18 +99,18 @@
       "team": "Indiana Fever",
       "dnp_type": "injury"
     },
-    "DiJonai Carrington": {
-      "status": "Out",
-      "injury": "Foot",
-      "comment": "The Sky listed Carrington as Out for Saturday's (Sep. 19) game against the Dream.",
-      "team": "Chicago Sky",
+    "Dearica Hamby": {
+      "status": "Day-To-Day",
+      "injury": "Knee",
+      "comment": "The Sparks listed Hamby as Doubtful for Sunday's (Sep. 20) game against the Fire.",
+      "team": "Los Angeles Sparks",
       "dnp_type": "injury"
     },
-    "Diamond Miller": {
+    "DiJonai Carrington": {
       "status": "Day-To-Day",
-      "injury": "Thumb",
-      "comment": "Miller did not play in Thursday's (Sept. 17) game against the Dream.",
-      "team": "Connecticut Sun",
+      "injury": "Foot",
+      "comment": "Carrington did not play in Saturday's (Sep. 19) game against the Dream.",
+      "team": "Chicago Sky",
       "dnp_type": "injury"
     },
     "Emma Cechova": {
@@ -137,21 +158,14 @@
     "Jordan Harrison": {
       "status": "Day-To-Day",
       "injury": "Ankle",
-      "comment": "Harrison did not return to Friday's (Sept. 18) game versus the Valkyries.",
+      "comment": "The Fire listed Harrison as Questionable for Sunday's (Sep. 20) game against the Sparks.",
       "team": "Portland Fire",
       "dnp_type": "injury"
     },
-    "Jordan Horston": {
-      "status": "Out",
-      "injury": "Shoulder",
-      "comment": "The Storm listed Horston as Out for Saturday's (Sep. 19) game against the Valkyries.",
-      "team": "Seattle Storm",
-      "dnp_type": "injury"
-    },
     "Kahleah Copper": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Groin",
-      "comment": "The Mercury listed Copper as OUT for Saturday's (Sep. 19) game against the Wings.",
+      "comment": "Copper did not play in Saturday's (Sep. 19) game against the Wings.",
       "team": "Phoenix Mercury",
       "dnp_type": "injury"
     },
@@ -176,13 +190,6 @@
       "team": "Connecticut Sun",
       "dnp_type": "injury"
     },
-    "Maria Conde": {
-      "status": "Day-To-Day",
-      "injury": "Illness",
-      "comment": "Conde did not play in Friday's (Sept. 18) game versus the Fever.",
-      "team": "Toronto Tempo",
-      "dnp_type": "injury"
-    },
     "Marina Mabrey": {
       "status": "Out",
       "injury": "Adductor",
@@ -200,8 +207,15 @@
     "Natasha Cloud": {
       "status": "Day-To-Day",
       "injury": "Knee",
-      "comment": "The Sky listed Cloud as Questionable for Saturday's (Sep. 19) game against the Dream.",
+      "comment": "Cloud did not play in Saturday's (Sep. 19) game against the Dream.",
       "team": "Chicago Sky",
+      "dnp_type": "injury"
+    },
+    "Olivia Nelson-Ododa": {
+      "status": "Out",
+      "injury": "Knee",
+      "comment": "The Sun listed Nelson-Ododa as Out for Sunday's (Sep. 20) game against the Lynx.",
+      "team": "Connecticut Sun",
       "dnp_type": "injury"
     },
     "Rickea Jackson": {
@@ -247,16 +261,16 @@
       "dnp_type": "injury"
     },
     "Teja Oblak": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Knee",
-      "comment": "Oblak did not play in Friday's (Sep. 18) game against the Valkyries.",
+      "comment": "The Fire listed Oblak as Out for Sunday's (Sep. 20) game against the Sparks.",
       "team": "Portland Fire",
       "dnp_type": "injury"
     },
     "Zia Cooke": {
       "status": "Out",
       "injury": "Knee",
-      "comment": "The Storm listed Cooke as Out for Saturday's (Sep. 19) game against the Valkyries.",
+      "comment": "The Storm listed Cooke as OUT for Sunday's (Sep. 20) game against the Aces.",
       "team": "Seattle Storm",
       "dnp_type": "injury"
     }
