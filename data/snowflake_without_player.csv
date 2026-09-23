@@ -33,10 +33,10 @@ Brionna Jones,Atlanta Dream,Kiki Iriafen,28.92,2
 Brionna Jones,Atlanta Dream,Awa Fam,28.85,2
 Brionna Jones,Atlanta Dream,Rae Burrell,28.83,2
 Brionna Jones,Atlanta Dream,Dominique Malonga,28.67,2
-Brionna Jones,Atlanta Dream,Nneka Ogwumike,28.47,3
 Brionna Jones,Atlanta Dream,Dearica Hamby,28.47,3
-Brionna Jones,Atlanta Dream,Jewell Loyd,27.83,2
+Brionna Jones,Atlanta Dream,Nneka Ogwumike,28.47,3
 Brionna Jones,Atlanta Dream,Pauline Astier,27.83,2
+Brionna Jones,Atlanta Dream,Jewell Loyd,27.83,2
 Brionna Jones,Atlanta Dream,Natasha Howard,27.79,3
 Brionna Jones,Atlanta Dream,Jade Melbourne,27.53,2
 Brionna Jones,Atlanta Dream,Ariel Atkins,27.48,3
@@ -626,8 +626,8 @@ Aneesah Morrow,Connecticut Sun,Janelle Salaun,22.53,2
 Aneesah Morrow,Connecticut Sun,Saniya Rivers,22.27,18
 Aneesah Morrow,Connecticut Sun,Lauren Betts,21.21,2
 Aneesah Morrow,Connecticut Sun,Monique Akoa Makani,21.03,3
-Aneesah Morrow,Connecticut Sun,Kaitlyn Chen,20.26,2
 Aneesah Morrow,Connecticut Sun,Dorka Juhasz,20.26,3
+Aneesah Morrow,Connecticut Sun,Kaitlyn Chen,20.26,2
 Aneesah Morrow,Connecticut Sun,Natasha Mack,18.69,2
 Aneesah Morrow,Connecticut Sun,Alysha Clark,17.90,2
 Aneesah Morrow,Connecticut Sun,Laeticia Amihere,17.61,2
@@ -900,10 +900,10 @@ Hailey Van Lith,Connecticut Sun,Charlisse Leger-Walker,25.03,22
 Hailey Van Lith,Connecticut Sun,Brittney Griner,24.65,11
 Hailey Van Lith,Connecticut Sun,Arike Ogunbowale,24.55,2
 Hailey Van Lith,Connecticut Sun,Monique Billings,23.83,2
+Hailey Van Lith,Connecticut Sun,Kennedy Burke,23.79,21
 Hailey Van Lith,Connecticut Sun,Diamond Miller,23.79,22
 Hailey Van Lith,Connecticut Sun,Antonia Delaere,23.79,2
 Hailey Van Lith,Connecticut Sun,Lexie Hull,23.79,2
-Hailey Van Lith,Connecticut Sun,Kennedy Burke,23.79,21
 Hailey Van Lith,Connecticut Sun,Olivia Nelson-Ododa,23.73,21
 Hailey Van Lith,Connecticut Sun,Cotie McMahon,23.41,4
 Hailey Van Lith,Connecticut Sun,Lauren Betts,22.27,4
@@ -1711,8 +1711,8 @@ Dana Evans,Las Vegas Aces,Mai Yamamoto,16.53,6
 Dana Evans,Las Vegas Aces,Tiffany Hayes,16.18,3
 Dana Evans,Las Vegas Aces,Betnijah Laney-Hamilton,15.91,3
 Dana Evans,Las Vegas Aces,Jacy Sheldon,15.03,2
-Dana Evans,Las Vegas Aces,Raegan Beers,14.97,3
 Dana Evans,Las Vegas Aces,Gianna Kneepkens,14.97,3
+Dana Evans,Las Vegas Aces,Raegan Beers,14.97,3
 Dana Evans,Las Vegas Aces,Chance Gray,14.43,2
 Dana Evans,Las Vegas Aces,Nell Angloma,14.22,2
 Dana Evans,Las Vegas Aces,Teja Oblak,14.19,2
@@ -1778,8 +1778,8 @@ Mai Yamamoto,Las Vegas Aces,Alyssa Thomas,30.07,3
 Mai Yamamoto,Las Vegas Aces,Sabrina Ionescu,29.48,2
 Mai Yamamoto,Las Vegas Aces,Sydney Taylor,29.19,3
 Mai Yamamoto,Las Vegas Aces,Kahleah Copper,29.10,3
-Mai Yamamoto,Las Vegas Aces,Dearica Hamby,29.04,3
 Mai Yamamoto,Las Vegas Aces,Saniya Rivers,29.04,2
+Mai Yamamoto,Las Vegas Aces,Dearica Hamby,29.04,3
 Mai Yamamoto,Las Vegas Aces,Natasha Cloud,28.83,3
 Mai Yamamoto,Las Vegas Aces,Rae Burrell,28.80,3
 Mai Yamamoto,Las Vegas Aces,Jonquel Jones,27.86,2
@@ -1940,8 +1940,8 @@ Dearica Hamby,Los Angeles Sparks,Nneka Ogwumike,28.32,2
 Dearica Hamby,Los Angeles Sparks,Rae Burrell,26.61,2
 Dearica Hamby,Los Angeles Sparks,Ariel Atkins,21.70,2
 Dearica Hamby,Los Angeles Sparks,Monique Akoa Makani,20.62,2
-Dearica Hamby,Los Angeles Sparks,Erica Wheeler,19.62,2
 Dearica Hamby,Los Angeles Sparks,Tonie Morgan,19.62,2
+Dearica Hamby,Los Angeles Sparks,Erica Wheeler,19.62,2
 Dearica Hamby,Los Angeles Sparks,Chance Gray,16.33,2
 Dearica Hamby,Los Angeles Sparks,Ndjakalenga Mwenentanda,15.83,2
 Dearica Hamby,Los Angeles Sparks,Emma Cannon,13.06,2
@@ -2040,8 +2040,8 @@ Kelsey Plum,Los Angeles Sparks,Cotie McMahon,13.43,3
 Kelsey Plum,Los Angeles Sparks,Damiris Dantas,13.06,2
 Kelsey Plum,Los Angeles Sparks,Aaliyah Nye,12.98,2
 Kelsey Plum,Los Angeles Sparks,Serah Williams,12.85,2
-Kelsey Plum,Los Angeles Sparks,Stefanie Dolson,12.83,2
 Kelsey Plum,Los Angeles Sparks,Odyssey Sims,12.83,2
+Kelsey Plum,Los Angeles Sparks,Stefanie Dolson,12.83,2
 Kelsey Plum,Los Angeles Sparks,Li Yueru,12.73,2
 Kelsey Plum,Los Angeles Sparks,Raegan Beers,12.71,3
 Kelsey Plum,Los Angeles Sparks,Chance Gray,12.38,29
@@ -2084,8 +2084,8 @@ Kiana Williams,Los Angeles Sparks,A'ja Wilson,32.80,4
 Kiana Williams,Los Angeles Sparks,Natasha Cloud,31.75,2
 Kiana Williams,Los Angeles Sparks,Paige Bueckers,31.23,3
 Kiana Williams,Los Angeles Sparks,Arike Ogunbowale,30.94,3
-Kiana Williams,Los Angeles Sparks,Jordin Canada,30.85,2
 Kiana Williams,Los Angeles Sparks,Nneka Ogwumike,30.85,28
+Kiana Williams,Los Angeles Sparks,Jordin Canada,30.85,2
 Kiana Williams,Los Angeles Sparks,Jackie Young,30.02,4
 Kiana Williams,Los Angeles Sparks,Courtney Williams,29.98,2
 Kiana Williams,Los Angeles Sparks,Olivia Miles,29.87,2
@@ -2162,8 +2162,8 @@ Kiana Williams,Los Angeles Sparks,Madina Okot,12.34,2
 Kiana Williams,Los Angeles Sparks,Aziaha James,11.53,3
 Kiana Williams,Los Angeles Sparks,Nell Angloma,11.28,3
 Kiana Williams,Los Angeles Sparks,Alissa Pili,10.86,2
-Kiana Williams,Los Angeles Sparks,Kia Nurse,10.78,2
 Kiana Williams,Los Angeles Sparks,Antonia Delaere,10.78,2
+Kiana Williams,Los Angeles Sparks,Kia Nurse,10.78,2
 Kiana Williams,Los Angeles Sparks,Shyanne Sellers,10.49,2
 Kiana Williams,Los Angeles Sparks,Gabriela Jaquez,10.33,2
 Kiana Williams,Los Angeles Sparks,Angela Dugalic,10.09,2
@@ -2305,8 +2305,8 @@ Monique Akoa Makani,Los Angeles Sparks,Eliska Hamzova,8.99,2
 Monique Akoa Makani,Los Angeles Sparks,Aziaha James,8.77,2
 Monique Akoa Makani,Los Angeles Sparks,Rachel Banham,8.60,2
 Monique Akoa Makani,Los Angeles Sparks,Aicha Coulibaly,8.28,2
-Monique Akoa Makani,Los Angeles Sparks,Alissa Pili,7.90,5
 Monique Akoa Makani,Los Angeles Sparks,Marta Suarez,7.90,2
+Monique Akoa Makani,Los Angeles Sparks,Alissa Pili,7.90,5
 Monique Akoa Makani,Los Angeles Sparks,Kate Martin,7.85,14
 Monique Akoa Makani,Los Angeles Sparks,Lexi Held,7.78,3
 Monique Akoa Makani,Los Angeles Sparks,Laeticia Amihere,7.09,2
@@ -2352,8 +2352,8 @@ Tonie Morgan,Los Angeles Sparks,Erica Wheeler,27.90,32
 Tonie Morgan,Los Angeles Sparks,Jewell Loyd,27.73,2
 Tonie Morgan,Los Angeles Sparks,Awa Fam,27.63,2
 Tonie Morgan,Los Angeles Sparks,Ariel Atkins,27.60,30
-Tonie Morgan,Los Angeles Sparks,Kamilla Cardoso,27.07,3
 Tonie Morgan,Los Angeles Sparks,Natisha Hiedeman,27.07,2
+Tonie Morgan,Los Angeles Sparks,Kamilla Cardoso,27.07,3
 Tonie Morgan,Los Angeles Sparks,Marina Mabrey,26.46,3
 Tonie Morgan,Los Angeles Sparks,Natasha Mack,25.97,3
 Tonie Morgan,Los Angeles Sparks,Jacy Sheldon,25.93,3
@@ -2800,8 +2800,8 @@ Julie Vanloo,New York Liberty,Chelsea Gray,34.60,2
 Julie Vanloo,New York Liberty,Angel Reese,33.51,2
 Julie Vanloo,New York Liberty,Kayla McBride,33.13,3
 Julie Vanloo,New York Liberty,Breanna Stewart,32.98,37
-Julie Vanloo,New York Liberty,Caitlin Clark,32.55,4
 Julie Vanloo,New York Liberty,Sonia Citron,32.55,2
+Julie Vanloo,New York Liberty,Caitlin Clark,32.55,4
 Julie Vanloo,New York Liberty,Jordin Canada,31.80,2
 Julie Vanloo,New York Liberty,Natisha Hiedeman,31.72,3
 Julie Vanloo,New York Liberty,Allisha Gray,31.49,2
@@ -2823,8 +2823,8 @@ Julie Vanloo,New York Liberty,Natasha Cloud,28.77,4
 Julie Vanloo,New York Liberty,Jonquel Jones,28.52,37
 Julie Vanloo,New York Liberty,Leila Lacan,28.13,2
 Julie Vanloo,New York Liberty,Nia Coffey,28.08,2
-Julie Vanloo,New York Liberty,Nyara Sabally,27.70,2
 Julie Vanloo,New York Liberty,Diamond Miller,27.70,2
+Julie Vanloo,New York Liberty,Nyara Sabally,27.70,2
 Julie Vanloo,New York Liberty,Julie Allemand,27.69,3
 Julie Vanloo,New York Liberty,Erica Wheeler,27.47,3
 Julie Vanloo,New York Liberty,Veronica Burton,27.28,2
@@ -2985,8 +2985,8 @@ Leonie Fiebich,New York Liberty,Tyasha Harris,16.04,2
 Leonie Fiebich,New York Liberty,Stephanie Talbot,15.82,2
 Leonie Fiebich,New York Liberty,Alex Fowler,15.65,2
 Leonie Fiebich,New York Liberty,Han Xu,15.61,23
-Leonie Fiebich,New York Liberty,Megan Gustafson,15.55,3
 Leonie Fiebich,New York Liberty,Dana Evans,15.55,2
+Leonie Fiebich,New York Liberty,Megan Gustafson,15.55,3
 Leonie Fiebich,New York Liberty,Satou Sabally,15.22,3
 Leonie Fiebich,New York Liberty,Kamiah Smalls,15.09,2
 Leonie Fiebich,New York Liberty,Alanna Smith,15.08,2
@@ -3374,8 +3374,8 @@ Jovana Nogic,Phoenix Mercury,Awa Fam,28.63,2
 Jovana Nogic,Phoenix Mercury,Erica Wheeler,28.12,2
 Jovana Nogic,Phoenix Mercury,Awak Kuier,27.87,2
 Jovana Nogic,Phoenix Mercury,Natisha Hiedeman,27.71,2
-Jovana Nogic,Phoenix Mercury,Kamilla Cardoso,27.61,2
 Jovana Nogic,Phoenix Mercury,Kiki Iriafen,27.61,3
+Jovana Nogic,Phoenix Mercury,Kamilla Cardoso,27.61,2
 Jovana Nogic,Phoenix Mercury,Isabelle Harrison,26.88,2
 Jovana Nogic,Phoenix Mercury,Brittney Griner,26.76,3
 Jovana Nogic,Phoenix Mercury,Shakira Austin,26.74,3
@@ -3394,12 +3394,12 @@ Jovana Nogic,Phoenix Mercury,Kennedy Burke,21.92,3
 Jovana Nogic,Phoenix Mercury,Dominique Malonga,21.88,2
 Jovana Nogic,Phoenix Mercury,Monique Akoa Makani,21.40,10
 Jovana Nogic,Phoenix Mercury,Monique Billings,21.14,3
-Jovana Nogic,Phoenix Mercury,Olivia Nelson-Ododa,21.09,3
 Jovana Nogic,Phoenix Mercury,Kelsey Plum,21.09,5
+Jovana Nogic,Phoenix Mercury,Olivia Nelson-Ododa,21.09,3
 Jovana Nogic,Phoenix Mercury,Betnijah Laney-Hamilton,20.56,2
 Jovana Nogic,Phoenix Mercury,Serah Williams,20.44,2
-Jovana Nogic,Phoenix Mercury,Michaela Onyenwere,20.39,3
 Jovana Nogic,Phoenix Mercury,Lauren Betts,20.39,3
+Jovana Nogic,Phoenix Mercury,Michaela Onyenwere,20.39,3
 Jovana Nogic,Phoenix Mercury,Jacy Sheldon,20.33,2
 Jovana Nogic,Phoenix Mercury,Temi Fagbenle,20.09,2
 Jovana Nogic,Phoenix Mercury,Jordan Harrison,20.08,2
@@ -3517,8 +3517,8 @@ Kelsey Plum,Phoenix Mercury,Isabelle Harrison,26.88,2
 Kelsey Plum,Phoenix Mercury,Diamond Miller,26.38,2
 Kelsey Plum,Phoenix Mercury,Carla Leite,25.92,2
 Kelsey Plum,Phoenix Mercury,Jewell Loyd,25.49,3
-Kelsey Plum,Phoenix Mercury,Janelle Salaun,25.07,3
 Kelsey Plum,Phoenix Mercury,Kamilla Cardoso,25.07,2
+Kelsey Plum,Phoenix Mercury,Janelle Salaun,25.07,3
 Kelsey Plum,Phoenix Mercury,Pauline Astier,25.01,3
 Kelsey Plum,Phoenix Mercury,Sophie Cunningham,24.98,3
 Kelsey Plum,Phoenix Mercury,Caitlin Clark,24.39,2
@@ -3621,8 +3621,8 @@ Kiana Williams,Phoenix Mercury,Paige Bueckers,32.29,3
 Kiana Williams,Phoenix Mercury,Arike Ogunbowale,32.17,3
 Kiana Williams,Phoenix Mercury,Courtney Williams,31.98,2
 Kiana Williams,Phoenix Mercury,Leila Lacan,31.93,3
-Kiana Williams,Phoenix Mercury,Jessica Shepard,31.72,3
 Kiana Williams,Phoenix Mercury,Natasha Cloud,31.72,2
+Kiana Williams,Phoenix Mercury,Jessica Shepard,31.72,3
 Kiana Williams,Phoenix Mercury,Breanna Stewart,31.69,2
 Kiana Williams,Phoenix Mercury,Jackie Young,31.16,2
 Kiana Williams,Phoenix Mercury,Chelsea Gray,31.15,2
@@ -3672,8 +3672,8 @@ Kiana Williams,Phoenix Mercury,Monique Billings,21.14,3
 Kiana Williams,Phoenix Mercury,Olivia Nelson-Ododa,21.09,3
 Kiana Williams,Phoenix Mercury,Jordan Horston,20.67,2
 Kiana Williams,Phoenix Mercury,Serah Williams,20.44,2
-Kiana Williams,Phoenix Mercury,Michaela Onyenwere,20.39,3
 Kiana Williams,Phoenix Mercury,Lauren Betts,20.39,3
+Kiana Williams,Phoenix Mercury,Michaela Onyenwere,20.39,3
 Kiana Williams,Phoenix Mercury,Jacy Sheldon,20.33,2
 Kiana Williams,Phoenix Mercury,Jordan Harrison,20.08,2
 Kiana Williams,Phoenix Mercury,Cecilia Zandalasini,20.01,2
@@ -3707,8 +3707,8 @@ Kiana Williams,Phoenix Mercury,Aziaha James,13.99,3
 Kiana Williams,Phoenix Mercury,Elizabeth Williams,13.81,2
 Kiana Williams,Phoenix Mercury,Kara Dunn,13.66,3
 Kiana Williams,Phoenix Mercury,Shay Ciezki,13.28,6
-Kiana Williams,Phoenix Mercury,Rebekah Gardner,13.03,2
 Kiana Williams,Phoenix Mercury,Anastasiia Olairi Kosu,13.03,2
+Kiana Williams,Phoenix Mercury,Rebekah Gardner,13.03,2
 Kiana Williams,Phoenix Mercury,Tyasha Harris,12.65,2
 Kiana Williams,Phoenix Mercury,Maya Caldwell,12.38,2
 Kiana Williams,Phoenix Mercury,Zia Cooke,12.20,3
@@ -3928,8 +3928,8 @@ Maddy Westbeld,Phoenix Mercury,Isobel Borlase,15.09,3
 Maddy Westbeld,Phoenix Mercury,Elizabeth Williams,14.99,3
 Maddy Westbeld,Phoenix Mercury,Nyadiew Puoch,14.98,2
 Maddy Westbeld,Phoenix Mercury,Rebekah Gardner,14.54,3
-Maddy Westbeld,Phoenix Mercury,Myisha Hines-Allen,14.05,3
 Maddy Westbeld,Phoenix Mercury,Betnijah Laney-Hamilton,14.05,2
+Maddy Westbeld,Phoenix Mercury,Myisha Hines-Allen,14.05,3
 Maddy Westbeld,Phoenix Mercury,Kierstan Bell,13.52,3
 Maddy Westbeld,Phoenix Mercury,Aicha Coulibaly,13.33,3
 Maddy Westbeld,Phoenix Mercury,Tyasha Harris,12.65,2
@@ -4591,8 +4591,8 @@ Jordan Harrison,Portland Fire,Carla Leite,25.23,26
 Jordan Harrison,Portland Fire,Laura Juskaite,25.18,2
 Jordan Harrison,Portland Fire,Ariel Atkins,24.21,2
 Jordan Harrison,Portland Fire,Emily Engstler,23.78,28
-Jordan Harrison,Portland Fire,Aneesah Morrow,23.40,3
 Jordan Harrison,Portland Fire,Olivia Nelson-Ododa,23.40,2
+Jordan Harrison,Portland Fire,Aneesah Morrow,23.40,3
 Jordan Harrison,Portland Fire,Sarah Ashlee Barker,23.34,22
 Jordan Harrison,Portland Fire,Sophie Cunningham,22.84,3
 Jordan Harrison,Portland Fire,Megan Gustafson,21.94,21
@@ -4611,8 +4611,8 @@ Jordan Harrison,Portland Fire,Stephanie Talbot,18.63,3
 Jordan Harrison,Portland Fire,Sug Sutton,18.12,4
 Jordan Harrison,Portland Fire,Myisha Hines-Allen,18.03,2
 Jordan Harrison,Portland Fire,Brittney Sykes,17.69,2
-Jordan Harrison,Portland Fire,Kennedy Burke,17.63,3
 Jordan Harrison,Portland Fire,Zia Cooke,17.63,3
+Jordan Harrison,Portland Fire,Kennedy Burke,17.63,3
 Jordan Harrison,Portland Fire,Nyadiew Puoch,17.28,27
 Jordan Harrison,Portland Fire,Tyasha Harris,17.05,3
 Jordan Harrison,Portland Fire,Lexie Hull,17.01,3
@@ -4713,8 +4713,8 @@ Luisa Geiselsoder,Portland Fire,Allisha Gray,32.75,2
 Luisa Geiselsoder,Portland Fire,Natisha Hiedeman,32.71,4
 Luisa Geiselsoder,Portland Fire,Bridget Carleton,32.67,20
 Luisa Geiselsoder,Portland Fire,Alyssa Thomas,32.21,2
-Luisa Geiselsoder,Portland Fire,Megan Gustafson,31.33,6
 Luisa Geiselsoder,Portland Fire,Julie Allemand,31.33,2
+Luisa Geiselsoder,Portland Fire,Megan Gustafson,31.33,6
 Luisa Geiselsoder,Portland Fire,Veronica Burton,30.51,3
 Luisa Geiselsoder,Portland Fire,Noemie Brochant,30.36,2
 Luisa Geiselsoder,Portland Fire,Nneka Ogwumike,28.61,2
@@ -4727,8 +4727,8 @@ Luisa Geiselsoder,Portland Fire,Megan DiLeo,26.15,16
 Luisa Geiselsoder,Portland Fire,Dominique Malonga,26.12,4
 Luisa Geiselsoder,Portland Fire,Emily Engstler,26.10,23
 Luisa Geiselsoder,Portland Fire,Sami Whitcomb,25.92,2
-Luisa Geiselsoder,Portland Fire,Flau'jae Johnson,25.85,3
 Luisa Geiselsoder,Portland Fire,Sarah Ashlee Barker,25.85,6
+Luisa Geiselsoder,Portland Fire,Flau'jae Johnson,25.85,3
 Luisa Geiselsoder,Portland Fire,Awa Fam,25.61,4
 Luisa Geiselsoder,Portland Fire,Ariel Atkins,25.53,2
 Luisa Geiselsoder,Portland Fire,Kayla Thornton,25.36,3
@@ -4864,8 +4864,8 @@ Megan DiLeo,Portland Fire,Isobel Borlase,13.95,2
 Megan DiLeo,Portland Fire,Jordan Harrison,13.81,5
 Megan DiLeo,Portland Fire,Georgia Amoore,13.59,2
 Megan DiLeo,Portland Fire,Teja Oblak,13.33,20
-Megan DiLeo,Portland Fire,Serah Williams,12.60,23
 Megan DiLeo,Portland Fire,Lauren Betts,12.60,2
+Megan DiLeo,Portland Fire,Serah Williams,12.60,23
 Megan DiLeo,Portland Fire,Marta Suarez,12.08,2
 Megan DiLeo,Portland Fire,Maya Caldwell,11.65,2
 Megan DiLeo,Portland Fire,Haley Jones,11.32,5
@@ -4909,8 +4909,8 @@ Megan Gustafson,Portland Fire,Rae Burrell,27.16,2
 Megan Gustafson,Portland Fire,Kiki Iriafen,27.07,2
 Megan Gustafson,Portland Fire,Natasha Howard,26.77,2
 Megan Gustafson,Portland Fire,Carla Leite,26.57,17
-Megan Gustafson,Portland Fire,Ezi Magbegor,26.18,2
 Megan Gustafson,Portland Fire,Megan DiLeo,26.18,17
+Megan Gustafson,Portland Fire,Ezi Magbegor,26.18,2
 Megan Gustafson,Portland Fire,Sami Whitcomb,25.92,2
 Megan Gustafson,Portland Fire,Dominique Malonga,25.67,2
 Megan Gustafson,Portland Fire,Emily Engstler,25.56,20
@@ -4965,8 +4965,8 @@ Megan Gustafson,Portland Fire,Odyssey Sims,4.59,2
 Megan Gustafson,Portland Fire,Ashten Prechtel,4.39,2
 Megan Gustafson,Portland Fire,Li Yueru,3.87,2
 Megan Gustafson,Portland Fire,Angela Dugalic,3.85,2
-Megan Gustafson,Portland Fire,Nadia Fingall,3.64,2
 Megan Gustafson,Portland Fire,Miela Sowah,3.64,2
+Megan Gustafson,Portland Fire,Nadia Fingall,3.64,2
 Nyadiew Puoch,Portland Fire,Bridget Carleton,35.75,2
 Nyadiew Puoch,Portland Fire,Emily Engstler,28.89,2
 Nyadiew Puoch,Portland Fire,Carla Leite,28.09,2
@@ -5031,8 +5031,8 @@ Sarah Ashlee Barker,Portland Fire,Te-Hina Paopao,8.06,2
 Sarah Ashlee Barker,Portland Fire,Marta Suarez,8.03,2
 Sarah Ashlee Barker,Portland Fire,Teonni Key,6.85,2
 Sarah Ashlee Barker,Portland Fire,Ashten Prechtel,4.39,2
-Sarah Ashlee Barker,Portland Fire,Nadia Fingall,3.64,2
 Sarah Ashlee Barker,Portland Fire,Miela Sowah,3.64,2
+Sarah Ashlee Barker,Portland Fire,Nadia Fingall,3.64,2
 Serah Williams,Portland Fire,Bridget Carleton,29.66,5
 Serah Williams,Portland Fire,Sarah Ashlee Barker,26.73,4
 Serah Williams,Portland Fire,Carla Leite,25.73,5
@@ -5407,8 +5407,8 @@ Lexie Brown,Seattle Storm,Nyadiew Puoch,16.46,4
 Lexie Brown,Seattle Storm,Holly Winterburn,15.49,3
 Lexie Brown,Seattle Storm,Katie Lou Samuelson,15.33,28
 Lexie Brown,Seattle Storm,Lexie Hull,15.26,2
-Lexie Brown,Seattle Storm,Li Yueru,15.24,2
 Lexie Brown,Seattle Storm,Cheyenne Parker-Tyus,15.24,3
+Lexie Brown,Seattle Storm,Li Yueru,15.24,2
 Lexie Brown,Seattle Storm,Kiana Williams,15.23,2
 Lexie Brown,Seattle Storm,Marine Fauthoux,14.98,2
 Lexie Brown,Seattle Storm,Frieda Buhner,14.93,4
@@ -5421,8 +5421,8 @@ Lexie Brown,Seattle Storm,Rebekah Gardner,13.71,3
 Lexie Brown,Seattle Storm,Serah Williams,13.24,4
 Lexie Brown,Seattle Storm,Teja Oblak,13.09,3
 Lexie Brown,Seattle Storm,Tyasha Harris,12.77,2
-Lexie Brown,Seattle Storm,Chance Gray,12.66,3
 Lexie Brown,Seattle Storm,Anastasiia Olairi Kosu,12.66,2
+Lexie Brown,Seattle Storm,Chance Gray,12.66,3
 Lexie Brown,Seattle Storm,Isobel Borlase,12.56,3
 Lexie Brown,Seattle Storm,Stefanie Dolson,12.52,33
 Lexie Brown,Seattle Storm,Sika Kone,12.36,2
@@ -5527,8 +5527,8 @@ Aneesah Morrow,Toronto Tempo,Azzi Fudd,33.19,2
 Aneesah Morrow,Toronto Tempo,Caitlin Clark,32.98,2
 Aneesah Morrow,Toronto Tempo,Kelsey Mitchell,32.66,2
 Aneesah Morrow,Toronto Tempo,Allisha Gray,32.57,3
-Aneesah Morrow,Toronto Tempo,Brittney Sykes,31.78,15
 Aneesah Morrow,Toronto Tempo,DeWanna Bonner,31.78,2
+Aneesah Morrow,Toronto Tempo,Brittney Sykes,31.78,15
 Aneesah Morrow,Toronto Tempo,Skylar Diggins,31.39,2
 Aneesah Morrow,Toronto Tempo,Jackie Young,30.96,3
 Aneesah Morrow,Toronto Tempo,Dominique Malonga,30.58,2
@@ -5571,8 +5571,8 @@ Aneesah Morrow,Toronto Tempo,Natasha Howard,24.66,3
 Aneesah Morrow,Toronto Tempo,Isabelle Harrison,24.45,23
 Aneesah Morrow,Toronto Tempo,Kamilla Cardoso,23.68,3
 Aneesah Morrow,Toronto Tempo,Nyara Sabally,23.58,20
-Aneesah Morrow,Toronto Tempo,Napheesa Collier,23.38,2
 Aneesah Morrow,Toronto Tempo,Kiah Stokes,23.38,2
+Aneesah Morrow,Toronto Tempo,Napheesa Collier,23.38,2
 Aneesah Morrow,Toronto Tempo,Natisha Hiedeman,22.78,2
 Aneesah Morrow,Toronto Tempo,Georgia Amoore,22.71,3
 Aneesah Morrow,Toronto Tempo,Marine Johannes,22.52,3
@@ -5639,8 +5639,8 @@ Aneesah Morrow,Toronto Tempo,Anastasiia Olairi Kosu,10.49,2
 Aneesah Morrow,Toronto Tempo,Raven Johnson,10.43,2
 Aneesah Morrow,Toronto Tempo,Laeticia Amihere,10.33,2
 Aneesah Morrow,Toronto Tempo,Mackenzie Holmes,10.21,2
-Aneesah Morrow,Toronto Tempo,Odyssey Sims,10.17,2
 Aneesah Morrow,Toronto Tempo,Rori Harmon,10.17,2
+Aneesah Morrow,Toronto Tempo,Odyssey Sims,10.17,2
 Aneesah Morrow,Toronto Tempo,Rebekah Gardner,10.12,3
 Aneesah Morrow,Toronto Tempo,Kayla Alexander,10.08,4
 Aneesah Morrow,Toronto Tempo,Cassandre Prosper,10.03,3
@@ -5650,8 +5650,8 @@ Aneesah Morrow,Toronto Tempo,Madina Okot,9.10,3
 Aneesah Morrow,Toronto Tempo,Nikolina Milic,9.01,7
 Aneesah Morrow,Toronto Tempo,Kyara Linskens,8.48,2
 Aneesah Morrow,Toronto Tempo,Zaay Green,8.13,5
-Aneesah Morrow,Toronto Tempo,Lucy Olsen,7.48,2
 Aneesah Morrow,Toronto Tempo,Eliska Hamzova,7.48,3
+Aneesah Morrow,Toronto Tempo,Lucy Olsen,7.48,2
 Aneesah Morrow,Toronto Tempo,Aziaha James,6.97,2
 Aneesah Morrow,Toronto Tempo,Raquel Carrera,6.56,2
 Aneesah Morrow,Toronto Tempo,Maddy Siegrist,5.58,2
@@ -5696,8 +5696,8 @@ Brittney Sykes,Toronto Tempo,Michaela Onyenwere,24.90,2
 Brittney Sykes,Toronto Tempo,Kiah Stokes,24.64,3
 Brittney Sykes,Toronto Tempo,Janelle Salaun,24.42,3
 Brittney Sykes,Toronto Tempo,Isabelle Harrison,24.30,24
-Brittney Sykes,Toronto Tempo,Napheesa Collier,23.38,2
 Brittney Sykes,Toronto Tempo,Pauline Astier,23.38,2
+Brittney Sykes,Toronto Tempo,Napheesa Collier,23.38,2
 Brittney Sykes,Toronto Tempo,Georgia Amoore,22.85,2
 Brittney Sykes,Toronto Tempo,Nyara Sabally,22.38,14
 Brittney Sykes,Toronto Tempo,Mai Yamamoto,22.08,2
@@ -5909,8 +5909,8 @@ Maria Conde,Toronto Tempo,Brittney Sykes,11.49,2
 Maria Conde,Toronto Tempo,Zaay Green,8.01,4
 Maria Conde,Toronto Tempo,Monique Billings,7.23,2
 Maria Conde,Toronto Tempo,Raven Johnson,4.92,2
-Maria Conde,Toronto Tempo,Kierstan Bell,3.15,2
 Maria Conde,Toronto Tempo,Justine Pissott,3.15,2
+Maria Conde,Toronto Tempo,Kierstan Bell,3.15,2
 Marina Mabrey,Toronto Tempo,A'ja Wilson,30.46,2
 Marina Mabrey,Toronto Tempo,Jackie Young,30.05,2
 Marina Mabrey,Toronto Tempo,Kiki Rice,28.91,10
@@ -5936,8 +5936,8 @@ Marina Mabrey,Toronto Tempo,Aneesah Morrow,14.87,2
 Marina Mabrey,Toronto Tempo,Brianna Turner,13.44,2
 Marina Mabrey,Toronto Tempo,Cheyenne Parker-Tyus,12.93,2
 Marina Mabrey,Toronto Tempo,Zaay Green,7.62,6
-Marina Mabrey,Toronto Tempo,Kierstan Bell,3.15,2
 Marina Mabrey,Toronto Tempo,Justine Pissott,3.15,2
+Marina Mabrey,Toronto Tempo,Kierstan Bell,3.15,2
 Nyara Sabally,Toronto Tempo,Caitlin Clark,33.08,3
 Nyara Sabally,Toronto Tempo,Sonia Citron,31.44,2
 Nyara Sabally,Toronto Tempo,Jackie Young,30.96,3
@@ -5953,8 +5953,8 @@ Nyara Sabally,Toronto Tempo,Michaela Onyenwere,27.78,2
 Nyara Sabally,Toronto Tempo,Shakira Austin,27.46,2
 Nyara Sabally,Toronto Tempo,Olivia Miles,27.41,2
 Nyara Sabally,Toronto Tempo,Courtney Williams,27.38,2
-Nyara Sabally,Toronto Tempo,Aliyah Boston,27.01,3
 Nyara Sabally,Toronto Tempo,Julie Allemand,27.01,13
+Nyara Sabally,Toronto Tempo,Aliyah Boston,27.01,3
 Nyara Sabally,Toronto Tempo,Isabelle Harrison,25.98,16
 Nyara Sabally,Toronto Tempo,Maria Conde,25.62,12
 Nyara Sabally,Toronto Tempo,Natasha Howard,25.22,2
@@ -6098,8 +6098,8 @@ Ornella Bankole,Toronto Tempo,Kyara Linskens,8.48,2
 Ornella Bankole,Toronto Tempo,Laeticia Amihere,8.23,3
 Ornella Bankole,Toronto Tempo,Teonni Key,8.05,28
 Ornella Bankole,Toronto Tempo,Holly Winterburn,7.51,2
-Ornella Bankole,Toronto Tempo,Lucy Olsen,7.48,2
 Ornella Bankole,Toronto Tempo,Eliska Hamzova,7.48,3
+Ornella Bankole,Toronto Tempo,Lucy Olsen,7.48,2
 Ornella Bankole,Toronto Tempo,Madina Okot,7.20,4
 Ornella Bankole,Toronto Tempo,Nell Angloma,7.08,2
 Ornella Bankole,Toronto Tempo,Jaylyn Sherrod,5.14,2
@@ -6215,8 +6215,8 @@ Alicia Florez,Washington Mystics,Han Xu,18.54,2
 Alicia Florez,Washington Mystics,Diamond Miller,18.32,2
 Alicia Florez,Washington Mystics,Aaliyah Edwards,17.62,2
 Alicia Florez,Washington Mystics,Zia Cooke,17.50,2
-Alicia Florez,Washington Mystics,Cassandre Prosper,17.08,10
 Alicia Florez,Washington Mystics,Mackenzie Holmes,17.08,2
+Alicia Florez,Washington Mystics,Cassandre Prosper,17.08,10
 Alicia Florez,Washington Mystics,Rebekah Gardner,17.04,2
 Alicia Florez,Washington Mystics,Katie Lou Samuelson,16.66,2
 Alicia Florez,Washington Mystics,Lauren Betts,16.11,12
