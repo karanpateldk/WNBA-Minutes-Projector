@@ -1,17 +1,17 @@
 {
-  "timestamp": "2026-09-24T17:11:13.701030",
+  "timestamp": "2026-09-25T11:49:43.648960",
   "payload": {
     "Aaliyah Nye": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Ankle",
-      "comment": "Nye did not play in Tuesday's (Sep. 22) game against the Aces.",
+      "comment": "The Sparks listed Nye as Out for Thursday's (Sep. 24) game against the Valkyries.",
       "team": "Los Angeles Sparks",
       "dnp_type": "injury"
     },
     "Aicha Coulibaly": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Knee",
-      "comment": "Coulibaly did not play in Tuesday's (Sep. 22) game against Toronto.",
+      "comment": "The Sky listed Coulibaly as Out for Thursday's (Sep. 24) game against the Mystics.",
       "team": "Chicago Sky",
       "dnp_type": "injury"
     },
@@ -23,16 +23,16 @@
       "dnp_type": "injury"
     },
     "Alysha Clark": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Face",
-      "comment": "The Wings listed Clark as Out for Wednesday's (Sep. 23) game against the Storm.",
+      "comment": "Clark did not play in Wednesday's (Sep. 23) game against the Storm.",
       "team": "Dallas Wings",
       "dnp_type": "injury"
     },
     "Anastasiia Olairi Kosu": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Foot",
-      "comment": "Kosu did not play in Tuesday's (Sep. 22) game against Indiana.",
+      "comment": "The Lynx listed Olairi Kosu as Out for Thursday's (Sep. 24) game against the Fever.",
       "team": "Minnesota Lynx",
       "dnp_type": "injury"
     },
@@ -43,10 +43,17 @@
       "team": "Toronto Tempo",
       "dnp_type": "injury"
     },
-    "Azur\u00e1 Stevens": {
+    "Angel Reese": {
       "status": "Day-To-Day",
+      "injury": "Face",
+      "comment": "Reese did not return on Wednesday's (Sep. 24) game against the Liberty.",
+      "team": "Atlanta Dream",
+      "dnp_type": "injury"
+    },
+    "Azur\u00e1 Stevens": {
+      "status": "Out",
       "injury": "Knee",
-      "comment": "Stevens did not play in Tuesday's (Sep. 22) game against Toronto.",
+      "comment": "The Sky listed Stevens as Out for Thursday's (Sep. 24) game against the Mystics.",
       "team": "Chicago Sky",
       "dnp_type": "injury"
     },
@@ -60,7 +67,7 @@
     "Breanna Stewart": {
       "status": "Day-To-Day",
       "injury": "Knee",
-      "comment": "Stewart is questionable for Wednesday's (Sep. 23) game against the Dream with left knee soreness.",
+      "comment": "Stewart did not play in Wednesday's (Sep. 23) game against the Dream with left knee soreness.",
       "team": "New York Liberty",
       "dnp_type": "injury"
     },
@@ -72,9 +79,9 @@
       "dnp_type": "injury"
     },
     "Brittney Griner": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Knee",
-      "comment": "Griner did not play in (Sep. 22) game against Washington.",
+      "comment": "The Sun listed Griner as Out for Thursday's (Sep. 24) game against the Tempo.",
       "team": "Connecticut Sun",
       "dnp_type": "injury"
     },
@@ -85,10 +92,17 @@
       "team": "Toronto Tempo",
       "dnp_type": "injury"
     },
-    "Cameron Brink": {
+    "Caitlin Clark": {
       "status": "Day-To-Day",
+      "injury": "Back",
+      "comment": "The Fever listed Clark as Probable for Thursday's (Sep. 24) game against the Lynx.",
+      "team": "Indiana Fever",
+      "dnp_type": "injury"
+    },
+    "Cameron Brink": {
+      "status": "Out",
       "injury": "Ankle",
-      "comment": "Brink did not play in Tuesday's (Sep. 22) game against the Aces.",
+      "comment": "The Sparks listed Brink as Out for Thursday's (Sep. 24) game against the Valyries.",
       "team": "Los Angeles Sparks",
       "dnp_type": "injury"
     },
@@ -106,17 +120,24 @@
       "team": "Indiana Fever",
       "dnp_type": "injury"
     },
+    "Dana Evans": {
+      "status": "Out",
+      "injury": "Knee",
+      "comment": "The Aces listed Evans as OUT for Thursday's (Sep. 24) game against Phoenix.",
+      "team": "Las Vegas Aces",
+      "dnp_type": "injury"
+    },
     "Dearica Hamby": {
       "status": "Day-To-Day",
       "injury": "Knee",
-      "comment": "Hamby did not play in Tuesday's (Sep. 22) game against the Aces.",
+      "comment": "The Sparks listed Hamby as Probable for Thursday's (Sep. 24) game against the Valkyries.",
       "team": "Los Angeles Sparks",
       "dnp_type": "injury"
     },
     "DiJonai Carrington": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Foot",
-      "comment": "Carrington did not play in Tuesday's (Sep. 22) game against Toronto.",
+      "comment": "The Sky listed Carrington as Out for Thursday's (Sep. 24) game against the Mystics.",
       "team": "Chicago Sky",
       "dnp_type": "injury"
     },
@@ -169,6 +190,13 @@
       "team": "Las Vegas Aces",
       "dnp_type": "injury"
     },
+    "Jonquel Jones": {
+      "status": "Day-To-Day",
+      "injury": "Ankle",
+      "comment": "Jones did not return on Wednesday's (Sep. 23) game against Dream.",
+      "team": "New York Liberty",
+      "dnp_type": "injury"
+    },
     "Katie Lou Samuelson": {
       "status": "Out For Season",
       "injury": "Knee",
@@ -191,9 +219,9 @@
       "dnp_type": "injury"
     },
     "Maria Conde": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Illness",
-      "comment": "The Tempo listed Conde as Questionable for Thursday's (Sep. 24) game against the Sun.",
+      "comment": "The Tempo listed Conde as OUT for Thursday's (Sep. 24) game against the Sun.",
       "team": "Toronto Tempo",
       "dnp_type": "injury"
     },
@@ -212,9 +240,9 @@
       "dnp_type": "injury"
     },
     "Natasha Cloud": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Knee",
-      "comment": "Cloud did not play in Tuesday's (Sep. 22) game against Toronto.",
+      "comment": "The Sky listed Cloud as Out for Thursday's (Sep. 24) game against the Mystics.",
       "team": "Chicago Sky",
       "dnp_type": "injury"
     },
@@ -226,16 +254,16 @@
       "dnp_type": "injury"
     },
     "Olivia Miles": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Calf",
-      "comment": "Miles did not play in Tuesday's (Sep. 22) game against Indiana.",
+      "comment": "The Lynx listed Miles as Out for Thursday's (Sep. 24) game against the Fever.",
       "team": "Minnesota Lynx",
       "dnp_type": "injury"
     },
     "Olivia Nelson-Ododa": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Knee",
-      "comment": "Nelson-Ododa did not play in Tuesday's (Sep. 22) game against Washington.",
+      "comment": "The Sun listed Nelson-Ododa as Out for Thursday's (Sep. 24) game against the Tempo.",
       "team": "Connecticut Sun",
       "dnp_type": "injury"
     },
@@ -254,9 +282,9 @@
       "dnp_type": "injury"
     },
     "Saniya Rivers": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Ankle",
-      "comment": "Rivers did not play in Tuesday's (Sep. 22) game against Washington.",
+      "comment": "The Sun listed Rivers as Out for Thursday's (Sep. 24) game against the Tempo.",
       "team": "Connecticut Sun",
       "dnp_type": "injury"
     },
@@ -303,9 +331,9 @@
       "dnp_type": "injury"
     },
     "Zia Cooke": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Knee",
-      "comment": "The Storm listed Cooke as Out for Wednesday's (Sep. 23) game against the Wings.",
+      "comment": "Cooke did not play in Wednesday's (Sep. 23) game against the Wings.",
       "team": "Seattle Storm",
       "dnp_type": "injury"
     }
