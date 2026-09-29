@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-28T17:09:43.816152",
+  "timestamp": "2026-09-29T10:03:19.436487",
   "payload": {
     "Alanna Smith": {
       "status": "Out",
@@ -43,13 +43,6 @@
       "team": "Toronto Tempo",
       "dnp_type": "injury"
     },
-    "Cecilia Zandalasini": {
-      "status": "Day-To-Day",
-      "injury": "Reconditioning",
-      "comment": "Zandalasini did not play in Friday's (Sep. 18) game against Portland.",
-      "team": "Golden State Valkyries",
-      "dnp_type": "injury"
-    },
     "Damiris Dantas": {
       "status": "Out For Season",
       "injury": "Knee",
@@ -78,24 +71,10 @@
       "team": "Seattle Storm",
       "dnp_type": "injury"
     },
-    "Gabby Williams": {
-      "status": "Day-To-Day",
-      "injury": "Reconditioning",
-      "comment": "Williams did not play in Friday's (Sep. 18) game against Portland.",
-      "team": "Golden State Valkyries",
-      "dnp_type": "injury"
-    },
     "Iliana Rupert": {
       "status": "Out For Season",
       "injury": "Pregnancy",
       "comment": "The Valkyries said on Thursday (May 7) that Rupert is pregnant, and the team has filed for a replacement contract ahead of the 2026 season, per Alexa Philippou of ESPN.com.",
-      "team": "Golden State Valkyries",
-      "dnp_type": "injury"
-    },
-    "Janelle Sala\u00fcn": {
-      "status": "Day-To-Day",
-      "injury": "Reconditioning",
-      "comment": "Sala\u00fcn did not play in Friday's (Sep. 18) game against Portland.",
       "team": "Golden State Valkyries",
       "dnp_type": "injury"
     },
