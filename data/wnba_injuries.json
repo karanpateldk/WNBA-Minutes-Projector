@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-29T17:59:13.055224",
+  "timestamp": "2026-09-30T11:49:50.124005",
   "payload": {
     "Alanna Smith": {
       "status": "Out",
@@ -11,7 +11,7 @@
     "Anastasiia Olairi Kosu": {
       "status": "Out",
       "injury": "Foot",
-      "comment": "The Lynx have listed Olairi Kosu as OUT for Sunday's (Sep. 27) game against the Liberty.",
+      "comment": "The Lynx have listed Olairi Kosu as OUT for Tuesday's (Sep. 29) game against the Liberty.",
       "team": "Minnesota Lynx",
       "dnp_type": "injury"
     },
@@ -53,7 +53,7 @@
     "Dana Evans": {
       "status": "Out",
       "injury": "Knee",
-      "comment": "The Aces listed Evans as Out for Game 1 of the first round of the playoffs against the Fever on Sunday (Sep. 27).",
+      "comment": "The Aces listed Evans as OUT for Tuesday's (Sep. 29) game against the Fever.",
       "team": "Las Vegas Aces",
       "dnp_type": "injury"
     },
@@ -165,7 +165,7 @@
     "Tyasha Harris": {
       "status": "Out For Season",
       "injury": "Ankle",
-      "comment": "Harris (leg) will miss the rest of the season.",
+      "comment": "The Fever said on Saturday (Sept. 26) that Harris will miss the rest of the season.",
       "team": "Indiana Fever",
       "dnp_type": "injury"
     }
