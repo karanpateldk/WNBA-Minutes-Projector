@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-30T14:55:49.562248",
+  "timestamp": "2026-10-01T10:45:44.332478",
   "payload": {
     "Alanna Smith": {
       "status": "Out",
@@ -8,10 +8,17 @@
       "team": "Dallas Wings",
       "dnp_type": "injury"
     },
+    "Aliyah Boston": {
+      "status": "Day-To-Day",
+      "injury": "Leg",
+      "comment": "The Fever listed Boston as Probable for Thursday's (Oct. 1) game against the Aces.",
+      "team": "Indiana Fever",
+      "dnp_type": "injury"
+    },
     "Anastasiia Olairi Kosu": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Foot",
-      "comment": "The Lynx have listed Olairi Kosu as OUT for Tuesday's (Sep. 29) game against the Liberty.",
+      "comment": "Olairi Kosu did not play inTuesday's (Sep. 29) game against the Liberty.",
       "team": "Minnesota Lynx",
       "dnp_type": "injury"
     },
@@ -43,6 +50,13 @@
       "team": "Toronto Tempo",
       "dnp_type": "injury"
     },
+    "Caitlin Clark": {
+      "status": "Day-To-Day",
+      "injury": "Back",
+      "comment": "The Fever listed Clark as Probable for Thursday's (Oct. 1) game against the Aces.",
+      "team": "Indiana Fever",
+      "dnp_type": "injury"
+    },
     "Damiris Dantas": {
       "status": "Out For Season",
       "injury": "Knee",
@@ -53,7 +67,7 @@
     "Dana Evans": {
       "status": "Out",
       "injury": "Knee",
-      "comment": "The Aces listed Evans as OUT for Tuesday's (Sep. 29) game against the Fever.",
+      "comment": "The Aces listed Evans as Out for Thursday's (Oct. 1) game against the Fever.",
       "team": "Las Vegas Aces",
       "dnp_type": "injury"
     },
