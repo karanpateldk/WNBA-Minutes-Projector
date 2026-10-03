@@ -1,25 +1,11 @@
 {
-  "timestamp": "2026-10-01T18:14:51.196781",
+  "timestamp": "2026-10-03T14:06:26.030846",
   "payload": {
     "Alanna Smith": {
       "status": "Out",
       "injury": "Leg",
-      "comment": "The Wings said on Thursday (Sept. 17) that Smith has no timetable for a return, per Myah Taylor of Dallas Morning News.",
+      "comment": "The Wings said on Thursday (Oct. 1) that Smith will miss the entirely of the first round while nursing a lower leg injury suffered during the FIBA World Cup.",
       "team": "Dallas Wings",
-      "dnp_type": "injury"
-    },
-    "Aliyah Boston": {
-      "status": "Day-To-Day",
-      "injury": "Leg",
-      "comment": "The Fever listed Boston as Probable for Thursday's (Oct. 1) game against the Aces.",
-      "team": "Indiana Fever",
-      "dnp_type": "injury"
-    },
-    "Anastasiia Olairi Kosu": {
-      "status": "Day-To-Day",
-      "injury": "Foot",
-      "comment": "Olairi Kosu did not play inTuesday's (Sep. 29) game against the Liberty.",
-      "team": "Minnesota Lynx",
       "dnp_type": "injury"
     },
     "Aneesah Morrow": {
@@ -50,13 +36,6 @@
       "team": "Toronto Tempo",
       "dnp_type": "injury"
     },
-    "Caitlin Clark": {
-      "status": "Day-To-Day",
-      "injury": "Back",
-      "comment": "The Fever listed Clark as Probable for Thursday's (Oct. 1) game against the Aces.",
-      "team": "Indiana Fever",
-      "dnp_type": "injury"
-    },
     "Damiris Dantas": {
       "status": "Out For Season",
       "injury": "Knee",
@@ -65,9 +44,9 @@
       "dnp_type": "injury"
     },
     "Dana Evans": {
-      "status": "Out",
+      "status": "Day-To-Day",
       "injury": "Knee",
-      "comment": "The Aces listed Evans as Out for Thursday's (Oct. 1) game against the Fever.",
+      "comment": "Evans did not play in Thursday's (Oct. 1) game against the Fever.",
       "team": "Las Vegas Aces",
       "dnp_type": "injury"
     },
@@ -169,11 +148,11 @@
       "team": "Chicago Sky",
       "dnp_type": "injury"
     },
-    "Sonia Citron": {
-      "status": "Out",
-      "injury": "Personal",
-      "comment": "The Mystics listed Citron as OUT for Thursday's (Sept. 17) game against the Sky.",
-      "team": "Washington Mystics",
+    "Stephanie Talbot": {
+      "status": "Day-To-Day",
+      "injury": "Leg",
+      "comment": "Talbot did not play in Thursday's (Oct. 1) game against the Fever.",
+      "team": "Las Vegas Aces",
       "dnp_type": "injury"
     },
     "Tyasha Harris": {
