@@ -1,11 +1,18 @@
 {
-  "timestamp": "2026-10-04T17:22:25.256773",
+  "timestamp": "2026-10-05T15:06:00.475212",
   "payload": {
     "Alanna Smith": {
       "status": "Out",
       "injury": "Leg",
       "comment": "The Wings said on Thursday (Oct. 1) that Smith will miss the entirely of the first round while nursing a lower leg injury suffered during the FIBA World Cup.",
       "team": "Dallas Wings",
+      "dnp_type": "injury"
+    },
+    "Allisha Gray": {
+      "status": "Day-To-Day",
+      "injury": "Hand",
+      "comment": "The Dream reported Allisha Gray won't return Sunday due to a hand injury.",
+      "team": "Atlanta Dream",
       "dnp_type": "injury"
     },
     "Aneesah Morrow": {
@@ -44,9 +51,9 @@
       "dnp_type": "injury"
     },
     "Dana Evans": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Knee",
-      "comment": "Evans did not play in Thursday's (Oct. 1) game against the Fever.",
+      "comment": "The Aces listed Evans as Out for Sunday's (Oct. 4) game against Valkyries.",
       "team": "Las Vegas Aces",
       "dnp_type": "injury"
     },
@@ -149,9 +156,9 @@
       "dnp_type": "injury"
     },
     "Stephanie Talbot": {
-      "status": "Day-To-Day",
+      "status": "Out",
       "injury": "Leg",
-      "comment": "Talbot did not play in Thursday's (Oct. 1) game against the Fever.",
+      "comment": "The Valkyries listed Talbot as OUT for Sunday's (Oct. 3) game against the Aces.",
       "team": "Las Vegas Aces",
       "dnp_type": "injury"
     },
